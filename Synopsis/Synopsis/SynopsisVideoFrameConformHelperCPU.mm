@@ -237,6 +237,8 @@
         NSDictionary* poolAttributes = @{ (NSString*)kCVPixelBufferWidthKey : @(resizeSize.width),
                                           (NSString*)kCVPixelBufferHeightKey : @(resizeSize.height),
                                           (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
+                                          (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
+                                          (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
                                           };
         CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &scaledPixelBufferPool);
         if(err != kCVReturnSuccess)
@@ -433,6 +435,8 @@
         NSDictionary* poolAttributes = @{ (NSString*)kCVPixelBufferWidthKey : @(transformedRect.size.width),
                                           (NSString*)kCVPixelBufferHeightKey : @(transformedRect.size.height),
                                           (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
+                                          (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
+                                          (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
                                           };
         CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &transformPixelBufferPool);
         if(err != kCVReturnSuccess)
@@ -515,6 +519,8 @@
         NSDictionary* poolAttributes = @{ (NSString*)kCVPixelBufferWidthKey : @(transformedRect.size.width),
                                           (NSString*)kCVPixelBufferHeightKey : @(transformedRect.size.height),
                                           (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
+                                          (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
+                                          (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
                                           };
         CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &transformPixelBufferPool);
         if(err != kCVReturnSuccess)

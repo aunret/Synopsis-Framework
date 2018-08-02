@@ -65,8 +65,6 @@ const NSUInteger numWindows = 2;
     self = [super initWithQualityHint:qualityHint device:device];
     if(self)
     {
-       
-    
         
         linear = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
 
