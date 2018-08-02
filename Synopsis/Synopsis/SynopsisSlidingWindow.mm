@@ -51,7 +51,7 @@
     {
         // compute averages of our len features
         
-        cv::Mat averageFeature = cv::Mat(self.features.firstObject.featureCount, 1 , CV_32FC1, (float)0.0f);
+        cv::Mat averageFeature = cv::Mat( (int) self.features.firstObject.featureCount, 1 , CV_32FC1, (float)0.0f);
         for(SynopsisDenseFeature* featureVector in self.features)
         {
             cv::Mat featureMat = [featureVector cvMatValue];
