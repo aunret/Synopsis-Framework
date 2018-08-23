@@ -90,11 +90,11 @@
     
     dispatch_group_notify(formatConversionGroup, self.serialCompletionQueue, ^{
         
+        dispatch_semaphore_signal(self.inFlightBuffers);
+
         if(completionBlock)
         {
             completionBlock(commandBuffer, allFormatCache, nil);
-            
-            dispatch_semaphore_signal(self.inFlightBuffers);
         }
     });
     
