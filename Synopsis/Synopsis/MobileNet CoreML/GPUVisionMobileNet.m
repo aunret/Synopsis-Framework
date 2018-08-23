@@ -12,12 +12,12 @@
 //#import "MobileNet.h"
 
 // Our Models + Classifiers
-#import "CinemaNetFeatureExtractor.h"
-#import "CinemaNetShotAnglesClassifier.h"
-#import "CinemaNetShotFramingClassifier.h"
-#import "CinemaNetShotSubjectClassifier.h"
-#import "CinemaNetShotTypeClassifier.h"
-#import "PlacesNetClassifier.h"
+#import "CinemaNetFeatureExtractor_FP16.h"
+#import "CinemaNetShotAnglesClassifier_FP16.h"
+#import "CinemaNetShotFramingClassifier_FP16.h"
+#import "CinemaNetShotSubjectClassifier_FP16.h"
+#import "CinemaNetShotTypeClassifier_FP16.h"
+#import "PlacesNetClassifier_FP16.h"
 
 #import "GPUVisionMobileNet.h"
 
@@ -29,15 +29,14 @@
 }
 
 @property (readwrite, strong) CIContext* context;
-@property (readwrite, strong) VNSequenceRequestHandler* sequenceRequestHandler;
 
 @property (readwrite, strong) VNCoreMLModel* cinemaNetCoreVNModel;
-@property (readwrite, strong) CinemaNetFeatureExtractor* cinemaNetCoreMLModel;
-@property (readwrite, strong) CinemaNetShotAnglesClassifier* cinemaNetShotAnglesClassifierMLModel;
-@property (readwrite, strong) CinemaNetShotFramingClassifier* cinemaNetShotFramingClassifierMLModel;
-@property (readwrite, strong) CinemaNetShotSubjectClassifier* cinemaNetShotSubjectClassifierMLModel;
-@property (readwrite, strong) CinemaNetShotTypeClassifier* cinemaNetShotTypeClassifierMLModel;
-@property (readwrite, strong) PlacesNetClassifier* placesNetClassifierMLModel;
+@property (readwrite, strong) CinemaNetFeatureExtractor_FP16* cinemaNetCoreMLModel;
+@property (readwrite, strong) CinemaNetShotAnglesClassifier_FP16* cinemaNetShotAnglesClassifierMLModel;
+@property (readwrite, strong) CinemaNetShotFramingClassifier_FP16* cinemaNetShotFramingClassifierMLModel;
+@property (readwrite, strong) CinemaNetShotSubjectClassifier_FP16* cinemaNetShotSubjectClassifierMLModel;
+@property (readwrite, strong) CinemaNetShotTypeClassifier_FP16* cinemaNetShotTypeClassifierMLModel;
+@property (readwrite, strong) PlacesNetClassifier_FP16* placesNetClassifierMLModel;
 
 @property (readwrite, strong) NSMutableArray<NSNumber*>* averageFeatureVec;
 @property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* windowAverages;
@@ -72,15 +71,14 @@ const NSUInteger numWindows = 2;
                                kCIContextOutputColorSpace : (__bridge id)linear,
                                 };
         self.context = [CIContext contextWithMTLDevice:device options:opt];
-        self.sequenceRequestHandler = [[VNSequenceRequestHandler alloc] init];
 
         NSError* error = nil;
-        self.cinemaNetCoreMLModel = [[CinemaNetFeatureExtractor alloc] init];
-        self.cinemaNetShotAnglesClassifierMLModel = [[CinemaNetShotAnglesClassifier alloc] init];
-        self.cinemaNetShotFramingClassifierMLModel = [[CinemaNetShotFramingClassifier alloc] init];
-        self.cinemaNetShotSubjectClassifierMLModel = [[CinemaNetShotSubjectClassifier alloc] init];
-        self.cinemaNetShotTypeClassifierMLModel = [[CinemaNetShotTypeClassifier alloc] init];
-        self.placesNetClassifierMLModel = [[PlacesNetClassifier alloc] init];
+        self.cinemaNetCoreMLModel = [[CinemaNetFeatureExtractor_FP16 alloc] init];
+        self.cinemaNetShotAnglesClassifierMLModel = [[CinemaNetShotAnglesClassifier_FP16 alloc] init];
+        self.cinemaNetShotFramingClassifierMLModel = [[CinemaNetShotFramingClassifier_FP16 alloc] init];
+        self.cinemaNetShotSubjectClassifierMLModel = [[CinemaNetShotSubjectClassifier_FP16 alloc] init];
+        self.cinemaNetShotTypeClassifierMLModel = [[CinemaNetShotTypeClassifier_FP16 alloc] init];
+        self.placesNetClassifierMLModel = [[PlacesNetClassifier_FP16 alloc] init];
         
         self.cinemaNetCoreVNModel = [VNCoreMLModel modelForMLModel:self.cinemaNetCoreMLModel.model error:&error];
         
@@ -119,7 +117,7 @@ const NSUInteger numWindows = 2;
     
     self.windowAverages = [NSMutableArray new];
     self.windowAverageTimes = [NSMutableArray new];
-    self.windows =[NSMutableArray new];
+    self.windows = [NSMutableArray new];
     
     for(NSUInteger i = 0; i < numWindows; i++)
     {
@@ -128,7 +126,7 @@ const NSUInteger numWindows = 2;
     }
 }
 
-- (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock;
+- (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
 {
     SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
     
@@ -179,11 +177,11 @@ const NSUInteger numWindows = 2;
                 }
             }];
             
-            __block CinemaNetShotAnglesClassifierOutput* anglesOutput = nil;
-            __block CinemaNetShotFramingClassifierOutput* framingOutput = nil;
-            __block CinemaNetShotSubjectClassifierOutput* subjectOutput = nil;
-            __block CinemaNetShotTypeClassifierOutput* typeOutput = nil;
-            __block PlacesNetClassifierOutput* placesOutput = nil;
+            __block CinemaNetShotAnglesClassifier_FP16Output* anglesOutput = nil;
+            __block CinemaNetShotFramingClassifier_FP16Output* framingOutput = nil;
+            __block CinemaNetShotSubjectClassifier_FP16Output* subjectOutput = nil;
+            __block CinemaNetShotTypeClassifier_FP16Output* typeOutput = nil;
+            __block PlacesNetClassifier_FP16Output* placesOutput = nil;
             
             dispatch_group_t classifierGroup = dispatch_group_create();
             
