@@ -42,7 +42,7 @@
 
 + (SynopsisVideoBacking) requiredVideoBacking
 {
-    return SynopsisVideoBackingCPU;
+    return SynopsisVideoBackingOpenCV;
 }
 
 + (SynopsisVideoFormat) requiredVideoFormat

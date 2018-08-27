@@ -21,6 +21,9 @@
 
 #import "GPUVisionMobileNet.h"
 
+#import "SynopsisVideoFrameMPImage.h"
+#import "SynopsisVideoFrameCVPixelBuffer.h"
+
 #import "SynopsisSlidingWindow.h"
 
 @interface GPUVisionMobileNet ()
@@ -103,7 +106,8 @@ const NSUInteger numWindows = 2;
 
 + (SynopsisVideoBacking) requiredVideoBacking
 {
-    return SynopsisVideoBackingGPU;
+    return SynopsisVideoBackingMPSImage;
+//    return SynopsisVideoBackingCVPixelbuffer;
 }
 
 + (SynopsisVideoFormat) requiredVideoFormat
@@ -128,9 +132,20 @@ const NSUInteger numWindows = 2;
 
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
 {
-    SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
+    CIImage* imageForRequest = nil;
+    if([frame isKindOfClass:[SynopsisVideoFrameMPImage class]])
+    {
+        SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
+        MPSImage* frameMPSImage = frameMPImage.mpsImage;
+        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:nil];
+    }
     
-    CIImage* imageForRequest = [CIImage imageWithMTLTexture:frameMPImage.mpsImage.texture options:nil];
+    else if ([frame isKindOfClass:[SynopsisVideoFrameCVPixelBuffer class]])
+    {
+        SynopsisVideoFrameCVPixelBuffer* frameCVPixelBuffer = (SynopsisVideoFrameCVPixelBuffer*)frame;
+
+        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer]];
+    }
     
     VNCoreMLRequest* mobileRequest = [[VNCoreMLRequest alloc] initWithModel:self.cinemaNetCoreVNModel completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
                 

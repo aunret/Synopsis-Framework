@@ -19,8 +19,9 @@ typedef enum : unsigned int {
 
 typedef enum : unsigned int {
     SynopsisVideoBackingNone = 0,
-    SynopsisVideoBackingCPU,
-    SynopsisVideoBackingGPU,
+    SynopsisVideoBackingCVPixelbuffer,
+    SynopsisVideoBackingOpenCV,
+    SynopsisVideoBackingMPSImage,
 } SynopsisVideoBacking;
 
 @interface SynopsisVideoFormatSpecifier : NSObject<NSCopying>

@@ -10,12 +10,15 @@
 #import "SynopsisVideoFrameConformHelperCPU.h"
 #import "SynopsisVideoFrameConformHelperGPU.h"
 
+#import "SynopsisVideoFrameCVPixelBuffer.h"
+
 @interface SynopsisVideoFrameConformSession ()
 @property (readwrite, strong) SynopsisVideoFrameConformHelperCPU* conformCPUHelper;
 @property (readwrite, strong) SynopsisVideoFrameConformHelperGPU* conformGPUHelper;
 
-@property (readwrite, strong) NSSet<SynopsisVideoFormatSpecifier*>* cpuOnlyFormatSpecifiers;
-@property (readwrite, strong) NSSet<SynopsisVideoFormatSpecifier*>* gpuOnlyFormatSpecifiers;
+@property (readwrite, strong) NSSet<SynopsisVideoFormatSpecifier*>* openCVOnlyFormatSpecifiers;
+@property (readwrite, strong) NSSet<SynopsisVideoFormatSpecifier*>* mpsOnlyFormatSpecifiers;
+@property (readwrite, strong) NSSet<SynopsisVideoFormatSpecifier*>* cvPixelBufferOnlyFormatSpecifiers;
 
 @property (readwrite, strong) id<MTLDevice>device;
 @property (readwrite, strong) id<MTLCommandQueue> commandQueue;
@@ -41,26 +44,31 @@
 
         self.serialCompletionQueue = dispatch_queue_create("info.synopsis.formatConversion", DISPATCH_QUEUE_SERIAL);
         
-        NSMutableSet<SynopsisVideoFormatSpecifier*>* cpu = [NSMutableSet new];
-        NSMutableSet<SynopsisVideoFormatSpecifier*>* gpu = [NSMutableSet new];
-        
+        NSMutableSet<SynopsisVideoFormatSpecifier*>* openCV = [NSMutableSet new];
+        NSMutableSet<SynopsisVideoFormatSpecifier*>* mps = [NSMutableSet new];
+        NSMutableSet<SynopsisVideoFormatSpecifier*>* pixelBuffer = [NSMutableSet new];
+
         for(SynopsisVideoFormatSpecifier* format in formatSpecifiers)
         {
             switch(format.backing)
             {
-                case SynopsisVideoBackingGPU:
-                    [gpu addObject:format];
+                case SynopsisVideoBackingMPSImage:
+                    [mps addObject:format];
                     break;
-                case SynopsisVideoBackingCPU:
-                    [cpu addObject:format];
+                case SynopsisVideoBackingOpenCV:
+                    [openCV addObject:format];
+                    break;
+                case SynopsisVideoBackingCVPixelbuffer:
+                    [pixelBuffer addObject:format];
                     break;
                 case SynopsisVideoBackingNone:
                     break;
             }
         }
         
-        self.cpuOnlyFormatSpecifiers = cpu;
-        self.gpuOnlyFormatSpecifiers = gpu;
+        self.openCVOnlyFormatSpecifiers = openCV;
+        self.mpsOnlyFormatSpecifiers = mps;
+        self.cvPixelBufferOnlyFormatSpecifiers = pixelBuffer;
     }
     
     return self;
@@ -74,8 +82,9 @@
     
     id<MTLCommandBuffer> commandBuffer = self.commandQueue.commandBuffer;
 
-    NSArray<SynopsisVideoFormatSpecifier*>* localCPUFormats = [self.cpuOnlyFormatSpecifiers allObjects];
-    NSArray<SynopsisVideoFormatSpecifier*>* localGPUFormats = [self.gpuOnlyFormatSpecifiers allObjects];
+    NSArray<SynopsisVideoFormatSpecifier*>* localOpenCVFormats = [self.openCVOnlyFormatSpecifiers allObjects];
+    NSArray<SynopsisVideoFormatSpecifier*>* localMPSFormats = [self.mpsOnlyFormatSpecifiers allObjects];
+//    NSArray<SynopsisVideoFormatSpecifier*>* localGPUFormats = [self.mpsOnlyFormatSpecifiers allObjects];
 
     SynopsisVideoFrameCache* allFormatCache = [[SynopsisVideoFrameCache alloc] init];
     
@@ -88,6 +97,16 @@
 //    __block SynopsisVideoFrameCache* gpuCache = nil;
 //    __block NSError* gpuError = nil;
     
+    // We can one-shot add the our CVPixelBuffer
+    
+    if(self.cvPixelBufferOnlyFormatSpecifiers.count)
+    {
+        SynopsisVideoFormatSpecifier* formatSpec = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingCVPixelbuffer];
+        SynopsisVideoFrameCVPixelBuffer* frame = [[SynopsisVideoFrameCVPixelBuffer alloc] initWithPixelBuffer:pixelBuffer formatSpecifier:formatSpec presentationTimeStamp:time];
+        [allFormatCache cacheFrame:frame];
+    }
+    
+    
     dispatch_group_notify(formatConversionGroup, self.serialCompletionQueue, ^{
         
         dispatch_semaphore_signal(self.inFlightBuffers);
@@ -96,22 +115,25 @@
         {
             completionBlock(commandBuffer, allFormatCache, nil);
         }
+
+        [commandBuffer commit];
+
     });
     
     dispatch_semaphore_wait(self.inFlightBuffers, DISPATCH_TIME_FOREVER);
     
-    if(localGPUFormats.count)
+    if(localMPSFormats.count)
     {
         dispatch_group_enter(formatConversionGroup);
         [self.conformGPUHelper conformPixelBuffer:pixelBuffer
                                            atTime:time
-                                        toFormats:localGPUFormats
+                                        toFormats:localMPSFormats
                                     withTransform:transform
                                              rect:rect
                                     commandBuffer:commandBuffer
                                   completionBlock:^(id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache * gpuCache, NSError *err) {
                                       
-                                      for(SynopsisVideoFormatSpecifier* format in localGPUFormats)
+                                      for(SynopsisVideoFormatSpecifier* format in localMPSFormats)
                                       {
                                           id<SynopsisVideoFrame> frame = [gpuCache cachedFrameForFormatSpecifier:format];
                                           
@@ -125,17 +147,17 @@
                                   }];
     }
     
-    if(localCPUFormats.count)
+    if(localOpenCVFormats.count)
     {
         dispatch_group_enter(formatConversionGroup);
         [self.conformCPUHelper conformPixelBuffer:pixelBuffer
                                            atTime:time
-                                        toFormats:localCPUFormats
+                                        toFormats:localOpenCVFormats
                                     withTransform:transform
                                              rect:rect
                                   completionBlock:^(id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache * cpuCache, NSError *err) {
 
-                                      for(SynopsisVideoFormatSpecifier* format in localCPUFormats)
+                                      for(SynopsisVideoFormatSpecifier* format in localOpenCVFormats)
                                       {
                                           id<SynopsisVideoFrame> frame = [cpuCache cachedFrameForFormatSpecifier:format];
                                           
@@ -150,6 +172,7 @@
     }
 
     dispatch_group_leave(formatConversionGroup);
+    
 }
 
 

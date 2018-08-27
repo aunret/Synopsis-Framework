@@ -7,6 +7,7 @@
 //
 
 #import "GPUHistogramModule.h"
+#import "SynopsisVideoFrameMPImage.h"
 
 @interface GPUHistogramModule ()
 @property (readwrite, strong) MPSImageHistogram* histogramOp;
@@ -48,7 +49,7 @@
 
 + (SynopsisVideoBacking) requiredVideoBacking
 {
-    return SynopsisVideoBackingGPU;
+    return SynopsisVideoBackingMPSImage;
 }
 
 + (SynopsisVideoFormat) requiredVideoFormat

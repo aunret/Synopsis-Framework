@@ -147,7 +147,8 @@
     resizeDescriptor.numberOfImages = 1;
     resizeDescriptor.channelFormat = MPSImageFeatureChannelFormatUnorm8;
     resizeDescriptor.cpuCacheMode = MTLCPUCacheModeDefaultCache;
-    
+
+//    MPSTemporaryImage* resizeTarget = [MPSTemporaryImage temporaryImageWithCommandBuffer:conformBuffer imageDescriptor:resizeDescriptor];
     MPSImage* resizeTarget = [[MPSImage alloc] initWithDevice:self.commandQueue.device imageDescriptor:resizeDescriptor];
     //            resizeTarget.label = [NSString stringWithFormat:@"%@, %lu", @"Resize", (unsigned long)self.frameSubmit];
     
@@ -161,7 +162,7 @@
                 //                self.frameComplete++;
                 //                NSLog(@"Conform Completed frame %lu", frameComplete);
                 SynopsisVideoFrameCache* cache = [[SynopsisVideoFrameCache alloc] init];
-                SynopsisVideoFormatSpecifier* resultFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingGPU];
+                SynopsisVideoFormatSpecifier* resultFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingMPSImage];
                 SynopsisVideoFrameMPImage* result = [[SynopsisVideoFrameMPImage alloc] initWithMPSImage:resizeTarget formatSpecifier:resultFormat presentationTimeStamp:time];
                 
                 [cache cacheFrame:result];

@@ -156,7 +156,7 @@
     cv::Mat BGRImage;
     cv::cvtColor(BGRAImage, BGRImage, cv::COLOR_BGRA2BGR);
     
-    SynopsisVideoFormatSpecifier* bgr = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingCPU];
+    SynopsisVideoFormatSpecifier* bgr = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingOpenCV];
     SynopsisVideoFrameOpenCV* videoFrameBGRA = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:BGRImage formatSpecifier:bgr presentationTimeStamp:time];
     [cache cacheFrame:videoFrameBGRA];
     
@@ -168,7 +168,7 @@
     {
         cv::cvtColor(BGRImage, grayImage, cv::COLOR_BGR2GRAY);
         
-        SynopsisVideoFormatSpecifier* gray = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatGray8 backing:SynopsisVideoBackingCPU];
+        SynopsisVideoFormatSpecifier* gray = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatGray8 backing:SynopsisVideoBackingOpenCV];
         SynopsisVideoFrameOpenCV* videoFrameGray = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:grayImage formatSpecifier:gray presentationTimeStamp:time];
         [cache cacheFrame:videoFrameGray];
     }
@@ -180,7 +180,7 @@
     {
         BGRImage.convertTo(BGR32Image, CV_32FC3, 1.0/255.0);
         
-        SynopsisVideoFormatSpecifier* floatBGR = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGRF32 backing:SynopsisVideoBackingCPU];
+        SynopsisVideoFormatSpecifier* floatBGR = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGRF32 backing:SynopsisVideoBackingOpenCV];
         SynopsisVideoFrameOpenCV* videoFrameBGRF32 = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:BGR32Image formatSpecifier:floatBGR presentationTimeStamp:time];
         [cache cacheFrame:videoFrameBGRF32];
     }
@@ -192,7 +192,7 @@
     {
         cv::cvtColor(BGR32Image, perceptualImage, TO_PERCEPTUAL);
         
-        SynopsisVideoFormatSpecifier* perceptualFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatPerceptual backing:SynopsisVideoBackingCPU];
+        SynopsisVideoFormatSpecifier* perceptualFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatPerceptual backing:SynopsisVideoBackingOpenCV];
         SynopsisVideoFrameOpenCV* videoFramePerceptual = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:perceptualImage formatSpecifier:perceptualFormat presentationTimeStamp:time];
         [cache cacheFrame:videoFramePerceptual];
     }

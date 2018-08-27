@@ -7,7 +7,7 @@
 //
 
 #import "Synopsis.h"
-#import "SynopsisVideoFrameMPImage.h"
+#import "SynopsisVideoFrame.h"
 #import "StandardAnalyzerDefines.h"
 #import "AnalyzerPluginProtocol.h"
 
