@@ -9,10 +9,11 @@
 #import "SynopsisVideoFrame.h"
 #import <CoreVideo/CoreVideo.h>
 
-@interface SynopsisVideoFrameCVPixelBuffer : NSObject
+@interface SynopsisVideoFrameCVPixelBuffer : NSObject<SynopsisVideoFrame>
 
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
 @property (readonly) CMTime presentationTimeStamp;
+@property (readwrite, assign) NSString* label;
 
 - (instancetype) initWithPixelBuffer:(CVPixelBufferRef)pixelBuffer formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts;
 
