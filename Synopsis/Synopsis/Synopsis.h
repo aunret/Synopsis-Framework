@@ -7,9 +7,6 @@
 //
 
 
-#ifndef INCLUDE_ENCODER
-#warning "INCLUDE_ENCODER is not defined in your precprocessor macros. Please choose if you want metadata analysis and encoding included or not"
-#endif
 
 #include "TargetConditionals.h"
 #import <Foundation/Foundation.h>
@@ -88,7 +85,7 @@ typedef enum : NSUInteger {
 // Spotlight, Metadata, Sorting and Filtering Objects
 
 
-#if INCLUDE_ENCODER
+#ifndef DECODER_ONLY
 #import <Synopsis/AnalyzerPluginProtocol.h>
 #import <Synopsis/StandardAnalyzerPlugin.h>
 #endif
@@ -96,7 +93,7 @@ typedef enum : NSUInteger {
 #define ZSTD_STATIC_LINKING_ONLY
 #define ZSTD_MULTITHREAD
 
-#if INCLUDE_ENCODER
+#ifndef DECODER_ONLY
 #import <Synopsis/SynopsisMetadataEncoder.h>
 #endif
 
