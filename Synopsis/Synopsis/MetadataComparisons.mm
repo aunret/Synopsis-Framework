@@ -23,7 +23,7 @@ static inline NSString* toBinaryRepresentation(unsigned long long value)
     
     for (long index = 4 * nibbleCount - 1; index >= 0; index--)
     {
-        [bitString appendFormat:@"%i", value & (1 << index) ? 1 : 0];
+        [bitString appendFormat:@"%i", value & ((long)1 << index) ? 1 : 0];
     }
     
     return bitString;
