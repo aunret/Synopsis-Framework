@@ -16,15 +16,11 @@
 #import <CoreVideo/CVMetalTextureCache.h>
 
 @interface SynopsisVideoFrameConformHelperGPU ()
-{
-    CVMetalTextureCacheRef textureCacheRef;
-}
-//@property (readwrite, strong) NSOperationQueue* conformQueue;
+
+@property (readwrite, strong) CIContext* ciContext;
 
 @property (readwrite, strong, atomic) dispatch_queue_t serialCompletionQueue;
 @property (readwrite, strong) id<MTLCommandQueue>commandQueue;
-@property (readwrite, strong) MPSImageConversion* imageConversion;
-@property (readwrite, strong) MPSImageBilinearScale* scaleForCoreML;
 
 //@property (readwrite, atomic, assign) NSUInteger frameSubmit;
 //@property (readwrite, atomic, assign) NSUInteger frameComplete;
@@ -41,21 +37,10 @@
         self.commandQueue = queue;
         self.serialCompletionQueue = dispatch_queue_create("info.synopsis.gpu.conformQueue", DISPATCH_QUEUE_SERIAL);
         
-        CVMetalTextureCacheCreate(kCFAllocatorDefault, NULL, self.commandQueue.device, NULL, &textureCacheRef);
-        self.scaleForCoreML = [[MPSImageBilinearScale alloc] initWithDevice:self.commandQueue.device];
+        self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device];
     }
     
     return self;
-}
-
-- (void) dealloc
-{
-    if(textureCacheRef)
-    {
-        CVMetalTextureCacheFlush(textureCacheRef, 0);
-        CFRelease(textureCacheRef);
-        textureCacheRef = NULL;
-    }
 }
 
 
@@ -70,92 +55,40 @@
 
     id<MTLCommandBuffer> conformBuffer = self.commandQueue.commandBuffer;
 
-    
     CVPixelBufferRetain(pixelBuffer);
     
-    // Create our metal texture from our CVPixelBuffer
-    size_t width = CVPixelBufferGetWidth(pixelBuffer);
-    size_t height = CVPixelBufferGetHeight(pixelBuffer);
+    CIImage* inputImage = [CIImage imageWithCVImageBuffer:pixelBuffer];
     
-    CVMetalTextureRef inputCVTexture = NULL;
-    CVMetalTextureCacheFlush(textureCacheRef, 0);
-    CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCacheRef, pixelBuffer, NULL, MTLPixelFormatBGRA8Unorm, width, height, 0, &inputCVTexture);
+    CIImage* transformedImage = [inputImage imageByApplyingTransform:transform];
     
-    assert(inputCVTexture != NULL);
+    CGFloat originalWidth = transformedImage.extent.size.width;
+    CGFloat originalHeight = transformedImage.extent.size.height;
     
-    id<MTLTexture> inputMTLTexture = CVMetalTextureGetTexture(inputCVTexture);
-    
-    assert(inputMTLTexture != NULL);
-    
-    MPSImage* sourceInput = [[MPSImage alloc] initWithTexture:inputMTLTexture featureChannels:3];
-    //        sourceInput.label = [NSString stringWithFormat:@"%@, %lu", @"Source", (unsigned long)self.frameSubmit];
-    
-#pragma mark - Convert :
-    
-    //        if(self.imageConversion == nil)
-    //        {
-    //            CGColorSpaceRef source = CVImageBufferGetColorSpace(pixelBuffer);
-    //            CGColorSpaceRef destination = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
-    //            //        CGColorSpaceRef destination = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
-    //            source = CGColorSpaceRetain(source);
-    //            BOOL deleteSource = NO;
-    //            if(source == NULL)
-    //            {
-    //                // Assume video is HD color space if not otherwise marked
-    //                source = CGColorSpaceCreateWithName(kCGColorSpaceITUR_709);
-    //                deleteSource = YES;
-    //            }
-    //
-    //            CGColorConversionInfoRef colorConversionInfo = CGColorConversionInfoCreate(source, destination);
-    //
-    //            CGFloat background[4] = {0,0,0,0};
-    //            self.imageConversion = [[MPSImageConversion alloc] initWithDevice:self.device
-    //                                                                     srcAlpha:MPSAlphaTypeAlphaIsOne
-    //                                                                    destAlpha:MPSAlphaTypeAlphaIsOne
-    //                                                              backgroundColor:background
-    //                                                               conversionInfo:colorConversionInfo];
-    //
-    //            if(deleteSource)
-    //                CGColorSpaceRelease(source);
-    //        }
-    //
-    //        MPSImageDescriptor* convertDescriptor = [[MPSImageDescriptor alloc] init];
-    //        convertDescriptor.width = sourceInput.width;
-    //        convertDescriptor.height = sourceInput.height;
-    //        convertDescriptor.featureChannels = sourceInput.featureChannels;
-    //        convertDescriptor.numberOfImages = 1;
-    //        convertDescriptor.channelFormat = MPSImageFeatureChannelFormatUnorm8;
-    //        convertDescriptor.cpuCacheMode = MTLCPUCacheModeDefaultCache;
-    //
-    //        //    MPSImageDescriptor* convertDescriptor = [MPSImageDescriptor imageDescriptorWithChannelFormat:MPSImageFeatureChannelFormatUnorm8
-    //        //                                                                                           width:sourceInput.width
-    //        //                                                                                          height:sourceInput.height
-    //        //                                                                                 featureChannels:sourceInput.featureChannels];
-    //        //    convertDescriptor.cpuCacheMode = MTLCPUCacheModeDefaultCache;
-    //
-    //        MPSImage* convertTarget = [[MPSImage alloc] initWithDevice:self.device imageDescriptor:convertDescriptor];
-    //        convertTarget.label = [NSString stringWithFormat:@"%@, %lu", @"Convert", (unsigned long)frameSubmit];
-    //
-    //        [self.imageConversion encodeToCommandBuffer:commandBuffer sourceImage:sourceInput destinationImage:convertTarget];
-    
-#pragma mark - Resize
-    
-    MPSImageDescriptor* resizeDescriptor = [[MPSImageDescriptor alloc] init];
-    resizeDescriptor.width = destinationRect.size.width;
-    resizeDescriptor.height = destinationRect.size.height;
-    resizeDescriptor.featureChannels = 3;
-    resizeDescriptor.numberOfImages = 1;
-    resizeDescriptor.channelFormat = MPSImageFeatureChannelFormatUnorm8;
-    resizeDescriptor.cpuCacheMode = MTLCPUCacheModeDefaultCache;
+    CGFloat scaleX = originalWidth/destinationRect.size.width;
+    CGFloat scaleY = originalHeight/destinationRect.size.height;
 
-//    MPSTemporaryImage* resizeTarget = [MPSTemporaryImage temporaryImageWithCommandBuffer:conformBuffer imageDescriptor:resizeDescriptor];
-    MPSImage* resizeTarget = [[MPSImage alloc] initWithDevice:self.commandQueue.device imageDescriptor:resizeDescriptor];
-    //            resizeTarget.label = [NSString stringWithFormat:@"%@, %lu", @"Resize", (unsigned long)self.frameSubmit];
+    transformedImage = [transformedImage imageByApplyingTransform:CGAffineTransformMakeScale(1.0/scaleX, 1.0/scaleY)];
     
-    [self.scaleForCoreML encodeToCommandBuffer:conformBuffer sourceImage:sourceInput destinationImage:resizeTarget];
+    size_t width = transformedImage.extent.size.width;
+    size_t height = transformedImage.extent.size.height;
+
+    MTLTextureDescriptor* descriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatBGRA8Unorm width:width height:height mipmapped:NO];
+    descriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderWrite | MTLTextureUsageShaderRead;
+    
+    id<MTLTexture> texture = [self.commandQueue.device newTextureWithDescriptor:descriptor];
+
+    CIRenderDestination* renderDestination = [[CIRenderDestination alloc] initWithMTLTexture:texture commandBuffer:conformBuffer];
+    
+    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+    renderDestination.colorSpace = linear;
+    CGColorSpaceRelease(linear);
+    
+    [self.ciContext startTaskToRender:transformedImage toDestination:renderDestination error:nil];
+
+    MPSImage* image = [[MPSImage alloc] initWithTexture:texture featureChannels:3];
     
     [conformBuffer addScheduledHandler:^(id<MTLCommandBuffer> conformBuffer) {
-        
+    
         dispatch_async(self.serialCompletionQueue, ^{
             if(completionBlock)
             {
@@ -163,17 +96,11 @@
                 //                NSLog(@"Conform Completed frame %lu", frameComplete);
                 SynopsisVideoFrameCache* cache = [[SynopsisVideoFrameCache alloc] init];
                 SynopsisVideoFormatSpecifier* resultFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingMPSImage];
-                SynopsisVideoFrameMPImage* result = [[SynopsisVideoFrameMPImage alloc] initWithMPSImage:resizeTarget formatSpecifier:resultFormat presentationTimeStamp:time];
+                SynopsisVideoFrameMPImage* result = [[SynopsisVideoFrameMPImage alloc] initWithMPSImage:image formatSpecifier:resultFormat presentationTimeStamp:time];
                 
                 [cache cacheFrame:result];
                 
                 completionBlock(commandBuffer, cache, nil);
-                
-                //            if(deleteSource)
-                //                CGColorSpaceRelease(source);
-                
-                // Release our CVMetalTextureRef
-                CFRelease(inputCVTexture);
                 
                 // We always have to release our pixel buffer
                 CVPixelBufferRelease(pixelBuffer);
@@ -181,7 +108,7 @@
         });
         
     }];
-    
+
     [conformBuffer commit];
 
 }
