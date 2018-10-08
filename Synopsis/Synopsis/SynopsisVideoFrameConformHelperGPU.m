@@ -37,7 +37,14 @@
         self.commandQueue = queue;
         self.serialCompletionQueue = dispatch_queue_create("info.synopsis.gpu.conformQueue", DISPATCH_QUEUE_SERIAL);
         
-        self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device];
+        CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+        
+        NSDictionary* opt = @{ kCIContextWorkingColorSpace : (id) CFBridgingRelease(linear),
+                               kCIContextOutputColorSpace : (id) CFBridgingRelease(linear),
+                               };
+        self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device options:opt];
+
+        CGColorSpaceRelease(linear);
     }
     
     return self;

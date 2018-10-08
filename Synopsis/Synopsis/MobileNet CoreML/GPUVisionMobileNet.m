@@ -68,7 +68,7 @@ const NSUInteger numWindows = 2;
     if(self)
     {
         
-        linear = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
+        linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
 
         NSDictionary* opt = @{ kCIContextWorkingColorSpace : (__bridge id)linear,
                                kCIContextOutputColorSpace : (__bridge id)linear,
@@ -301,7 +301,9 @@ const NSUInteger numWindows = 2;
 
     // Works fine:
     CGImagePropertyOrientation orientation = kCGImagePropertyOrientationDownMirrored;
-    VNImageRequestHandler* imageRequestHandler = [[VNImageRequestHandler alloc] initWithCIImage:imageForRequest orientation:orientation options:@{}];
+    VNImageRequestHandler* imageRequestHandler = [[VNImageRequestHandler alloc] initWithCIImage:imageForRequest orientation:orientation options:@{
+                                                                                                                                                  VNImageOptionCIContext : self.context
+                                                                                                                                                  }];
 
     NSError* submitError = nil;
     if(![imageRequestHandler performRequests:@[mobileRequest] error:&submitError] )
