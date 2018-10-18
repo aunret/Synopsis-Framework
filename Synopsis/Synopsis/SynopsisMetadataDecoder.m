@@ -11,6 +11,7 @@
 #import "SynopsisMetadataDecoder.h"
 #import "SynopsisMetadataDecoderVersion0.h"
 #import "SynopsisMetadataDecoderVersion2.h"
+#import "SynopsisMetadataDecoderVersion3.h"
 
 
 @interface SynopsisMetadataDecoder ()
@@ -77,18 +78,22 @@
     if(metadata == nil)
     {
         // try an different decoder
-        if([self.decoder isMemberOfClass:[SynopsisMetadataDecoderVersion0 class]])
+        NSArray<Class>* availableDecoderClasses = @[[SynopsisMetadataDecoderVersion3 class],
+                                                    [SynopsisMetadataDecoderVersion2 class],
+                                                    [SynopsisMetadataDecoderVersion0 class],
+                                                    ];
+        
+        for(Class decoderClass in availableDecoderClasses)
         {
-        	self.decoder = [[SynopsisMetadataDecoderVersion2 alloc] init];
+            self.decoder = [[decoderClass alloc] init];
             self.decoder.vendOptimizedMetadata = self.vendOptimizedMetadata;
+            
+            metadata = [self.decoder decodeSynopsisMetadata:metadataItem];
+            
+            if(metadata)
+                break;
         }
-        else if([self.decoder isMemberOfClass:[SynopsisMetadataDecoderVersion2 class]])
-        {
-            self.decoder = [[SynopsisMetadataDecoderVersion0 alloc] init];
-            self.decoder.vendOptimizedMetadata = self.vendOptimizedMetadata;
-        }
-
-        metadata = [self.decoder decodeSynopsisMetadata:metadataItem];
+    
         if(metadata == nil)
         {
             NSLog(@"Cant find a viable decoder for this metadata");

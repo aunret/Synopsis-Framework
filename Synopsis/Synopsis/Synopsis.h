@@ -7,20 +7,16 @@
 //
 
 
-#ifndef INCLUDE_ENCODER
-#error "INCLUDE_ENCODER is not defined in your precprocessor macros. Please choose if you want metadata analysis and encoding included or not"
-#endif
 
 #include "TargetConditionals.h"
 #import <Foundation/Foundation.h>
 
 #define SYNOPSIS_VERSION_MAJOR 0
 #define SYNOPSIS_VERSION_MINOR 0
-#define SYNOPSIS_VERSION_PATCH 2
+#define SYNOPSIS_VERSION_PATCH 3
 
-#define SYNOPSIS_VERSION_NUMBER  ((SYNOPSIS_VERSION_MAJOR *100*100) + (SYNOPSIS_VERSION_MINOR *100) + SYNOPSIS_VERSION_PATCH)
+#define SYNOPSIS_VERSION_NUMBER  ((SYNOPSIS_VERSION_MAJOR * 100 * 100) + (SYNOPSIS_VERSION_MINOR * 100) + SYNOPSIS_VERSION_PATCH)
 #define SYNOPSIS_LIB_VERSION SYNOPSIS_VERSION_MAJOR.SYNOPSIS_VERSION_MINOR.SYNOPSIS_VERSION_PATCH
-
 
 // Identifier Synopsis for AVMetadataItems
 extern NSString* const kSynopsisMetadataIdentifier;
@@ -28,10 +24,10 @@ extern NSString* const kSynopsisMetadataVersionKey;
 extern NSUInteger const kSynopsisMetadataVersionValue;
 
 // Major Metadata versions : 
-extern NSUInteger const kSynopsisMetadataVersionPreAlpha;
-extern NSUInteger const kSynopsisMetadataVersionAlpha1;
+extern NSUInteger const kSynopsisMetadataVersionAlpha3;
 extern NSUInteger const kSynopsisMetadataVersionAlpha2;
-
+extern NSUInteger const kSynopsisMetadataVersionAlpha1;
+extern NSUInteger const kSynopsisMetadataVersionPreAlpha;
 
 //extern NSUInteger const kSynopsisMetadataVersionBeta;
 //extern NSUInteger const kSynopsisMetadataVersionOne;
@@ -42,9 +38,10 @@ extern NSString* const kSynopsisMetadataHFSAttributeVersionKey;
 extern NSUInteger const kSynopsisMetadataHFSAttributeVersionValue;
 extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 
-
-// Supported Synopsis NSSortDescriptor Keys
 extern NSString* const kSynopsisStandardMetadataDictKey;
+// Global Only
+extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
+
 extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;
 extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
 extern NSString* const kSynopsisStandardMetadataScoreDictKey;
@@ -79,28 +76,24 @@ typedef enum : NSUInteger {
     SynopsisAnalysisQualityHintOriginal = NSUIntegerMax,
 } SynopsisAnalysisQualityHint;
 
-typedef enum : unsigned int {
-    SynopsisFrameCacheFormatOpenCVBGR8 = 0,
-    SynopsisFrameCacheFormatOpenCVBGRF32,
-    SynopsisFrameCacheFormatOpenCVGray8,
-    SynopsisFrameCacheFormatOpenCVPerceptual
-} SynopsisFrameCacheFormat;
-
-
-#import <Synopsis/SynopsisVideoFormatConverter.h>
+#import <Synopsis/SynopsisVideoFrame.h>
+#import <Synopsis/SynopsisVideoFrameCache.h>
+#import <Synopsis/SynopsisVideoFrameConformSession.h>
 #import <Synopsis/SynopsisDenseFeature.h>
 #import <Synopsis/MetadataComparisons.h>
 
 // Spotlight, Metadata, Sorting and Filtering Objects
 
-#if TARGET_OS_OSX
-#if INCLUDE_ENCODER
+
+#ifndef DECODER_ONLY
 #import <Synopsis/AnalyzerPluginProtocol.h>
 #import <Synopsis/StandardAnalyzerPlugin.h>
 #endif
-#endif
 
-#if INCLUDE_ENCODER
+#define ZSTD_STATIC_LINKING_ONLY
+#define ZSTD_MULTITHREAD
+
+#ifndef DECODER_ONLY
 #import <Synopsis/SynopsisMetadataEncoder.h>
 #endif
 
@@ -110,21 +103,20 @@ typedef enum : unsigned int {
 #import <Synopsis/NSSortDescriptor+SynopsisMetadata.h>
 #import <Synopsis/NSPredicate+SynopsisMetadata.h>
 
-
 // UI
 #import <Synopsis/SynopsisLayer.h>
 #import <Synopsis/SynopsisDominantColorLayer.h>
 #import <Synopsis/SynopsisHistogramLayer.h>
 #import <Synopsis/SynopsisDenseFeatureLayer.h>
 
-
 // Utilities
-#import <Synopsis/SynopsisDirectoryWatcher.h>
-#import <Synopsis/SynopsisRemoteFileHelper.h>
+NSArray* SynopsisSupportedFileTypes(void);
 #import <Synopsis/SynopsisCache.h>
-#import <Synopsis/SynopsisPythonHelper.h>
 #import <Synopsis/Color+linearRGBColor.h>
 
+#if TARGET_OS_OSX
 // Method to check support files types for metadata introspection
-NSArray* SynopsisSupportedFileTypes();
-
+#import <Synopsis/SynopsisDirectoryWatcher.h>
+#import <Synopsis/SynopsisRemoteFileHelper.h>
+#import <Synopsis/SynopsisPythonHelper.h>
+#endif

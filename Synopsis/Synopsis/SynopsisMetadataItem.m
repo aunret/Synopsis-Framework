@@ -17,7 +17,7 @@
     CGImageRef cachedImage;
 }
 @property (readwrite) NSURL* url;
-@property (readwrite, strong) AVURLAsset* urlAsset;
+@property (readwrite, strong) AVAsset* asset;
 @property (readwrite, strong) NSDictionary* globalSynopsisMetadata;
 @property (readwrite, strong) SynopsisMetadataDecoder* decoder;
 @end
@@ -30,31 +30,52 @@
     if(self)
     {
         self.url = url;
-        self.urlAsset = [AVURLAsset URLAssetWithURL:url options:@{AVURLAssetPreferPreciseDurationAndTimingKey : @YES}];
-        
-        
-        NSArray* metadataItems = [self.urlAsset metadata];
-        
-        AVMetadataItem* synopsisMetadataItem = nil;
-        
-        for(AVMetadataItem* metadataItem in metadataItems)
-        {
-            if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier])
-            {
-                synopsisMetadataItem = metadataItem;
-                break;
-            }
-        }
-        
-        if(synopsisMetadataItem)
-        {
-            self.decoder = [[SynopsisMetadataDecoder alloc] initWithMetadataItem:synopsisMetadataItem];
-
-            self.globalSynopsisMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
-        }
+        self.asset = [AVURLAsset URLAssetWithURL:url options:@{AVURLAssetPreferPreciseDurationAndTimingKey : @YES}];
+        if(! [self commonLoad] )
+            return nil;
+            
     }
     
     return self;
+}
+- (instancetype) initWithAsset:(AVAsset *)asset
+{
+    self = [super init];
+    if(self)
+    {
+        self.asset = asset;
+        if(! [self commonLoad] )
+            return nil;
+    }
+    
+    return self;
+}
+
+- (BOOL) commonLoad
+{
+    NSArray* metadataItems = [self.asset metadata];
+    
+    AVMetadataItem* synopsisMetadataItem = nil;
+    
+    for(AVMetadataItem* metadataItem in metadataItems)
+    {
+        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier])
+        {
+            synopsisMetadataItem = metadataItem;
+            break;
+        }
+    }
+    
+    if(synopsisMetadataItem)
+    {
+        self.decoder = [[SynopsisMetadataDecoder alloc] initWithMetadataItem:synopsisMetadataItem];
+        
+        self.globalSynopsisMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
+        
+        return YES;
+    }
+    
+    return NO;
 }
 
 - (id)copyWithZone:(nullable NSZone *)zone
@@ -64,22 +85,35 @@
 
 
 // We test equality based on the file system object we are represeting.
+
+- (BOOL) isEqualToSynopsisMetadataItem:(SynopsisMetadataItem*)object
+{
+    BOOL equal = [self.url isEqual:object.url];
+    
+    // helpful for debugging even if stupid
+    if(equal)
+        return YES;
+    
+    return NO;
+
+}
+
 - (BOOL) isEqual:(id)object
 {
-    if([object isKindOfClass:[SynopsisMetadataItem class]])
-    {
-        SynopsisMetadataItem* obj = (SynopsisMetadataItem*)object;
-        
-        BOOL equal = [self.url.absoluteURL isEqual:obj.url.absoluteURL];
-        
-        // helpful for debugging even if stupid 
-        if(equal)
-            return YES;
-        
-        return NO;
-    }
+    if(self == object)
+        return YES;
     
-    return [super isEqual:object];
+    return NO;
+    
+//    if(![object isKindOfClass:[SynopsisMetadataItem class]])
+//        return NO;
+//    
+//    return [self isEqualToSynopsisMetadataItem:(SynopsisMetadataItem*)object];
+}
+
+- (NSUInteger) hash
+{
+    return self.url.hash;
 }
 
 - (id) valueForKey:(NSString *)key

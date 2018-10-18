@@ -23,13 +23,13 @@ static inline NSString* toBinaryRepresentation(unsigned long long value)
     
     for (long index = 4 * nibbleCount - 1; index >= 0; index--)
     {
-        [bitString appendFormat:@"%i", value & (1 << index) ? 1 : 0];
+        [bitString appendFormat:@"%i", value & ((long)1 << index) ? 1 : 0];
     }
     
     return bitString;
 }
 
-static inline float similarity(const cv::Mat a, const cv::Mat b)
+static inline float cosineSimilarity(const cv::Mat a, const cv::Mat b)
 {
     float ab = a.dot(b);
     float da = cv::norm(a);
@@ -37,9 +37,22 @@ static inline float similarity(const cv::Mat a, const cv::Mat b)
     return (ab / (da * db));
 }
 
+static inline float inverseL1Distance(const cv::Mat a, const cv::Mat b)
+{
+    return 1.0 / cv::norm(a, b, cv::NORM_L1);
+
+
+}
+
 
 float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {
+    // If our features are nil, then early bail with 0 similarity
+    if(!featureVec1 || ! featureVec2)
+        return 0.0;
+
+    
+    // If our features are exist but dont have compariable results early bail with 0 similarity
     if(featureVec1.featureCount != featureVec2.featureCount)
         return 0.0;
     
@@ -48,7 +61,23 @@ float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeatu
         const cv::Mat vec1 = [featureVec1 cvMatValue];
         const cv::Mat vec2 = [featureVec2 cvMatValue];
 
-        float s = similarity(vec1, vec2);
+        float s = cosineSimilarity(vec1, vec2);
+        
+        return s;
+    }
+}
+
+float compareFeatureVectorInverseL1(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
+{
+    if(featureVec1.featureCount != featureVec2.featureCount)
+        return 0.0;
+    
+    @autoreleasepool
+    {
+        const cv::Mat vec1 = [featureVec1 cvMatValue];
+        const cv::Mat vec2 = [featureVec2 cvMatValue];
+        
+        float s = inverseL1Distance(vec1, vec2);
         
         return s;
     }
@@ -194,7 +223,7 @@ float compareDominantColorsRGB(NSArray* colors1, NSArray* colors2)
             dominantColors2.at<float>(i,2) = (float)components2[2];
         }
 
-        float sim = similarity(dominantColors1, dominantColors2);
+        float sim = cosineSimilarity(dominantColors1, dominantColors2);
         
         dominantColors1.release();
         dominantColors2.release();
@@ -239,7 +268,7 @@ float compareDominantColorsHSB(NSArray* colors1, NSArray* colors2)
         dominantColors1.release();
         dominantColors2.release();
         
-        float sim = similarity(hsvDominantColors1, hsvDominantColors2);
+        float sim = cosineSimilarity(hsvDominantColors1, hsvDominantColors2);
 
         hsvDominantColors1.release();
         hsvDominantColors2.release();

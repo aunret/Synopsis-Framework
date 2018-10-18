@@ -6,6 +6,9 @@
 //  Copyright © 2016 metavisual. All rights reserved.
 //
 
+#import <opencv2/opencv.hpp>
+#import "SynopsisVideoFrameOpenCV.h"
+
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored "-Wconversion"
@@ -331,9 +334,14 @@
     return kSynopsisStandardMetadataFeatureVectorDictKey;//@"Feature";
 }
 
-- (SynopsisFrameCacheFormat) currentFrameFormat
++ (SynopsisVideoBacking) requiredVideoBacking
 {
-    return SynopsisFrameCacheFormatOpenCVBGRF32;
+    return SynopsisVideoBackingCPU;
+}
+
++ (SynopsisVideoFormat) requiredVideoFormat
+{
+    return SynopsisVideoFormatBGRF32;
 }
 
 - (NSArray<NSString*>*)labelArrayFromLabelFileName:(NSString*)labelName
@@ -365,13 +373,15 @@
     return [mutableLabels copy];
 }
 
-- (NSDictionary*) analyzedMetadataForCurrentFrame:(matType)frame previousFrame:(matType)lastFrame
+- (NSDictionary*) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame;
 {
-    self.frameCount++;
-    cv::Mat frameMat = frame;
-
-    [self submitAndCacheCurrentVideoCurrentFrame:(matType)frame previousFrame:(matType)lastFrame];
+    SynopsisVideoFrameOpenCV* frameCV = (SynopsisVideoFrameOpenCV*)frame;
+    SynopsisVideoFrameOpenCV* previousFrameCV = (SynopsisVideoFrameOpenCV*)lastFrame;
     
+    self.frameCount++;
+
+    [self submitAndCacheCurrentVideoCurrentFrame:frameCV.mat previousFrame:previousFrameCV.mat];
+
     // Actually run the image through the model.
     std::vector<tensorflow::Tensor> cinemaNetCoreOutputTensors;
     std::vector<tensorflow::Tensor> cinemaNetShotAnglesOutputTensors;
@@ -516,23 +526,36 @@
     NSMutableArray* labels = [NSMutableArray array];
     
     if(topAngleLabel)
+    {
+        [labels addObject:@"Shot Angle:"];
         [labels addObjectsFromArray:topAngleLabel];
-    
+    }
     if(topFrameLabel)
+    {
+        [labels addObject:@"Shot Framing:"];
         [labels addObjectsFromArray:topFrameLabel];
-
+    }
     if(topSubjectLabel)
+    {
+        [labels addObject:@"Shot Subject:"];
         [labels addObjectsFromArray:topSubjectLabel];
-
+    }
     if(topTypeLabel)
+    {
+        [labels addObject:@"Shot Type:"];
         [labels addObjectsFromArray:topTypeLabel];
-
+    }
     if(imageNetLabel)
+    {
+        [labels addObject:@"Objects:"];
         [labels addObjectsFromArray:imageNetLabel];
-
+    }
     if(placesNetLabel)
+    {
+        [labels addObject:@"Location:"];
         [labels addObjectsFromArray:placesNetLabel];
-    
+    }
+
     [self shutdownTF];
 
     return @{
@@ -612,7 +635,7 @@
 
 #pragma mark - From Old TF Plugin
 
-- (void) submitAndCacheCurrentVideoCurrentFrame:(matType)frame previousFrame:(matType)lastFrame
+- (void) submitAndCacheCurrentVideoCurrentFrame:(cv::Mat)frame previousFrame:(cv::Mat)lastFrame
 {
     
 #pragma mark - Memory Copy from BGRF32
@@ -622,9 +645,11 @@
     cv::Mat dst;
     cv::resize(frame, dst, cv::Size(wanted_input_width, wanted_input_height), 0, 0, cv::INTER_CUBIC);
 
+    // I weirdly get more accurate (?) results if I dont normalize?
+    // Is OpenCV doing something behind my back?
     // Normalize our float input to -1 to 1
-    dst = dst - 0.5f;
-    dst = dst * 2.0;
+//    dst = dst - 0.5f;
+//    dst = dst * 2.0;
     
     const float* baseAddress = (const float*)dst.datastart;
     size_t height = (size_t) dst.rows;
@@ -651,7 +676,7 @@
             {
                 const float* source_value = source_pixel + c;
 
-                image_tensor_mapped(0, y, x, 2-c) = *source_value;
+                image_tensor_mapped(0, y, x, c) = *source_value;
             }
         }
     }
@@ -789,23 +814,35 @@
     NSMutableArray* labels = [NSMutableArray array];
     
     if(topAngleLabel)
+    {
+        [labels addObject:@"Shot Angle:"];
         [labels addObjectsFromArray:topAngleLabel];
-    
+    }
     if(topFrameLabel)
+    {
+        [labels addObject:@"Shot Framing:"];
         [labels addObjectsFromArray:topFrameLabel];
-    
+    }
     if(topSubjectLabel)
+    {
+        [labels addObject:@"Shot Subject:"];
         [labels addObjectsFromArray:topSubjectLabel];
-    
+    }
     if(topTypeLabel)
+    {
+        [labels addObject:@"Shot Type:"];
         [labels addObjectsFromArray:topTypeLabel];
-    
+    }
     if(imageNetLabel)
+    {
+        [labels addObject:@"Objects:"];
         [labels addObjectsFromArray:imageNetLabel];
-
+    }
     if(placesNetLabel)
+    {
+        [labels addObject:@"Location:"];
         [labels addObjectsFromArray:placesNetLabel];
-    
+    }
 #pragma mark - Fin
     
     return @{

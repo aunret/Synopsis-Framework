@@ -6,11 +6,13 @@
 //  Copyright © 2017 v002. All rights reserved.
 //
 
+
 #import "opencv2/core/mat.hpp"
 #import "opencv2/core/utility.hpp"
 
-#import "SynopsisDenseFeature.h"
 #import "SynopsisDenseFeature+Private.h"
+#import "SynopsisDenseFeature.h"
+
 
 @interface SynopsisDenseFeature ()
 @property (assign) cv::Mat OpenCVMat;
@@ -86,6 +88,19 @@
 {
     float val = self.OpenCVMat.at<float>( (int) idx, 0);
     return @(val);
+}
+
+- (NSArray<NSNumber*>*) arrayValue
+{
+    NSUInteger featureCount = [self featureCount];
+    NSMutableArray<NSNumber*>* arrayValue = [NSMutableArray arrayWithCapacity:featureCount];
+    
+    for(int i = 0; i < featureCount; i++)
+    {
+        [arrayValue addObject: @(self.OpenCVMat.at<float>(i,0) )];
+    }
+
+    return  arrayValue;    
 }
 
 
