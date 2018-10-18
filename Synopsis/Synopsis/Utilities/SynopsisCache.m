@@ -46,7 +46,7 @@
         self.cacheMetadataOperationQueue.qualityOfService = NSQualityOfServiceBackground;
 
         self.cacheMediaOperationQueue = [[NSOperationQueue alloc] init];
-        self.cacheMediaOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+        self.cacheMediaOperationQueue.maxConcurrentOperationCount = 1;
         self.cacheMediaOperationQueue.qualityOfService = NSQualityOfServiceBackground;
     }
     
@@ -148,8 +148,7 @@
                     }
                     
                     if(handler)
-                        handler(nsImage, nil);
-                    
+                        handler(nsImage, nil);                    
                 }
                 else
                 {
@@ -192,8 +191,8 @@
         // Generate and cache if nil
         else if(!cachedPlayer && self.acceptNewOperations)
         {
-            AVPlayerItem* playerItem = [AVPlayerItem playerItemWithURL:metadataItem.urlAsset];
-            AVPlayer* player = [AVPlayer playerWithURL:playerItem];
+            AVPlayerItem* playerItem = [AVPlayerItem playerItemWithAsset:metadataItem.urlAsset];
+            AVPlayer* player = [AVPlayer playerWithPlayerItem:playerItem];
             
             if(player)
             {
