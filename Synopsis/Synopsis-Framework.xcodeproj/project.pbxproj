@@ -173,10 +173,19 @@
 		1B8358A41F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358A51F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358AD1F424BD600F86F0F /* opencv2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B97283D2178F58D00C78FBF /* AnalyzerPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358A21DEF623D0053BC06 /* AnalyzerPluginProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1B97284B2178F7C600C78FBF /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068D2087C661000A2DF7 /* zstdmt_compress.c */; };
+		1B97284C2178F7C600C78FBF /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068E2087C661000A2DF7 /* zstd_double_fast.c */; };
+		1B97284D2178F7C600C78FBF /* zstd_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068F2087C661000A2DF7 /* zstd_fast.c */; };
+		1B97284E2178F7C600C78FBF /* zstd_ldm.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306912087C661000A2DF7 /* zstd_ldm.c */; };
+		1B97284F2178F7C600C78FBF /* zstd_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306922087C661000A2DF7 /* zstd_compress.c */; };
+		1B9728502178F7C600C78FBF /* huf_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306962087C661000A2DF7 /* huf_compress.c */; };
+		1B9728512178F7C600C78FBF /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306982087C661000A2DF7 /* fse_compress.c */; };
+		1B9728522178F7F800C78FBF /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306942087C661000A2DF7 /* zstd_lazy.c */; };
+		1B9728532178F80100C78FBF /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306972087C661000A2DF7 /* zstd_opt.c */; };
+		1B9728542178F83100C78FBF /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
-		1BA1A56720DD76E000B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
-		1BA1A56820DD76E000B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
 		1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
 		1BA1A56B20DD77E100B3AA59 /* SynopsisMetadataDecoderVersion3.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */; };
@@ -189,7 +198,6 @@
 		1BA3364421309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3364221309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m */; };
 		1BA336452130A70300DB663A /* SynopsisVideoFrameCVPixelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3364221309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m */; };
 		1BA336462130A70400DB663A /* SynopsisVideoFrameCVPixelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3364221309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m */; };
-		1BA336472130A70B00DB663A /* GPUVisionMobileNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B3814FF1FA360110017564B /* GPUVisionMobileNet.m */; };
 		1BAA80561D70C9EB00464810 /* NSPredicate+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BAA80541D70C9EB00464810 /* NSPredicate+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BAA80571D70C9EB00464810 /* NSPredicate+SynopsisMetadata.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA80551D70C9EB00464810 /* NSPredicate+SynopsisMetadata.mm */; };
 		1BAA805A1D70DBE400464810 /* SynopsisMetadataItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BAA80581D70DBE400464810 /* SynopsisMetadataItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -6111,6 +6119,7 @@
 				1BC98DD11F9FAA5600E0F52A /* SynopsisVideoFrameCache.h in Headers */,
 				1BFB131B1F2135BF002C4651 /* SynopsisMetadataDecoder.h in Headers */,
 				1BFB131C1F2135BF002C4651 /* Color+linearRGBColor.h in Headers */,
+				1B97283D2178F58D00C78FBF /* AnalyzerPluginProtocol.h in Headers */,
 				1BB7F6321F9FEF2D004ED69F /* SynopsisVideoFrameMPImage.h in Headers */,
 				1BCAACB41F966D040022B1A5 /* SynopsisPythonHelper.h in Headers */,
 				1BFB131F1F2135BF002C4651 /* NSSortDescriptor+SynopsisMetadata.h in Headers */,
@@ -6484,6 +6493,7 @@
 				1B6EDC531F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */,
 				1BFB12C81F2135BF002C4651 /* SynopsisMetadataPushDelegate.m in Sources */,
 				1B0306DE2087C69C000A2DF7 /* zdict.c in Sources */,
+				1B9728542178F83100C78FBF /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1B2780AF1F228FC800658C0B /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B70D086200D4EE000A414AF /* SynopsisCache.m in Sources */,
 				1B0306DD2087C69C000A2DF7 /* divsufsort.c in Sources */,
@@ -6494,33 +6504,39 @@
 				1B0306D32087C693000A2DF7 /* huf_decompress.c in Sources */,
 				1B0306A42087C669000A2DF7 /* entropy_common.c in Sources */,
 				1BC98DD91F9FB68300E0F52A /* SynopsisVideoFrameConformSession.m in Sources */,
+				1B97284F2178F7C600C78FBF /* zstd_compress.c in Sources */,
 				1B0306A82087C672000A2DF7 /* fse_decompress.c in Sources */,
 				1B0306B02087C67A000A2DF7 /* xxhash.c in Sources */,
-				1BA1A56820DD76E000B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
-				1BA1A56720DD76E000B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1BFB12D01F2135BF002C4651 /* SynopsisDominantColorLayer.m in Sources */,
+				1B9728502178F7C600C78FBF /* huf_compress.c in Sources */,
 				1BFB12D21F2135BF002C4651 /* MetadataComparisons.mm in Sources */,
+				1B97284B2178F7C600C78FBF /* zstdmt_compress.c in Sources */,
 				1B0306B42087C67A000A2DF7 /* error_private.c in Sources */,
 				1BCAACB61F966D040022B1A5 /* SynopsisPythonHelper.m in Sources */,
 				1BFB12D31F2135BF002C4651 /* SynopsisDenseFeature.mm in Sources */,
 				1BF8581F2090F6B500294C29 /* SynopsisSlidingWindow.mm in Sources */,
 				1BB7F63E1F9FF51B004ED69F /* SynopsisVideoFrameConformHelperGPU.m in Sources */,
+				1B9728532178F80100C78FBF /* zstd_opt.c in Sources */,
 				1B0306DC2087C69C000A2DF7 /* cover.c in Sources */,
+				1B97284E2178F7C600C78FBF /* zstd_ldm.c in Sources */,
 				1BFB12D51F2135BF002C4651 /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1BFB12D91F2135BF002C4651 /* SynopsisHistogramLayer.m in Sources */,
 				1B0306D42087C693000A2DF7 /* zstd_decompress.c in Sources */,
+				1B97284C2178F7C600C78FBF /* zstd_double_fast.c in Sources */,
 				1BFB12DA1F2135BF002C4651 /* SynopsisMetadataDecoder.m in Sources */,
-				1BA336472130A70B00DB663A /* GPUVisionMobileNet.m in Sources */,
 				1BC98DE51F9FCE0A00E0F52A /* SynopsisVideoFrame.m in Sources */,
 				1BEDA4D120251E6400E4617C /* CIEDE2000.cpp in Sources */,
 				1BC98DD31F9FAA5600E0F52A /* SynopsisVideoFrameCache.m in Sources */,
+				1B97284D2178F7C600C78FBF /* zstd_fast.c in Sources */,
 				1BBED62E1F9125A3003CE9C4 /* SynopsisRemoteFileHelper.m in Sources */,
 				1BB7F6341F9FEF2D004ED69F /* SynopsisVideoFrameMPImage.m in Sources */,
 				1BFB12DB1F2135BF002C4651 /* Synopsis.m in Sources */,
 				1B0306B32087C67A000A2DF7 /* zstd_common.c in Sources */,
+				1B9728512178F7C600C78FBF /* fse_compress.c in Sources */,
 				1BFB12DE1F2135BF002C4651 /* NSPredicate+SynopsisMetadata.mm in Sources */,
 				1B0306B12087C67A000A2DF7 /* pool.c in Sources */,
 				1BC98DE11F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.mm in Sources */,
+				1B9728522178F7F800C78FBF /* zstd_lazy.c in Sources */,
 				1BFB12DF1F2135BF002C4651 /* SynopsisMetadataItem.m in Sources */,
 				1B0306B22087C67A000A2DF7 /* threading.c in Sources */,
 				1BFB12E21F2135BF002C4651 /* SynopsisLayer.m in Sources */,
@@ -6801,6 +6817,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DECODER_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q46J873AYZ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -6833,6 +6850,7 @@
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DECODER_ONLY = YES;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q46J873AYZ;
 				DYLIB_COMPATIBILITY_VERSION = 1;
