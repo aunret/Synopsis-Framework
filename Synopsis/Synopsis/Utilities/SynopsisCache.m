@@ -47,7 +47,7 @@
 
         self.cacheMediaOperationQueue = [[NSOperationQueue alloc] init];
         self.cacheMediaOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
-        self.cacheMediaOperationQueue.qualityOfService = NSQualityOfServiceBackground;
+        self.cacheMediaOperationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
     }
     
     return self;
@@ -112,7 +112,7 @@
     return [NSString stringWithFormat:@"Image-%@-%@", timeString, metadataItem.url.absoluteString, nil];
 }
 
-- (void) cachedImageForItem:(SynopsisMetadataItem* _Nonnull)metadataItem atTime:(CMTime)time completionHandler:(SynopsisCacheCompletionHandler _Nullable )handler;
+- (void) cachedImageForItem:(SynopsisMetadataItem* _Nonnull)metadataItem atTime:(CMTime)time completionHandler:(SynopsisCacheImageCompletionHandler _Nullable )handler;
 {
     NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
 
@@ -123,28 +123,33 @@
 
         if(cachedImage)
         {
+            NSLog(@"Image Cache Hit");
             if(handler)
             {
-                handler((__bridge id _Nullable)(cachedImage), nil);
+                handler(cachedImage, nil);
             }
         }
         // Generate and cache if nil
         else if(!cachedImage && self.acceptNewOperations)
         {
+            NSLog(@"Image Cache Miss");
+
             AVAssetImageGenerator* imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:metadataItem.asset];
 
             imageGenerator.apertureMode = AVAssetImageGeneratorApertureModeCleanAperture;
-//            imageGenerator.maximumSize = CGSizeMake(300, 300);
+            imageGenerator.maximumSize = CGSizeMake(300, 300);
             imageGenerator.appliesPreferredTrackTransform = YES;
 
             [imageGenerator generateCGImagesAsynchronouslyForTimes:@[ [NSValue valueWithCMTime:kCMTimeZero]] completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error){
 
                 if(error == nil && image != NULL)
                 {
-                    [self.cache setObject:(__bridge id _Nonnull)(image) forKey:key];
+                    NSLog(@"Image Cache Save");
+
+                    [self.cache setObject:(CGImageRetain(image)) forKey:key];
 
                     if(handler)
-                        handler((__bridge id _Nullable)(cachedImage), nil);
+                        handler(image, nil);
 
                 }
                 else
