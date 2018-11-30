@@ -173,6 +173,8 @@
 		1B8358A41F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358A51F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358AD1F424BD600F86F0F /* opencv2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B93517B21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */; };
+		1B93517C21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */; };
 		1B97283D2178F58D00C78FBF /* AnalyzerPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358A21DEF623D0053BC06 /* AnalyzerPluginProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B97284B2178F7C600C78FBF /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068D2087C661000A2DF7 /* zstdmt_compress.c */; };
 		1B97284C2178F7C600C78FBF /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068E2087C661000A2DF7 /* zstd_double_fast.c */; };
@@ -2184,6 +2186,7 @@
 		1B756AD81FA5160A0050A96F /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		1B8358971F42110600F86F0F /* libblas.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libblas.tbd; path = usr/lib/libblas.tbd; sourceTree = SDKROOT; };
 		1B8358A31F42285000F86F0F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = autoencoder_img_out.mlmodel; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
 		1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion3.h; sourceTree = "<group>"; };
 		1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion3.h; sourceTree = "<group>"; };
@@ -5784,6 +5787,14 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		1B93517921B1E64D00FF6C00 /* Activity CoreML */ = {
+			isa = PBXGroup;
+			children = (
+				1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */,
+			);
+			path = "Activity CoreML";
+			sourceTree = "<group>";
+		};
 		1BA1A55E20DD75E000B3AA59 /* Alpha 4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5831,6 +5842,7 @@
 				1BB7F6491FA123AC004ED69F /* GPUModule.m */,
 				1BB7F6421FA108F7004ED69F /* GPUHistogramModule.h */,
 				1BB7F6431FA108F7004ED69F /* GPUHistogramModule.m */,
+				1B93517921B1E64D00FF6C00 /* Activity CoreML */,
 				1BED8C1D1FB16E8900CEE001 /* MobileNet CoreML */,
 				1BED8C1E1FB16E9900CEE001 /* MobileNet MPS */,
 			);
@@ -6359,6 +6371,7 @@
 				1B551E611EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1BEDA4972024E09800E4617C /* SynopsisVideoFrameCache.m in Sources */,
 				1B0306E02087C69D000A2DF7 /* divsufsort.c in Sources */,
+				1B93517C21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */,
 				1B0306E12087C69D000A2DF7 /* zdict.c in Sources */,
 				1BEDA4C220251BF300E4617C /* GPUModule.m in Sources */,
 				1BEDA4CD20251C5300E4617C /* MotionModule.mm in Sources */,
@@ -6443,6 +6456,7 @@
 				1BBB10FF1D559BD700C22439 /* MetadataComparisons.mm in Sources */,
 				1BC98DCC1F9FA48F00E0F52A /* SynopsisVideoFrameOpenCV.mm in Sources */,
 				1B0306BF2087C68B000A2DF7 /* zstdmt_compress.c in Sources */,
+				1B93517B21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */,
 				1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306C32087C68B000A2DF7 /* zstd_compress.c in Sources */,
 				1B3A1F4C212F0CAB00FEF170 /* CinemaNetShotTypeClassifier_FP16.mlmodel in Sources */,
