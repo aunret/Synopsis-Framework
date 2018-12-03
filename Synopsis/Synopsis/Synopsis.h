@@ -42,6 +42,7 @@ extern NSString* const kSynopsisStandardMetadataDictKey;
 // Global Only
 extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
 
+extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
 extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;
 extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
 extern NSString* const kSynopsisStandardMetadataScoreDictKey;

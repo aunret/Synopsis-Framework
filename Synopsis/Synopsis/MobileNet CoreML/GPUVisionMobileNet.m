@@ -300,7 +300,7 @@ const NSUInteger numWindows = 2;
     mobileRequest.preferBackgroundProcessing = NO;
 
     // Works fine:
-    CGImagePropertyOrientation orientation = kCGImagePropertyOrientationDownMirrored;
+    CGImagePropertyOrientation orientation = kCGImagePropertyOrientationUp;
     VNImageRequestHandler* imageRequestHandler = [[VNImageRequestHandler alloc] initWithCIImage:imageForRequest orientation:orientation options:@{
                                                                                                                                                   VNImageOptionCIContext : self.context
                                                                                                                                                   }];
