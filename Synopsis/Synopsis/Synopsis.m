@@ -38,6 +38,9 @@ NSString* const kSynopsisStandardMetadataDictKey = @"StandardMetadata";
 NSString* const kSynopsisStandardMetadataFeatureVectorDictKey = @"Features";
 NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey = @"InterestingFeaturesAndTimes";
 
+NSString* const kSynopsisStandardMetadataAttentionDictKey = @"Attention";
+NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey = @"InterestingAttentionAndTimes";
+
 NSString* const kSynopsisStandardMetadataLabelsDictKey = @"Labels";
 NSString* const kSynopsisStandardMetadataScoreDictKey = @"Scores";
 NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey = @"DominantColors";
