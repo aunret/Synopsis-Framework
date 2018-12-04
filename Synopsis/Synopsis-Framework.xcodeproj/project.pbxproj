@@ -63,7 +63,6 @@
 		1B0306E12087C69D000A2DF7 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306A12087C661000A2DF7 /* zdict.c */; };
 		1B06FECB21B5C38100C7D20B /* ActivityModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B06FEC921B5C38100C7D20B /* ActivityModule.h */; };
 		1B06FECC21B5C38100C7D20B /* ActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECA21B5C38100C7D20B /* ActivityModule.m */; };
-		1B06FECD21B5C38900C7D20B /* ActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECA21B5C38100C7D20B /* ActivityModule.m */; };
 		1B06FECE21B5C38900C7D20B /* ActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECA21B5C38100C7D20B /* ActivityModule.m */; };
 		1B06FED021B5D9A200C7D20B /* squaredDiff.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECF21B5D9A200C7D20B /* squaredDiff.metal */; };
 		1B06FED121B5D9A200C7D20B /* squaredDiff.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECF21B5D9A200C7D20B /* squaredDiff.metal */; };
@@ -361,7 +360,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1B931A912183B3EF0037C300 /* opencv2.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6561,7 +6559,6 @@
 				1BFB12DB1F2135BF002C4651 /* Synopsis.m in Sources */,
 				1B0306B32087C67A000A2DF7 /* zstd_common.c in Sources */,
 				1B9728512178F7C600C78FBF /* fse_compress.c in Sources */,
-				1B06FECD21B5C38900C7D20B /* ActivityModule.m in Sources */,
 				1BFB12DE1F2135BF002C4651 /* NSPredicate+SynopsisMetadata.mm in Sources */,
 				1B0306B12087C67A000A2DF7 /* pool.c in Sources */,
 				1BC98DE11F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.mm in Sources */,
