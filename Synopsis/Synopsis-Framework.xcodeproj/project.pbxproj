@@ -63,7 +63,6 @@
 		1B0306E12087C69D000A2DF7 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306A12087C661000A2DF7 /* zdict.c */; };
 		1B06FECB21B5C38100C7D20B /* ActivityModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B06FEC921B5C38100C7D20B /* ActivityModule.h */; };
 		1B06FECC21B5C38100C7D20B /* ActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECA21B5C38100C7D20B /* ActivityModule.m */; };
-		1B06FECD21B5C38900C7D20B /* ActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECA21B5C38100C7D20B /* ActivityModule.m */; };
 		1B06FECE21B5C38900C7D20B /* ActivityModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECA21B5C38100C7D20B /* ActivityModule.m */; };
 		1B06FED021B5D9A200C7D20B /* squaredDiff.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECF21B5D9A200C7D20B /* squaredDiff.metal */; };
 		1B06FED121B5D9A200C7D20B /* squaredDiff.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1B06FECF21B5D9A200C7D20B /* squaredDiff.metal */; };
@@ -128,7 +127,6 @@
 		1B4446D91EE1FFB30075575D /* NSSortDescriptor+SynopsisMetadata.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10F41D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm */; };
 		1B4446DA1EE1FFB30075575D /* NSPredicate+SynopsisMetadata.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA80551D70C9EB00464810 /* NSPredicate+SynopsisMetadata.mm */; };
 		1B4446DB1EE1FFB30075575D /* Color+linearRGBColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4446B01EE1FD5D0075575D /* Color+linearRGBColor.mm */; };
-		1B4DC1911FC8E53A00BF10C8 /* libtensorflow_framework.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B4DC18C1FC8CF1000BF10C8 /* libtensorflow_framework.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1B4E6B4F208E674B00C078A8 /* SynopsisSlidingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4E6B4D208E674B00C078A8 /* SynopsisSlidingWindow.h */; };
 		1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E6B4E208E674B00C078A8 /* SynopsisSlidingWindow.mm */; };
 		1B551E591EF9D887004C077B /* SynopsisMetadataEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E571EF9D887004C077B /* SynopsisMetadataEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -172,7 +170,6 @@
 		1B73589C1DEF5FE40053BC06 /* StandardAnalyzerPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358831DEF5FE40053BC06 /* StandardAnalyzerPlugin.mm */; };
 		1B7358A31DEF623D0053BC06 /* AnalyzerPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358A21DEF623D0053BC06 /* AnalyzerPluginProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B7358A71DEF65770053BC06 /* CIEDE2000.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358A51DEF65770053BC06 /* CIEDE2000.cpp */; };
-		1B7358AA1DEF68330053BC06 /* libtensorflow_cc.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B7358651DEF5AD20053BC06 /* libtensorflow_cc.so */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		1B756AD91FA5160A0050A96F /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B756AD81FA5160A0050A96F /* Vision.framework */; };
 		1B8027FC202B58770092F40C /* DominantColorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358721DEF5FE40053BC06 /* DominantColorModule.mm */; };
 		1B8358981F42110600F86F0F /* libblas.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358971F42110600F86F0F /* libblas.tbd */; };
@@ -363,8 +360,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1B7358AA1DEF68330053BC06 /* libtensorflow_cc.so in CopyFiles */,
-				1B4DC1911FC8E53A00BF10C8 /* libtensorflow_framework.so in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6564,7 +6559,6 @@
 				1BFB12DB1F2135BF002C4651 /* Synopsis.m in Sources */,
 				1B0306B32087C67A000A2DF7 /* zstd_common.c in Sources */,
 				1B9728512178F7C600C78FBF /* fse_compress.c in Sources */,
-				1B06FECD21B5C38900C7D20B /* ActivityModule.m in Sources */,
 				1BFB12DE1F2135BF002C4651 /* NSPredicate+SynopsisMetadata.mm in Sources */,
 				1B0306B12087C67A000A2DF7 /* pool.c in Sources */,
 				1BC98DE11F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.mm in Sources */,
