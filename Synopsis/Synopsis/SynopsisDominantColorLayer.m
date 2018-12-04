@@ -74,9 +74,11 @@
         return;
 
     
-//    assert((self.dominantColorCALayers.count == self.dominantColorsArray.count) && (self.dominantColorsArray.count == kSynopsisDominantColorCount));
     
-    for(NSUInteger i = 0; i < kSynopsisDominantColorCount; i++)
+//    assert((self.dominantColorCALayers.count == self.dominantColorsArray.count) && (self.dominantColorsArray.count == kSynopsisDominantColorCount));
+    NSUInteger numColors = MIN(kSynopsisDominantColorCount, self.dominantColorsArray.count);
+    
+    for(NSUInteger i = 0; i < numColors; i++)
     {
         CALayer* colorLayer = self.dominantColorCALayers[i];
         CGColorRef color = (__bridge CGColorRef)(self.dominantColorsArray[i]);

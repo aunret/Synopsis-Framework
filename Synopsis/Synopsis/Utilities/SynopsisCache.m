@@ -123,7 +123,6 @@
 
         if(cachedImage)
         {
-            NSLog(@"Image Cache Hit");
             if(handler)
             {
                 handler(cachedImage, nil);
@@ -132,8 +131,6 @@
         // Generate and cache if nil
         else if(!cachedImage && self.acceptNewOperations)
         {
-            NSLog(@"Image Cache Miss");
-
             AVAssetImageGenerator* imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:metadataItem.asset];
 
             imageGenerator.apertureMode = AVAssetImageGeneratorApertureModeCleanAperture;
@@ -144,8 +141,6 @@
 
                 if(error == nil && image != NULL)
                 {
-                    NSLog(@"Image Cache Save");
-
                     [self.cache setObject:(CGImageRetain(image)) forKey:key];
 
                     if(handler)
