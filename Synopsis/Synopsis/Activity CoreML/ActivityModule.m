@@ -48,18 +48,24 @@
         numWindows = 2;
         
         linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+//        linear = CGColorSpaceCreateDeviceRGB();
         
         NSDictionary* opt = @{ kCIContextWorkingColorSpace : (__bridge id)linear,
                                kCIContextOutputColorSpace : (__bridge id)linear,
                                };
         
-        self.context = [CIContext contextWithMTLDevice:device options:opt];
+        self.context = [CIContext contextWithMTLDevice:device options:nil];
         
         NSError* error = nil;
 
         NSURL*metalLibURL = [[NSBundle bundleForClass:[ActivityModule class]] URLForResource:@"default" withExtension:@"metallib"];
         NSData* metalLib = [NSData dataWithContentsOfURL:metalLibURL];
-        self.squaredDiff = [CIBlendKernel kernelWithFunctionName:@"squaredDiff" fromMetalLibraryData:metalLib error:&error];
+        
+        self.squaredDiff = [CIBlendKernel kernelWithFunctionName:@"squaredDiff"
+                                            fromMetalLibraryData:metalLib
+//                                               outputPixelFormat:kCIFormatRGBAh
+                                                           error:&error];
+        
         self.areaAVG = [CIFilter filterWithName:@"CIAreaAverage"];
         self.classifier = [[autoencoder_img_out alloc] init];
 
@@ -140,11 +146,11 @@
         
         VNPixelBufferObservation* featureOutput = [[request results] firstObject];
         
-//        NSDictionary* opts = @{ kCIImageColorSpace : (__bridge id)self->linear,
-////                                kCIImageApplyOrientationProperty : @YES,
-//                                };
+        NSDictionary* opts = @{ kCIImageColorSpace : (__bridge id)self->linear,
+////                                kCIImageApplyOrientationProperty : @YES
+                                };
         
-        CIImage* result = [CIImage imageWithCVPixelBuffer:featureOutput.pixelBuffer] ;
+        CIImage* result = [CIImage imageWithCVPixelBuffer:featureOutput.pixelBuffer options:opts] ;
         
         CIImage* diff = [self.squaredDiff applyWithForeground:result background:imageForRequest];
         
@@ -153,16 +159,18 @@
         CIImage* mean = self.areaAVG.outputImage;
         
         // this is stupid as fuck
-        unsigned char* pixel = malloc(sizeof(char) * 4);
+        size_t size = 8 * 4;
+        uint8_t * pixel = malloc(size);
         
-        [self.context render:mean toBitmap:pixel rowBytes:32 bounds:CGRectMake(0, 0, 1, 1) format:kCIFormatBGRA8 colorSpace:self->linear];
+        [self.context render:mean
+                    toBitmap:pixel
+                    rowBytes:size
+                      bounds:mean.extent
+                      format:kCIFormatBGRA8
+                  colorSpace:linear];
         
-        unsigned char b = pixel[0];
-        unsigned char g = pixel[1];
-        unsigned char r = pixel[2];
+        float avgError = pixel[2] / 255.0;
         
-        float avgError =  ((float)r + (float)b + (float)g) / 3.0;
-                
         free(pixel);
         
         NSMutableDictionary* metadata = [NSMutableDictionary new];
