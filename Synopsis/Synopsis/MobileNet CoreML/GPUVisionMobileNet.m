@@ -29,6 +29,9 @@
 @interface GPUVisionMobileNet ()
 {
     CGColorSpaceRef linear;
+    NSUInteger stride;
+    NSUInteger numWindows;
+
 }
 
 @property (readwrite, strong) CIContext* context;
@@ -56,9 +59,6 @@
 
 @end
 
-const NSUInteger stride = 5;
-const NSUInteger numWindows = 2;
-
 @implementation GPUVisionMobileNet
 
 // GPU backed modules init with an options dict for Metal Device bullshit
@@ -67,6 +67,8 @@ const NSUInteger numWindows = 2;
     self = [super initWithQualityHint:qualityHint device:device];
     if(self)
     {
+        stride = 5;
+        numWindows = 2;
         
         linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
 

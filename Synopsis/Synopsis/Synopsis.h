@@ -39,11 +39,13 @@ extern NSUInteger const kSynopsisMetadataHFSAttributeVersionValue;
 extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 
 extern NSString* const kSynopsisStandardMetadataDictKey;
-// Global Only
+
+extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;
 extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
 
 extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
-extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;
+extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
+
 extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
 extern NSString* const kSynopsisStandardMetadataScoreDictKey;
 extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;

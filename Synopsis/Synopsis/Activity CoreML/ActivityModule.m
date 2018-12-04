@@ -19,6 +19,8 @@
 @interface ActivityModule ()
 {
     CGColorSpaceRef linear;
+    NSUInteger stride;
+    NSUInteger numWindows;
 }
 
 @property (readwrite, strong) CIContext* context;
@@ -27,7 +29,13 @@
 @property (readwrite, strong) VNCoreMLModel* visionModel;
 @property (readwrite, strong) autoencoder_img_out* classifier;
 
+@property (readwrite, strong) NSMutableArray<NSNumber*>* averageFeatureVec;
+@property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* windowAverages;
+@property (readwrite, strong) NSMutableArray<NSValue*>* windowAverageTimes;
+@property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* windows;
+
 @end
+
 
 @implementation ActivityModule
 
@@ -36,6 +44,9 @@
     self = [super initWithQualityHint:qualityHint device:device];
     if(self)
     {
+        stride = 5;
+        numWindows = 2;
+        
         linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
         
         NSDictionary* opt = @{ kCIContextWorkingColorSpace : (__bridge id)linear,
@@ -91,6 +102,17 @@
 
 - (void) beginAndClearCachedResults
 {
+    self.averageFeatureVec = nil;
+    
+    self.windowAverages = [NSMutableArray new];
+    self.windowAverageTimes = [NSMutableArray new];
+    self.windows = [NSMutableArray new];
+    
+    for(NSUInteger i = 0; i < numWindows; i++)
+    {
+        SynopsisSlidingWindow* aWindow = [[SynopsisSlidingWindow alloc] initWithLength:10 offset:stride * i];
+        [self.windows addObject:aWindow];
+    }
 }
 
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
@@ -140,10 +162,26 @@
         unsigned char r = pixel[2];
         
         float avgError =  ((float)r + (float)b + (float)g) / 3.0;
-        
-        NSLog(@"mean: %f" avgError);
-        
+                
         free(pixel);
+        
+        NSMutableDictionary* metadata = [NSMutableDictionary new];
+        metadata[kSynopsisStandardMetadataAttentionDictKey] = @(avgError);
+
+        // Kind of silly, but make a single value dense feature
+        SynopsisDenseFeature* denseFeatureVector = [[SynopsisDenseFeature alloc] initWithFeatureArray: @[ @(avgError) ] ];
+        
+        [self.windows enumerateObjectsUsingBlock:^(SynopsisSlidingWindow * _Nonnull window, NSUInteger idx, BOOL * _Nonnull stop) {
+            SynopsisDenseFeature* possible = [window appendFeature:denseFeatureVector];
+            if(possible != nil)
+            {
+                [self.windowAverages addObject:possible];
+                [self.windowAverageTimes addObject:[NSValue valueWithCMTime:frame.presentationTimeStamp]];
+            }
+        }];
+        
+        if(completionBlock)
+            completionBlock(metadata, nil);
     }];
     
     mobileRequest.imageCropAndScaleOption = VNImageCropAndScaleOptionScaleFill;
@@ -163,9 +201,21 @@
     }
 }
 
-- (NSDictionary*) finalizedAnalysisMetadata
+- (NSDictionary*) finalizedAnalysisMetadata;
 {
-    return nil;
+    NSMutableArray* windowAverages = [NSMutableArray arrayWithCapacity:self.windowAverages.count];
+    
+    [self.windowAverages enumerateObjectsUsingBlock:^(SynopsisDenseFeature * _Nonnull feature, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSValue* windowTime = [self.windowAverageTimes objectAtIndex:idx];
+        
+        [windowAverages addObject: @{ @"Feature" : [feature arrayValue],
+                                      @"Time" : (NSDictionary*) CFBridgingRelease(CMTimeCopyAsDictionary([windowTime CMTimeValue], kCFAllocatorDefault)),
+                                      }];
+    }];
+    
+    return @{
+             kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
+             };
 }
 
 
