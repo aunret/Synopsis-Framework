@@ -54,7 +54,7 @@
                                kCIContextOutputColorSpace : (__bridge id)linear,
                                };
         
-        self.context = [CIContext contextWithMTLDevice:device options:nil];
+        self.context = [CIContext contextWithMTLDevice:device options:opt];
         
         NSError* error = nil;
 
