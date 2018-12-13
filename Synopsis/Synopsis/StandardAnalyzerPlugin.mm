@@ -110,8 +110,9 @@
         
         self.gpuModuleClasses  = @[
 //                                  NSStringFromClass([GPUHistogramModule class]),
-                                  NSStringFromClass([GPUVisionMobileNetV2 class]),
-                                  NSStringFromClass([ActivityModule class]),
+                                   NSStringFromClass([GPUVisionMobileNetV2 class]),
+//                                  NSStringFromClass([GPUVisionMobileNetV2 class]),
+//                                  NSStringFromClass([ActivityModule class]),
 //                                  [GPUMPSMobileNet className],
                                    ];
         

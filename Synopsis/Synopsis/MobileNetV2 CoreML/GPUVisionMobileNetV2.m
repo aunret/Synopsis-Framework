@@ -9,7 +9,13 @@
 #import <Vision/Vision.h>
 
 #import "GPUVisionMobileNetV2.h"
+
+#define USE_ATTENTION 0
+#if USE_ATTENTION
+#import "smoosh_5tasks_w_deconv_out.h"
+#else
 #import "smoosh_5tasks_softmax.h"
+#endif
 
 #import "SynopsisVideoFrameMPImage.h"
 #import "SynopsisVideoFrameCVPixelBuffer.h"
@@ -26,7 +32,12 @@
 @property (readwrite, strong) CIContext* context;
 
 @property (readwrite, strong) VNCoreMLModel* smooshNetCoreVNModel;
+
+#if USE_ATTENTION
+@property (readwrite, strong) smoosh_5tasks_w_deconv_out* smooshNetCoreMLModel;
+#else
 @property (readwrite, strong) smoosh_5tasks_softmax* smooshNetCoreMLModel;
+#endif
 
 @property (readwrite, strong) NSMutableArray<NSNumber*>* averageFeatureVec;
 @property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* windowAverages;
@@ -56,7 +67,12 @@
         self.context = [CIContext contextWithMTLDevice:device options:opt];
         
         NSError* error = nil;
+        
+#if USE_ATTENTION
+        self.smooshNetCoreMLModel = [[smoosh_5tasks_w_deconv_out alloc] init];
+#else
         self.smooshNetCoreMLModel = [[smoosh_5tasks_softmax alloc] init];
+#endif
         self.smooshNetCoreVNModel = [VNCoreMLModel modelForMLModel:self.smooshNetCoreMLModel.model error:&error];
         
         if(error)
@@ -126,8 +142,11 @@
         NSMutableDictionary* metadata = nil;
         if([request results].count)
         {
-            VNCoreMLFeatureValueObservation* labelProbibilitiesOutput = [[request results] firstObject];
-            VNCoreMLFeatureValueObservation* featureOutput = [[request results] lastObject];
+            VNCoreMLFeatureValueObservation* labelProbibilitiesOutput = [request results][0];
+            VNCoreMLFeatureValueObservation* featureOutput = [request results][1];
+#if USE_ATTENTION
+            VNPixelBufferObservation* attentionAbsDiff = [request results][2];
+#endif
             MLMultiArray* featureVector = featureOutput.featureValue.multiArrayValue;
             
             NSMutableArray<NSNumber*>*vec = [NSMutableArray new];

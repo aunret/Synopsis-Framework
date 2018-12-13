@@ -196,6 +196,8 @@
 		1B9E2B9721C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
 		1B9E2B9821C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
 		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
+		1B9E2B9B21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9A21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel */; };
+		1B9E2B9C21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9A21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
 		1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
@@ -2201,6 +2203,7 @@
 		1B9E2B9021C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smoosh_5tasks_softmax.mlmodel; sourceTree = "<group>"; };
 		1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUVisionMobileNetV2.h; sourceTree = "<group>"; };
 		1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUVisionMobileNetV2.m; sourceTree = "<group>"; };
+		1B9E2B9A21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smoosh_5tasks_w_deconv_out.mlmodel; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
 		1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion3.h; sourceTree = "<group>"; };
 		1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion3.h; sourceTree = "<group>"; };
@@ -5818,6 +5821,7 @@
 				1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */,
 				1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */,
 				1B9E2B9021C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel */,
+				1B9E2B9A21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel */,
 			);
 			path = "MobileNetV2 CoreML";
 			sourceTree = "<group>";
@@ -6426,6 +6430,7 @@
 				1B0306CA2087C68C000A2DF7 /* zstd_fast.c in Sources */,
 				1B0306B82087C67B000A2DF7 /* zstd_common.c in Sources */,
 				1B4446D61EE1FFB30075575D /* SynopsisHistogramLayer.m in Sources */,
+				1B9E2B9C21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel in Sources */,
 				1B551E7E1EFAED30004C077B /* SynopsisMetadataPushDelegate.m in Sources */,
 				1B0306CB2087C68C000A2DF7 /* zstd_ldm.c in Sources */,
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
@@ -6463,6 +6468,7 @@
 				1B551E671EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1B0306A32087C668000A2DF7 /* entropy_common.c in Sources */,
+				1B9E2B9B21C2CD200049201B /* smoosh_5tasks_w_deconv_out.mlmodel in Sources */,
 				1BBB10F61D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm in Sources */,
 				1B0306AF2087C67A000A2DF7 /* error_private.c in Sources */,
 				1B7358891DEF5FE40053BC06 /* AverageColor.mm in Sources */,
