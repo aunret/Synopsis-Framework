@@ -71,14 +71,13 @@
         NSString* allLabelsFlat = [NSString stringWithContentsOfURL:labelsURL encoding:NSUTF8StringEncoding error:&error];
         
         NSArray* allLabels = [allLabelsFlat componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-        
-        
+                
         self.sceneAttributeLabels = [allLabels subarrayWithRange:NSMakeRange(0, 102)];
         self.styleAttributeLabels = [allLabels subarrayWithRange:NSMakeRange(102, 20)];
         self.placesLabels = [allLabels subarrayWithRange:NSMakeRange(102 + 20, 365)];
         self.objectsLabels = [allLabels subarrayWithRange:NSMakeRange(102 + 20 + 365, 80)];
         self.objectAttributeLabels = [allLabels subarrayWithRange:NSMakeRange(102 + 20 + 365 + 80, 204)];
-
+        
         if(error)
         {
             NSLog(@"Error: %@", error);
@@ -163,9 +162,10 @@
             
             if(self.averageFeatureVec == nil)
             {
-                for(NSUInteger i = 0; i < featureVector.count; i++)
+                for(NSUInteger i = 0; i < 1280; i++)
                 {
-                    vec[i] = featureVector[i];
+                   
+                    vec[i] = [featureVector objectForKeyedSubscript:@[@(0), @(0), @(i), @(0), @(0)] ];
                 }
                 
                 self.averageFeatureVec = vec;
@@ -173,16 +173,16 @@
             
             else
             {
-                for(NSUInteger i = 0; i < featureVector.count; i++)
+                for(NSUInteger i = 0; i < self.averageFeatureVec.count; i++)
                 {
                     NSNumber* avgFeatureValue = self.averageFeatureVec[i];
-                    NSNumber* featureValue = featureVector[i];
+                    NSNumber* featureValue = [featureVector objectForKeyedSubscript:@[@(0), @(0), @(i), @(0), @(0)] ];
                     
                     self.averageFeatureVec[i] = @( (avgFeatureValue.floatValue + featureValue.floatValue) * 0.5 );
                     vec[i] = featureValue;
                 }
             }
-            
+                        
             SynopsisDenseFeature* denseFeatureVector = [[SynopsisDenseFeature alloc] initWithFeatureArray:vec];
             
             metadata = [NSMutableDictionary dictionary];
