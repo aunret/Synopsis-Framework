@@ -33,7 +33,11 @@
 @property (readwrite, strong) NSMutableArray<NSNumber*>* averageFeatureVec;
 @property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* windowAverages;
 @property (readwrite, strong) NSMutableArray<NSValue*>* windowAverageTimes;
-@property (readwrite, strong) NSArray* labels;
+@property (readwrite, strong) NSArray* sceneAttributeLabels;
+@property (readwrite, strong) NSArray* styleAttributeLabels;
+@property (readwrite, strong) NSArray* placesLabels;
+@property (readwrite, strong) NSArray* objectsLabels;
+@property (readwrite, strong) NSArray* objectAttributeLabels;
 
 @property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* windows;
 
@@ -62,6 +66,19 @@
         self.smooshNetCoreMLModel = [[smoosh_5tasks_softmax_no_labels_subtasks alloc] init];
         self.smooshNetCoreVNModel = [VNCoreMLModel modelForMLModel:self.smooshNetCoreMLModel.model error:&error];
         
+        NSURL* labelsURL = [[NSBundle bundleForClass:[self class]] URLForResource:@"smooshed_labels_5tasks" withExtension:@"txt"];
+        
+        NSString* allLabelsFlat = [NSString stringWithContentsOfURL:labelsURL encoding:NSUTF8StringEncoding error:&error];
+        
+        NSArray* allLabels = [allLabelsFlat componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+        
+        
+        self.sceneAttributeLabels = [allLabels subarrayWithRange:NSMakeRange(0, 102)];
+        self.styleAttributeLabels = [allLabels subarrayWithRange:NSMakeRange(102, 20)];
+        self.placesLabels = [allLabels subarrayWithRange:NSMakeRange(102 + 20, 365)];
+        self.objectsLabels = [allLabels subarrayWithRange:NSMakeRange(102 + 20 + 365, 80)];
+        self.objectAttributeLabels = [allLabels subarrayWithRange:NSMakeRange(102 + 20 + 365 + 80, 204)];
+
         if(error)
         {
             NSLog(@"Error: %@", error);
@@ -222,7 +239,7 @@
     return @{
              kSynopsisStandardMetadataFeatureVectorDictKey : (self.averageFeatureVec) ? self.averageFeatureVec : @[ ],
              kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
-             kSynopsisStandardMetadataDescriptionDictKey: (self.labels) ? self.labels : @[ ],
+//             kSynopsisStandardMetadataDescriptionDictKey: (self.labels) ? self.labels : @[ ],
              };
 }
 

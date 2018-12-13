@@ -196,7 +196,8 @@
 		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
 		1B9E2BA121C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */; };
 		1B9E2BA221C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */; };
-		1B9E2BA421C2E3BC0049201B /* smooshed_labels_5tasks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */; };
+		1B9E2BA521C2EC1D0049201B /* smooshed_labels_5tasks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */; };
+		1B9E2BA821C2EC480049201B /* smooshed_labels_5tasks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
 		1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
@@ -6200,6 +6201,7 @@
 				1B4446B31EE1FE4A0075575D /* Sources */,
 				1B4446B41EE1FE4A0075575D /* Frameworks */,
 				1B4446B51EE1FE4A0075575D /* Headers */,
+				1B9E2BA721C2EC410049201B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -6298,11 +6300,19 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1B9E2BA721C2EC410049201B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1B9E2BA821C2EC480049201B /* smooshed_labels_5tasks.txt in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1BBB10DB1D5542A200C22439 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B9E2BA421C2E3BC0049201B /* smooshed_labels_5tasks.txt in Resources */,
+				1B9E2BA521C2EC1D0049201B /* smooshed_labels_5tasks.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
