@@ -10,12 +10,7 @@
 
 #import "GPUVisionMobileNetV2.h"
 
-#define USE_ATTENTION 0
-#if USE_ATTENTION
-#import "smoosh_5tasks_w_deconv_out.h"
-#else
-#import "smoosh_5tasks_softmax.h"
-#endif
+#import "smoosh_5tasks_softmax_no_labels_subtasks.h"
 
 #import "SynopsisVideoFrameMPImage.h"
 #import "SynopsisVideoFrameCVPixelBuffer.h"
@@ -33,11 +28,7 @@
 
 @property (readwrite, strong) VNCoreMLModel* smooshNetCoreVNModel;
 
-#if USE_ATTENTION
-@property (readwrite, strong) smoosh_5tasks_w_deconv_out* smooshNetCoreMLModel;
-#else
-@property (readwrite, strong) smoosh_5tasks_softmax* smooshNetCoreMLModel;
-#endif
+@property (readwrite, strong) smoosh_5tasks_softmax_no_labels_subtasks* smooshNetCoreMLModel;
 
 @property (readwrite, strong) NSMutableArray<NSNumber*>* averageFeatureVec;
 @property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* windowAverages;
@@ -68,11 +59,7 @@
         
         NSError* error = nil;
         
-#if USE_ATTENTION
-        self.smooshNetCoreMLModel = [[smoosh_5tasks_w_deconv_out alloc] init];
-#else
-        self.smooshNetCoreMLModel = [[smoosh_5tasks_softmax alloc] init];
-#endif
+        self.smooshNetCoreMLModel = [[smoosh_5tasks_softmax_no_labels_subtasks alloc] init];
         self.smooshNetCoreVNModel = [VNCoreMLModel modelForMLModel:self.smooshNetCoreMLModel.model error:&error];
         
         if(error)
@@ -142,11 +129,17 @@
         NSMutableDictionary* metadata = nil;
         if([request results].count)
         {
-            VNCoreMLFeatureValueObservation* labelProbibilitiesOutput = [request results][0];
-            VNCoreMLFeatureValueObservation* featureOutput = [request results][1];
-#if USE_ATTENTION
-            VNPixelBufferObservation* attentionAbsDiff = [request results][2];
-#endif
+            // LETS ENSURE the order here is consisten - because its unclear to me how
+            // THE FUCK Im supposed to know the order of these request results
+            // IF THEY ARENT THE ORDER SPECIFIED IN THE MODEL OUTPUTS
+            
+            VNCoreMLFeatureValueObservation* scene_attrs = [request results][0];
+            VNCoreMLFeatureValueObservation* style_atrs = [request results][1];
+            VNCoreMLFeatureValueObservation* places = [request results][4];
+            VNCoreMLFeatureValueObservation* objects = [request results][5];
+            VNCoreMLFeatureValueObservation* objects_attrs = [request results][2];
+            VNCoreMLFeatureValueObservation* featureOutput = [request results][3];
+
             MLMultiArray* featureVector = featureOutput.featureValue.multiArrayValue;
             
             NSMutableArray<NSNumber*>*vec = [NSMutableArray new];
