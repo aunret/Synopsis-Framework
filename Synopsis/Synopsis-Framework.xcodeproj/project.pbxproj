@@ -189,6 +189,13 @@
 		1B9728522178F7F800C78FBF /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306942087C661000A2DF7 /* zstd_lazy.c */; };
 		1B9728532178F80100C78FBF /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306972087C661000A2DF7 /* zstd_opt.c */; };
 		1B9728542178F83100C78FBF /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
+		1B9E2B9121C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9021C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel */; };
+		1B9E2B9221C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9021C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel */; };
+		1B9E2B9521C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */; };
+		1B9E2B9621C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */; };
+		1B9E2B9721C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
+		1B9E2B9821C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
+		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
 		1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
@@ -2191,6 +2198,9 @@
 		1B8358971F42110600F86F0F /* libblas.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libblas.tbd; path = usr/lib/libblas.tbd; sourceTree = SDKROOT; };
 		1B8358A31F42285000F86F0F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = autoencoder_img_out.mlmodel; sourceTree = "<group>"; };
+		1B9E2B9021C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smoosh_5tasks_softmax.mlmodel; sourceTree = "<group>"; };
+		1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUVisionMobileNetV2.h; sourceTree = "<group>"; };
+		1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUVisionMobileNetV2.m; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
 		1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion3.h; sourceTree = "<group>"; };
 		1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion3.h; sourceTree = "<group>"; };
@@ -5802,6 +5812,16 @@
 			path = "Activity CoreML";
 			sourceTree = "<group>";
 		};
+		1B9E2B8F21C2C7A70049201B /* MobileNetV2 CoreML */ = {
+			isa = PBXGroup;
+			children = (
+				1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */,
+				1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */,
+				1B9E2B9021C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel */,
+			);
+			path = "MobileNetV2 CoreML";
+			sourceTree = "<group>";
+		};
 		1BA1A55E20DD75E000B3AA59 /* Alpha 4 */ = {
 			isa = PBXGroup;
 			children = (
@@ -5850,6 +5870,7 @@
 				1BB7F6421FA108F7004ED69F /* GPUHistogramModule.h */,
 				1BB7F6431FA108F7004ED69F /* GPUHistogramModule.m */,
 				1B93517921B1E64D00FF6C00 /* Activity CoreML */,
+				1B9E2B8F21C2C7A70049201B /* MobileNetV2 CoreML */,
 				1BED8C1D1FB16E8900CEE001 /* MobileNet CoreML */,
 				1BED8C1E1FB16E9900CEE001 /* MobileNet MPS */,
 			);
@@ -6053,6 +6074,7 @@
 				1BEDA4992024E0A700E4617C /* SynopsisVideoFrameConformSession.h in Headers */,
 				1B551E5B1EF9D891004C077B /* SynopsisMetadataEncoder.h in Headers */,
 				1B551E6C1EF9E99D004C077B /* NSDictionary+JSONString.h in Headers */,
+				1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */,
 				1BEDA4A52024E0D900E4617C /* SynopsisVideoFrameConformHelperCPU.h in Headers */,
 				1BEDA4932024E07200E4617C /* SynopsisVideoFrame.h in Headers */,
 				1BEDA4A12024E0C100E4617C /* SynopsisVideoFrameMPImage.h in Headers */,
@@ -6062,6 +6084,7 @@
 				1BEDA4C620251C0C00E4617C /* AnalyzerPluginProtocol.h in Headers */,
 				1B4446C41EE1FF8C0075575D /* SynopsisMetadataDecoder.h in Headers */,
 				1BF858222090F6E700294C29 /* SynopsisSlidingWindow.h in Headers */,
+				1B9E2B9621C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */,
 				1B551E661EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h in Headers */,
 				1BEDA4742024DEE600E4617C /* SynopsisMetadataEncoderVersion2.h in Headers */,
 				1B4446CD1EE1FF990075575D /* NSSortDescriptor+SynopsisMetadata.h in Headers */,
@@ -6104,6 +6127,7 @@
 				1B2780AD1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h in Headers */,
 				1BB7F6441FA108F7004ED69F /* GPUHistogramModule.h in Headers */,
 				1B7358A31DEF623D0053BC06 /* AnalyzerPluginProtocol.h in Headers */,
+				1B9E2B9521C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */,
 				1BC98DD01F9FAA5600E0F52A /* SynopsisVideoFrameCache.h in Headers */,
 				1BBB10E11D5542A200C22439 /* Synopsis.h in Headers */,
 				1BB7F64A1FA123AC004ED69F /* GPUModule.h in Headers */,
@@ -6370,6 +6394,7 @@
 				1B3A1F47212F0CAB00FEF170 /* CinemaNetShotAnglesClassifier_FP16.mlmodel in Sources */,
 				1B0306B72087C67B000A2DF7 /* threading.c in Sources */,
 				1B0306B62087C67B000A2DF7 /* pool.c in Sources */,
+				1B9E2B9221C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel in Sources */,
 				1B0306D02087C68C000A2DF7 /* fse_compress.c in Sources */,
 				1B4446DA1EE1FFB30075575D /* NSPredicate+SynopsisMetadata.mm in Sources */,
 				1B4446D01EE1FFB30075575D /* Synopsis.m in Sources */,
@@ -6407,6 +6432,7 @@
 				1B3A1F4B212F0CAB00FEF170 /* CinemaNetShotSubjectClassifier_FP16.mlmodel in Sources */,
 				1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
+				1B9E2B9821C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */,
 				1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */,
 				1B551E681EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1B3A1F4F212F0CAB00FEF170 /* PlacesNetClassifier_FP16.mlmodel in Sources */,
@@ -6472,11 +6498,13 @@
 				1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306C32087C68B000A2DF7 /* zstd_compress.c in Sources */,
 				1B3A1F4C212F0CAB00FEF170 /* CinemaNetShotTypeClassifier_FP16.mlmodel in Sources */,
+				1B9E2B9121C2C7E20049201B /* smoosh_5tasks_softmax.mlmodel in Sources */,
 				1B0306C22087C68B000A2DF7 /* zstd_ldm.c in Sources */,
 				1B0306C62087C68B000A2DF7 /* zstd_opt.c in Sources */,
 				1B0306DB2087C69C000A2DF7 /* zdict.c in Sources */,
 				1B0306AD2087C67A000A2DF7 /* threading.c in Sources */,
 				1B3A1F4A212F0CAB00FEF170 /* CinemaNetShotSubjectClassifier_FP16.mlmodel in Sources */,
+				1B9E2B9721C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */,
 				1B44469D1EE1FD270075575D /* SynopsisDenseFeature.mm in Sources */,
 				1B551E601EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1B73588B1DEF5FE40053BC06 /* DominantColorModule.mm in Sources */,

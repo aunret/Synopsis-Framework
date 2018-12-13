@@ -27,6 +27,7 @@
 // GPU Module
 #import "GPUHistogramModule.h"
 #import "GPUVisionMobileNet.h"
+#import "GPUVisionMobileNetV2.h"
 #import "GPUMPSMobileNet.h"
 #import "Activity CoreML/ActivityModule.h"
 
@@ -109,7 +110,7 @@
         
         self.gpuModuleClasses  = @[
 //                                  NSStringFromClass([GPUHistogramModule class]),
-                                  NSStringFromClass([GPUVisionMobileNet class]),
+                                  NSStringFromClass([GPUVisionMobileNetV2 class]),
                                   NSStringFromClass([ActivityModule class]),
 //                                  [GPUMPSMobileNet className],
                                    ];
