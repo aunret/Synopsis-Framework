@@ -4,6 +4,11 @@ OS X Framework to parse Synopsis metadata, run spotlight searches, and sort resu
 ### Dependencies:
 * OpenCV 3.3 + (included)
 * zstd (included)
+* git lfs
+
+`brew install git-lfs`
+
+`git lfs install`
 
 Optional:
 * Tensorflow 1.2 + (Analysis only).
@@ -22,8 +27,10 @@ To compile the with analyzer source, you need to also compile Tensorflow in a ma
 
 * OpenCV - please follow the instructions on our wiki https://github.com/Synopsis/Synopsis-Framework/wiki/Building-OpenCV-for-Synopsis - and ensure if you code sign you enable other code signing flags --deep.
 
+* OpenCV build is now automatically download via Git LFS. Or follow above instructions if you don't have LFS.
+
 * Tensorflow instructions coming.
 
-Place the compiled OpenCV2.framework into the OpenCV subfolder so the XCode project finds it.
+
 
 
