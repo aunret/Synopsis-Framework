@@ -13,7 +13,7 @@
 
 #define SYNOPSIS_VERSION_MAJOR 0
 #define SYNOPSIS_VERSION_MINOR 0
-#define SYNOPSIS_VERSION_PATCH 4
+#define SYNOPSIS_VERSION_PATCH 5
 
 #define SYNOPSIS_VERSION_NUMBER  ((SYNOPSIS_VERSION_MAJOR * 100 * 100) + (SYNOPSIS_VERSION_MINOR * 100) + SYNOPSIS_VERSION_PATCH)
 #define SYNOPSIS_LIB_VERSION SYNOPSIS_VERSION_MAJOR.SYNOPSIS_VERSION_MINOR.SYNOPSIS_VERSION_PATCH
@@ -38,15 +38,23 @@ extern NSString* const kSynopsisMetadataHFSAttributeVersionKey;
 extern NSUInteger const kSynopsisMetadataHFSAttributeVersionValue;
 extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 
+// The primary key found in both time based (per frame) and summary / global metadata dictionaries
 extern NSString* const kSynopsisStandardMetadataDictKey;
 
-extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;
+// Feature Vector of primary embedding space -
+extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;//
 extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
+
+// An array of scores/probabilities - one per class label or attribute
+extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey;
+extern NSString* const kSynopsisStandardMetadataInterestingProbailitiesAndTimesDictKey;
 
 extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
 extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
 
-extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
+extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
+
+//extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
 extern NSString* const kSynopsisStandardMetadataScoreDictKey;
 extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
 extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
@@ -55,7 +63,6 @@ extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
 extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
 extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
 
-extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
 
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataPerceptualHashDictKey;
 

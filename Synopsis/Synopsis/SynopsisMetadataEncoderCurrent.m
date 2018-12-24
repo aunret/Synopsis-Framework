@@ -6,39 +6,26 @@
 //  Copyright © 2017 v002. All rights reserved.
 //
 
-#import "SynopsisMetadataEncoderVersion2.h"
+#import "SynopsisMetadataEncoderCurrent.h"
 #import "SynopsisMetadataDecoder.h"
 #import <Synopsis/Synopsis.h>
 
 #import "zstd.h"
 
 
-@interface SynopsisMetadataEncoderVersion2 ()
+@interface SynopsisMetadataEncoderCurrent ()
 {
     ZSTD_CCtx* compressionContext;
-    ZSTD_CDict* compressionDict;
 }
 @end
 
-@implementation SynopsisMetadataEncoderVersion2
+@implementation SynopsisMetadataEncoderCurrent
 
 - (instancetype) init
 {
     self = [super init];
     if(self)
     {
-
-        NSURL* pathToCompressionDict = [[NSBundle bundleForClass:[self class]] URLForResource:@"dictionary" withExtension:@"zstddict"];
-        
-        NSData* dictionaryData = [NSData dataWithContentsOfURL:pathToCompressionDict];
-        
-        compressionDict = ZSTD_createCDict(dictionaryData.bytes, dictionaryData.length, 1);
-        
-        if(compressionDict == nil)
-        {
-            return nil;
-        }
-        
         compressionContext = nil;
         
         compressionContext = ZSTD_createCCtx();
@@ -62,12 +49,6 @@
         ZSTD_freeCCtx(compressionContext);
         compressionContext = nil;
     }
-    
-    if(compressionDict != nil)
-    {
-        ZSTD_freeCDict(compressionDict);
-        compressionDict = nil;
-    }
 }
 
 
@@ -81,7 +62,7 @@
     item.duration = timeRange.duration;
     
     NSMutableDictionary* extraAttributes = [NSMutableDictionary dictionaryWithDictionary:item.extraAttributes];
-    extraAttributes[kSynopsisMetadataVersionKey] = @(kSynopsisMetadataVersionAlpha2);
+    extraAttributes[kSynopsisMetadataVersionKey] = @(kSynopsisMetadataVersionValue);
    
     item.extraAttributes = extraAttributes;
     
@@ -99,16 +80,16 @@
 
 - (NSData*) encodeSynopsisMetadataToData:(NSData*)metadata
 {
+    const size_t expectedCompressionSize = ZSTD_compressBound(metadata.length);
+    
+    UInt8* compressionBuffer = malloc(expectedCompressionSize);
 
-    size_t expectedCompressionSize = ZSTD_compressBound(metadata.length);
-    
-    void* compressionBuffer = malloc(expectedCompressionSize);
-    
-    size_t const compressedSize = ZSTD_compress_usingCDict(compressionContext, compressionBuffer, expectedCompressionSize, metadata.bytes, metadata.length, compressionDict);
+    size_t const compressedSize = ZSTD_compressCCtx(compressionContext, compressionBuffer, expectedCompressionSize, metadata.bytes, (size_t) metadata.length, 1);
     
     // Hit error on compression use ZSTD_getErrorName for error reporting eventually.
     if(ZSTD_isError(compressedSize))
     {
+        free(compressionBuffer);
         return nil;
     }
     

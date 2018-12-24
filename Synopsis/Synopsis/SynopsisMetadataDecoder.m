@@ -9,6 +9,7 @@
 #import <Synopsis/Synopsis.h>
 
 #import "SynopsisMetadataDecoder.h"
+#import "SynopsisMetadataDecoderCurrent.h"
 #import "SynopsisMetadataDecoderVersion0.h"
 #import "SynopsisMetadataDecoderVersion2.h"
 #import "SynopsisMetadataDecoderVersion3.h"
@@ -41,11 +42,23 @@
 
 + (Class) decoderForVersion:(NSUInteger)version
 {
-//    if(version <= kSynopsisMetadataVersionAlpha1)
-//        return [SynopsisMetadataDecoderVersion0 class];
-//    
-//    else
-        return [SynopsisMetadataDecoderVersion2 class];
+        if( kSynopsisMetadataVersionValue == version)
+            return [SynopsisMetadataDecoderCurrent class];
+
+        else if( kSynopsisMetadataVersionAlpha3 == version)
+            return [SynopsisMetadataDecoderVersion3 class];
+
+        else if( kSynopsisMetadataVersionAlpha2 == version)
+            return [SynopsisMetadataDecoderVersion2 class];
+
+        else if( kSynopsisMetadataVersionAlpha1 == version)
+            return [SynopsisMetadataDecoderVersion0 class];
+    
+        else if( kSynopsisMetadataVersionPreAlpha == version)
+            return [SynopsisMetadataDecoderVersion0 class];
+
+        else
+            return [SynopsisMetadataDecoderCurrent class];
 }
 
 - (instancetype) initWithVersion:(NSUInteger)version
@@ -78,7 +91,9 @@
     if(metadata == nil)
     {
         // try an different decoder
-        NSArray<Class>* availableDecoderClasses = @[[SynopsisMetadataDecoderVersion3 class],
+        NSArray<Class>* availableDecoderClasses = @[
+                                                    [SynopsisMetadataDecoderCurrent class],
+                                                    [SynopsisMetadataDecoderVersion3 class],
                                                     [SynopsisMetadataDecoderVersion2 class],
                                                     [SynopsisMetadataDecoderVersion0 class],
                                                     ];
