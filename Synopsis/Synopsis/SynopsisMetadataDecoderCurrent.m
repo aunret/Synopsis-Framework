@@ -117,16 +117,29 @@
     NSMutableDictionary* optimizedStandardDictionary = [NSMutableDictionary dictionaryWithDictionary:global[kSynopsisStandardMetadataDictKey]];
     
     // Convert all arrays of NSNumbers into linear RGB NSColors once, and only once
-    NSArray* domColors = [ColorHelper newLinearColorsWithArraysOfRGBComponents:[optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataDominantColorValuesDictKey]];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataDominantColorValuesDictKey] = domColors;
-    
+    NSArray* colors = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
+    if(colors)
+    {
+        NSArray* domColors = [ColorHelper newLinearColorsWithArraysOfRGBComponents:colors];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataDominantColorValuesDictKey] = domColors;
+    }
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
     NSArray* featureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-    
-    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
+    if(featureArray)
+    {
+        SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
+    }
+    // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
+    NSArray* probabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+    if(probabilityArray)
+    {
+        SynopsisDenseFeature* probabilityValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilityArray];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilityValue;
+    }
     
     NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
 
@@ -156,34 +169,39 @@
     // Convert histogram bins to cv::Mat
     NSArray* histogramArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataHistogramDictKey];
     
-    // Make 3 mutable arrays for R/G/B
-    // We then flatten by making planar r followed by planar g, then b to a single dimensional array
-    NSMutableArray* histogramR = [NSMutableArray arrayWithCapacity:256];
-    NSMutableArray* histogramG = [NSMutableArray arrayWithCapacity:256];
-    NSMutableArray* histogramB = [NSMutableArray arrayWithCapacity:256];
-    
-    for(int i = 0; i < 256; i++)
+    if(histogramArray)
     {
-        NSArray<NSNumber *>* rgbHist = histogramArray[i];
+        // Make 3 mutable arrays for R/G/B
+        // We then flatten by making planar r followed by planar g, then b to a single dimensional array
+        NSMutableArray* histogramR = [NSMutableArray arrayWithCapacity:256];
+        NSMutableArray* histogramG = [NSMutableArray arrayWithCapacity:256];
+        NSMutableArray* histogramB = [NSMutableArray arrayWithCapacity:256];
         
-        // Min / Max fixes some NAN errors
-        [histogramR addObject: @( MIN(1.0, MAX(0.0,  rgbHist[0].floatValue)) )];
-        [histogramG addObject: @( MIN(1.0, MAX(0.0,  rgbHist[1].floatValue)) )];
-        [histogramB addObject: @( MIN(1.0, MAX(0.0,  rgbHist[2].floatValue)) )];
+        for(int i = 0; i < 256; i++)
+        {
+            NSArray<NSNumber *>* rgbHist = histogramArray[i];
+            
+            // Min / Max fixes some NAN errors
+            [histogramR addObject: @( MIN(1.0, MAX(0.0,  rgbHist[0].floatValue)) )];
+            [histogramG addObject: @( MIN(1.0, MAX(0.0,  rgbHist[1].floatValue)) )];
+            [histogramB addObject: @( MIN(1.0, MAX(0.0,  rgbHist[2].floatValue)) )];
+        }
+        
+        NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
+        
+        SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     }
-    
-    NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
-    
-    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
     NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
-    
-    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+    if(motionArray)
+    {
+        SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+    }
     
     // replace our standard dictionary with optimized outputs
     NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];
