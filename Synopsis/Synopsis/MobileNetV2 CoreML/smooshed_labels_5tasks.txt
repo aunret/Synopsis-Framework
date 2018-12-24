@@ -1,115 +1,115 @@
-sailing/ boating
-driving
-biking
-transporting things or people
-sunbathing
-vacationing/ touring
-hiking
-climbing
-camping
-reading
-studying/ learning
-teaching/ training
-research
-diving
-swimming
-bathing
-eating
-cleaning
-socializing
-congregating
-waiting in line/ queuing
-competing
-sports
-exercise
-playing
-gaming
-spectating/ being in an audience
-farming
-constructing/ building
-shopping
-medical activity
-working
-using tools
-digging
-conducting business
-praying
-fencing
-railing
-wire
-railroad
-trees
-grass
-vegetation
-shrubbery
-foliage
-leaves
-flowers
-asphalt
-pavement
-shingles
-carpet
-brick
-tiles
-concrete
-metal
-paper
-wood (not part of a tree)
-vinyl/ linoleum
-rubber/ plastic
-cloth
-sand
-rock/stone
-dirt/soil
-marble
-glass
-waves/ surf
-ocean
-running water
-still water
-ice
-snow
-clouds
-smoke
-fire
-natural light
-direct sun/sunny
-electric/indoor lighting
-aged/ worn
-glossy
-matte
-sterile
-moist/ damp
-dry
-dirty
-rusty
-warm
-cold
-natural
-man-made
-open area
-semi-enclosed area
-enclosed area
-far-away horizon
-no horizon
-rugged scene
-mostly vertical components
-mostly horizontal components
-symmetrical
-cluttered space
-scary
-soothing
-stressful
+Sailing/Boating
+Driving
+Biking
+Transporting Things Or People
+Sunbathing
+Vacationing/Touring
+Hiking
+Climbing
+Camping
+Reading
+Studying/Learning
+Teaching/Training
+Research
+Diving
+Swimming
+Bathing
+Eating
+Cleaning
+Socializing
+Congregating
+Waiting In Line/Queuing
+Competing
+Sports
+Exercise
+Playing
+Gaming
+Spectating/Being In An Audience
+Farming
+Constructing/Building
+Shopping
+Medical Activity
+Working
+Using Tools
+Digging
+Conducting Business
+Praying
+Fencing
+Railing
+Wire
+Railroad
+Trees
+Grass
+Vegetation
+Shrubbery
+Foliage
+Leaves
+Flowers
+Asphalt
+Pavement
+Shingles
+Carpet
+Brick
+Tiles
+Concrete
+Metal
+Paper
+Wood (Not Part Of A Tree)
+Vinyl/Linoleum
+Rubber/Plastic
+Cloth
+Sand
+Rock/Stone
+Dirt/Soil
+Marble
+Glass
+Waves/Surf
+Ocean
+Running Water
+Still Water
+Ice
+Snow
+Clouds
+Smoke
+Fire
+Natural Light
+Direct Sun/Sunny
+Electric/Indoor Lighting
+Aged/Worn
+Glossy
+Matte
+Sterile
+Moist/Damp
+Dry
+Dirty
+Rusty
+Warm
+Cold
+Natural
+Man-Made
+Open Area
+Semi-Enclosed Area
+Enclosed Area
+Far-Away Horizon
+No Horizon
+Rugged Scene
+Mostly Vertical Components
+Mostly Horizontal Components
+Symmetrical
+Cluttered Space
+Scary
+Soothing
+Stressful
 Bokeh
 Bright
-Depth_of_Field
+Depth Of Field
 Detailed
 Ethereal
-Geometric_Composition
+Geometric Composition
 Hazy
-HDR
+Hdr
 Horror
-Long_Exposure
+Long Exposure
 Macro
 Melancholy
 Minimal
@@ -120,652 +120,652 @@ Pastel
 Sunny
 Texture
 Vintage
-/a/airfield
-/a/airplane_cabin
-/a/airport_terminal
-/a/alcove
-/a/alley
-/a/amphitheater
-/a/amusement_arcade
-/a/amusement_park
-/a/apartment_building/outdoor
-/a/aquarium
-/a/aqueduct
-/a/arcade
-/a/arch
-/a/archaelogical_excavation
-/a/archive
-/a/arena/hockey
-/a/arena/performance
-/a/arena/rodeo
-/a/army_base
-/a/art_gallery
-/a/art_school
-/a/art_studio
-/a/artists_loft
-/a/assembly_line
-/a/athletic_field/outdoor
-/a/atrium/public
-/a/attic
-/a/auditorium
-/a/auto_factory
-/a/auto_showroom
-/b/badlands
-/b/bakery/shop
-/b/balcony/exterior
-/b/balcony/interior
-/b/ball_pit
-/b/ballroom
-/b/bamboo_forest
-/b/bank_vault
-/b/banquet_hall
-/b/bar
-/b/barn
-/b/barndoor
-/b/baseball_field
-/b/basement
-/b/basketball_court/indoor
-/b/bathroom
-/b/bazaar/indoor
-/b/bazaar/outdoor
-/b/beach
-/b/beach_house
-/b/beauty_salon
-/b/bedchamber
-/b/bedroom
-/b/beer_garden
-/b/beer_hall
-/b/berth
-/b/biology_laboratory
-/b/boardwalk
-/b/boat_deck
-/b/boathouse
-/b/bookstore
-/b/booth/indoor
-/b/botanical_garden
-/b/bow_window/indoor
-/b/bowling_alley
-/b/boxing_ring
-/b/bridge
-/b/building_facade
-/b/bullring
-/b/burial_chamber
-/b/bus_interior
-/b/bus_station/indoor
-/b/butchers_shop
-/b/butte
-/c/cabin/outdoor
-/c/cafeteria
-/c/campsite
-/c/campus
-/c/canal/natural
-/c/canal/urban
-/c/candy_store
-/c/canyon
-/c/car_interior
-/c/carrousel
-/c/castle
-/c/catacomb
-/c/cemetery
-/c/chalet
-/c/chemistry_lab
-/c/childs_room
-/c/church/indoor
-/c/church/outdoor
-/c/classroom
-/c/clean_room
-/c/cliff
-/c/closet
-/c/clothing_store
-/c/coast
-/c/cockpit
-/c/coffee_shop
-/c/computer_room
-/c/conference_center
-/c/conference_room
-/c/construction_site
-/c/corn_field
-/c/corral
-/c/corridor
-/c/cottage
-/c/courthouse
-/c/courtyard
-/c/creek
-/c/crevasse
-/c/crosswalk
-/d/dam
-/d/delicatessen
-/d/department_store
-/d/desert/sand
-/d/desert/vegetation
-/d/desert_road
-/d/diner/outdoor
-/d/dining_hall
-/d/dining_room
-/d/discotheque
-/d/doorway/outdoor
-/d/dorm_room
-/d/downtown
-/d/dressing_room
-/d/driveway
-/d/drugstore
-/e/elevator/door
-/e/elevator_lobby
-/e/elevator_shaft
-/e/embassy
-/e/engine_room
-/e/entrance_hall
-/e/escalator/indoor
-/e/excavation
-/f/fabric_store
-/f/farm
-/f/fastfood_restaurant
-/f/field/cultivated
-/f/field/wild
-/f/field_road
-/f/fire_escape
-/f/fire_station
-/f/fishpond
-/f/flea_market/indoor
-/f/florist_shop/indoor
-/f/food_court
-/f/football_field
-/f/forest/broadleaf
-/f/forest_path
-/f/forest_road
-/f/formal_garden
-/f/fountain
-/g/galley
-/g/garage/indoor
-/g/garage/outdoor
-/g/gas_station
-/g/gazebo/exterior
-/g/general_store/indoor
-/g/general_store/outdoor
-/g/gift_shop
-/g/glacier
-/g/golf_course
-/g/greenhouse/indoor
-/g/greenhouse/outdoor
-/g/grotto
-/g/gymnasium/indoor
-/h/hangar/indoor
-/h/hangar/outdoor
-/h/harbor
-/h/hardware_store
-/h/hayfield
-/h/heliport
-/h/highway
-/h/home_office
-/h/home_theater
-/h/hospital
-/h/hospital_room
-/h/hot_spring
-/h/hotel/outdoor
-/h/hotel_room
-/h/house
-/h/hunting_lodge/outdoor
-/i/ice_cream_parlor
-/i/ice_floe
-/i/ice_shelf
-/i/ice_skating_rink/indoor
-/i/ice_skating_rink/outdoor
-/i/iceberg
-/i/igloo
-/i/industrial_area
-/i/inn/outdoor
-/i/islet
-/j/jacuzzi/indoor
-/j/jail_cell
-/j/japanese_garden
-/j/jewelry_shop
-/j/junkyard
-/k/kasbah
-/k/kennel/outdoor
-/k/kindergarden_classroom
-/k/kitchen
-/l/lagoon
-/l/lake/natural
-/l/landfill
-/l/landing_deck
-/l/laundromat
-/l/lawn
-/l/lecture_room
-/l/legislative_chamber
-/l/library/indoor
-/l/library/outdoor
-/l/lighthouse
-/l/living_room
-/l/loading_dock
-/l/lobby
-/l/lock_chamber
-/l/locker_room
-/m/mansion
-/m/manufactured_home
-/m/market/indoor
-/m/market/outdoor
-/m/marsh
-/m/martial_arts_gym
-/m/mausoleum
-/m/medina
-/m/mezzanine
-/m/moat/water
-/m/mosque/outdoor
-/m/motel
-/m/mountain
-/m/mountain_path
-/m/mountain_snowy
-/m/movie_theater/indoor
-/m/museum/indoor
-/m/museum/outdoor
-/m/music_studio
-/n/natural_history_museum
-/n/nursery
-/n/nursing_home
-/o/oast_house
-/o/ocean
-/o/office
-/o/office_building
-/o/office_cubicles
-/o/oilrig
-/o/operating_room
-/o/orchard
-/o/orchestra_pit
-/p/pagoda
-/p/palace
-/p/pantry
-/p/park
-/p/parking_garage/indoor
-/p/parking_garage/outdoor
-/p/parking_lot
-/p/pasture
-/p/patio
-/p/pavilion
-/p/pet_shop
-/p/pharmacy
-/p/phone_booth
-/p/physics_laboratory
-/p/picnic_area
-/p/pier
-/p/pizzeria
-/p/playground
-/p/playroom
-/p/plaza
-/p/pond
-/p/porch
-/p/promenade
-/p/pub/indoor
-/r/racecourse
-/r/raceway
-/r/raft
-/r/railroad_track
-/r/rainforest
-/r/reception
-/r/recreation_room
-/r/repair_shop
-/r/residential_neighborhood
-/r/restaurant
-/r/restaurant_kitchen
-/r/restaurant_patio
-/r/rice_paddy
-/r/river
-/r/rock_arch
-/r/roof_garden
-/r/rope_bridge
-/r/ruin
-/r/runway
-/s/sandbox
-/s/sauna
-/s/schoolhouse
-/s/science_museum
-/s/server_room
-/s/shed
-/s/shoe_shop
-/s/shopfront
-/s/shopping_mall/indoor
-/s/shower
-/s/ski_resort
-/s/ski_slope
-/s/sky
-/s/skyscraper
-/s/slum
-/s/snowfield
-/s/soccer_field
-/s/stable
-/s/stadium/baseball
-/s/stadium/football
-/s/stadium/soccer
-/s/stage/indoor
-/s/stage/outdoor
-/s/staircase
-/s/storage_room
-/s/street
-/s/subway_station/platform
-/s/supermarket
-/s/sushi_bar
-/s/swamp
-/s/swimming_hole
-/s/swimming_pool/indoor
-/s/swimming_pool/outdoor
-/s/synagogue/outdoor
-/t/television_room
-/t/television_studio
-/t/temple/asia
-/t/throne_room
-/t/ticket_booth
-/t/topiary_garden
-/t/tower
-/t/toyshop
-/t/train_interior
-/t/train_station/platform
-/t/tree_farm
-/t/tree_house
-/t/trench
-/t/tundra
-/u/underwater/ocean_deep
-/u/utility_room
-/v/valley
-/v/vegetable_garden
-/v/veterinarians_office
-/v/viaduct
-/v/village
-/v/vineyard
-/v/volcano
-/v/volleyball_court/outdoor
-/w/waiting_room
-/w/water_park
-/w/water_tower
-/w/waterfall
-/w/watering_hole
-/w/wave
-/w/wet_bar
-/w/wheat_field
-/w/wind_farm
-/w/windmill
-/y/yard
-/y/youth_hostel
-/z/zen_garden
-person
-bicycle
-car
-motorcycle
-airplane
-bus
-train
-truck
-boat
-traffic light
-fire hydrant
-stop sign
-parking meter
-bench
-bird
-cat
-dog
-horse
-sheep
-cow
-elephant
-bear
-zebra
-giraffe
-backpack
-umbrella
-handbag
-tie
-suitcase
-frisbee
-skis
-snowboard
-sports ball
-kite
-baseball bat
-baseball glove
-skateboard
-surfboard
-tennis racket
-bottle
-wine glass
-cup
-fork
-knife
-spoon
-bowl
-banana
-apple
-sandwich
-orange
-broccoli
-carrot
-hot dog
-pizza
-donut
-cake
-chair
-couch
-potted plant
-bed
-dining table
-toilet
-tv
-laptop
-mouse
-remote
-keyboard
-cell phone
-microwave
-oven
-toaster
-sink
-refrigerator
-book
-clock
-vase
-scissors
-teddy bear
-hair drier
-toothbrush
-hiding
-eating
-natural
-traveling
-long
-hanging
-thinking
-holding
-feeding
-talking
-floating
-skiing
-hunting
-listening
-grazing
-skating
-leaning
-stretching
-dirty
-reading
-cooking
-learning
-surfing
-bending
-fishing
-cuddling
-smelling
-smelling / sniffing
-panting
-catching
-riding
-happy
-participating
-racing
-serving
-crouching
-reaching
-landing
-waving
-spectating
-exercising 
-carrying
-snowboarding
-unhappy
-vacationing 
-hungry
-friendly
-sleepy
-lazy
-on 
-alone / lonely
-standing
-sitting
-laying
-walking
-climbing
-waiting
-moving
-watching / looking
-sleeping
-driving
-running
-hiking 
-small
-urban
-busy
-drinking
-smiling
-jumping
-flying
-enjoying
-loving
-open
-closed
-bulky
-healthy
-frisky
-laughing
-celebrating
-angry
-large
-shiny
-thirsty
-comfortable / cozy
-sporty
-fancy
-empty
-furry
-toy
-messy / cluttered
-sneaky
-hairy
-tasty / delicious
-fluffy
-fuzzy
-whole
-full
-off
-appetizing
-following
-scared
-young
-adult
-calm
-cool
-hot
-clean
-wet
-tired
-playful
-peaceful
-useful
-joyful
-dangerous
-metal / metallic
-short
-filling 
-curious
-old
-digital
-electric / electrical
-plain
-trendy
-sad
-bored
-warm
-cold
-excited
-anxious
-annoyed
-confused
-professional
-spotted
-modern
-cute / adorable
-new
-fake
-wild
-fresh
-plastic
-soft
-hard
-athletic
-perched
-male
-female
-curled
-flat
-striped
-commercial
-sleek
-functional
-socializing
-cloth
-fast
-round
-simple 
-unused / inactive
-safe
-covered
-leashed
-compact
-adventurous
-smooth
-rural
-domestic
-dull
-decorative
-antique / vintage
-captive
-strong
-vertical
-horizontal
-solid
-cheap
-casual
-expensive
-wood / wooden
-ceramic
-leather
-public
-shopping
-working
-stuffed
-elegant
-tame
-parked
-cooked
-curved
-serious
-worn
-portable
-competitive
-organized
-saucy
-glazed
-heavy
-crumpled / wrinkled
-thin
-exotic
-family-friendly
-swimming
-dry
-playing
+Airfield
+Airplane Cabin
+Airport Terminal
+Alcove
+Alley
+Amphitheater
+Amusement Arcade
+Amusement Park
+Apartment Building/Outdoor
+Aquarium
+Aqueduct
+Arcade
+Arch
+Archaelogical Excavation
+Archive
+Arena/Hockey
+Arena/Performance
+Arena/Rodeo
+Army Base
+Art Gallery
+Art School
+Art Studio
+Artists Loft
+Assembly Line
+Athletic Field/Outdoor
+Atrium/Public
+Attic
+Auditorium
+Auto Factory
+Auto Showroom
+Badlands
+Bakery/Shop
+Balcony/Exterior
+Balcony/Interior
+Ball Pit
+Ballroom
+Bamboo Forest
+Bank Vault
+Banquet Hall
+Bar
+Barn
+Barndoor
+Baseball Field
+Basement
+Basketball Court/Indoor
+Bathroom
+Bazaar/Indoor
+Bazaar/Outdoor
+Beach
+Beach House
+Beauty Salon
+Bedchamber
+Bedroom
+Beer Garden
+Beer Hall
+Berth
+Biology Laboratory
+Boardwalk
+Boat Deck
+Boathouse
+Bookstore
+Booth/Indoor
+Botanical Garden
+Bow Window/Indoor
+Bowling Alley
+Boxing Ring
+Bridge
+Building Facade
+Bullring
+Burial Chamber
+Bus Interior
+Bus Station/Indoor
+Butchers Shop
+Butte
+Cabin/Outdoor
+Cafeteria
+Campsite
+Campus
+Canal/Natural
+Canal/Urban
+Candy Store
+Canyon
+Car Interior
+Carrousel
+Castle
+Catacomb
+Cemetery
+Chalet
+Chemistry Lab
+Childs Room
+Church/Indoor
+Church/Outdoor
+Classroom
+Clean Room
+Cliff
+Closet
+Clothing Store
+Coast
+Cockpit
+Coffee Shop
+Computer Room
+Conference Center
+Conference Room
+Construction Site
+Corn Field
+Corral
+Corridor
+Cottage
+Courthouse
+Courtyard
+Creek
+Crevasse
+Crosswalk
+Dam
+Delicatessen
+Department Store
+Desert/Sand
+Desert/Vegetation
+Desert Road
+Diner/Outdoor
+Dining Hall
+Dining Room
+Discotheque
+Doorway/Outdoor
+Dorm Room
+Downtown
+Dressing Room
+Driveway
+Drugstore
+Elevator/Door
+Elevator Lobby
+Elevator Shaft
+Embassy
+Engine Room
+Entrance Hall
+Escalator/Indoor
+Excavation
+Fabric Store
+Farm
+Fastfood Restaurant
+Field/Cultivated
+Field/Wild
+Field Road
+Fire Escape
+Fire Station
+Fishpond
+Flea Market/Indoor
+Florist Shop/Indoor
+Food Court
+Football Field
+Forest/Broadleaf
+Forest Path
+Forest Road
+Formal Garden
+Fountain
+Galley
+Garage/Indoor
+Garage/Outdoor
+Gas Station
+Gazebo/Exterior
+General Store/Indoor
+General Store/Outdoor
+Gift Shop
+Glacier
+Golf Course
+Greenhouse/Indoor
+Greenhouse/Outdoor
+Grotto
+Gymnasium/Indoor
+Hangar/Indoor
+Hangar/Outdoor
+Harbor
+Hardware Store
+Hayfield
+Heliport
+Highway
+Home Office
+Home Theater
+Hospital
+Hospital Room
+Hot Spring
+Hotel/Outdoor
+Hotel Room
+House
+Hunting Lodge/Outdoor
+Ice Cream Parlor
+Ice Floe
+Ice Shelf
+Ice Skating Rink/Indoor
+Ice Skating Rink/Outdoor
+Iceberg
+Igloo
+Industrial Area
+Inn/Outdoor
+Islet
+Jacuzzi/Indoor
+Jail Cell
+Japanese Garden
+Jewelry Shop
+Junkyard
+Kasbah
+Kennel/Outdoor
+Kindergarden Classroom
+Kitchen
+Lagoon
+Lake/Natural
+Landfill
+Landing Deck
+Laundromat
+Lawn
+Lecture Room
+Legislative Chamber
+Library/Indoor
+Library/Outdoor
+Lighthouse
+Living Room
+Loading Dock
+Lobby
+Lock Chamber
+Locker Room
+Mansion
+Manufactured Home
+Market/Indoor
+Market/Outdoor
+Marsh
+Martial Arts Gym
+Mausoleum
+Medina
+Mezzanine
+Moat/Water
+Mosque/Outdoor
+Motel
+Mountain
+Mountain Path
+Mountain Snowy
+Movie Theater/Indoor
+Museum/Indoor
+Museum/Outdoor
+Music Studio
+Natural History Museum
+Nursery
+Nursing Home
+Oast House
+Ocean
+Office
+Office Building
+Office Cubicles
+Oilrig
+Operating Room
+Orchard
+Orchestra Pit
+Pagoda
+Palace
+Pantry
+Park
+Parking Garage/Indoor
+Parking Garage/Outdoor
+Parking Lot
+Pasture
+Patio
+Pavilion
+Pet Shop
+Pharmacy
+Phone Booth
+Physics Laboratory
+Picnic Area
+Pier
+Pizzeria
+Playground
+Playroom
+Plaza
+Pond
+Porch
+Promenade
+Pub/Indoor
+Racecourse
+Raceway
+Raft
+Railroad Track
+Rainforest
+Reception
+Recreation Room
+Repair Shop
+Residential Neighborhood
+Restaurant
+Restaurant Kitchen
+Restaurant Patio
+Rice Paddy
+River
+Rock Arch
+Roof Garden
+Rope Bridge
+Ruin
+Runway
+Sandbox
+Sauna
+Schoolhouse
+Science Museum
+Server Room
+Shed
+Shoe Shop
+Shopfront
+Shopping Mall/Indoor
+Shower
+Ski Resort
+Ski Slope
+Sky
+Skyscraper
+Slum
+Snowfield
+Soccer Field
+Stable
+Stadium/Baseball
+Stadium/Football
+Stadium/Soccer
+Stage/Indoor
+Stage/Outdoor
+Staircase
+Storage Room
+Street
+Subway Station/Platform
+Supermarket
+Sushi Bar
+Swamp
+Swimming Hole
+Swimming Pool/Indoor
+Swimming Pool/Outdoor
+Synagogue/Outdoor
+Television Room
+Television Studio
+Temple/Asia
+Throne Room
+Ticket Booth
+Topiary Garden
+Tower
+Toyshop
+Train Interior
+Train Station/Platform
+Tree Farm
+Tree House
+Trench
+Tundra
+Underwater/Ocean Deep
+Utility Room
+Valley
+Vegetable Garden
+Veterinarians Office
+Viaduct
+Village
+Vineyard
+Volcano
+Volleyball Court/Outdoor
+Waiting Room
+Water Park
+Water Tower
+Waterfall
+Watering Hole
+Wave
+Wet Bar
+Wheat Field
+Wind Farm
+Windmill
+Yard
+Youth Hostel
+Zen Garden
+Person
+Bicycle
+Car
+Motorcycle
+Airplane
+Bus
+Train
+Truck
+Boat
+Traffic Light
+Fire Hydrant
+Stop Sign
+Parking Meter
+Bench
+Bird
+Cat
+Dog
+Horse
+Sheep
+Cow
+Elephant
+Bear
+Zebra
+Giraffe
+Backpack
+Umbrella
+Handbag
+Tie
+Suitcase
+Frisbee
+Skis
+Snowboard
+Sports Ball
+Kite
+Baseball Bat
+Baseball Glove
+Skateboard
+Surfboard
+Tennis Racket
+Bottle
+Wine Glass
+Cup
+Fork
+Knife
+Spoon
+Bowl
+Banana
+Apple
+Sandwich
+Orange
+Broccoli
+Carrot
+Hot Dog
+Pizza
+Donut
+Cake
+Chair
+Couch
+Potted Plant
+Bed
+Dining Table
+Toilet
+Tv
+Laptop
+Mouse
+Remote
+Keyboard
+Cell Phone
+Microwave
+Oven
+Toaster
+Sink
+Refrigerator
+Book
+Clock
+Vase
+Scissors
+Teddy Bear
+Hair Drier
+Toothbrush
+Hiding
+Eating
+Natural
+Traveling
+Long
+Hanging
+Thinking
+Holding
+Feeding
+Talking
+Floating
+Skiing
+Hunting
+Listening
+Grazing
+Skating
+Leaning
+Stretching
+Dirty
+Reading
+Cooking
+Learning
+Surfing
+Bending
+Fishing
+Cuddling
+Smelling
+Smelling/Sniffing
+Panting
+Catching
+Riding
+Happy
+Participating
+Racing
+Serving
+Crouching
+Reaching
+Landing
+Waving
+Spectating
+Exercising 
+Carrying
+Snowboarding
+Unhappy
+Vacationing 
+Hungry
+Friendly
+Sleepy
+Lazy
+On 
+Alone/Lonely
+Standing
+Sitting
+Laying
+Walking
+Climbing
+Waiting
+Moving
+Watching/Looking
+Sleeping
+Driving
+Running
+Hiking 
+Small
+Urban
+Busy
+Drinking
+Smiling
+Jumping
+Flying
+Enjoying
+Loving
+Open
+Closed
+Bulky
+Healthy
+Frisky
+Laughing
+Celebrating
+Angry
+Large
+Shiny
+Thirsty
+Comfortable/Cozy
+Sporty
+Fancy
+Empty
+Furry
+Toy
+Messy/Cluttered
+Sneaky
+Hairy
+Tasty/Delicious
+Fluffy
+Fuzzy
+Whole
+Full
+Off
+Appetizing
+Following
+Scared
+Young
+Adult
+Calm
+Cool
+Hot
+Clean
+Wet
+Tired
+Playful
+Peaceful
+Useful
+Joyful
+Dangerous
+Metal/Metallic
+Short
+Filling 
+Curious
+Old
+Digital
+Electric/Electrical
+Plain
+Trendy
+Sad
+Bored
+Warm
+Cold
+Excited
+Anxious
+Annoyed
+Confused
+Professional
+Spotted
+Modern
+Cute/Adorable
+New
+Fake
+Wild
+Fresh
+Plastic
+Soft
+Hard
+Athletic
+Perched
+Male
+Female
+Curled
+Flat
+Striped
+Commercial
+Sleek
+Functional
+Socializing
+Cloth
+Fast
+Round
+Simple 
+Unused/Inactive
+Safe
+Covered
+Leashed
+Compact
+Adventurous
+Smooth
+Rural
+Domestic
+Dull
+Decorative
+Antique/Vintage
+Captive
+Strong
+Vertical
+Horizontal
+Solid
+Cheap
+Casual
+Expensive
+Wood/Wooden
+Ceramic
+Leather
+Public
+Shopping
+Working
+Stuffed
+Elegant
+Tame
+Parked
+Cooked
+Curved
+Serious
+Worn
+Portable
+Competitive
+Organized
+Saucy
+Glazed
+Heavy
+Crumpled/Wrinkled
+Thin
+Exotic
+Family-Friendly
+Swimming
+Dry
+Playing
