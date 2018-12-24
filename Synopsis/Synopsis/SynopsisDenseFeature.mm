@@ -67,7 +67,7 @@
     return self;
 }
 
-+ (instancetype) denseFeatureByCombiningFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
++ (instancetype) denseFeatureByAppendingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 {
     cv::Mat newMat;
     [feature cvMatValue].copyTo(newMat);
@@ -77,6 +77,18 @@
     
     return newfeature;
 }
+
++ (instancetype) denseFeatureByAveragingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2
+{
+    cv::Mat newMat;
+    
+    cv::add([feature cvMatValue], [feature2 cvMatValue], newMat);
+    
+    newMat *= 0.5;
+    
+    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat];
+}
+
 
 - (NSUInteger) featureCount
 {
