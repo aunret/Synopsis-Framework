@@ -247,7 +247,8 @@ static NSUInteger featureVectorCount = 1280;
             }
             else
             {
-                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageProbabilities withFeature:denseAllProbabilities];
+                // We max on probabilites because math
+                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseAllProbabilities];
             }
                         
             
@@ -271,29 +272,35 @@ static NSUInteger featureVectorCount = 1280;
             
             NSArray* sceneLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:scene_attrs_prob_NSNumber forKeys:self.sceneAttributeLabels]
                                             withThreshhold:0.0
-                                             maxLabelCount:3];
+                                             maxLabelCount:5];
             
             NSArray* styleLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:style_atrs_prob_NSNumber forKeys:self.styleAttributeLabels]
                                             withThreshhold:0.0
-                                             maxLabelCount:3];
+                                             maxLabelCount:5];
 
             NSArray* placesLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:places_prob_NSNumber forKeys:self.placesLabels]
                                             withThreshhold:0.0
-                                             maxLabelCount:3];
+                                             maxLabelCount:5];
 
             NSArray* objLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:objects_prob_NSNumber forKeys:self.objectsLabels]
                                              withThreshhold:0.0
-                                              maxLabelCount:3];
+                                              maxLabelCount:5];
             
             NSArray* objAttrLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:objects_attrs_prob_NSNumber forKeys:self.objectAttributeLabels]
                                           withThreshhold:0.0
-                                           maxLabelCount:3];
+                                           maxLabelCount:5];
 
-            NSArray* labels = [[[[sceneLabels arrayByAddingObjectsFromArray:styleLabels]
-                                 arrayByAddingObjectsFromArray:placesLabels]
-                                arrayByAddingObjectsFromArray:objLabels]
-                               arrayByAddingObjectsFromArray:objAttrLabels];
-
+            NSMutableArray* labels = [NSMutableArray arrayWithObject:@"Scene:"];
+            [labels addObjectsFromArray:sceneLabels];
+            [labels addObject:@"Style:"];
+            [labels addObjectsFromArray:styleLabels];
+            [labels addObject:@"Places:"];
+            [labels addObjectsFromArray:placesLabels];
+            [labels addObject:@"Objects:"];
+            [labels addObjectsFromArray:objLabels];
+            [labels addObject:@"Attributes:"];
+            [labels addObjectsFromArray:objAttrLabels];
+            
             metadata = [NSMutableDictionary dictionary];
             metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = featureVec_NSNumber;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = allProbabilities_NSNumber;
@@ -347,28 +354,34 @@ static NSUInteger featureVectorCount = 1280;
     
     NSArray* sceneLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:prob_sceneAttributeLabels forKeys:self.sceneAttributeLabels]
                                     withThreshhold:0.0
-                                     maxLabelCount:3];
+                                     maxLabelCount:5];
     
     NSArray* styleLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:prob_styleAttributeLabels forKeys:self.styleAttributeLabels]
                                     withThreshhold:0.0
-                                     maxLabelCount:3];
+                                     maxLabelCount:5];
     
     NSArray* placesLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:prob_placesLabels forKeys:self.placesLabels]
                                      withThreshhold:0.0
-                                      maxLabelCount:3];
+                                      maxLabelCount:5];
     
     NSArray* objLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:prob_objectsLabels forKeys:self.objectsLabels]
                                   withThreshhold:0.0
-                                   maxLabelCount:3];
+                                   maxLabelCount:5];
     
     NSArray* objAttrLabels = [self topLabelForScores:[NSDictionary dictionaryWithObjects:prob_objectAttributeLabels forKeys:self.objectAttributeLabels]
                                       withThreshhold:0.0
-                                       maxLabelCount:3];
+                                       maxLabelCount:5];
     
-    NSArray* labels = [[[[sceneLabels arrayByAddingObjectsFromArray:styleLabels]
-                         arrayByAddingObjectsFromArray:placesLabels]
-                        arrayByAddingObjectsFromArray:objLabels]
-                       arrayByAddingObjectsFromArray:objAttrLabels];
+    NSMutableArray* labels = [NSMutableArray arrayWithObject:@"Scene:"];
+    [labels addObjectsFromArray:sceneLabels];
+    [labels addObject:@"Style:"];
+    [labels addObjectsFromArray:styleLabels];
+    [labels addObject:@"Places:"];
+    [labels addObjectsFromArray:placesLabels];
+    [labels addObject:@"Objects:"];
+    [labels addObjectsFromArray:objLabels];
+    [labels addObject:@"Attributes:"];
+    [labels addObjectsFromArray:objAttrLabels];
 
     return @{
              kSynopsisStandardMetadataFeatureVectorDictKey : (self.averageFeatureVec) ? self.averageFeatureVec.arrayValue : @[ ],
@@ -393,7 +406,7 @@ static NSUInteger featureVectorCount = 1280;
     }] ;
     
         //    NSString* topFrameLabel = nil;
-    NSMutableArray* top3 = [NSMutableArray array];
+    NSMutableArray* top = [NSMutableArray array];
         // Modulate percentage based off of number of possible categories?
     [sortedScores enumerateObjectsUsingBlock:^(NSNumber*  _Nonnull score, NSUInteger idx, BOOL * _Nonnull stop) {
         if(idx >= (maxLabels - 1) )
@@ -402,12 +415,14 @@ static NSUInteger featureVectorCount = 1280;
         if(score.floatValue >= (thresh / scores.allKeys.count))
         {
             NSString* scoreLabel = [[scores allKeysForObject:score] firstObject];
-            [top3 addObject:scoreLabel];
+            [top addObject:scoreLabel];
         }
     }];
     
     
-    return top3;
+    top = [top sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+
+    return top;
 }
 
 @end
