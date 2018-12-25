@@ -89,6 +89,14 @@
     return [[SynopsisDenseFeature alloc] initWithCVMat:newMat];
 }
 
++ (instancetype) denseFeatureByMaximizingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2
+{
+    cv::Mat newMat;
+    
+    cv::max([feature cvMatValue], [feature2 cvMatValue], newMat);
+    
+    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat];
+}
 
 - (NSUInteger) featureCount
 {
