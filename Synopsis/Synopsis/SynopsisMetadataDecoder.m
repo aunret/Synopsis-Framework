@@ -26,8 +26,7 @@
 {
     NSMutableDictionary* extraAttributes = [NSMutableDictionary dictionaryWithDictionary:metadataItem.extraAttributes];
     
-    // Versions later versions may not have had extra attributes, so we default to 0 (beta)
-    NSUInteger version = 0;
+    NSUInteger version = kSynopsisMetadataVersionValue;
 
     if(extraAttributes[AVMetadataExtraAttributeInfoKey])
     {

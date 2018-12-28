@@ -61,11 +61,10 @@
     item.time = timeRange.start;
     item.duration = timeRange.duration;
     
-    NSMutableDictionary* extraAttributes = [NSMutableDictionary dictionaryWithDictionary:item.extraAttributes];
-    extraAttributes[kSynopsisMetadataVersionKey] = @(kSynopsisMetadataVersionValue);
-   
+    NSMutableDictionary<AVMetadataExtraAttributeKey, id> * extraAttributes = [NSMutableDictionary dictionaryWithDictionary:item.extraAttributes];
+    extraAttributes[AVMetadataExtraAttributeInfoKey] = @{ kSynopsisMetadataVersionKey : @(kSynopsisMetadataVersionValue) };
     item.extraAttributes = extraAttributes;
-    
+        
     return item;
 }
 

@@ -159,7 +159,7 @@
 		1B6D66A421D0AAC8000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B6D66A521D0AACD000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B6D66A621D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B6D66A721D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; };
+		1B6D66A721D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B6EDC531F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EDC521F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m */; };
 		1B6EDC551F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EDC521F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m */; };
 		1B6EDC561F7ADBDE003D3936 /* SynopsisDirectoryWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6EDC511F7ADBC8003D3936 /* SynopsisDirectoryWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2155,6 +2155,7 @@
 		1B4446B01EE1FD5D0075575D /* Color+linearRGBColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "Color+linearRGBColor.mm"; sourceTree = "<group>"; };
 		1B4446B81EE1FE4A0075575D /* Synopsis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Synopsis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B4446DC1EE1FFFC0075575D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B46913B21D15181001D0786 /* smoosh_5tasks_w_labels_softmax_v2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smoosh_5tasks_w_labels_softmax_v2.mlmodel; sourceTree = "<group>"; };
 		1B4DC18C1FC8CF1000BF10C8 /* libtensorflow_framework.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtensorflow_framework.so; sourceTree = "<group>"; };
 		1B4DC18E1FC8D93F00BF10C8 /* libpython.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpython.tbd; path = usr/lib/libpython.tbd; sourceTree = SDKROOT; };
 		1B4E6B4D208E674B00C078A8 /* SynopsisSlidingWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisSlidingWindow.h; sourceTree = "<group>"; };
@@ -5840,6 +5841,7 @@
 				1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */,
 				1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */,
 				1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */,
+				1B46913B21D15181001D0786 /* smoosh_5tasks_w_labels_softmax_v2.mlmodel */,
 			);
 			path = "MobileNetV2 CoreML";
 			sourceTree = "<group>";
