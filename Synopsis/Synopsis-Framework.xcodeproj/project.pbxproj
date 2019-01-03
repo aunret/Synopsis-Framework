@@ -155,11 +155,11 @@
 		1B6D669E21D0A731000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6D669A21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.m */; };
 		1B6D669F21D0A732000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6D669A21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.m */; };
 		1B6D66A021D0A733000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6D669A21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.m */; };
-		1B6D66A121D0AAB6000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B6D66A421D0AAC8000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B6D66A521D0AACD000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B6D66A621D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B6D66A721D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1B6D66A121D0AAB6000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */; };
+		1B6D66A421D0AAC8000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */; };
+		1B6D66A521D0AACD000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; };
+		1B6D66A621D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; };
+		1B6D66A721D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */; };
 		1B6EDC531F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EDC521F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m */; };
 		1B6EDC551F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B6EDC521F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m */; };
 		1B6EDC561F7ADBDE003D3936 /* SynopsisDirectoryWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B6EDC511F7ADBC8003D3936 /* SynopsisDirectoryWatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
