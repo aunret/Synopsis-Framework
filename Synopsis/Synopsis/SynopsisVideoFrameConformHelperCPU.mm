@@ -95,7 +95,7 @@
         
         if(completionBlock)
         {
-            completionBlock(nil, cache, nil);
+            completionBlock(false, nil, cache, nil);
             dispatch_semaphore_signal(self.inFlightBuffers);
         }
     }];

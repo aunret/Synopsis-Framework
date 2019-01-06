@@ -107,7 +107,7 @@
                 
                 [cache cacheFrame:result];
                 
-                completionBlock(commandBuffer, cache, nil);
+                completionBlock(false, commandBuffer, cache, nil);
                 
                 // We always have to release our pixel buffer
                 CVPixelBufferRelease(pixelBuffer);

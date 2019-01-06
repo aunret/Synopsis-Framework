@@ -13,6 +13,8 @@
 #import "SynopsisVideoFrameCVPixelBuffer.h"
 
 @interface SynopsisVideoFrameConformSession ()
+@property (readwrite, atomic, assign) NSUInteger frameSkipCount;
+@property (readwrite, atomic, assign) NSUInteger frameSkipStride;
 @property (readwrite, strong) SynopsisVideoFrameConformHelperCPU* conformCPUHelper;
 @property (readwrite, strong) SynopsisVideoFrameConformHelperGPU* conformGPUHelper;
 
@@ -30,11 +32,13 @@
 
 @implementation SynopsisVideoFrameConformSession
 
-- (instancetype) initWithRequiredFormatSpecifiers:(NSArray<SynopsisVideoFormatSpecifier*>*)formatSpecifiers device:(id<MTLDevice>)device inFlightBuffers:(NSUInteger)bufferCount
+- (instancetype) initWithRequiredFormatSpecifiers:(NSArray<SynopsisVideoFormatSpecifier*>*)formatSpecifiers device:(id<MTLDevice>)device inFlightBuffers:(NSUInteger)bufferCount frameSkipStride:(NSInteger)frameSkipStride
 {
     self = [super init];
     if(self)
     {
+        self.frameSkipCount = 0;
+        self.frameSkipStride = frameSkipStride;
         self.device = device;
         self.commandQueue = [self.device newCommandQueue];
         self.inFlightBuffers = dispatch_semaphore_create(bufferCount);
@@ -74,9 +78,30 @@
     return self;
 }
 
+- (void) resetConformSession
+{
+    self.frameSkipCount = 0;
+}
+
 - (void) conformPixelBuffer:(CVPixelBufferRef)pixelBuffer atTime:(CMTime)time withTransform:(CGAffineTransform)transform rect:(CGRect)rect               
  completionBlock:(SynopsisVideoFrameConformSessionCompletionBlock)completionBlock
-{    
+{
+    
+    // Early bail on frame skip
+    if(self.frameSkipCount % self.frameSkipStride)
+    {
+        if(completionBlock)
+        {
+            completionBlock(true, nil, nil, nil);
+        }
+
+        self.frameSkipCount = 0;
+        
+        return;
+    }
+    
+    self.frameSkipCount++;
+    
     // Because we have 2 different completion blocks we must coalesce into one, we use
     // dispatch notify to tell us when we are actually done.
     
@@ -113,7 +138,7 @@
 
         if(completionBlock)
         {
-            completionBlock(commandBuffer, allFormatCache, nil);
+            completionBlock(false, commandBuffer, allFormatCache, nil);
         }
 
         [commandBuffer commit];
@@ -131,7 +156,7 @@
                                     withTransform:transform
                                              rect:rect
                                     commandBuffer:commandBuffer
-                                  completionBlock:^(id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache * gpuCache, NSError *err) {
+                                  completionBlock:^(BOOL didSkipFrame, id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache * gpuCache, NSError *err) {
                                       
                                       for(SynopsisVideoFormatSpecifier* format in localMPSFormats)
                                       {
@@ -155,7 +180,7 @@
                                         toFormats:localOpenCVFormats
                                     withTransform:transform
                                              rect:rect
-                                  completionBlock:^(id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache * cpuCache, NSError *err) {
+                                  completionBlock:^(BOOL didSkipFrame, id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache * cpuCache, NSError *err) {
 
                                       for(SynopsisVideoFormatSpecifier* format in localOpenCVFormats)
                                       {
