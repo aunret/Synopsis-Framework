@@ -11,6 +11,7 @@
 #import "GPUVisionMobileNetV2.h"
 
 #import "smoosh_5tasks_softmax_no_labels_subtasks.h"
+#import "smoosh_5tasks_w_labels_softmax_v2.h"
 
 #import "SynopsisVideoFrameMPImage.h"
 #import "SynopsisVideoFrameCVPixelBuffer.h"
@@ -30,7 +31,6 @@
 
 @property (readwrite, strong) smoosh_5tasks_softmax_no_labels_subtasks* smooshNetCoreMLModel;
 
-//@property (readwrite, strong) NSMutableArray<NSNumber*>* averageFeatureVec;
 @property (readwrite, strong) SynopsisDenseFeature* averageFeatureVec;
 @property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* featureVectorWindowAverages;
 @property (readwrite, strong) NSMutableArray<NSValue*>* featureVectorWindowAveragesTimes;
@@ -52,7 +52,6 @@
 
 @implementation GPUVisionMobileNetV2
 
-
 static NSUInteger sceneCount = 102;
 static NSUInteger styleCount = 20;
 static NSUInteger placesCount = 365;
@@ -60,7 +59,7 @@ static NSUInteger objectCount = 80;
 static NSUInteger objectAttributeCount = 204;
 static NSUInteger featureVectorCount = 1280;
 
-    // GPU backed modules init with an options dict for Metal Device bullshit
+// GPU backed modules init with an options dict for Metal Device bullshit
 - (instancetype) initWithQualityHint:(SynopsisAnalysisQualityHint)qualityHint device:(id<MTLDevice>)device
 {
     self = [super initWithQualityHint:qualityHint device:device];
@@ -74,6 +73,7 @@ static NSUInteger featureVectorCount = 1280;
         NSDictionary* opt = @{ kCIContextWorkingColorSpace : (__bridge id)linear,
                                kCIContextOutputColorSpace : (__bridge id)linear,
                                };
+        
         self.context = [CIContext contextWithMTLDevice:device options:opt];
         
         NSError* error = nil;
@@ -419,10 +419,7 @@ static NSUInteger featureVectorCount = 1280;
         }
     }];
     
-    
-    top = [top sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-
-    return top;
+    return  [top sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];;
 }
 
 @end
