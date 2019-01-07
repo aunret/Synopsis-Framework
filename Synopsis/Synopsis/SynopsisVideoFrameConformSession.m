@@ -86,7 +86,6 @@
 - (void) conformPixelBuffer:(CVPixelBufferRef)pixelBuffer atTime:(CMTime)time withTransform:(CGAffineTransform)transform rect:(CGRect)rect               
  completionBlock:(SynopsisVideoFrameConformSessionCompletionBlock)completionBlock
 {
-    
     // Early bail on frame skip
     if(self.frameSkipCount % self.frameSkipStride)
     {
@@ -95,13 +94,15 @@
             completionBlock(true, nil, nil, nil);
         }
 
-        self.frameSkipCount = 0;
+        self.frameSkipCount = (self.frameSkipCount >= self.frameSkipStride) ? 0 : self.frameSkipCount;
         
         return;
     }
-    
+
+    NSLog(@"Conform");
+
     self.frameSkipCount++;
-    
+
     // Because we have 2 different completion blocks we must coalesce into one, we use
     // dispatch notify to tell us when we are actually done.
     
