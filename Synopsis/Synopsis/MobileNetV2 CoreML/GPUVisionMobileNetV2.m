@@ -11,7 +11,7 @@
 #import "GPUVisionMobileNetV2.h"
 
 #import "smoosh_5tasks_softmax_no_labels_subtasks.h"
-#import "smoosh_5tasks_w_labels_softmax_v2.h"
+//#import "smoosh_5tasks_w_labels_softmax_v2.h"
 
 #import "SynopsisVideoFrameMPImage.h"
 #import "SynopsisVideoFrameCVPixelBuffer.h"
