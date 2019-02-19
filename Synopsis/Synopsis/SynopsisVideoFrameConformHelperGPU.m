@@ -28,7 +28,7 @@
 @end
 
 @implementation SynopsisVideoFrameConformHelperGPU
-- (instancetype) initWithCommandQueue:(id<MTLCommandQueue>)queue inFlightBuffers:(NSUInteger)bufferCount;
+- (instancetype) initWithCommandQueue:(id<MTLCommandQueue>)queue;
 
 {
     self = [super init];

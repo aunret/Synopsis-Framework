@@ -23,13 +23,12 @@
     CVPixelBufferPoolRef scaledPixelBufferPool;
     vImageConverterRef toLinearConverter;
 }
-@property (readwrite, strong) NSOperationQueue* conformQueue;
-@property (readwrite, strong) dispatch_semaphore_t inFlightBuffers;
+//@property (readwrite, strong) NSOperationQueue* conformQueue;
 @end
 
 @implementation SynopsisVideoFrameConformHelperCPU
 
-- (id) initWithFlightBuffers:(NSUInteger)bufferCount
+- (id) init
 {
     self = [super init];
     if(self)
@@ -38,10 +37,9 @@
         scaledPixelBufferPool = NULL;
         toLinearConverter = NULL;
         
-        self.conformQueue = [[NSOperationQueue alloc] init];
-        self.conformQueue.maxConcurrentOperationCount = 1;
-        self.conformQueue.qualityOfService = NSQualityOfServiceUserInitiated;
-        self.inFlightBuffers = dispatch_semaphore_create(bufferCount);
+//        self.conformQueue = [[NSOperationQueue alloc] init];
+//        self.conformQueue.maxConcurrentOperationCount = 1;
+//        self.conformQueue.qualityOfService = NSQualityOfServiceUserInitiated;
     }
     
     return self;
@@ -75,9 +73,8 @@
             completionBlock:(SynopsisVideoFrameConformSessionCompletionBlock)completionBlock;
 {
     
-    dispatch_semaphore_wait(self.inFlightBuffers, DISPATCH_TIME_FOREVER);
 
-    NSBlockOperation* conformOperation = [NSBlockOperation blockOperationWithBlock:^{
+//    NSBlockOperation* conformOperation = [NSBlockOperation blockOperationWithBlock:^{
     
         CVPixelBufferRef pixelBuffer = [self createPixelBuffer:buffer withTransform:transform withRect:rect];
         
@@ -96,11 +93,10 @@
         if(completionBlock)
         {
             completionBlock(false, nil, cache, nil);
-            dispatch_semaphore_signal(self.inFlightBuffers);
         }
-    }];
+//    }];
     
-    [self.conformQueue addOperations:@[conformOperation] waitUntilFinished:NO];
+//    [self.conformQueue addOperations:@[conformOperation] waitUntilFinished:NO];
 }
 
 #pragma mark - OpenCV Format Conversion

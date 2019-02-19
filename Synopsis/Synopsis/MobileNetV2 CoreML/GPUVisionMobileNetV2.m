@@ -310,7 +310,6 @@ static NSUInteger featureVectorCount = 1280;
             {
                 completionBlock(metadata, nil);
             }
-         
         }
     }];
     

@@ -14,7 +14,7 @@
 
 @property (readonly, strong) NSOperationQueue* conformQueue;
 
-- (id) initWithFlightBuffers:(NSUInteger)bufferCount;
+//- (id) init;
 
 - (void) conformPixelBuffer:(CVPixelBufferRef)pixelbuffer
                      atTime:(CMTime)time

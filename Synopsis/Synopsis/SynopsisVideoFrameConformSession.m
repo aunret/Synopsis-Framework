@@ -43,8 +43,8 @@
         self.commandQueue = [self.device newCommandQueue];
         self.inFlightBuffers = dispatch_semaphore_create(bufferCount);
 
-        self.conformCPUHelper = [[SynopsisVideoFrameConformHelperCPU alloc] initWithFlightBuffers:bufferCount];
-        self.conformGPUHelper = [[SynopsisVideoFrameConformHelperGPU alloc] initWithCommandQueue:self.commandQueue inFlightBuffers:bufferCount];
+        self.conformCPUHelper = [[SynopsisVideoFrameConformHelperCPU alloc] init];
+        self.conformGPUHelper = [[SynopsisVideoFrameConformHelperGPU alloc] initWithCommandQueue:self.commandQueue];
 
         self.serialCompletionQueue = dispatch_queue_create("info.synopsis.formatConversion", DISPATCH_QUEUE_SERIAL);
         
@@ -80,6 +80,11 @@
 
 - (void) resetConformSession
 {
+    while ( dispatch_semaphore_signal(self.inFlightBuffers) )
+    {
+        continue;
+    }
+    
     self.frameSkipCount = 0;
 }
 
@@ -94,8 +99,8 @@
             completionBlock(true, nil, nil, nil);
         }
 
-        self.frameSkipCount = (self.frameSkipCount >= self.frameSkipStride) ? 0 : self.frameSkipCount;
-        
+        self.frameSkipCount = 0;
+
         return;
     }
 
