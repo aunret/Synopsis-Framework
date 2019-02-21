@@ -43,8 +43,6 @@
                                kCIContextOutputColorSpace : (id) CFBridgingRelease(linear),
                                };
         self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device options:opt];
-
-        CGColorSpaceRelease(linear);
     }
     
     return self;
