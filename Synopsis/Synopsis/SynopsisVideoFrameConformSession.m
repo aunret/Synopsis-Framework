@@ -92,21 +92,30 @@
  completionBlock:(SynopsisVideoFrameConformSessionCompletionBlock)completionBlock
 {
     // Early bail on frame skip
-    if(self.frameSkipCount % self.frameSkipStride)
-    {
-        if(completionBlock)
-        {
-            completionBlock(true, nil, nil, nil);
-        }
-
+    if(self.frameSkipCount >= self.frameSkipStride)
         self.frameSkipCount = 0;
 
+    if( (self.frameSkipCount != 0) &&
+        self.frameSkipCount < self.frameSkipStride )
+    {
+        self.frameSkipCount++;
+
+        NSLog(@"Skip");
+        
+        dispatch_async(self.serialCompletionQueue, ^{
+            if(completionBlock)
+            {
+                completionBlock(true, nil, nil, nil);
+            }
+        });
+        
+        
         return;
     }
 
     NSLog(@"Conform");
-
     self.frameSkipCount++;
+
 
     // Because we have 2 different completion blocks we must coalesce into one, we use
     // dispatch notify to tell us when we are actually done.
