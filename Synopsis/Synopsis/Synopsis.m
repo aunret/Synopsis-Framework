@@ -40,8 +40,7 @@ NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey = @"
 
 // An array of scores/probabilities - one per class label or attribute
 NSString* const kSynopsisStandardMetadataProbabilitiesDictKey = @"Probabilities";
-NSString* const kSynopsisStandardMetadataInterestingProbailitiesAndTimesDictKey = @"InterestingProbabilitiesAndTime";
-
+NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey = @"InterestingProbabilitiesAndTime";
 
 NSString* const kSynopsisStandardMetadataAttentionDictKey = @"Attention";
 NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey = @"InterestingAttentionAndTimes";

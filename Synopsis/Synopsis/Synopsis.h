@@ -47,7 +47,7 @@ extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictK
 
 // An array of scores/probabilities - one per class label or attribute
 extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey;
-extern NSString* const kSynopsisStandardMetadataInterestingProbailitiesAndTimesDictKey;
+extern NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey;
 
 extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
 extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
