@@ -100,7 +100,7 @@
     {
         self.frameSkipCount++;
 
-        NSLog(@"Skip");
+//        NSLog(@"Skip");
         
         dispatch_async(self.serialCompletionQueue, ^{
             if(completionBlock)
@@ -113,7 +113,7 @@
         return;
     }
 
-    NSLog(@"Conform");
+//    NSLog(@"Conform");
     self.frameSkipCount++;
 
 
