@@ -173,6 +173,8 @@
 		1B8358A41F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358A51F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358AD1F424BD600F86F0F /* opencv2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B869F61223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */; };
+		1B869F62223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */; };
 		1B93517B21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */; };
 		1B93517C21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */; };
 		1B97283D2178F58D00C78FBF /* AnalyzerPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358A21DEF623D0053BC06 /* AnalyzerPluginProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -191,10 +193,6 @@
 		1B9E2B9721C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
 		1B9E2B9821C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
 		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
-		1B9E2BA121C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */; };
-		1B9E2BA221C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */; };
-		1B9E2BA521C2EC1D0049201B /* smooshed_labels_5tasks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */; };
-		1B9E2BA821C2EC480049201B /* smooshed_labels_5tasks.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
 		1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
@@ -2139,7 +2137,6 @@
 		1B4446B01EE1FD5D0075575D /* Color+linearRGBColor.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "Color+linearRGBColor.mm"; sourceTree = "<group>"; };
 		1B4446B81EE1FE4A0075575D /* Synopsis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Synopsis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B4446DC1EE1FFFC0075575D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1B46913B21D15181001D0786 /* smoosh_5tasks_w_labels_softmax_v2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smoosh_5tasks_w_labels_softmax_v2.mlmodel; sourceTree = "<group>"; };
 		1B4DC18C1FC8CF1000BF10C8 /* libtensorflow_framework.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libtensorflow_framework.so; sourceTree = "<group>"; };
 		1B4DC18E1FC8D93F00BF10C8 /* libpython.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpython.tbd; path = usr/lib/libpython.tbd; sourceTree = SDKROOT; };
 		1B4E6B4D208E674B00C078A8 /* SynopsisSlidingWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisSlidingWindow.h; sourceTree = "<group>"; };
@@ -2198,11 +2195,11 @@
 		1B756AD81FA5160A0050A96F /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		1B8358971F42110600F86F0F /* libblas.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libblas.tbd; path = usr/lib/libblas.tbd; sourceTree = SDKROOT; };
 		1B8358A31F42285000F86F0F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrashNetV1_2.mlmodel; sourceTree = "<group>"; };
+		1B869F63223ADE130054D6C6 /* TrashNetV1_2Labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrashNetV1_2Labels.txt; sourceTree = "<group>"; };
 		1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = autoencoder_img_out.mlmodel; sourceTree = "<group>"; };
 		1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUVisionMobileNetV2.h; sourceTree = "<group>"; };
 		1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUVisionMobileNetV2.m; sourceTree = "<group>"; };
-		1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = smoosh_5tasks_softmax_no_labels_subtasks.mlmodel; sourceTree = "<group>"; };
-		1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = smooshed_labels_5tasks.txt; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
 		1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion3.h; sourceTree = "<group>"; };
 		1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion3.h; sourceTree = "<group>"; };
@@ -5823,9 +5820,8 @@
 			children = (
 				1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */,
 				1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */,
-				1B9E2BA321C2E3BC0049201B /* smooshed_labels_5tasks.txt */,
-				1B9E2BA021C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel */,
-				1B46913B21D15181001D0786 /* smoosh_5tasks_w_labels_softmax_v2.mlmodel */,
+				1B869F63223ADE130054D6C6 /* TrashNetV1_2Labels.txt */,
+				1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */,
 			);
 			path = "MobileNetV2 CoreML";
 			sourceTree = "<group>";
@@ -6313,7 +6309,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B9E2BA821C2EC480049201B /* smooshed_labels_5tasks.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6321,7 +6316,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B9E2BA521C2EC1D0049201B /* smooshed_labels_5tasks.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6419,6 +6413,7 @@
 				1B0306D02087C68C000A2DF7 /* fse_compress.c in Sources */,
 				1B4446DA1EE1FFB30075575D /* NSPredicate+SynopsisMetadata.mm in Sources */,
 				1B4446D01EE1FFB30075575D /* Synopsis.m in Sources */,
+				1B869F62223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel in Sources */,
 				1B4446D51EE1FFB30075575D /* SynopsisLayer.m in Sources */,
 				1B0306CE2087C68C000A2DF7 /* huf_compress.c in Sources */,
 				1B0306B52087C67B000A2DF7 /* xxhash.c in Sources */,
@@ -6447,7 +6442,6 @@
 				1B4446D61EE1FFB30075575D /* SynopsisHistogramLayer.m in Sources */,
 				1B551E7E1EFAED30004C077B /* SynopsisMetadataPushDelegate.m in Sources */,
 				1B0306CB2087C68C000A2DF7 /* zstd_ldm.c in Sources */,
-				1B9E2BA221C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel in Sources */,
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
 				1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
@@ -6505,12 +6499,12 @@
 				1BBB10FF1D559BD700C22439 /* MetadataComparisons.mm in Sources */,
 				1BC98DCC1F9FA48F00E0F52A /* SynopsisVideoFrameOpenCV.mm in Sources */,
 				1B0306BF2087C68B000A2DF7 /* zstdmt_compress.c in Sources */,
+				1B869F61223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel in Sources */,
 				1B93517B21B1E68200FF6C00 /* autoencoder_img_out.mlmodel in Sources */,
 				1B6D669E21D0A731000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */,
 				1B06FECC21B5C38100C7D20B /* ActivityModule.m in Sources */,
 				1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306C32087C68B000A2DF7 /* zstd_compress.c in Sources */,
-				1B9E2BA121C2E1D50049201B /* smoosh_5tasks_softmax_no_labels_subtasks.mlmodel in Sources */,
 				1B0306C22087C68B000A2DF7 /* zstd_ldm.c in Sources */,
 				1B0306C62087C68B000A2DF7 /* zstd_opt.c in Sources */,
 				1B0306DB2087C69C000A2DF7 /* zdict.c in Sources */,

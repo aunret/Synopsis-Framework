@@ -1,0 +1,93 @@
+Standing
+Sitting
+Walking
+Playing
+Smiling
+Enjoying
+Socializing
+Cooking
+Laughing
+Happy
+Friendly
+Urban
+Healthy
+Furry
+Tasty/Delicious
+Young
+Adult
+Playful
+Cute/Adorable
+Spotted
+Cloth
+Family-Friendly
+Driving
+Biking
+Sunbathing
+Hiking
+Camping
+Reading
+Swimming
+Eating
+Socializing
+Sports
+Trees
+Flowers
+Pavement
+Cloth
+Dirt/Soil
+Ocean
+Running Water
+Clouds
+Direct Sun/Sunny
+Electric/Indoor Lighting
+Aged/Worn
+Natural
+Man-Made
+Open Area
+Semi-Enclosed Area
+Enclosed Area
+Far-Away Horizon
+No Horizon
+Rugged Scene
+Mostly Vertical Components
+Mostly Horizontal Components
+Symmetrical
+Cluttered Space
+Scary
+Soothing
+Bokeh
+Bright
+Depth Of Field
+Detailed
+Ethereal
+Geometric Composition
+Hazy
+Horror
+Long Exposure
+Macro
+Melancholy
+Minimal
+Noir
+Romantic
+Serene
+Pastel
+Sunny
+Texture
+Vintage
+Closeup
+Wide
+Medium
+Full Shot
+Symmetry
+Geometric
+Shallow Dof
+Deep Dof
+Cool (Tones)
+Warm (Tones)
+Pastels
+Dark
+Selfie
+Posing (Body)
+Laughing
+Face
+Blurry
