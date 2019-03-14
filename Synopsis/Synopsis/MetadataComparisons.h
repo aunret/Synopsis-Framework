@@ -19,7 +19,7 @@ extern "C" {
 
 // Compare Similarity
 float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
-    float compareFeatureVectorInverseL1(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
+float compareFeatureVectorInverseL1(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
 
 float compareHistogtams(SynopsisDenseFeature* hist1Mat, SynopsisDenseFeature* hist2Mat);
 
