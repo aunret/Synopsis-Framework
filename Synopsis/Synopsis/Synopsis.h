@@ -29,9 +29,6 @@ extern NSUInteger const kSynopsisMetadataVersionAlpha2;
 extern NSUInteger const kSynopsisMetadataVersionAlpha1;
 extern NSUInteger const kSynopsisMetadataVersionPreAlpha;
 
-//extern NSUInteger const kSynopsisMetadataVersionBeta;
-//extern NSUInteger const kSynopsisMetadataVersionOne;
-
 // HFS+ Extended Attribute tag for Spotlight search
 // Version Key / Dict
 extern NSString* const kSynopsisMetadataHFSAttributeVersionKey;
@@ -41,7 +38,7 @@ extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 // The primary key found in both time based (per frame) and summary / global metadata dictionaries
 extern NSString* const kSynopsisStandardMetadataDictKey;
 
-// Feature Vector of primary embedding space -
+// Feature Vector of primary embedding space
 extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;//
 extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
 
@@ -49,20 +46,20 @@ extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictK
 extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey;
 extern NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey;
 
-extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
-extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
+// Deprecated??
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
 
-extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
 
-//extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
-extern NSString* const kSynopsisStandardMetadataScoreDictKey;
-extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
-extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
-extern NSString* const kSynopsisStandardMetadataMotionDictKey;
-extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
-extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
-extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
-
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataScoreDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
 
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataPerceptualHashDictKey;
 
