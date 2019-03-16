@@ -68,7 +68,7 @@ float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeatu
         const cv::Mat vec1 = [featureVec1 cvMatValue];
         const cv::Mat vec2 = [featureVec2 cvMatValue];
 
-        float s = inverseL2SQRDistance(vec1, vec2);
+        float s = inverseL2Distance(vec1, vec2);
         
         return s;
     }
