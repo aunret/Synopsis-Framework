@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface GPUVisionMobileNetV2 : GPUModule
+@interface TrashNetModuleV1_2 : GPUModule
 
 @end
 

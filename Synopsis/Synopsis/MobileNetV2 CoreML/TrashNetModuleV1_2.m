@@ -8,7 +8,7 @@
 
 #import <Vision/Vision.h>
 
-#import "GPUVisionMobileNetV2.h"
+#import "TrashNetModuleV1_2.h"
 
 #import "TrashNetV1_2.h"
 
@@ -17,7 +17,7 @@
 
 #import "SynopsisSlidingWindow.h"
 
-@interface GPUVisionMobileNetV2 ()
+@interface TrashNetModuleV1_2 ()
 {
     CGColorSpaceRef linear;
     NSUInteger stride;
@@ -42,7 +42,7 @@
 
 @end
 
-@implementation GPUVisionMobileNetV2
+@implementation TrashNetModuleV1_2
 
 static NSUInteger probabilityCount = 93;
 static NSUInteger featureVectorCount = 1280;

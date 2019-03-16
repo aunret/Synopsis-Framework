@@ -188,10 +188,10 @@
 		1B9728522178F7F800C78FBF /* zstd_lazy.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306942087C661000A2DF7 /* zstd_lazy.c */; };
 		1B9728532178F80100C78FBF /* zstd_opt.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306972087C661000A2DF7 /* zstd_opt.c */; };
 		1B9728542178F83100C78FBF /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
-		1B9E2B9521C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */; };
-		1B9E2B9621C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */; };
-		1B9E2B9721C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
-		1B9E2B9821C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */; };
+		1B9E2B9521C2C8030049201B /* TrashNetModuleV1_2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9E2B9321C2C8030049201B /* TrashNetModuleV1_2.h */; };
+		1B9E2B9621C2C8030049201B /* TrashNetModuleV1_2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B9E2B9321C2C8030049201B /* TrashNetModuleV1_2.h */; };
+		1B9E2B9721C2C8030049201B /* TrashNetModuleV1_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* TrashNetModuleV1_2.m */; };
+		1B9E2B9821C2C8030049201B /* TrashNetModuleV1_2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B9E2B9421C2C8030049201B /* TrashNetModuleV1_2.m */; };
 		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
@@ -2198,8 +2198,8 @@
 		1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrashNetV1_2.mlmodel; sourceTree = "<group>"; };
 		1B869F63223ADE130054D6C6 /* TrashNetV1_2Labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrashNetV1_2Labels.txt; sourceTree = "<group>"; };
 		1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = autoencoder_img_out.mlmodel; sourceTree = "<group>"; };
-		1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUVisionMobileNetV2.h; sourceTree = "<group>"; };
-		1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUVisionMobileNetV2.m; sourceTree = "<group>"; };
+		1B9E2B9321C2C8030049201B /* TrashNetModuleV1_2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrashNetModuleV1_2.h; sourceTree = "<group>"; };
+		1B9E2B9421C2C8030049201B /* TrashNetModuleV1_2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrashNetModuleV1_2.m; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
 		1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion3.h; sourceTree = "<group>"; };
 		1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion3.h; sourceTree = "<group>"; };
@@ -5818,8 +5818,8 @@
 		1B9E2B8F21C2C7A70049201B /* MobileNetV2 CoreML */ = {
 			isa = PBXGroup;
 			children = (
-				1B9E2B9321C2C8030049201B /* GPUVisionMobileNetV2.h */,
-				1B9E2B9421C2C8030049201B /* GPUVisionMobileNetV2.m */,
+				1B9E2B9321C2C8030049201B /* TrashNetModuleV1_2.h */,
+				1B9E2B9421C2C8030049201B /* TrashNetModuleV1_2.m */,
 				1B869F63223ADE130054D6C6 /* TrashNetV1_2Labels.txt */,
 				1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */,
 			);
@@ -6090,7 +6090,7 @@
 				1BEDA4C620251C0C00E4617C /* AnalyzerPluginProtocol.h in Headers */,
 				1B4446C41EE1FF8C0075575D /* SynopsisMetadataDecoder.h in Headers */,
 				1BF858222090F6E700294C29 /* SynopsisSlidingWindow.h in Headers */,
-				1B9E2B9621C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */,
+				1B9E2B9621C2C8030049201B /* TrashNetModuleV1_2.h in Headers */,
 				1B551E661EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h in Headers */,
 				1BEDA4742024DEE600E4617C /* SynopsisMetadataEncoderVersion2.h in Headers */,
 				1B4446CD1EE1FF990075575D /* NSSortDescriptor+SynopsisMetadata.h in Headers */,
@@ -6135,7 +6135,7 @@
 				1B2780AD1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h in Headers */,
 				1BB7F6441FA108F7004ED69F /* GPUHistogramModule.h in Headers */,
 				1B7358A31DEF623D0053BC06 /* AnalyzerPluginProtocol.h in Headers */,
-				1B9E2B9521C2C8030049201B /* GPUVisionMobileNetV2.h in Headers */,
+				1B9E2B9521C2C8030049201B /* TrashNetModuleV1_2.h in Headers */,
 				1BC98DD01F9FAA5600E0F52A /* SynopsisVideoFrameCache.h in Headers */,
 				1BBB10E11D5542A200C22439 /* Synopsis.h in Headers */,
 				1BB7F64A1FA123AC004ED69F /* GPUModule.h in Headers */,
@@ -6445,7 +6445,7 @@
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
 				1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
-				1B9E2B9821C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */,
+				1B9E2B9821C2C8030049201B /* TrashNetModuleV1_2.m in Sources */,
 				1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */,
 				1B551E681EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1B0306CF2087C68C000A2DF7 /* zstd_opt.c in Sources */,
@@ -6509,7 +6509,7 @@
 				1B0306C62087C68B000A2DF7 /* zstd_opt.c in Sources */,
 				1B0306DB2087C69C000A2DF7 /* zdict.c in Sources */,
 				1B0306AD2087C67A000A2DF7 /* threading.c in Sources */,
-				1B9E2B9721C2C8030049201B /* GPUVisionMobileNetV2.m in Sources */,
+				1B9E2B9721C2C8030049201B /* TrashNetModuleV1_2.m in Sources */,
 				1B44469D1EE1FD270075575D /* SynopsisDenseFeature.mm in Sources */,
 				1B551E601EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1B73588B1DEF5FE40053BC06 /* DominantColorModule.mm in Sources */,
