@@ -32,12 +32,15 @@
         self.url = url;
         self.asset = [AVURLAsset URLAssetWithURL:url options:@{AVURLAssetPreferPreciseDurationAndTimingKey : @YES}];
         if(! [self commonLoad] )
+        {
+            NSLog(@"SynopsisMetadataItem : Unable to load metadata - bailing on init");
             return nil;
-            
+        }
     }
     
     return self;
 }
+
 - (instancetype) initWithAsset:(AVAsset *)asset
 {
     self = [super init];
@@ -45,7 +48,10 @@
     {
         self.asset = asset;
         if(! [self commonLoad] )
+        {
+            NSLog(@"SynopsisMetadataItem : Unable to load metadata - bailing on init");
             return nil;
+        }
     }
     
     return self;
@@ -80,40 +86,14 @@
 
 - (id)copyWithZone:(nullable NSZone *)zone
 {
-    return [[SynopsisMetadataItem alloc] initWithURL:self.url];
-}
-
-
-// We test equality based on the file system object we are represeting.
-
-- (BOOL) isEqualToSynopsisMetadataItem:(SynopsisMetadataItem*)object
-{
-    BOOL equal = [self.url isEqual:object.url];
-    
-    // helpful for debugging even if stupid
-    if(equal)
-        return YES;
-    
-    return NO;
-
-}
-
-- (BOOL) isEqual:(id)object
-{
-    if(self == object)
-        return YES;
-    
-    return NO;
-    
-//    if(![object isKindOfClass:[SynopsisMetadataItem class]])
-//        return NO;
-//    
-//    return [self isEqualToSynopsisMetadataItem:(SynopsisMetadataItem*)object];
-}
-
-- (NSUInteger) hash
-{
-    return self.url.hash;
+    if(self.url)
+    {
+        return [[SynopsisMetadataItem alloc] initWithURL:self.url];
+    }
+    else
+    {
+        return [[SynopsisMetadataItem alloc] initWithAsset:[self.asset copy]];
+    }
 }
 
 - (id) valueForKey:(NSString *)key
