@@ -11,7 +11,7 @@
 #import <Metal/Metal.h>
 #import <CoreMedia/CoreMedia.h>
 
-typedef void(^SynopsisVideoFrameConformSessionCompletionBlock)(bool didSkipFrame, id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache*, NSError*);
+typedef void(^SynopsisVideoFrameConformSessionCompletionBlock)(BOOL didSkipFrame, id<MTLCommandBuffer> commandBuffer, SynopsisVideoFrameCache*, NSError*);
 
 @interface SynopsisVideoFrameConformSession : NSObject
 
