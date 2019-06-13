@@ -26,6 +26,9 @@
         self.containerLayer = [CALayer layer];
         self.containerLayer.actions = actions;
         self.containerLayer.frame = self.bounds;
+        self.containerLayer.magnificationFilter = kCAFilterNearest;
+        self.containerLayer.minificationFilter = kCAFilterNearest;
+        
         [self addSublayer:self.containerLayer];
     }
     return self;
