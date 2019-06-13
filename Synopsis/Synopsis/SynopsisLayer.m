@@ -58,6 +58,8 @@
             self.backgroundColor = background;
             self.borderColor = border;
             self.borderWidth =  1.0;
+            self.magnificationFilter = kCAFilterNearest;
+            self.minificationFilter = kCAFilterNearest;
             
             CGColorRelease(background);
             CGColorRelease(border);
