@@ -28,6 +28,7 @@
 #import "GPUHistogramModule.h"
 #import "GPUVisionMobileNet.h"
 #import "TrashNetModuleV1_2.h"
+#import "CinemaNetModuleV1.h"
 #import "GPUMPSMobileNet.h"
 #import "Activity CoreML/ActivityModule.h"
 
@@ -110,7 +111,7 @@
         
         self.gpuModuleClasses  = @[
 //                                  NSStringFromClass([GPUHistogramModule class]),
-                                   NSStringFromClass([TrashNetModuleV1_2 class]),
+                                   NSStringFromClass([CinemaNetModuleV1 class]),
 //                                  NSStringFromClass([GPUVisionMobileNetV2 class]),
 //                                  NSStringFromClass([ActivityModule class]),
 //                                  [GPUMPSMobileNet className],

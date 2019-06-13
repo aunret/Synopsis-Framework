@@ -14,7 +14,7 @@
 #import "SynopsisVideoFrameCVPixelBuffer.h"
 #import "SynopsisSlidingWindow.h"
 
-#import "autoencoder_img_out.h"
+//#import "autoencoder_img_out.h"
 
 @interface ActivityModule ()
 {
