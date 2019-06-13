@@ -7,6 +7,7 @@
 //
 
 #import "Synopsis.h"
+#import "SynopsisMetadataItem.h"
 #import "SynopsisDenseFeature.h"
 #import "MetadataComparisons.h"
 
@@ -17,12 +18,29 @@
 
 @implementation NSSortDescriptor (SynopsisMetadata)
 
-//+ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key
-//{
-//
-//
-//}
++ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key relativeTo:(SynopsisMetadataItem*)item
+{
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*) obj1;
+        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*) obj2;
 
+        SynopsisDenseFeature* relative = [item valueForKey:key];
+
+        float distance1 = compareFeatureVector(vec1, relative);
+        float distance2 = compareFeatureVector(vec2, relative);
+
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+        
+    }];
+
+    return sortDescriptor;
+}
 
 + (NSSortDescriptor*)synopsisBestMatchSortDescriptorRelativeTo:(NSDictionary*)standardMetadata
 {
