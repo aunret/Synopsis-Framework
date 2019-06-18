@@ -61,8 +61,6 @@
 		1B0306DF2087C69D000A2DF7 /* cover.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03069F2087C661000A2DF7 /* cover.c */; };
 		1B0306E02087C69D000A2DF7 /* divsufsort.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306A02087C661000A2DF7 /* divsufsort.c */; };
 		1B0306E12087C69D000A2DF7 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306A12087C661000A2DF7 /* zdict.c */; };
-		1B03676822B2E9CE00F5EB9B /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B03676722B2E9CD00F5EB9B /* CinemaNet.mlmodel */; };
-		1B03676922B2E9CE00F5EB9B /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B03676722B2E9CD00F5EB9B /* CinemaNet.mlmodel */; };
 		1B06FECB21B5C38100C7D20B /* ActivityModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B06FEC921B5C38100C7D20B /* ActivityModule.h */; };
 		1B21EF621FA51AD2008A7462 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B21EF611FA51AD2008A7462 /* CoreML.framework */; };
 		1B2780A91F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780A71F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h */; };
@@ -171,6 +169,8 @@
 		1B8358A41F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358A51F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B8358AD1F424BD600F86F0F /* opencv2.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B8D9CB222B98DDF002D8963 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D9CB122B98DDF002D8963 /* CinemaNet.mlmodel */; };
+		1B8D9CB322B98DDF002D8963 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B8D9CB122B98DDF002D8963 /* CinemaNet.mlmodel */; };
 		1B97283D2178F58D00C78FBF /* AnalyzerPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358A21DEF623D0053BC06 /* AnalyzerPluginProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B97284B2178F7C600C78FBF /* zstdmt_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068D2087C661000A2DF7 /* zstdmt_compress.c */; };
 		1B97284C2178F7C600C78FBF /* zstd_double_fast.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03068E2087C661000A2DF7 /* zstd_double_fast.c */; };
@@ -419,7 +419,6 @@
 		1B0306A02087C661000A2DF7 /* divsufsort.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = divsufsort.c; sourceTree = "<group>"; };
 		1B0306A12087C661000A2DF7 /* zdict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zdict.c; sourceTree = "<group>"; };
 		1B0306A22087C661000A2DF7 /* divsufsort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = divsufsort.h; sourceTree = "<group>"; };
-		1B03676722B2E9CD00F5EB9B /* CinemaNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNet.mlmodel; sourceTree = "<group>"; };
 		1B06FEC921B5C38100C7D20B /* ActivityModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActivityModule.h; sourceTree = "<group>"; };
 		1B06FECA21B5C38100C7D20B /* ActivityModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActivityModule.m; sourceTree = "<group>"; };
 		1B06FECF21B5D9A200C7D20B /* squaredDiff.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = squaredDiff.metal; sourceTree = "<group>"; };
@@ -2198,6 +2197,7 @@
 		1B8358A31F42285000F86F0F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		1B869F60223ABDAF0054D6C6 /* TrashNetV1_2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = TrashNetV1_2.mlmodel; sourceTree = "<group>"; };
 		1B869F63223ADE130054D6C6 /* TrashNetV1_2Labels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TrashNetV1_2Labels.txt; sourceTree = "<group>"; };
+		1B8D9CB122B98DDF002D8963 /* CinemaNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNet.mlmodel; sourceTree = "<group>"; };
 		1B93517A21B1E68200FF6C00 /* autoencoder_img_out.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = autoencoder_img_out.mlmodel; sourceTree = "<group>"; };
 		1B9E2B9321C2C8030049201B /* TrashNetModuleV1_2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TrashNetModuleV1_2.h; sourceTree = "<group>"; };
 		1B9E2B9421C2C8030049201B /* TrashNetModuleV1_2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TrashNetModuleV1_2.m; sourceTree = "<group>"; };
@@ -6023,8 +6023,8 @@
 		1BE7D13D228F6B8300933705 /* CinemaNet AutoML */ = {
 			isa = PBXGroup;
 			children = (
+				1B8D9CB122B98DDF002D8963 /* CinemaNet.mlmodel */,
 				1BAEA49F22B1877200EEB116 /* synopsis.interim.model.dict.txt */,
-				1B03676722B2E9CD00F5EB9B /* CinemaNet.mlmodel */,
 				1BAEA4A322B196AA00EEB116 /* CinemaNetModuleV1.h */,
 				1BAEA4A422B196AA00EEB116 /* CinemaNetModuleV1.m */,
 			);
@@ -6450,6 +6450,7 @@
 				1B0306C92087C68C000A2DF7 /* zstd_double_fast.c in Sources */,
 				1BEDA4722024DEDF00E4617C /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B0306DF2087C69D000A2DF7 /* cover.c in Sources */,
+				1B8D9CB322B98DDF002D8963 /* CinemaNet.mlmodel in Sources */,
 				1B4446D31EE1FFB30075575D /* MetadataComparisons.mm in Sources */,
 				1B4446D11EE1FFB30075575D /* SynopsisMetadataDecoder.m in Sources */,
 				1B6D66A021D0A733000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */,
@@ -6464,7 +6465,6 @@
 				1BAEA4AA22B196AA00EEB116 /* CinemaNetModuleV1.m in Sources */,
 				1B0306CB2087C68C000A2DF7 /* zstd_ldm.c in Sources */,
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
-				1B03676922B2E9CE00F5EB9B /* CinemaNet.mlmodel in Sources */,
 				1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
 				1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */,
@@ -6498,12 +6498,12 @@
 				1B6EDC551F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */,
 				1B0306C42087C68B000A2DF7 /* zstd_lazy.c in Sources */,
 				1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
-				1B03676822B2E9CE00F5EB9B /* CinemaNet.mlmodel in Sources */,
 				1BB7F6331F9FEF2D004ED69F /* SynopsisVideoFrameMPImage.m in Sources */,
 				1BB7F63D1F9FF51B004ED69F /* SynopsisVideoFrameConformHelperGPU.m in Sources */,
 				1B0306D92087C69C000A2DF7 /* cover.c in Sources */,
 				1B0306C12087C68B000A2DF7 /* zstd_fast.c in Sources */,
 				1B551E7C1EFAE956004C077B /* SynopsisMetadataPushDelegate.m in Sources */,
+				1B8D9CB222B98DDF002D8963 /* CinemaNet.mlmodel in Sources */,
 				1BC98DE01F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.mm in Sources */,
 				1B4446B21EE1FD5D0075575D /* Color+linearRGBColor.mm in Sources */,
 				1B7358931DEF5FE40053BC06 /* CPUModule.mm in Sources */,
