@@ -27,10 +27,8 @@
 // GPU Module
 #import "GPUHistogramModule.h"
 #import "GPUVisionMobileNet.h"
-#import "TrashNetModuleV1_2.h"
 #import "CinemaNetModuleV1.h"
-#import "GPUMPSMobileNet.h"
-#import "Activity CoreML/ActivityModule.h"
+//#import "GPUMPSMobileNet.h"
 
 @interface StandardAnalyzerPlugin ()
 {
@@ -98,8 +96,8 @@
 
         self.cpuModuleClasses  = @[// AVG Color is useless and just an example module
 //                                [AverageColor className],
-//                                   NSStringFromClass([DominantColorModule class]),
-//                                   NSStringFromClass([HistogramModule class]),
+                                   NSStringFromClass([DominantColorModule class]),
+                                   NSStringFromClass([HistogramModule class]),
 //                                   [MotionModule className],
 //                                   [TensorflowFeatureModule className],
 //                                   [TrackerModule className],
