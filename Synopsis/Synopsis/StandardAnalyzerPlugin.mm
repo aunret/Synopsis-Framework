@@ -96,8 +96,8 @@
 
         self.cpuModuleClasses  = @[// AVG Color is useless and just an example module
 //                                [AverageColor className],
-                                   NSStringFromClass([DominantColorModule class]),
-                                   NSStringFromClass([HistogramModule class]),
+//                                   NSStringFromClass([DominantColorModule class]),
+//                                   NSStringFromClass([HistogramModule class]),
 //                                   [MotionModule className],
 //                                   [TensorflowFeatureModule className],
 //                                   [TrackerModule className],
@@ -155,10 +155,6 @@
 
 - (void) beginMetadataAnalysisSessionWithQuality:(SynopsisAnalysisQualityHint)qualityHint device:(id<MTLDevice>)device;
 {
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        cv::namedWindow("OpenCV Debug", CV_WINDOW_NORMAL);
-//    });
-    
     if(!self.didLazyInitModulesAlready)
     {
         self.device = device;
