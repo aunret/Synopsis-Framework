@@ -37,6 +37,8 @@
 @property (readwrite, strong) NSMutableArray<NSValue*>* probabilityWindowAveragesTimes;
 @property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* probabilityWindows;
 
+@property (readwrite, strong) NSArray<NSString*>* labels;
+
 @end
 
 
@@ -89,6 +91,17 @@
         {
             NSLog(@"Error: %@", error);
         }
+        
+        NSString* allLabelStringsPath = [[NSBundle bundleForClass:[self class]] pathForResource:@"synopsis.interim.model.dict" ofType:@"txt"];
+        
+        NSString* allLabelsString = [NSString stringWithContentsOfFile:allLabelStringsPath encoding:NSUTF8StringEncoding error:&error];
+
+        if(error)
+        {
+            NSLog(@"Error: %@", error);
+        }
+        
+        self.labels = [allLabelsString componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
         
     }
     return self;
@@ -156,7 +169,7 @@
     VNCoreMLRequest* mobileRequest = [[VNCoreMLRequest alloc] initWithModel:self.vnModel completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
         
         NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
-;
+
         NSArray* results = [[request results] copy];
         if([request results].count)
         {
@@ -189,17 +202,10 @@
             }
             else
             {
-                // We max on probabilites because math
-//                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseProbabilities];
-                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageProbabilities withFeature:denseProbabilities];
+                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseProbabilities];
 
             }
             
-            // we want to order these arrays so they always are in alpabetical order
-            
-            
-//            VNCoreMLFeatureValueObservation* probabilityOutput = [request results][0];
-
 //            metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = featureVec_NSNumber;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
 
@@ -233,24 +239,75 @@
 
 - (NSDictionary*) finalizedAnalysisMetadata;
 {
-    //    NSMutableArray* windowAverages = [NSMutableArray arrayWithCapacity:self.featureVectorWindowAverages.count];
-    //
-    //    [self.featureVectorWindowAverages enumerateObjectsUsingBlock:^(SynopsisDenseFeature * _Nonnull feature, NSUInteger idx, BOOL * _Nonnull stop) {
-    //        NSValue* windowTime = [self.featureVectorWindowAveragesTimes objectAtIndex:idx];
-    //
-    //        [windowAverages addObject: @{ @"Feature" : [feature arrayValue],
-    //                                      @"Time" : (NSDictionary*) CFBridgingRelease(CMTimeCopyAsDictionary([windowTime CMTimeValue], kCFAllocatorDefault)),
-    //                                      }];
-    //    }];
-    
+    // Compute the most likely labels from each label category
     NSArray<NSNumber*>* averageProbabilities = self.averageProbabilities.arrayValue;
     
+    // Indexes of each label category
+    NSRange colorTheoryRange = NSMakeRange(0, 3);
+    NSRange colorTonesRange = NSMakeRange(3, 3);
+    NSRange shotAngleRange = NSMakeRange(6, 5);
+    NSRange shotFocusRange = NSMakeRange(11, 3);
+    NSRange shotFramingRange = NSMakeRange(14, 6);
+    NSRange shotLevelRange = NSMakeRange(20, 3);
+    NSRange shotSubjectRange = NSMakeRange(23, 6);
+    NSRange shotTimeOfDayRange = NSMakeRange(29, 4);
+    NSRange shotTypeRange = NSMakeRange(33, 6);
+
+    NSArray<NSValue*>* categoryRanges = @[
+                                         [NSValue valueWithRange:colorTheoryRange],
+                                         [NSValue valueWithRange:colorTonesRange],
+                                         [NSValue valueWithRange:shotAngleRange],
+                                         [NSValue valueWithRange:shotFocusRange],
+                                         [NSValue valueWithRange:shotFramingRange],
+                                         [NSValue valueWithRange:shotLevelRange],
+                                         [NSValue valueWithRange:shotSubjectRange],
+                                         [NSValue valueWithRange:shotTimeOfDayRange],
+                                         [NSValue valueWithRange:shotTypeRange],
+                                         ];
+   
+    NSMutableArray<NSString*>* predictedLabels = [NSMutableArray new];
     
+    [categoryRanges enumerateObjectsUsingBlock:^(NSValue * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSRange range = obj.rangeValue;
+        
+        NSString* topLabel = [self topLabelForRange:range inArray:averageProbabilities];
+        if(topLabel)
+        {
+            [predictedLabels addObject:topLabel];
+        }
+    }];
+    
+
     return @{
              kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
              //             kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
-             //             kSynopsisStandardMetadataDescriptionDictKey: (labels) ? labels : @[ ],
+                          kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
              };
+}
+
+- (nullable NSString*) topLabelForRange:(NSRange)range inArray:(NSArray*)array
+{
+    NSArray* subarray = [array subarrayWithRange:range];
+    
+    float maxConfidence = FLT_MIN;
+    NSUInteger chosenIndex = NSNotFound;
+    for( NSNumber* confidence in subarray )
+    {
+        if( confidence.floatValue >= maxConfidence )
+        {
+            maxConfidence = confidence.floatValue;
+            chosenIndex = [array indexOfObject:confidence];
+        }
+    }
+    
+    NSNumber* confidence = subarray.firstObject;
+
+    if(chosenIndex != NSNotFound)
+    {
+        return self.labels[chosenIndex];
+    }
+    
+    return nil;
 }
 
 @end
