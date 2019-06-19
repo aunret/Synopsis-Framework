@@ -10,7 +10,26 @@
 #import <CoreFoundation/CoreFoundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+@class SynopsisMetadataItem;
+
 @interface NSSortDescriptor (SynopsisMetadata)
+
+// Pass in a key from Synopsis.h
+// Acceptable values are:
+/*
+
+ kSynopsisStandardMetadataDictKey
+ 
+ kSynopsisStandardMetadataFeatureVectorDictKey
+ kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey
+
+ kSynopsisStandardMetadataProbabilitiesDictKey
+ kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey
+ 
+ // Eventually:
+*/
++ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key relativeTo:(SynopsisMetadataItem*)item;
+
 
 // Uses weights best match of all the independed sorting / weighting algorithms
 + (NSSortDescriptor*)synopsisBestMatchSortDescriptorRelativeTo:(NSDictionary*)standardMetadata;

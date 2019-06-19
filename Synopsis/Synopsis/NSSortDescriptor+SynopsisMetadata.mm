@@ -7,6 +7,7 @@
 //
 
 #import "Synopsis.h"
+#import "SynopsisMetadataItem.h"
 #import "SynopsisDenseFeature.h"
 #import "MetadataComparisons.h"
 
@@ -14,15 +15,32 @@
 #import "Color+linearRGBColor.h"
 #import <CoreGraphics/CoreGraphics.h>
 
-#pragma mark - Hash Helper Functions
-
-// Perceptual Hash
-// Calculate how alike 2 hashes are
-// We use this result to compare how close 2 hashes are to a 3rd relative hash
-
-#pragma mark -
 
 @implementation NSSortDescriptor (SynopsisMetadata)
+
++ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key relativeTo:(SynopsisMetadataItem*)item
+{
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*) obj1;
+        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*) obj2;
+
+        SynopsisDenseFeature* relative = [item valueForKey:key];
+
+        float distance1 = compareFeatureVector(vec1, relative);
+        float distance2 = compareFeatureVector(vec2, relative);
+
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+        
+    }];
+
+    return sortDescriptor;
+}
 
 + (NSSortDescriptor*)synopsisBestMatchSortDescriptorRelativeTo:(NSDictionary*)standardMetadata
 {
@@ -31,79 +49,43 @@
         NSDictionary* global1 = (NSDictionary*)obj1;
         NSDictionary* global2 = (NSDictionary*)obj2;
         
-//        NSString* phash1 = [global1 valueForKey:kSynopsisStandardMetadataPerceptualHashDictKey];
-//        NSString* phash2 = [global2 valueForKey:kSynopsisStandardMetadataPerceptualHashDictKey];
-//        NSString* relativeHash = [standardMetadata valueForKey:kSynopsisStandardMetadataPerceptualHashDictKey];
-//    
-//        float ph1 = compareHashes(phash1, relativeHash);
-//        float ph2 = compareHashes(phash2, relativeHash);
+        __block float distance1 = FLT_MAX;
+        __block float distance2 = FLT_MAX;
         
-        SynopsisDenseFeature* featureVec1 = [global1 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-        SynopsisDenseFeature* featureVec2 = [global2 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-        SynopsisDenseFeature* relativeVec = [standardMetadata valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-
-        SynopsisDenseFeature* hist1 = [global1 valueForKey:kSynopsisStandardMetadataHistogramDictKey];
-        SynopsisDenseFeature* hist2 = [global2 valueForKey:kSynopsisStandardMetadataHistogramDictKey];
-        SynopsisDenseFeature* relativeHist = [standardMetadata valueForKey:kSynopsisStandardMetadataHistogramDictKey];
-
-//        NSArray* domColors1 = [global1 valueForKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
-//        NSArray* domColors2 = [global2 valueForKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
-//        NSArray* relativeColors = [standardMetadata valueForKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
+        SynopsisDenseFeature* probabilityVec1 = [global1 valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+        SynopsisDenseFeature* probabilityVec2 = [global2 valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+        SynopsisDenseFeature* relativeProb = [standardMetadata valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
 
         // Parellelize sorting math
-        dispatch_group_t sortGroup = dispatch_group_create();
+        //        dispatch_group_t sortGroup = dispatch_group_create();
 
-        __block float fv1;
-        __block float fv2;
-        
-        dispatch_group_enter(sortGroup);
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            fv1 = compareFeatureVector(featureVec1, relativeVec);
-            fv2 = compareFeatureVector(featureVec2, relativeVec);
-            dispatch_group_leave(sortGroup);
-        });
-        
-        __block float h1;
-        __block float h2;
+        if(probabilityVec1 && probabilityVec2 && relativeProb)
+        {
+            //        dispatch_group_enter(sortGroup);
+            //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            distance1 = compareFeatureVector(probabilityVec1, relativeProb);
+            distance2 = compareFeatureVector(probabilityVec2, relativeProb);
+            
+            //            dispatch_group_leave(sortGroup);
+            //        });
+        }
+        else
+        {
+            // All metadata should have this fallback yea?
+            SynopsisDenseFeature* featureVec1 = [global1 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+            SynopsisDenseFeature* featureVec2 = [global2 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+            SynopsisDenseFeature* relativeVec = [standardMetadata valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+          
+            //            dispatch_group_enter(sortGroup);
+            //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            distance1 = compareFeatureVector(featureVec1, relativeVec);
+            distance2 = compareFeatureVector(featureVec2, relativeVec);
+            //                dispatch_group_leave(sortGroup);
+            //            });
+        }
 
-//        dispatch_group_enter(sortGroup);
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            h1 = compareHistogtams(hist1 , relativeHist);
-            h2 = compareHistogtams(hist2 , relativeHist);
-//            dispatch_group_leave(sortGroup);
-//        });
-
-        // Do something useful while we wait for those 2 threads to finish
-//        float relativeHue = weightHueDominantColors(relativeColors);
-//        float relativeSat = weightSaturationDominantColors(relativeColors);
-//        float relativeBri = weightBrightnessDominantColors(relativeColors);
-//        
-//        float hue1 = 1.0 - fabsf(weightHueDominantColors(domColors1) - relativeHue);
-//        float hue2 = 1.0 - fabsf(weightHueDominantColors(domColors2) - relativeHue);
-//        
-//        float sat1 = 1.0 - fabsf(weightSaturationDominantColors(domColors1) - relativeSat);
-//        float sat2 = 1.0 - fabsf(weightSaturationDominantColors(domColors2) - relativeSat);
-//        
-//        float bri1 = 1.0 - fabsf(weightBrightnessDominantColors(domColors1) - relativeBri);
-//        float bri2 = 1.0 - fabsf(weightBrightnessDominantColors(domColors2) - relativeBri);
-
-        dispatch_wait(sortGroup, DISPATCH_TIME_FOREVER);
-        
-//        NSArray* combinedFeatures1 = @[ @(fv1), @(ph1), @(h1), @(hue1), @(sat1), @(bri1)];
-//        NSArray* combinedFeatures2 = @[ @(fv2), @(ph2), @(h2), @(hue2), @(sat2), @(bri2)];
-
-        // Biased Linear weights.
-//        float distance1 = fv1 + (( h1 + hue1 + sat1 + bri1 ) * 0.5);
-//        float distance2 = fv2 + (( h2 + hue2 + sat2 + bri2 ) * 0.5);
-
-        float distance1 = fv1 + h1;//(( h1 + hue1 + sat1 + bri1 ) * 0.5);
-        float distance2 = fv2 + h2;// (( h2 + hue2 + sat2 + bri2 ) * 0.5);
-
-//        const float colorFeatureWeight = 0.5;
-//        // Euclidean Distance - biased towards features / hash -  biased against hue, sat, bri
-//        float distance1 = sqrtf( ( fv1 * fv1 ) + ( ph1 * ph1 ) + ( ( h1 * h1  ) + ( hue1 * hue1 * colorFeatureWeight  ) + ( sat1 * sat1 * colorFeatureWeight  ) + ( bri1 * bri1 * colorFeatureWeight ) ) );
-//        float distance2 = sqrtf( ( fv2 * fv2 ) + ( ph2 * ph2 ) + ( ( h2 * h2  ) + ( hue2 * hue2 * colorFeatureWeight  ) + ( sat2 * sat2 * colorFeatureWeight  ) + ( bri2 * bri2 * colorFeatureWeight ) ) );
-
+//         dispatch_wait(sortGroup, DISPATCH_TIME_FOREVER)
+      
 
         if(distance1 > distance2)
             return  NSOrderedAscending;
@@ -157,7 +139,6 @@
     
     return sortDescriptor;
 }
-
 
 + (NSSortDescriptor*)synopsisDominantRGBDescriptorRelativeTo:(NSArray*)colors
 {

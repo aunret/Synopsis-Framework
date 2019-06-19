@@ -8,6 +8,7 @@
 
 #import <Synopsis/Synopsis.h>
 #import "SynopsisMetadataEncoder.h"
+#import "SynopsisMetadataEncoderCurrent.h"
 #import "SynopsisMetadataEncoderVersion0.h"
 #import "SynopsisMetadataEncoderVersion2.h"
 #import "SynopsisMetadataEncoderVersion3.h"
@@ -63,6 +64,10 @@
         else if( version == kSynopsisMetadataVersionAlpha3 )
         {
             self.encoder = [[SynopsisMetadataEncoderVersion3 alloc] init];
+        }
+        else
+        {
+            self.encoder = [[SynopsisMetadataEncoderCurrent alloc] init];
         }
 
         self.version = version;

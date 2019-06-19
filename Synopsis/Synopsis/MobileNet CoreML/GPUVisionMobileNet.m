@@ -31,7 +31,6 @@
     CGColorSpaceRef linear;
     NSUInteger stride;
     NSUInteger numWindows;
-
 }
 
 @property (readwrite, strong) CIContext* context;

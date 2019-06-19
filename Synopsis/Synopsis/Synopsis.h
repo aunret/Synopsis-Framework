@@ -13,7 +13,7 @@
 
 #define SYNOPSIS_VERSION_MAJOR 0
 #define SYNOPSIS_VERSION_MINOR 0
-#define SYNOPSIS_VERSION_PATCH 3
+#define SYNOPSIS_VERSION_PATCH 10
 
 #define SYNOPSIS_VERSION_NUMBER  ((SYNOPSIS_VERSION_MAJOR * 100 * 100) + (SYNOPSIS_VERSION_MINOR * 100) + SYNOPSIS_VERSION_PATCH)
 #define SYNOPSIS_LIB_VERSION SYNOPSIS_VERSION_MAJOR.SYNOPSIS_VERSION_MINOR.SYNOPSIS_VERSION_PATCH
@@ -29,33 +29,37 @@ extern NSUInteger const kSynopsisMetadataVersionAlpha2;
 extern NSUInteger const kSynopsisMetadataVersionAlpha1;
 extern NSUInteger const kSynopsisMetadataVersionPreAlpha;
 
-//extern NSUInteger const kSynopsisMetadataVersionBeta;
-//extern NSUInteger const kSynopsisMetadataVersionOne;
-
 // HFS+ Extended Attribute tag for Spotlight search
 // Version Key / Dict
 extern NSString* const kSynopsisMetadataHFSAttributeVersionKey;
 extern NSUInteger const kSynopsisMetadataHFSAttributeVersionValue;
 extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 
+// The primary key found in both time based (per frame) and summary / global metadata dictionaries
 extern NSString* const kSynopsisStandardMetadataDictKey;
 
-extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;
+// Feature Vector of primary embedding space
+extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;//
 extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
 
-extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
-extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
+// An array of scores/probabilities - one per class label or attribute
+extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey;
+extern NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey;
 
-extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
-extern NSString* const kSynopsisStandardMetadataScoreDictKey;
-extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
-extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
-extern NSString* const kSynopsisStandardMetadataMotionDictKey;
-extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
-extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
-extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
+// Deprecated??
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
 
-extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
+
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataScoreDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
+DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
 
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataPerceptualHashDictKey;
 

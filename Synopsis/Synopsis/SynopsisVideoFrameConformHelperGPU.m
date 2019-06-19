@@ -28,7 +28,7 @@
 @end
 
 @implementation SynopsisVideoFrameConformHelperGPU
-- (instancetype) initWithCommandQueue:(id<MTLCommandQueue>)queue inFlightBuffers:(NSUInteger)bufferCount;
+- (instancetype) initWithCommandQueue:(id<MTLCommandQueue>)queue;
 
 {
     self = [super init];
@@ -43,8 +43,6 @@
                                kCIContextOutputColorSpace : (id) CFBridgingRelease(linear),
                                };
         self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device options:opt];
-
-        CGColorSpaceRelease(linear);
     }
     
     return self;
@@ -107,7 +105,7 @@
                 
                 [cache cacheFrame:result];
                 
-                completionBlock(commandBuffer, cache, nil);
+                completionBlock(false, commandBuffer, cache, nil);
                 
                 // We always have to release our pixel buffer
                 CVPixelBufferRelease(pixelBuffer);

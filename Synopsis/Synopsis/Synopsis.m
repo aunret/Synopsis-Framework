@@ -16,7 +16,7 @@ NSString* const kSynopsisMetadataIdentifier = @"mdta/info.synopsis.metadata";
 NSString* const kSynopsisMetadataVersionKey = @"info.synopsis.metadata.version";
 NSUInteger const kSynopsisMetadataVersionValue = SYNOPSIS_VERSION_NUMBER;
 
-NSUInteger const kSynopsisMetadataVersionAlpha3 = SYNOPSIS_VERSION_NUMBER;
+NSUInteger const kSynopsisMetadataVersionAlpha3 = 3;
 NSUInteger const kSynopsisMetadataVersionAlpha2 = 2;
 NSUInteger const kSynopsisMetadataVersionAlpha1 = 1;
 NSUInteger const kSynopsisMetadataVersionPreAlpha = 0;
@@ -38,11 +38,15 @@ NSString* const kSynopsisStandardMetadataDictKey = @"StandardMetadata";
 NSString* const kSynopsisStandardMetadataFeatureVectorDictKey = @"Features";
 NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey = @"InterestingFeaturesAndTimes";
 
+// An array of scores/probabilities - one per class label or attribute
+NSString* const kSynopsisStandardMetadataProbabilitiesDictKey = @"Probabilities";
+NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey = @"InterestingProbabilitiesAndTime";
+
 NSString* const kSynopsisStandardMetadataAttentionDictKey = @"Attention";
 NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey = @"InterestingAttentionAndTimes";
 
-NSString* const kSynopsisStandardMetadataLabelsDictKey = @"Labels";
-NSString* const kSynopsisStandardMetadataScoreDictKey = @"Scores";
+//NSString* const kSynopsisStandardMetadataLabelsDictKey = @"Labels";
+
 NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey = @"DominantColors";
 NSString* const kSynopsisStandardMetadataHistogramDictKey = @"Histogram";
 NSString* const kSynopsisStandardMetadataMotionDictKey = @"Motion";

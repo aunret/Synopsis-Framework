@@ -12,7 +12,7 @@
 
 @interface SynopsisVideoFrameConformHelperGPU : NSObject
 
-- (instancetype) initWithCommandQueue:(id<MTLCommandQueue>)queue inFlightBuffers:(NSUInteger)bufferCount;
+- (instancetype) initWithCommandQueue:(id<MTLCommandQueue>)queue;
 
 - (void) conformPixelBuffer:(CVPixelBufferRef)pixelbuffer
                      atTime:(CMTime)time

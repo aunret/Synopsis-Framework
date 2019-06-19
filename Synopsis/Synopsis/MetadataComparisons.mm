@@ -39,11 +39,21 @@ static inline float cosineSimilarity(const cv::Mat a, const cv::Mat b)
 
 static inline float inverseL1Distance(const cv::Mat a, const cv::Mat b)
 {
-    return 1.0 / cv::norm(a, b, cv::NORM_L1);
-
-
+    return  cv::norm(a, b, cv::NORM_L1 | cv::NORM_RELATIVE);
 }
 
+static inline float inverseL2Distance(const cv::Mat a, const cv::Mat b)
+{
+    float d = cv::norm(a, b, cv::NORM_L2 | cv::NORM_RELATIVE);
+    return  d;
+}
+
+static inline float inverseL2SQRDistance(const cv::Mat a, const cv::Mat b)
+{
+    float d = cv::norm(a, b, cv::NORM_L2SQR | cv::NORM_RELATIVE);
+    
+    return  d;
+}
 
 float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {
@@ -61,7 +71,7 @@ float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeatu
         const cv::Mat vec1 = [featureVec1 cvMatValue];
         const cv::Mat vec2 = [featureVec2 cvMatValue];
 
-        float s = cosineSimilarity(vec1, vec2);
+        float s = inverseL2Distance(vec1, vec2);
         
         return s;
     }
