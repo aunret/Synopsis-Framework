@@ -12,7 +12,7 @@ OS X Framework to parse Synopsis metadata, run spotlight searches, and sort resu
 
 ## Build Instructions
 
-Synopsis framework can be compiled to provide just metadata reading / parsing / comparison - or in addition, providing analysis as well. These two build options are provided because Analysis requires the additional dependency on Tensorflow, which due to size and complexity needs to be compiled seperately.
+Synopsis framework can be compiled to provide just metadata reading / parsing / comparison - or in addition, providing analysis as well. These two build options are provided because to help with binary size. Decode only is much lighter and does not require the inclusion of larger CoreML models.
 
 
 ### Decode (Metadata read only)
