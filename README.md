@@ -10,9 +10,6 @@ OS X Framework to parse Synopsis metadata, run spotlight searches, and sort resu
 
 `git lfs install`
 
-Optional:
-* Tensorflow 1.2 + (Analysis only).
-
 ## Build Instructions
 
 Synopsis framework can be compiled to provide just metadata reading / parsing / comparison - or in addition, providing analysis as well. These two build options are provided because Analysis requires the additional dependency on Tensorflow, which due to size and complexity needs to be compiled seperately.
@@ -28,8 +25,6 @@ To compile the with analyzer source, you need to also compile Tensorflow in a ma
 * OpenCV - please follow the instructions on our wiki https://github.com/Synopsis/Synopsis-Framework/wiki/Building-OpenCV-for-Synopsis - and ensure if you code sign you enable other code signing flags --deep.
 
 * OpenCV build is now automatically download via Git LFS. Or follow above instructions if you don't have LFS.
-
-* Tensorflow instructions coming.
 
 
 
