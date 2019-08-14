@@ -22,10 +22,7 @@ To build a decode only Synopsis framework, simply check out the latest git repo,
 ### Analysis (Metadata generation, analysis, writing and reading)
 To compile the with analyzer source, you need to also compile Tensorflow in a manner compatible with the Synopsis build process. You can optionally compile OpenCV with Intel Performance Primitives (IPP) for theoretical performance increases at a cost of 150MB additional binary size due to IPPICV library size. Our included OpenCV2.Framework has IPP disabled for easier deployment and smaller file size.
 
-* OpenCV - please follow the instructions on our wiki https://github.com/Synopsis/Synopsis-Framework/wiki/Building-OpenCV-for-Synopsis - and ensure if you code sign you enable other code signing flags --deep.
-
-* OpenCV build is now automatically download via Git LFS. Or follow above instructions if you don't have LFS.
-
+* OpenCV build is now automatically download via Git LFS, from an official OpenCV framework distribution.
 
 
 
