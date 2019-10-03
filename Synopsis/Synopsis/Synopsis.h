@@ -93,6 +93,7 @@ typedef enum : NSUInteger {
 
 
 #ifndef DECODER_ONLY
+#import <Synopsis/Analyzer.h>
 #import <Synopsis/AnalyzerPluginProtocol.h>
 #import <Synopsis/StandardAnalyzerPlugin.h>
 #endif
