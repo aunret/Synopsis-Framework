@@ -56,10 +56,41 @@
         SynopsisDenseFeature* probabilityVec2 = [global2 valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
         SynopsisDenseFeature* relativeProb = [standardMetadata valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
 
+        SynopsisDenseFeature* featureVec1 = [global1 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+        SynopsisDenseFeature* featureVec2 = [global2 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+        SynopsisDenseFeature* relativeVec = [standardMetadata valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+
+        SynopsisDenseFeature* hist1 = [global1 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+        SynopsisDenseFeature* hist2 = [global2 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+        SynopsisDenseFeature* relativeHist = [standardMetadata valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+
+        // if we have everything, contatenate the vectors
+        if( probabilityVec1 && probabilityVec2 && relativeProb
+           && featureVec1 && featureVec2 && relativeVec
+           && hist1 && hist2 && relativeHist)
+        {
+            SynopsisDenseFeature* concat1 = [SynopsisDenseFeature denseFeatureByAppendingFeature:featureVec1 withFeature:[SynopsisDenseFeature denseFeatureByAppendingFeature:probabilityVec1 withFeature:hist1]];
+
+            SynopsisDenseFeature* concat2 = [SynopsisDenseFeature denseFeatureByAppendingFeature:featureVec2 withFeature:[SynopsisDenseFeature denseFeatureByAppendingFeature:probabilityVec2 withFeature:hist2]];
+
+            SynopsisDenseFeature* relative = [SynopsisDenseFeature denseFeatureByAppendingFeature:relativeVec withFeature:[SynopsisDenseFeature denseFeatureByAppendingFeature:relativeProb withFeature:relativeHist]];
+
+            distance1 = compareFeatureVector(concat1, relative);
+            distance2 = compareFeatureVector(concat2, relative);
+
+//            SynopsisDenseFeature* concat1 = [SynopsisDenseFeature denseFeatureByAppendingFeature:featureVec1 withFeature:probabilityVec1];
+//            SynopsisDenseFeature* concat2 = [SynopsisDenseFeature denseFeatureByAppendingFeature:featureVec2 withFeature:probabilityVec2];
+//            SynopsisDenseFeature* relative = [SynopsisDenseFeature denseFeatureByAppendingFeature:relativeVec withFeature:[SynopsisDenseFeature denseFeatureByAppendingFeature:relativeVec withFeature:relativeHist]];
+//
+//            distance1 = compareFeatureVector(concat1, relative);
+//            distance2 = compareFeatureVector(concat2, relative);
+        }
+        
+        
         // Parellelize sorting math
         //        dispatch_group_t sortGroup = dispatch_group_create();
 
-        if(probabilityVec1 && probabilityVec2 && relativeProb)
+        else if(probabilityVec1 && probabilityVec2 && relativeProb)
         {
             //        dispatch_group_enter(sortGroup);
             //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -71,10 +102,6 @@
         }
         else
         {
-            // All metadata should have this fallback yea?
-            SynopsisDenseFeature* featureVec1 = [global1 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-            SynopsisDenseFeature* featureVec2 = [global2 valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-            SynopsisDenseFeature* relativeVec = [standardMetadata valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
           
             //            dispatch_group_enter(sortGroup);
             //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
