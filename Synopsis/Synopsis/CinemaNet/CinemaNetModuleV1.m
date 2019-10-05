@@ -38,7 +38,6 @@
 @property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* probabilityWindows;
 
 @property (readwrite, strong) NSArray<NSString*>* labels;
-
 @property (readwrite, strong) NSArray<NSValue*>* labelGroupRanges;
 
 @end
@@ -179,32 +178,66 @@
         
         NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
 
-        NSArray* results = [[request results] copy];
+        // TODO: Strcictly Necessary anymore
+        NSArray* results = [request results];
+       
         if([request results].count)
         {
-            NSUInteger countOfPredictionGroups = [results count];
+            // Subtract one since we are going to remove our embedding space and treat that separately
+            NSUInteger countOfPredictionGroups = [results count] - 1;
             
             NSMutableArray* labels = [NSMutableArray arrayWithCapacity:countOfPredictionGroups];
             NSMutableArray* probabilities = [NSMutableArray arrayWithCapacity:countOfPredictionGroups];
-            
+
+            // TODO: For 10.15 we can make this nicer:
+            // 10.15 adds .featureName to VNCoreMLFeatureValueObservation
+
             // This is so fucking stupid
             // Vision / CoreML does not return out features in the order of our outputs / labels as we so carefully described them
             // We MUST TAKE CARE that our .NA (not applicable) fields are last for every category
             // We cant just do an alphabetical sort.
             // Oh lord why is this so dumb.
-            
+                        
             // Ensure our output dictionaries are in the proper order
+            // Put our embedded space / feature vector one first always:
+            
             results = [results sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
 
                 VNCoreMLFeatureValueObservation* one = (VNCoreMLFeatureValueObservation *)obj1;
                 NSDictionary* oneDict = [one.featureValue dictionaryValue];
+
+                // If we dont have a dictionaryValue its our embedding space VNCoreMLFeatureValueObservation
+                if (oneDict == nil)
+                {
+                    return NSOrderedAscending;
+                }
                 NSString* oneFirstKey = [[oneDict allKeys] firstObject];
 
                 VNCoreMLFeatureValueObservation* two = (VNCoreMLFeatureValueObservation *)obj2;
                 NSDictionary* twoDict = [two.featureValue dictionaryValue];
+
+                // If we dont have a dictionaryValue its our embedding space VNCoreMLFeatureValueObservation
+                if (twoDict == nil)
+                {
+                    return NSOrderedDescending;
+                }
+
                 NSString* twoFirstKey = [[twoDict allKeys] firstObject];
                 return [oneFirstKey compare:twoFirstKey options:NSNumericSearch];
             }];
+            
+            VNCoreMLFeatureValueObservation* embeddingSpaceObservation = [results firstObject];
+            // iterate to make NSNumber array :(
+            
+            MLMultiArray* embeddingSpaceMLMultiArray = embeddingSpaceObservation.featureValue.multiArrayValue;
+            NSMutableArray<NSNumber*>* embeddingSpaceArray = [NSMutableArray new];
+            for (int i = 0; i < embeddingSpaceMLMultiArray.count; i++)
+            {
+                // Keyed Subscript returns NSNumbers:
+                [embeddingSpaceArray addObject: embeddingSpaceMLMultiArray[i] ];
+            }
+            
+            results = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
             
             // Track the ranges of our label concept groups:
             NSUInteger location = 0;
@@ -267,8 +300,21 @@
             {
                 self.labelGroupRanges  = [labelGroupRanges copy];
             }
-            
+
+            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray];
+
+            if(self.averageFeatureVec == nil)
+            {
+                self.averageFeatureVec = denseFeature;
+            }
+            else
+            {
+                // Probabilities get maximized
+                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageFeatureVec withFeature:denseFeature];
+            }
+
             SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities];
+
 
             if(self.averageProbabilities == nil)
             {
@@ -276,12 +322,11 @@
             }
             else
             {
-                //
+                // Probabilities get maximized
                 self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseProbabilities];
-
             }
             
-//            metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = featureVec_NSNumber;
+            metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = embeddingSpaceArray;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
 
         }
@@ -316,7 +361,7 @@
 {
     // Compute the most likely labels from each label category
     NSArray<NSNumber*>* averageProbabilities = self.averageProbabilities.arrayValue;
-    
+    NSArray<NSNumber*>* averageFeatures = self.averageFeatureVec.arrayValue;
 
     NSMutableArray<NSString*>* predictedLabels = [NSMutableArray new];
     
@@ -331,6 +376,7 @@
 
     return @{
              kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
+             kSynopsisStandardMetadataFeatureVectorDictKey : (averageFeatures) ? averageFeatures : @[ ],
              //             kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
              kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
              };
