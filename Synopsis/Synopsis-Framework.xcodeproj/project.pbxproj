@@ -64,9 +64,9 @@
 		1B0C6F4B22BBBC3300DDEF41 /* Analyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0C6F4922BBBC3300DDEF41 /* Analyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B0C6F4E22BBC23500DDEF41 /* Analyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */; };
 		1B0C6F4F22BBC23500DDEF41 /* Analyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */; };
-		1B1F09B42343FCA500D948E2 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F09B32343FCA500D948E2 /* CinemaNet.mlmodel */; };
-		1B1F09B52343FCA500D948E2 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B1F09B32343FCA500D948E2 /* CinemaNet.mlmodel */; };
 		1B21EF621FA51AD2008A7462 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B21EF611FA51AD2008A7462 /* CoreML.framework */; };
+		1B2740FC2347C6EA007BA7E6 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B2740FB2347C6EA007BA7E6 /* CinemaNet.mlmodel */; };
+		1B2740FD2347C6EA007BA7E6 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B2740FB2347C6EA007BA7E6 /* CinemaNet.mlmodel */; };
 		1B2780A91F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780A71F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h */; };
 		1B2780AA1F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780A81F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m */; };
 		1B2780AD1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780AB1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h */; };
@@ -418,7 +418,6 @@
 		1B0306A22087C661000A2DF7 /* divsufsort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = divsufsort.h; sourceTree = "<group>"; };
 		1B0C6F4922BBBC3300DDEF41 /* Analyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analyzer.h; sourceTree = "<group>"; };
 		1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analyzer.m; sourceTree = "<group>"; };
-		1B1F09B32343FCA500D948E2 /* CinemaNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNet.mlmodel; sourceTree = "<group>"; };
 		1B21EF611FA51AD2008A7462 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		1B22F9A81FB29330009E3F4F /* conv3_2_dw_b.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = conv3_2_dw_b.bin; sourceTree = "<group>"; };
 		1B22F9A91FB29330009E3F4F /* conv2_1_dw_w.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = conv2_1_dw_w.bin; sourceTree = "<group>"; };
@@ -476,6 +475,7 @@
 		1B22F9DD1FB29330009E3F4F /* conv1_w.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = conv1_w.bin; sourceTree = "<group>"; };
 		1B22F9DE1FB29330009E3F4F /* conv4_1_sep_w.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = conv4_1_sep_w.bin; sourceTree = "<group>"; };
 		1B22F9DF1FB29330009E3F4F /* conv5_5_sep_b.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = conv5_5_sep_b.bin; sourceTree = "<group>"; };
+		1B2740FB2347C6EA007BA7E6 /* CinemaNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNet.mlmodel; sourceTree = "<group>"; };
 		1B2780A71F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion2.h; sourceTree = "<group>"; };
 		1B2780A81F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataDecoderVersion2.m; sourceTree = "<group>"; };
 		1B2780AB1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion2.h; sourceTree = "<group>"; };
@@ -5991,9 +5991,9 @@
 		1BE7D13D228F6B8300933705 /* CinemaNet */ = {
 			isa = PBXGroup;
 			children = (
-				1B1F09B32343FCA500D948E2 /* CinemaNet.mlmodel */,
 				1BAEA4A322B196AA00EEB116 /* CinemaNetModuleV1.h */,
 				1BAEA4A422B196AA00EEB116 /* CinemaNetModuleV1.m */,
+				1B2740FB2347C6EA007BA7E6 /* CinemaNet.mlmodel */,
 			);
 			path = CinemaNet;
 			sourceTree = "<group>";
@@ -6439,9 +6439,9 @@
 				1B0306D62087C693000A2DF7 /* zstd_decompress.c in Sources */,
 				1B0306CD2087C68C000A2DF7 /* zstd_lazy.c in Sources */,
 				1B0306CC2087C68C000A2DF7 /* zstd_compress.c in Sources */,
+				1B2740FD2347C6EA007BA7E6 /* CinemaNet.mlmodel in Sources */,
 				1BEDA4AB2024E0E100E4617C /* SynopsisVideoFrameConformHelperGPU.m in Sources */,
 				1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
-				1B1F09B52343FCA500D948E2 /* CinemaNet.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6451,6 +6451,7 @@
 			files = (
 				1BB7F64C1FA123AC004ED69F /* GPUModule.m in Sources */,
 				1B0306A72087C672000A2DF7 /* fse_decompress.c in Sources */,
+				1B2740FC2347C6EA007BA7E6 /* CinemaNet.mlmodel in Sources */,
 				1B551E671EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1B0306A32087C668000A2DF7 /* entropy_common.c in Sources */,
@@ -6470,7 +6471,6 @@
 				1B4446B21EE1FD5D0075575D /* Color+linearRGBColor.mm in Sources */,
 				1B7358931DEF5FE40053BC06 /* CPUModule.mm in Sources */,
 				1BCAACB51F966D040022B1A5 /* SynopsisPythonHelper.m in Sources */,
-				1B1F09B42343FCA500D948E2 /* CinemaNet.mlmodel in Sources */,
 				1B551E6D1EF9E99D004C077B /* NSDictionary+JSONString.m in Sources */,
 				1BC98DD21F9FAA5600E0F52A /* SynopsisVideoFrameCache.m in Sources */,
 				1B73588F1DEF5FE40053BC06 /* HistogramModule.mm in Sources */,
