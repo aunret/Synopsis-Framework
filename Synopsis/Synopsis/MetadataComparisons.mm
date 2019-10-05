@@ -71,7 +71,7 @@ float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeatu
         const cv::Mat vec1 = [featureVec1 cvMatValue];
         const cv::Mat vec2 = [featureVec2 cvMatValue];
 
-        float s = inverseL2Distance(vec1, vec2);
+        float s = cosineSimilarity(vec1, vec2);
         
         return s;
     }
@@ -192,16 +192,20 @@ float compareHistogtams(SynopsisDenseFeature* hist1Feature, SynopsisDenseFeature
         //     HISTCMP_CHISQR_ALT is for texture comparison - which seems useful for us here?
         //     Looks like HISTCMP_CORREL is better ?
 
-        float dR = (float) cv::compareHist([hist1Feature cvMatValue], [hist2Feature cvMatValue], cv::HistCompMethods::HISTCMP_BHATTACHARYYA);
+//        float dR = (float) cv::compareHist([hist1Feature cvMatValue], [hist2Feature cvMatValue], cv::HistCompMethods::HISTCMP_BHATTACHARYYA);
+//        if( isnan(dR))
+//            dR = 1.0;
+//
+//        return 1.0 - dR;
         
-        // Does feature similarity do anything similar to HistComp?
+        // Does cosineSimilarity do anything similar to HistComp?
         // Not quite? Worth checking again
-//        float s = similarity(hist1Mat, hist2Mat);
+        float dR = cosineSimilarity([hist1Feature cvMatValue],  [hist2Feature cvMatValue]);
         
         if( isnan(dR))
             dR = 1.0;
         
-        return 1.0 - dR;
+        return dR;
     }
     
 }
