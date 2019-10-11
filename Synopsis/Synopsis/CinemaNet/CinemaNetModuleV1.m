@@ -388,7 +388,7 @@
     NSArray* subLabels = [self.labels subarrayWithRange:range];
 
     // Note we switch keys and objects. We key off of the probabilty SCORE which is odd but helpful:
-    NSDictionary* subLabelsAndProbs = [NSDictionary dictionaryWithObjects:subLabels forKeys:subProbabilities];
+    NSDictionary* subLabelsAndProbs = [NSDictionary dictionaryWithObjects:subProbabilities forKeys:subLabels];
     
     NSArray* sortedSubProbs = [subProbabilities sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         NSNumber* confidence1 = obj1;
@@ -402,7 +402,16 @@
         return NSOrderedSame;
     }];
     
-    NSArray* sortedLabels = [subLabelsAndProbs objectsForKeys:sortedSubProbs notFoundMarker:[NSNull null]];
+    NSMutableOrderedSet* sortedLabels = [NSMutableOrderedSet new];
+    
+    for (NSNumber* prob in sortedSubProbs)
+    {
+        NSArray* labelsForProb = [subLabelsAndProbs allKeysForObject:prob];
+        
+        [sortedLabels addObjectsFromArray:labelsForProb];
+    }
+    
+//    NSArray* sortedLabels = [subLabelsAndProbs objectsForKeys:sortedSubProbs notFoundMarker:[NSNull null]];
     
     NSUInteger countOfTopPredictionsToUse = 1;
     
@@ -411,11 +420,11 @@
         countOfTopPredictionsToUse = 5;
 
     // Texture - helpful? I dont know.
-    if (sortedLabels.count >= 40)
+    else if (sortedLabels.count >= 40)
         countOfTopPredictionsToUse = 3;
 
     // Helps with Shot Subject - if its person it might be body too
-    if (sortedLabels.count >= 10)
+    else if (sortedLabels.count >= 10)
         countOfTopPredictionsToUse = 2;
 
     
