@@ -213,14 +213,8 @@
 
 #pragma mark - VImage and CoreVideo Resize / Conforming
 
-- (CVPixelBufferRef) createScaledPixelBuffer:(CVPixelBufferRef)pixelBuffer withRect:(CGRect)resizeRect
+- (CVPixelBufferRef) createResizedPixelBuffer:(CVPixelBufferRef)pixelBuffer withRect:(CGRect)resizeRect
 {
-    //    size_t width = CVPixelBufferGetWidth(pixelBuffer);
-    //    size_t height = CVPixelBufferGetHeight(pixelBuffer);
-    //
-    //    CGRect originalRect = {0, 0, width, height};
-    
-    // Avoid half pixel values.
     resizeRect = CGRectIntegral(resizeRect);
     
     CGSize resizeSize = CGSizeZero;
@@ -230,19 +224,80 @@
     // TODO: Our pixel buffer pool wont re-init if for some reason pixel buffer sizes change
     if(scaledPixelBufferPool == NULL)
     {
-        NSDictionary* poolAttributes = @{ (NSString*)kCVPixelBufferWidthKey : @(resizeSize.width),
-                                          (NSString*)kCVPixelBufferHeightKey : @(resizeSize.height),
-                                          (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
-                                          (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
-                                          (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
-                                          };
+        NSDictionary* poolAttributes = @{   (NSString*)kCVPixelBufferWidthKey : @(resizeSize.width),
+                                            (NSString*)kCVPixelBufferHeightKey : @(resizeSize.height),
+                                            (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
+                                            (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
+                                            (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
+                                        };
+
         CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &scaledPixelBufferPool);
         if(err != kCVReturnSuccess)
         {
             NSLog(@"Error : %i", err);
         }
     }
+
+    // Create our input vImage from our CVPixelBuffer
+    CVPixelBufferLockBaseAddress(pixelBuffer,kCVPixelBufferLock_ReadOnly);
+    void *baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
+    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
+
+    vImage_Error err;
+
+    vImage_Buffer inBuff;
+    inBuff.height = CVPixelBufferGetHeight(pixelBuffer);
+    inBuff.width = CVPixelBufferGetWidth(pixelBuffer);
+    inBuff.rowBytes = bytesPerRow;
+    inBuff.data = baseAddress;
+
     
+    // Scale our transformmed buffer
+    CVPixelBufferRef scaledBuffer;
+    CVPixelBufferPoolFlush(scaledPixelBufferPool, kCVPixelBufferPoolFlushExcessBuffers);
+    CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, scaledPixelBufferPool, &scaledBuffer);
+    
+    CVPixelBufferLockBaseAddress(scaledBuffer, 0);
+    void *resizedBaseAddress = CVPixelBufferGetBaseAddress(scaledBuffer);
+    size_t resizedBytesPerRow = CVPixelBufferGetBytesPerRow(scaledBuffer);
+
+    
+    vImage_Buffer resized;
+    resized.height = CVPixelBufferGetHeight(scaledBuffer);
+    resized.width = CVPixelBufferGetWidth(scaledBuffer);
+    resized.rowBytes = resizedBytesPerRow;
+    resized.data = resizedBaseAddress;
+
+
+    err = vImageScale_ARGB8888(&inBuff, &resized, NULL, SynopsisvImageTileFlag );
+    if (err != kvImageNoError)
+        NSLog(@" error %ld", err);
+    
+    
+    CFDictionaryRef sourceAttachments = CVBufferGetAttachments(pixelBuffer, kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachments(scaledBuffer, sourceAttachments, kCVAttachmentMode_ShouldPropagate);
+
+
+    // Since we just proxy our inBuff as our pixelBuffer we unlock and the pool cleans it up
+    CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
+    inBuff.data = NULL; // explicit
+
+    CVPixelBufferUnlockBaseAddress(scaledBuffer, 0);
+    resized.data = NULL;
+
+    return scaledBuffer;
+}
+
+
+- (CVPixelBufferRef) createLinearizedPixelBuffer:(CVPixelBufferRef)pixelBuffer withRect:(CGRect)resizeRect
+{
+    //    size_t width = CVPixelBufferGetWidth(pixelBuffer);
+    //    size_t height = CVPixelBufferGetHeight(pixelBuffer);
+    //
+    //    CGRect originalRect = {0, 0, width, height};
+    
+    // Avoid half pixel values.
+ 
     
     // Create our input vImage from our CVPixelBuffer
     CVPixelBufferLockBaseAddress(pixelBuffer,kCVPixelBufferLock_ReadOnly);
@@ -264,6 +319,8 @@
         // Fuck Video
         
 #if TARGET_OS_OSX
+        
+        CGColorSpaceRef source = CVImageBufferGetColorSpace(pixelBuffer);
         
         ColorSyncProfileRef rec709 = ColorSyncProfileCreateWithName(kColorSyncITUR709Profile);
         ColorSyncProfileRef linearProfile = ColorSyncProfileCreateWithName(kColorSyncACESCGLinearProfile);
@@ -433,7 +490,7 @@
                                           (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
                                           (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
                                           (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
-                                          };
+                                        };
         CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &transformPixelBufferPool);
         if(err != kCVReturnSuccess)
         {
@@ -464,105 +521,109 @@
     
     CVPixelBufferUnlockBaseAddress(transformedBuffer, 0);
     
+    CFDictionaryRef sourceAttachments = CVBufferGetAttachments(pixelBuffer, kCVAttachmentMode_ShouldPropagate);
+    CVBufferSetAttachments(transformedBuffer, sourceAttachments, kCVAttachmentMode_ShouldPropagate);
+
+
     return transformedBuffer;
 }
 
-- (CVPixelBufferRef) createRotatedPixelBuffer:(CVPixelBufferRef)pixelBuffer withRotation:(CGAffineTransform)transform flip:(BOOL)flip
-{
-    size_t width = CVPixelBufferGetWidth(pixelBuffer);
-    size_t height = CVPixelBufferGetHeight(pixelBuffer);
-    
-    CGRect originalRect = {0, 0, (CGFloat)width, (CGFloat)height};
-    
-    CVPixelBufferLockBaseAddress(pixelBuffer,kCVPixelBufferLock_ReadOnly);
-    void *baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
-    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
-    
-    vImage_Buffer inBuff;
-    inBuff.height = CVPixelBufferGetHeight(pixelBuffer);
-    inBuff.width = CVPixelBufferGetWidth(pixelBuffer);
-    inBuff.rowBytes = bytesPerRow;
-    inBuff.data = baseAddress;
-    
-    // Transform
-    CGAffineTransform finalTransform = transform;
-    if(flip)
-    {
-        CGRect flippedRect = CGRectApplyAffineTransform(originalRect, finalTransform);
-        flippedRect = CGRectIntegral(flippedRect);
-        
-        CGAffineTransform flip = CGAffineTransformMakeTranslation(flippedRect.size.width * 0.5, flippedRect.size.height * 0.5);
-        flip = CGAffineTransformScale(flip, 1, -1);
-        flip = CGAffineTransformTranslate(flip, -flippedRect.size.width * 0.5, -flippedRect.size.height * 0.5);
-        
-        finalTransform = CGAffineTransformConcat(finalTransform, flip);
-    }
-    
-    CGRect transformedRect = CGRectApplyAffineTransform(originalRect, finalTransform);
-    
-    vImage_CGAffineTransform finalAffineTransform;
-    finalAffineTransform.a = finalTransform.a;
-    finalAffineTransform.b = finalTransform.b;
-    finalAffineTransform.c = finalTransform.c;
-    finalAffineTransform.d = finalTransform.d;
-    finalAffineTransform.tx = finalTransform.tx;
-    finalAffineTransform.ty = finalTransform.ty;
-    
-    // Create our pixel buffer pool for our transformed size
-    // TODO: Our pixel buffer pool wont re-init if for some reason pixel buffer sizes change
-    if(transformPixelBufferPool == NULL)
-    {
-        NSDictionary* poolAttributes = @{ (NSString*)kCVPixelBufferWidthKey : @(transformedRect.size.width),
-                                          (NSString*)kCVPixelBufferHeightKey : @(transformedRect.size.height),
-                                          (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
-                                          (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
-                                          (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
-                                          };
-        CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &transformPixelBufferPool);
-        if(err != kCVReturnSuccess)
-        {
-            NSLog(@"Error : %i", err);
-        }
-    }
-    
-    CVPixelBufferRef transformedBuffer;
-    CVPixelBufferPoolFlush(transformPixelBufferPool, kCVPixelBufferPoolFlushExcessBuffers);
-    CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, transformPixelBufferPool, &transformedBuffer);
-    
-    CVPixelBufferLockBaseAddress(transformedBuffer, 0);
-    unsigned char *transformBytes = (unsigned char *)CVPixelBufferGetBaseAddress(transformedBuffer);
-    
-    const uint8_t backColorU[4] = {0};
-    
-    vImage_Buffer transformed = {transformBytes, CVPixelBufferGetHeight(transformedBuffer), CVPixelBufferGetWidth(transformedBuffer), CVPixelBufferGetBytesPerRow(transformedBuffer)};
-    vImage_Error err;
-    
-    err = vImageAffineWarpCG_ARGB8888(&inBuff, &transformed, NULL, &finalAffineTransform, backColorU, kvImageLeaveAlphaUnchanged | kvImageBackgroundColorFill | SynopsisvImageTileFlag);
-    if (err != kvImageNoError)
-        NSLog(@" error %ld", err);
-    
-    // Free / unlock
-    CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
-    inBuff.data = NULL; // explicit
-    
-    CVPixelBufferUnlockBaseAddress(transformedBuffer, 0);
-    
-    return transformedBuffer;
-}
+//- (CVPixelBufferRef) createRotatedPixelBuffer:(CVPixelBufferRef)pixelBuffer withRotation:(CGAffineTransform)transform flip:(BOOL)flip
+//{
+//    size_t width = CVPixelBufferGetWidth(pixelBuffer);
+//    size_t height = CVPixelBufferGetHeight(pixelBuffer);
+//
+//    CGRect originalRect = {0, 0, (CGFloat)width, (CGFloat)height};
+//
+//    CVPixelBufferLockBaseAddress(pixelBuffer,kCVPixelBufferLock_ReadOnly);
+//    void *baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer);
+//    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer);
+//
+//    vImage_Buffer inBuff;
+//    inBuff.height = CVPixelBufferGetHeight(pixelBuffer);
+//    inBuff.width = CVPixelBufferGetWidth(pixelBuffer);
+//    inBuff.rowBytes = bytesPerRow;
+//    inBuff.data = baseAddress;
+//
+//    // Transform
+//    CGAffineTransform finalTransform = transform;
+//    if(flip)
+//    {
+//        CGRect flippedRect = CGRectApplyAffineTransform(originalRect, finalTransform);
+//        flippedRect = CGRectIntegral(flippedRect);
+//
+//        CGAffineTransform flip = CGAffineTransformMakeTranslation(flippedRect.size.width * 0.5, flippedRect.size.height * 0.5);
+//        flip = CGAffineTransformScale(flip, 1, -1);
+//        flip = CGAffineTransformTranslate(flip, -flippedRect.size.width * 0.5, -flippedRect.size.height * 0.5);
+//
+//        finalTransform = CGAffineTransformConcat(finalTransform, flip);
+//    }
+//
+//    CGRect transformedRect = CGRectApplyAffineTransform(originalRect, finalTransform);
+//
+//    vImage_CGAffineTransform finalAffineTransform;
+//    finalAffineTransform.a = finalTransform.a;
+//    finalAffineTransform.b = finalTransform.b;
+//    finalAffineTransform.c = finalTransform.c;
+//    finalAffineTransform.d = finalTransform.d;
+//    finalAffineTransform.tx = finalTransform.tx;
+//    finalAffineTransform.ty = finalTransform.ty;
+//
+//    // Create our pixel buffer pool for our transformed size
+//    // TODO: Our pixel buffer pool wont re-init if for some reason pixel buffer sizes change
+//    if(transformPixelBufferPool == NULL)
+//    {
+//        NSDictionary* poolAttributes = @{ (NSString*)kCVPixelBufferWidthKey : @(transformedRect.size.width),
+//                                          (NSString*)kCVPixelBufferHeightKey : @(transformedRect.size.height),
+//                                          (NSString*)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA),
+//                                          (NSString *)kCVPixelBufferMetalCompatibilityKey : @YES,
+//                                          (NSString *)kCVPixelBufferIOSurfacePropertiesKey : @{},
+//                                          };
+//        CVReturn err = CVPixelBufferPoolCreate(kCFAllocatorDefault, NULL, (__bridge CFDictionaryRef _Nullable)(poolAttributes), &transformPixelBufferPool);
+//        if(err != kCVReturnSuccess)
+//        {
+//            NSLog(@"Error : %i", err);
+//        }
+//    }
+//
+//    CVPixelBufferRef transformedBuffer;
+//    CVPixelBufferPoolFlush(transformPixelBufferPool, kCVPixelBufferPoolFlushExcessBuffers);
+//    CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, transformPixelBufferPool, &transformedBuffer);
+//
+//    CVPixelBufferLockBaseAddress(transformedBuffer, 0);
+//    unsigned char *transformBytes = (unsigned char *)CVPixelBufferGetBaseAddress(transformedBuffer);
+//
+//    const uint8_t backColorU[4] = {0};
+//
+//    vImage_Buffer transformed = {transformBytes, CVPixelBufferGetHeight(transformedBuffer), CVPixelBufferGetWidth(transformedBuffer), CVPixelBufferGetBytesPerRow(transformedBuffer)};
+//    vImage_Error err;
+//
+//    err = vImageAffineWarpCG_ARGB8888(&inBuff, &transformed, NULL, &finalAffineTransform, backColorU, kvImageLeaveAlphaUnchanged | kvImageBackgroundColorFill | SynopsisvImageTileFlag);
+//    if (err != kvImageNoError)
+//        NSLog(@" error %ld", err);
+//
+//    // Free / unlock
+//    CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
+//    inBuff.data = NULL; // explicit
+//
+//    CVPixelBufferUnlockBaseAddress(transformedBuffer, 0);
+//
+//    return transformedBuffer;
+//}
 
 - (CVPixelBufferRef) createPixelBuffer:(CVPixelBufferRef)pixelBuffer withTransform:(CGAffineTransform)transform  withRect:(CGRect)resizeRect
 {
     BOOL inputIsFlipped = CVImageBufferIsFlipped(pixelBuffer);
     
-    CVPixelBufferRef scaledPixelBuffer = [self createScaledPixelBuffer:pixelBuffer withRect:resizeRect];
+    CVPixelBufferRef scaledPixelBuffer = [self createResizedPixelBuffer:pixelBuffer withRect:resizeRect];
     
     // Is our transform equal to any 90 º rotations?
     if(!CGAffineTransformEqualToTransform(CGAffineTransformIdentity, transform))
     {
-        CGAffineTransform ninety = CGAffineTransformMakeRotation(90);
-        CGAffineTransform oneeighty = CGAffineTransformMakeRotation(180);
-        CGAffineTransform twoseventy = CGAffineTransformMakeRotation(270);
-        CGAffineTransform three360 = CGAffineTransformMakeRotation(360);
+//        CGAffineTransform ninety = CGAffineTransformMakeRotation(90);
+//        CGAffineTransform oneeighty = CGAffineTransformMakeRotation(180);
+//        CGAffineTransform twoseventy = CGAffineTransformMakeRotation(270);
+//        CGAffineTransform three360 = CGAffineTransformMakeRotation(360);
         
         // since we are transforming our scaled pixel buffer, and our transform is not identity,
         // the tx and ty components of the input transform are no longer correct since width and height are different.
@@ -580,18 +641,18 @@
         transform.tx =  (size_t) round(transform.tx * widthRatio);
         transform.ty =  (size_t) round(transform.ty * heightRatio);
         
-        unsigned int rotation = -1;
-        if(CGAffineTransformEqualToTransform(ninety, transform))
-            rotation = 1;
-        else if(CGAffineTransformEqualToTransform(oneeighty, transform))
-            rotation = 2;
-        else if(CGAffineTransformEqualToTransform(twoseventy, transform))
-            rotation = 2;
-        else if(CGAffineTransformEqualToTransform(three360, transform))
-            rotation = 2;
+//        unsigned int rotation = -1;
+//        if(CGAffineTransformEqualToTransform(ninety, transform))
+//            rotation = 1;
+//        else if(CGAffineTransformEqualToTransform(oneeighty, transform))
+//            rotation = 2;
+//        else if(CGAffineTransformEqualToTransform(twoseventy, transform))
+//            rotation = 2;
+//        else if(CGAffineTransformEqualToTransform(three360, transform))
+//            rotation = 2;
         
         // If our input affine transform is not a simple rotation (not sure, maybe a translate too?), use vImageAffineWarpCG_ARGB8888
-        if(rotation == -1)
+//        if(rotation == -1)
         {
             CVPixelBufferRef transformedPixelBuffer = [self createTransformedPixelBuffer:scaledPixelBuffer withTransform:transform flip:inputIsFlipped];
             
@@ -599,15 +660,14 @@
             
             return transformedPixelBuffer;
         }
-        else
-        {
-            CVPixelBufferRef rotatedPixelBuffer = [self createTransformedPixelBuffer:scaledPixelBuffer withTransform:transform flip:inputIsFlipped];
-            
-            CVPixelBufferRelease(scaledPixelBuffer);
-            
-            return rotatedPixelBuffer;
-            
-        }
+//        else
+//        {
+//            CVPixelBufferRef rotatedPixelBuffer = [self createTransformedPixelBuffer:scaledPixelBuffer withTransform:transform flip:inputIsFlipped];
+//
+//            CVPixelBufferRelease(scaledPixelBuffer);
+//
+//            return rotatedPixelBuffer;
+//        }
     }
     
     return scaledPixelBuffer;
