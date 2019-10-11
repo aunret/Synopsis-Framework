@@ -84,9 +84,12 @@
 
     CIRenderDestination* renderDestination = [[CIRenderDestination alloc] initWithMTLTexture:texture commandBuffer:conformBuffer];
     
-    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
-    renderDestination.colorSpace = linear;
-    CGColorSpaceRelease(linear);
+    renderDestination.flipped = CVImageBufferIsFlipped(pixelBuffer);
+    
+//    CGColorSpaceRef cs = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+    CGColorSpaceRef cs = CVImageBufferGetColorSpace(pixelBuffer);
+    renderDestination.colorSpace = cs;
+//    CGColorSpaceRelease(cs);
     
     [self.ciContext startTaskToRender:transformedImage toDestination:renderDestination error:nil];
 
