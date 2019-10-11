@@ -46,16 +46,24 @@ extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictK
 extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey;
 extern NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey;
 
+// For Global Dict, this is the human readable tags that we have confidence exist in the movie
+// These are taken from the labels associated with the highest confident values for each concept category
+// In kSynopsisStandardMetadataProbabilitiesDictKey.
+
+extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
+
+// RGB histogram, exists per frame and globally.
+extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
+
+
 // Deprecated??
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
 
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
 
 //DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataScoreDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
