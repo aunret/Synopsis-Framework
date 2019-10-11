@@ -66,7 +66,7 @@
         if (@available(macOS 10.14, *)) {
             
             MLModelConfiguration* modelConfig = [[MLModelConfiguration alloc] init];
-            modelConfig.computeUnits = MLComputeUnitsCPUAndGPU;
+            modelConfig.computeUnits = MLComputeUnitsAll;
             
             if (@available(macOS 10.15, *))
             {
