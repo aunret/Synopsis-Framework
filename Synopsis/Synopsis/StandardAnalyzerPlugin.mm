@@ -97,7 +97,7 @@
         self.cpuModuleClasses  = @[// AVG Color is useless and just an example module
 //                                [AverageColor className],
 //                                   NSStringFromClass([DominantColorModule class]),
-                                   NSStringFromClass([HistogramModule class]),
+//                                   NSStringFromClass([HistogramModule class]),
 //                                   [MotionModule className],
 //                                   [TensorflowFeatureModule className],
 //                                   [TrackerModule className],
@@ -108,7 +108,7 @@
 //        self.cpuModuleClasses = @[];
         
         self.gpuModuleClasses  = @[
-//        NSStringFromClass([GPUHistogramModule class]),
+        NSStringFromClass([GPUHistogramModule class]),
         NSStringFromClass([CinemaNetModuleV1 class]),
                                    ];
         
@@ -351,7 +351,7 @@
 
 - (NSDictionary*) finalizeMetadataAnalysisSessionWithError:(NSError**)error
 {
-    NSLog(@"FINALIZING ANALYZER !!?@?");
+//    NSLog(@"FINALIZING ANALYZER !!?@?");
     NSMutableDictionary* finalized = [NSMutableDictionary new];
     
     for(CPUModule* module in self.cpuModules)
