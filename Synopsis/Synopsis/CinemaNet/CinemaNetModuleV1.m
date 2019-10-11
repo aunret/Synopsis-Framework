@@ -53,13 +53,13 @@
         stride = 5;
         numWindows = 2;
         
-        linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+//        linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
+//
+//        NSDictionary* opt = @{ kCIContextWorkingColorSpace : (__bridge id)linear,
+//                               kCIContextOutputColorSpace : (__bridge id)linear,
+//                               };
         
-        NSDictionary* opt = @{ kCIContextWorkingColorSpace : (__bridge id)linear,
-                               kCIContextOutputColorSpace : (__bridge id)linear,
-                               };
-        
-        self.context = [CIContext contextWithMTLDevice:device options:opt];
+        self.context = [CIContext contextWithMTLDevice:device ];
         
         NSError* error = nil;
 
@@ -164,7 +164,7 @@
     {
         SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
         MPSImage* frameMPSImage = frameMPImage.mpsImage;
-        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:nil];
+        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:@{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
     }
     
     else if ([frame isKindOfClass:[SynopsisVideoFrameCVPixelBuffer class]])

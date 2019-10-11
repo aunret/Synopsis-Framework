@@ -33,7 +33,8 @@ typedef enum : unsigned int {
 // 
 @protocol SynopsisVideoFrame <NSObject>
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
-- (NSString*) label;
-- (CMTime) presentationTimeStamp;
+@property (readonly) NSString* label;
+@property (readonly) CMTime presentationTimeStamp;
+@property (readonly, nullable) CGColorSpaceRef colorSpace;
 @end
 

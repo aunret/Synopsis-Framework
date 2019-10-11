@@ -78,6 +78,16 @@
     
         CVPixelBufferRef pixelBuffer = [self createPixelBuffer:buffer withTransform:transform withRect:rect];
         
+        CGColorSpaceRef colorSpace = NULL;
+        BOOL shouldReleaseColorSpace = FALSE;
+        colorSpace = CVImageBufferGetColorSpace(pixelBuffer);
+        
+        if (colorSpace == NULL)
+        {
+            colorSpace = CVImageBufferCreateColorSpaceFromAttachments(CVBufferGetAttachments(pixelBuffer,  kCVAttachmentMode_ShouldPropagate));
+            shouldReleaseColorSpace = TRUE;
+        }
+        
         CVPixelBufferLockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
         
         SynopsisVideoFrameCache* cache = [self conformToOpenCVFormatsWith:CVPixelBufferGetBaseAddress(pixelBuffer)
@@ -85,7 +95,8 @@
                                                                    height:CVPixelBufferGetHeight(pixelBuffer)
                                                               bytesPerRow:CVPixelBufferGetBytesPerRow(pixelBuffer)
                                                                 toFormats:formatSpecifiers
-                                                                   atTime:time];
+                                                                   atTime:time
+                                                               colorSpace:colorSpace];
         
         CVPixelBufferUnlockBaseAddress(pixelBuffer, kCVPixelBufferLock_ReadOnly);
         CVPixelBufferRelease(pixelBuffer);
@@ -93,6 +104,11 @@
         if(completionBlock)
         {
             completionBlock(false, nil, cache, nil);
+        }
+    
+        if (shouldReleaseColorSpace && colorSpace != NULL)
+        {
+            CGColorSpaceRelease(colorSpace);
         }
 //    }];
     
@@ -102,10 +118,11 @@
 #pragma mark - OpenCV Format Conversion
 
 // TODO: Think about lazy conversion. If we dont hit an accessor, we dont convert.
-- (SynopsisVideoFrameCache*) conformToOpenCVFormatsWith:(void*)baseAddress width:(size_t)width height:(size_t)height bytesPerRow:(size_t)bytesPerRow toFormats:(NSArray<SynopsisVideoFormatSpecifier*>*)formatSpecifiers atTime:(CMTime) time;
+- (SynopsisVideoFrameCache*) conformToOpenCVFormatsWith:(void*)baseAddress width:(size_t)width height:(size_t)height bytesPerRow:(size_t)bytesPerRow toFormats:(NSArray<SynopsisVideoFormatSpecifier*>*)formatSpecifiers atTime:(CMTime) time colorSpace:(CGColorSpaceRef)colorSpace;
 {
     SynopsisVideoFrameCache* cache = [[SynopsisVideoFrameCache alloc] init];
 
+    
     // TODO: Use These!
     BOOL doBGR = NO;
     BOOL doFloat = NO;
@@ -153,8 +170,8 @@
     cv::cvtColor(BGRAImage, BGRImage, cv::COLOR_BGRA2BGR);
     
     SynopsisVideoFormatSpecifier* bgr = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingOpenCV];
-    SynopsisVideoFrameOpenCV* videoFrameBGRA = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:BGRImage formatSpecifier:bgr presentationTimeStamp:time];
-    [cache cacheFrame:videoFrameBGRA];
+    SynopsisVideoFrameOpenCV* videoFrameBGR = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:BGRImage formatSpecifier:bgr presentationTimeStamp:time colorspace:colorSpace];
+    [cache cacheFrame:videoFrameBGR];
     
     
     // Convert 8 bit BGR to Grey
@@ -165,7 +182,7 @@
         cv::cvtColor(BGRImage, grayImage, cv::COLOR_BGR2GRAY);
         
         SynopsisVideoFormatSpecifier* gray = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatGray8 backing:SynopsisVideoBackingOpenCV];
-        SynopsisVideoFrameOpenCV* videoFrameGray = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:grayImage formatSpecifier:gray presentationTimeStamp:time];
+        SynopsisVideoFrameOpenCV* videoFrameGray = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:grayImage formatSpecifier:gray presentationTimeStamp:time colorspace:NULL];
         [cache cacheFrame:videoFrameGray];
     }
     
@@ -177,7 +194,7 @@
         BGRImage.convertTo(BGR32Image, CV_32FC3, 1.0/255.0);
         
         SynopsisVideoFormatSpecifier* floatBGR = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGRF32 backing:SynopsisVideoBackingOpenCV];
-        SynopsisVideoFrameOpenCV* videoFrameBGRF32 = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:BGR32Image formatSpecifier:floatBGR presentationTimeStamp:time];
+        SynopsisVideoFrameOpenCV* videoFrameBGRF32 = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:BGR32Image formatSpecifier:floatBGR presentationTimeStamp:time colorspace:NULL];
         [cache cacheFrame:videoFrameBGRF32];
     }
     
@@ -189,7 +206,7 @@
         cv::cvtColor(BGR32Image, perceptualImage, TO_PERCEPTUAL);
         
         SynopsisVideoFormatSpecifier* perceptualFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatPerceptual backing:SynopsisVideoBackingOpenCV];
-        SynopsisVideoFrameOpenCV* videoFramePerceptual = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:perceptualImage formatSpecifier:perceptualFormat presentationTimeStamp:time];
+        SynopsisVideoFrameOpenCV* videoFramePerceptual = [[SynopsisVideoFrameOpenCV alloc] initWithCVMat:perceptualImage formatSpecifier:perceptualFormat presentationTimeStamp:time colorspace:NULL];
         [cache cacheFrame:videoFramePerceptual];
     }
         

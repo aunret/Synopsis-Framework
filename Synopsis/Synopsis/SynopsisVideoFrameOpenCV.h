@@ -13,7 +13,9 @@
 @interface SynopsisVideoFrameOpenCV : NSObject<SynopsisVideoFrame>
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
 @property (readonly) CMTime presentationTimeStamp;
+@property (readonly, nullable) CGColorSpaceRef colorSpace;
 
-- (instancetype) initWithCVMat:(cv::Mat)mat formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts;
+- (instancetype) initWithCVMat:(cv::Mat)mat formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts colorspace:(CGColorSpaceRef) colorspace;
+
 - (cv::Mat)mat;
 @end

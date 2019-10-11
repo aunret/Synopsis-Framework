@@ -13,6 +13,7 @@
 
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
 @property (readonly) CMTime presentationTimeStamp;
+@property (readonly, nullable) CGColorSpaceRef colorSpace;
 @property (readwrite, assign) NSString* label;
 
 - (instancetype) initWithPixelBuffer:(CVPixelBufferRef)pixelBuffer formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts;

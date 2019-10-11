@@ -7,12 +7,15 @@
 //
 
 #import "SynopsisVideoFrame.h"
+#import <Foundation/Foundation.h>
 #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
 
 @interface SynopsisVideoFrameMPImage : NSObject<SynopsisVideoFrame>
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
 @property (readonly) CMTime presentationTimeStamp;
-- (instancetype) initWithMPSImage:(MPSImage*)image formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts;
+@property (readonly, nullable) CGColorSpaceRef colorSpace;
+
+- (instancetype) initWithMPSImage:(MPSImage*)image formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts colorspace:(CGColorSpaceRef)colorspace;
 - (MPSImage*) mpsImage;
 @end
 

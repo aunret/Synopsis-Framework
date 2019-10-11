@@ -86,10 +86,17 @@
     
     renderDestination.flipped = CVImageBufferIsFlipped(pixelBuffer);
     
-//    CGColorSpaceRef cs = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
-    CGColorSpaceRef cs = CVImageBufferGetColorSpace(pixelBuffer);
-    renderDestination.colorSpace = cs;
-//    CGColorSpaceRelease(cs);
+    CGColorSpaceRef colorSpace = NULL;
+    BOOL shouldReleaseColorSpace = FALSE;
+    colorSpace = CVImageBufferGetColorSpace(pixelBuffer);
+    
+    if (colorSpace == NULL)
+    {
+        colorSpace = CVImageBufferCreateColorSpaceFromAttachments(CVBufferGetAttachments(pixelBuffer,  kCVAttachmentMode_ShouldPropagate));
+        shouldReleaseColorSpace = TRUE;
+    }
+    
+    renderDestination.colorSpace = colorSpace;
     
     [self.ciContext startTaskToRender:transformedImage toDestination:renderDestination error:nil];
 
@@ -104,7 +111,7 @@
                 //                NSLog(@"Conform Completed frame %lu", frameComplete);
                 SynopsisVideoFrameCache* cache = [[SynopsisVideoFrameCache alloc] init];
                 SynopsisVideoFormatSpecifier* resultFormat = [[SynopsisVideoFormatSpecifier alloc] initWithFormat:SynopsisVideoFormatBGR8 backing:SynopsisVideoBackingMPSImage];
-                SynopsisVideoFrameMPImage* result = [[SynopsisVideoFrameMPImage alloc] initWithMPSImage:image formatSpecifier:resultFormat presentationTimeStamp:time];
+                SynopsisVideoFrameMPImage* result = [[SynopsisVideoFrameMPImage alloc] initWithMPSImage:image formatSpecifier:resultFormat presentationTimeStamp:time colorspace:colorSpace];
                 
                 [cache cacheFrame:result];
                 
@@ -112,6 +119,11 @@
                 
                 // We always have to release our pixel buffer
                 CVPixelBufferRelease(pixelBuffer);
+                
+                if (shouldReleaseColorSpace && colorSpace != NULL)
+                {
+                    CGColorSpaceRelease(colorSpace);
+                }
             }
         });
         

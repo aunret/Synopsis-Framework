@@ -29,8 +29,8 @@
         self.videoFormatSpecifier = formatSpecifier;
         self.presentationTimeStamp = pts;
     }
-    return self;
-        
+
+    return self;        
 }
 
 - (CVPixelBufferRef) pixelBuffer
@@ -38,6 +38,10 @@
     return pixelBuffer;
 }
 
+- (CGColorSpaceRef) colorSpace
+{
+    return CVImageBufferGetColorSpace(pixelBuffer);
+}
 - (void) dealloc
 {
     if(pixelBuffer)

@@ -15,11 +15,13 @@
 @property (readwrite, assign) cv::Mat openCVMatrix;
 @property (readwrite, assign) CMTime presentationTimeStamp;
 @property (readwrite, strong) NSString* label;
+@property (readwrite, assign) CGColorSpaceRef colorSpace;
+
 @end
 
 @implementation SynopsisVideoFrameOpenCV
 
-- (instancetype) initWithCVMat:(cv::Mat)mat formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts
+- (instancetype) initWithCVMat:(cv::Mat)mat formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts colorspace:(CGColorSpaceRef) colorspace
 {
     self = [super init];
     if(self)
@@ -27,6 +29,7 @@
         self.openCVMatrix = mat;
         self.videoFormatSpecifier = formatSpecifier;
         self.presentationTimeStamp = pts;
+        self.colorSpace = CGColorSpaceRetain(colorspace);
     }
     
     return self;
@@ -39,6 +42,7 @@
 
 - (void) dealloc
 {
+    CGColorSpaceRelease(self.colorSpace);
     self.openCVMatrix.release();
 }
 
