@@ -80,6 +80,11 @@
     MTLTextureDescriptor* descriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatBGRA8Unorm width:width height:height mipmapped:NO];
     descriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderWrite | MTLTextureUsageShaderRead;
     
+    // See https://developer.apple.com/documentation/metal/setting_resource_storage_modes/choosing_a_resource_storage_mode_in_macos
+    // This texture lives in GPU memory, and doesnt need to be read back at this point
+    // Anything using SynopsisVideoBackingMPSImage is going to be GPU accelerated :)
+    descriptor.resourceOptions = MTLResourceStorageModePrivate;
+    
     id<MTLTexture> texture = [self.commandQueue.device newTextureWithDescriptor:descriptor];
 
     CIRenderDestination* renderDestination = [[CIRenderDestination alloc] initWithMTLTexture:texture commandBuffer:conformBuffer];
