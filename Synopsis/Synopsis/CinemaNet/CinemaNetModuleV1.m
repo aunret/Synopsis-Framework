@@ -164,7 +164,7 @@
     {
         SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
         MPSImage* frameMPSImage = frameMPImage.mpsImage;
-        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:@{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
+        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:(frameMPImage.colorSpace==nil) ? nil : @{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
     }
     
     else if ([frame isKindOfClass:[SynopsisVideoFrameCVPixelBuffer class]])
