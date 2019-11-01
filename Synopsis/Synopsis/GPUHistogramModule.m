@@ -188,12 +188,14 @@
     NSArray<NSNumber*>* bHistogram = self.averageBHistogram.arrayValue;
 
     NSMutableArray<NSArray<NSNumber*>*>* histoGramTuples = [NSMutableArray arrayWithCapacity:kGPUHistogramModuleHistogramSize];
-
-    for(int i = 0; i < kGPUHistogramModuleHistogramSize; i++)
-    {
-        [histoGramTuples addObject: @[ rHistogram[i], gHistogram[i], bHistogram[i] ] ];
+	
+	if (rHistogram != nil && gHistogram != nil && bHistogram != nil)
+	{
+		for(int i = 0; i < kGPUHistogramModuleHistogramSize; i++)
+		{
+			[histoGramTuples addObject: @[ rHistogram[i], gHistogram[i], bHistogram[i] ] ];
+		}
     }
-    
     
     return @{[self moduleName] : histoGramTuples};
 }
