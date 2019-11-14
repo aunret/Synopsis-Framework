@@ -169,7 +169,7 @@
     // Convert histogram bins to cv::Mat
     NSArray* histogramArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataHistogramDictKey];
     
-    if(histogramArray)
+    if(histogramArray != nil && histogramArray.count == 256)
     {
         // Make 3 mutable arrays for R/G/B
         // We then flatten by making planar r followed by planar g, then b to a single dimensional array
@@ -193,6 +193,9 @@
         
         optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     }
+    else	{
+    	NSLog(@"ERR: histogramArray only had %d elements in %s",histogramArray.count,__func__);
+	}
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
     NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
