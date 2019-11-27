@@ -2138,8 +2138,6 @@
 		1B4DC18E1FC8D93F00BF10C8 /* libpython.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libpython.tbd; path = usr/lib/libpython.tbd; sourceTree = SDKROOT; };
 		1B4E6B4D208E674B00C078A8 /* SynopsisSlidingWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisSlidingWindow.h; sourceTree = "<group>"; };
 		1B4E6B4E208E674B00C078A8 /* SynopsisSlidingWindow.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SynopsisSlidingWindow.mm; sourceTree = "<group>"; };
-		1B4E6B5C208E854500C078A8 /* libtensorflow_framework.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow_framework.so; path = Synopsis/Tensorflow/lib/libtensorflow_framework.so; sourceTree = "<group>"; };
-		1B4E6B5D208E854500C078A8 /* libtensorflow_cc.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libtensorflow_cc.so; path = Synopsis/Tensorflow/lib/libtensorflow_cc.so; sourceTree = "<group>"; };
 		1B4F9A3D2005762B004D242D /* ImageNetClassifier.pb */ = {isa = PBXFileReference; lastKnownFileType = file; path = ImageNetClassifier.pb; sourceTree = "<group>"; };
 		1B4F9A3E20057639004D242D /* ImageNetLabels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ImageNetLabels.txt; sourceTree = "<group>"; };
 		1B4F9A4620069E06004D242D /* PlacesNetLabels.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PlacesNetLabels.txt; sourceTree = "<group>"; };
@@ -5895,8 +5893,6 @@
 		1BBB12DC1D578A9F00C22439 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				1B4E6B5D208E854500C078A8 /* libtensorflow_cc.so */,
-				1B4E6B5C208E854500C078A8 /* libtensorflow_framework.so */,
 				1BEDA4B92024E2DE00E4617C /* Vision.framework */,
 				1BEDA4B52024E2D400E4617C /* Metal.framework */,
 				1BEDA4B62024E2D400E4617C /* MetalPerformanceShaders.framework */,

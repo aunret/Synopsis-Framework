@@ -85,6 +85,10 @@
         self.greenHistogram = [CALayer layer];
         self.blueHistogram = [CALayer layer];
         
+        self.redHistogram.frame = self.bounds;
+        self.greenHistogram.frame = self.bounds;
+        self.blueHistogram.frame = self.bounds;
+                
         self.greenHistogram.compositingFilter = [CIFilter filterWithName:@"CIAdditionCompositing"];
         self.blueHistogram.compositingFilter = [CIFilter filterWithName:@"CIAdditionCompositing"];
         
