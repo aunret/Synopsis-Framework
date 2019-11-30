@@ -6142,7 +6142,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "needsstrip = $( file \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" | grep arm | wc -l)\n\nif [needsstrip]\nthen \necho \"Stripping OpenCV2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove armv7 -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove armv7s -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove i386 -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove arm64 -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nfi\n";
+			shellScript = "#!/bin/bash\n\nOPENCVPATH=\"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\n\necho \"OpenCV Path $OPENCVPATH\"\n\nNEEDSSTRIP=$(file $OPENCVPATH | grep armv7 | wc -l | tr -d '[:space:]')\n\n#convert to int\nNEEDSSTRIP = $(($NEEDSSTRIP + 0))\n\necho \"$OPENCVPATH Needs Strip: $NEEDSSTRIP\"\n\nif [[ $NEEDSSTRIP != 0 ]]\nthen \necho \"Stripping OpenCV2\"\nlipo $OPENCVPATH -remove armv7 -output $OPENCVPATH\nlipo $OPENCVPATH -remove armv7s -output $OPENCVPATH\nlipo $OPENCVPATH -remove i386 -output $OPENCVPATH\nlipo $OPENCVPATH -remove arm64 -output $OPENCVPATH\nelse\necho \"Not stripping OpenCV2\"\nfi\n";
 		};
 		1A42C0012388494E00A4507C /* Strip opencv2.frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6160,7 +6160,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "needsstrip = $( file \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" | grep i386 | wc -l)\n\nif [needsstrip]\nthen \necho \"Stripping OpenCV2\"\n\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove armv7 -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove armv7s -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove i386 -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nlipo \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\" -remove x86_64 -output \"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\nfi\n";
+			shellScript = "#!/bin/bash\n\nOPENCVPATH=\"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/opencv2.framework/Versions/A/opencv2\"\n\necho \"OpenCV Path $OPENCVPATH\"\n\nNEEDSSTRIP=$(file $OPENCVPATH | grep armv7 | wc -l | tr -d '[:space:]')\n\n#convert to int\nNEEDSSTRIP = $(($NEEDSSTRIP + 0))\n\necho \"$OPENCVPATH Needs Strip: $NEEDSSTRIP\"\n\nif [[ $NEEDSSTRIP != 0 ]]\nthen \necho \"Stripping OpenCV2\"\nlipo $OPENCVPATH -remove armv7 -output $OPENCVPATH\nlipo $OPENCVPATH -remove armv7s -output $OPENCVPATH\nlipo $OPENCVPATH -remove i386 -output $OPENCVPATH\nlipo $OPENCVPATH -remove x86_64 -output $OPENCVPATH\nelse\necho \"Not stripping OpenCV2\"\nfi\n";
 		};
 		1AA67FF62391CAF80042E18B /* Sign opencv2.framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -6609,7 +6609,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = KH97KZU7A7;
+				DEVELOPMENT_TEAM = SHG3AW6YV7;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
