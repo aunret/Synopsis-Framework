@@ -55,6 +55,8 @@ extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
 // RGB histogram, exists per frame and globally.
 extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
 
+//
+extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
 
 // Deprecated??
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
@@ -63,7 +65,6 @@ DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataInteresting
 
 //DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataScoreDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
 DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
