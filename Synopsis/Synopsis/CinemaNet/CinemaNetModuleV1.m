@@ -32,6 +32,9 @@
 @property (readwrite, strong) NSMutableArray<NSValue*>* featureVectorWindowAveragesTimes;
 @property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* featureVectorWindows;
 
+@property (readwrite, strong) SynopsisDenseFeature* averageDominantColors;
+
+
 @property (readwrite, strong) SynopsisDenseFeature* averageProbabilities;
 @property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* probabilityWindowAverages;
 @property (readwrite, strong) NSMutableArray<NSValue*>* probabilityWindowAveragesTimes;
@@ -157,6 +160,19 @@
     }
 }
 
+// TODO: This should be optimized
+- (NSArray<NSNumber*>*) nsarrayFromMLMultiArray:(MLMultiArray*)multiArray
+{
+    NSMutableArray<NSNumber*>* array = [NSMutableArray new];
+    for (int i = 0; i < multiArray.count; i++)
+    {
+        // Keyed Subscript returns NSNumbers:
+        [array addObject: multiArray[i] ];
+    }
+
+    return array;
+}
+
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
 {
     CIImage* imageForRequest = nil;
@@ -227,17 +243,14 @@
             }];
             
             VNCoreMLFeatureValueObservation* embeddingSpaceObservation = [results firstObject];
-            // iterate to make NSNumber array :(
+            NSArray* embeddingSpaceArray = [self nsarrayFromMLMultiArray:embeddingSpaceObservation.featureValue.multiArrayValue];
+
+            VNCoreMLFeatureValueObservation* dominantColorObservation = [results objectAtIndex:1];
+            NSArray* dominantColorArray = [self nsarrayFromMLMultiArray:dominantColorObservation.featureValue.multiArrayValue];
             
-            MLMultiArray* embeddingSpaceMLMultiArray = embeddingSpaceObservation.featureValue.multiArrayValue;
-            NSMutableArray<NSNumber*>* embeddingSpaceArray = [NSMutableArray new];
-            for (int i = 0; i < embeddingSpaceMLMultiArray.count; i++)
-            {
-                // Keyed Subscript returns NSNumbers:
-                [embeddingSpaceArray addObject: embeddingSpaceMLMultiArray[i] ];
-            }
-            
-            results = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
+
+            // Remove our embedding and our dominant color resultss
+            results = [results subarrayWithRange:NSMakeRange(2, results.count - 2)];
             
             // Track the ranges of our label concept groups:
             NSUInteger location = 0;
@@ -310,11 +323,10 @@
             else
             {
                 // Probabilities get maximized
-                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageFeatureVec withFeature:denseFeature];
+                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageFeatureVec withFeature:denseFeature];
             }
 
             SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities];
-
 
             if(self.averageProbabilities == nil)
             {
@@ -323,9 +335,23 @@
             else
             {
                 // Probabilities get maximized
-                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseProbabilities];
+                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageProbabilities withFeature:denseProbabilities];
             }
             
+            SynopsisDenseFeature* denseDominantColors = [[SynopsisDenseFeature alloc] initWithFeatureArray:dominantColorArray];
+
+            if(self.averageDominantColors == nil)
+            {
+                self.averageDominantColors = denseDominantColors;
+            }
+            else
+            {
+                // Probabilities get maximized
+                self.averageDominantColors = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageDominantColors withFeature:denseDominantColors];
+            }
+
+            
+            metadata[kSynopsisStandardMetadataDominantColorValuesDictKey] = dominantColorArray;
             metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = embeddingSpaceArray;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
 
@@ -362,6 +388,7 @@
     // Compute the most likely labels from each label category
     NSArray<NSNumber*>* averageProbabilities = self.averageProbabilities.arrayValue;
     NSArray<NSNumber*>* averageFeatures = self.averageFeatureVec.arrayValue;
+    NSArray<NSNumber*>* averageDominantColors = self.averageDominantColors.arrayValue;
 
     NSMutableArray<NSString*>* predictedLabels = [NSMutableArray new];
     
@@ -377,6 +404,7 @@
     return @{
              kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
              kSynopsisStandardMetadataFeatureVectorDictKey : (averageFeatures) ? averageFeatures : @[ ],
+             kSynopsisStandardMetadataDominantColorValuesDictKey : (averageDominantColors) ? averageDominantColors : @[],
              //             kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
              kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
              };

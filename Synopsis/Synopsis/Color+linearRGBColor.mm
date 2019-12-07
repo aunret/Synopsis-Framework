@@ -30,7 +30,7 @@
 
 + (CGColorRef) newColorWithLinearRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue
 {
-    return [self newColorWithLinearRed:green green:green blue:blue alpha:1.0];
+    return [self newColorWithLinearRed:red green:green blue:blue alpha:1.0];
 }
 
 + (NSArray*) newLinearColorsWithArraysOfRGBComponents:(NSArray*)colorComponentsArray

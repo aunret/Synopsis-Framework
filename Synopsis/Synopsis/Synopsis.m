@@ -49,6 +49,8 @@ NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey = @
 
 NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey = @"DominantColors";
 NSString* const kSynopsisStandardMetadataHistogramDictKey = @"Histogram";
+
+// Not currently in use:
 NSString* const kSynopsisStandardMetadataMotionDictKey = @"Motion";
 NSString* const kSynopsisStandardMetadataMotionVectorDictKey = @"MotionVector";
 NSString* const kSynopsisStandardMetadataSaliencyDictKey = @"Saliency";
