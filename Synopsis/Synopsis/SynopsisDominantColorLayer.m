@@ -15,7 +15,8 @@
 @implementation SynopsisDominantColorLayer
 
 
-#define kSynopsisDominantColorCount 5
+#define kSynopsisDominantColorCount 10
+
 - (instancetype) init
 {
     self = [super init];
@@ -37,7 +38,7 @@
             colorLayer.frame = (CGRect){0, 0, size.width, size.height};
             colorLayer.position = (CGPoint){initialOffset + (width * 0.5), size.height * 0.5};
             colorLayer.actions = actions;
-            
+
             initialOffset += width;
             
             [self addSublayer:colorLayer];
