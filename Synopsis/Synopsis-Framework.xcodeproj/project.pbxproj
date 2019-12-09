@@ -140,7 +140,6 @@
 		1B73588F1DEF5FE40053BC06 /* HistogramModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358761DEF5FE40053BC06 /* HistogramModule.mm */; };
 		1B7358901DEF5FE40053BC06 /* MedianCutOpenCV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358771DEF5FE40053BC06 /* MedianCutOpenCV.cpp */; };
 		1B7358931DEF5FE40053BC06 /* CPUModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B73587A1DEF5FE40053BC06 /* CPUModule.mm */; };
-		1B7358951DEF5FE40053BC06 /* MotionModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B73587C1DEF5FE40053BC06 /* MotionModule.mm */; };
 		1B73589B1DEF5FE40053BC06 /* StandardAnalyzerPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358821DEF5FE40053BC06 /* StandardAnalyzerPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B73589C1DEF5FE40053BC06 /* StandardAnalyzerPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358831DEF5FE40053BC06 /* StandardAnalyzerPlugin.mm */; };
 		1B7358A31DEF623D0053BC06 /* AnalyzerPluginProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B7358A21DEF623D0053BC06 /* AnalyzerPluginProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -151,8 +150,8 @@
 		1B8358A41F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1B97B73C239ADB4F001DEAC8 /* SynopsisMetadataDecoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E5D1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m */; };
 		1B97B73D239ADB50001DEAC8 /* SynopsisMetadataDecoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E5D1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m */; };
-		1B97B759239D8973001DEAC8 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B758239D8972001DEAC8 /* CinemaNet.mlmodel */; };
-		1B97B75A239D8973001DEAC8 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B758239D8972001DEAC8 /* CinemaNet.mlmodel */; };
+		1B97B765239EE25B001DEAC8 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B764239EE25B001DEAC8 /* CinemaNet.mlmodel */; };
+		1B97B766239EE25B001DEAC8 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B764239EE25B001DEAC8 /* CinemaNet.mlmodel */; };
 		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
 		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
 		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
@@ -247,7 +246,6 @@
 		1BEDA4C920251C3D00E4617C /* AverageColor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358701DEF5FE40053BC06 /* AverageColor.mm */; };
 		1BEDA4CB20251C4300E4617C /* HistogramModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358761DEF5FE40053BC06 /* HistogramModule.mm */; };
 		1BEDA4CC20251C5000E4617C /* MedianCutOpenCV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358771DEF5FE40053BC06 /* MedianCutOpenCV.cpp */; };
-		1BEDA4CD20251C5300E4617C /* MotionModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B73587C1DEF5FE40053BC06 /* MotionModule.mm */; };
 		1BEDA4D220251E6400E4617C /* CIEDE2000.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B7358A51DEF65770053BC06 /* CIEDE2000.cpp */; };
 		1BF8581E2090F6B400294C29 /* SynopsisSlidingWindow.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1B4E6B4E208E674B00C078A8 /* SynopsisSlidingWindow.mm */; };
 		1BF858222090F6E700294C29 /* SynopsisSlidingWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4E6B4D208E674B00C078A8 /* SynopsisSlidingWindow.h */; };
@@ -2094,7 +2092,7 @@
 		1B756AD81FA5160A0050A96F /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		1B8358971F42110600F86F0F /* libblas.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libblas.tbd; path = usr/lib/libblas.tbd; sourceTree = SDKROOT; };
 		1B8358A31F42285000F86F0F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
-		1B97B758239D8972001DEAC8 /* CinemaNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNet.mlmodel; sourceTree = "<group>"; };
+		1B97B764239EE25B001DEAC8 /* CinemaNet.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNet.mlmodel; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
 		1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataDecoderVersion3.h; sourceTree = "<group>"; };
 		1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynopsisMetadataEncoderVersion3.h; sourceTree = "<group>"; };
@@ -5877,7 +5875,7 @@
 			children = (
 				1BAEA4A322B196AA00EEB116 /* CinemaNetModuleV1.h */,
 				1BAEA4A422B196AA00EEB116 /* CinemaNetModuleV1.m */,
-				1B97B758239D8972001DEAC8 /* CinemaNet.mlmodel */,
+				1B97B764239EE25B001DEAC8 /* CinemaNet.mlmodel */,
 			);
 			path = CinemaNet;
 			sourceTree = "<group>";
@@ -6246,12 +6244,12 @@
 				1B0306E02087C69D000A2DF7 /* divsufsort.c in Sources */,
 				1B0306E12087C69D000A2DF7 /* zdict.c in Sources */,
 				1BEDA4C220251BF300E4617C /* GPUModule.m in Sources */,
-				1BEDA4CD20251C5300E4617C /* MotionModule.mm in Sources */,
 				1B0306A52087C669000A2DF7 /* entropy_common.c in Sources */,
 				1B0306B92087C67B000A2DF7 /* error_private.c in Sources */,
 				1B0306C92087C68C000A2DF7 /* zstd_double_fast.c in Sources */,
 				1BEDA4722024DEDF00E4617C /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B0306DF2087C69D000A2DF7 /* cover.c in Sources */,
+				1B97B766239EE25B001DEAC8 /* CinemaNet.mlmodel in Sources */,
 				1B4446D31EE1FFB30075575D /* MetadataComparisons.mm in Sources */,
 				1B4446D11EE1FFB30075575D /* SynopsisMetadataDecoder.m in Sources */,
 				1B6D66A021D0A733000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */,
@@ -6278,7 +6276,6 @@
 				1B0306D62087C693000A2DF7 /* zstd_decompress.c in Sources */,
 				1B0306CD2087C68C000A2DF7 /* zstd_lazy.c in Sources */,
 				1B0306CC2087C68C000A2DF7 /* zstd_compress.c in Sources */,
-				1B97B75A239D8973001DEAC8 /* CinemaNet.mlmodel in Sources */,
 				1BEDA4AB2024E0E100E4617C /* SynopsisVideoFrameConformHelperGPU.m in Sources */,
 				1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 			);
@@ -6290,7 +6287,6 @@
 			files = (
 				1BB7F64C1FA123AC004ED69F /* GPUModule.m in Sources */,
 				1B0306A72087C672000A2DF7 /* fse_decompress.c in Sources */,
-				1B97B759239D8973001DEAC8 /* CinemaNet.mlmodel in Sources */,
 				1B551E671EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1B0306A32087C668000A2DF7 /* entropy_common.c in Sources */,
@@ -6306,6 +6302,7 @@
 				1B0306D92087C69C000A2DF7 /* cover.c in Sources */,
 				1B0306C12087C68B000A2DF7 /* zstd_fast.c in Sources */,
 				1B551E7C1EFAE956004C077B /* SynopsisMetadataPushDelegate.m in Sources */,
+				1B97B765239EE25B001DEAC8 /* CinemaNet.mlmodel in Sources */,
 				1BC98DE01F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.mm in Sources */,
 				1B4446B21EE1FD5D0075575D /* Color+linearRGBColor.mm in Sources */,
 				1B7358931DEF5FE40053BC06 /* CPUModule.mm in Sources */,
@@ -6314,7 +6311,6 @@
 				1BC98DD21F9FAA5600E0F52A /* SynopsisVideoFrameCache.m in Sources */,
 				1B73588F1DEF5FE40053BC06 /* HistogramModule.mm in Sources */,
 				1B4446A81EE1FD3B0075575D /* SynopsisDenseFeatureLayer.mm in Sources */,
-				1B7358951DEF5FE40053BC06 /* MotionModule.mm in Sources */,
 				1B7358A71DEF65770053BC06 /* CIEDE2000.cpp in Sources */,
 				1B4446AA1EE1FD3B0075575D /* SynopsisDominantColorLayer.m in Sources */,
 				1B0306C02087C68B000A2DF7 /* zstd_double_fast.c in Sources */,

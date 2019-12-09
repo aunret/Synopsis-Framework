@@ -28,23 +28,27 @@
 @property (readwrite, strong) CinemaNet* mlModel;
 
 @property (readwrite, strong) SynopsisDenseFeature* averageFeatureVec;
-@property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* featureVectorWindowAverages;
-@property (readwrite, strong) NSMutableArray<NSValue*>* featureVectorWindowAveragesTimes;
-@property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* featureVectorWindows;
-
 @property (readwrite, strong) SynopsisDenseFeature* averageDominantColors;
-
-
 @property (readwrite, strong) SynopsisDenseFeature* averageProbabilities;
-@property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* probabilityWindowAverages;
-@property (readwrite, strong) NSMutableArray<NSValue*>* probabilityWindowAveragesTimes;
-@property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* probabilityWindows;
+
+// Compute the frame similarity between consecutive frames
+// On completion of the film,normalize the number of vector elements to match
+// This gives us a 'similarity vector' of the time domain features
+// Although we do lose what it is we are similar about
+// Its a feature thats useful to knowing how the temporal structure changes over time
+@property (readwrite, strong) SynopsisDenseFeature* similarityFeatureVec;
+@property (readwrite, strong) SynopsisDenseFeature* similairityDominantColors;
+@property (readwrite, strong) SynopsisDenseFeature* similarityProbabilities;
+
+// In order ot do the above, we have to cache the last frames features
+@property (readwrite, strong) SynopsisDenseFeature* lastFrameFeatureVec;
+@property (readwrite, strong) SynopsisDenseFeature* lastFrameDominantColors;
+@property (readwrite, strong) SynopsisDenseFeature* lastFrameProbabilities;
 
 @property (readwrite, strong) NSArray<NSString*>* labels;
 @property (readwrite, strong) NSArray<NSValue*>* labelGroupRanges;
 
 @end
-
 
 @implementation CinemaNetModuleV1
 
@@ -142,27 +146,23 @@
 - (void) beginAndClearCachedResults
 {
     self.averageFeatureVec = nil;
-    self.featureVectorWindowAverages = [NSMutableArray new];
-    self.featureVectorWindowAveragesTimes = [NSMutableArray new];
-    self.featureVectorWindows = [NSMutableArray new];
-    
     self.averageProbabilities = nil;
-    self.probabilityWindowAverages = [NSMutableArray new];
-    self.probabilityWindowAveragesTimes = [NSMutableArray new];
-    self.probabilityWindows = [NSMutableArray new];
+    self.averageDominantColors = nil;
     
-    for(NSUInteger i = 0; i < numWindows; i++)
-    {
-        SynopsisSlidingWindow* aWindow = [[SynopsisSlidingWindow alloc] initWithLength:10 offset:stride * i];
-        SynopsisSlidingWindow* bWindow = [[SynopsisSlidingWindow alloc] initWithLength:10 offset:stride * i];
-        [self.featureVectorWindows addObject:aWindow];
-        [self.probabilityWindows addObject:bWindow];
-    }
+    self.similarityFeatureVec  = nil;
+    self.similairityDominantColors  = nil;
+    self.similarityProbabilities  = nil;
+    
+    self.lastFrameFeatureVec  = nil;
+    self.lastFrameDominantColors  = nil;
+    self.lastFrameProbabilities  = nil;
 }
+
 
 // TODO: This should be optimized
 - (NSArray<NSNumber*>*) nsarrayFromMLMultiArray:(MLMultiArray*)multiArray
 {
+    
     NSMutableArray<NSNumber*>* array = [NSMutableArray new];
     for (int i = 0; i < multiArray.count; i++)
     {
@@ -205,6 +205,7 @@
             NSMutableArray* labels = [NSMutableArray arrayWithCapacity:countOfPredictionGroups];
             NSMutableArray* probabilities = [NSMutableArray arrayWithCapacity:countOfPredictionGroups];
 
+#pragma mark - Sort Features
             // TODO: For 10.15 we can make this nicer:
             // 10.15 adds .featureName to VNCoreMLFeatureValueObservation
 
@@ -248,7 +249,8 @@
             VNCoreMLFeatureValueObservation* dominantColorObservation = [results objectAtIndex:1];
             NSArray* dominantColorArray = [self nsarrayFromMLMultiArray:dominantColorObservation.featureValue.multiArrayValue];
             
-
+#pragma mark - Labels / Tags
+            
             // Remove our embedding and our dominant color resultss
             results = [results subarrayWithRange:NSMakeRange(2, results.count - 2)];
             
@@ -305,7 +307,6 @@
                 
             }
 
-            //
             if (self.labels == nil)
                 self.labels = [labels copy];
             
@@ -313,6 +314,8 @@
             {
                 self.labelGroupRanges  = [labelGroupRanges copy];
             }
+            
+#pragma mark - Compute Features
 
             SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray];
 
@@ -350,11 +353,94 @@
                 self.averageDominantColors = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageDominantColors withFeature:denseDominantColors];
             }
 
+#pragma mark - Compute Similarities
+            
+            if ( denseFeature && self.lastFrameFeatureVec )
+            {
+                float featureSimilarity = compareFeatureVector(self.lastFrameFeatureVec, denseFeature);
+                
+                if ( featureSimilarity < 0 )
+                {
+                    NSLog(@"Wat");
+                }
+                
+                if ( isnan(featureSimilarity) )
+                {
+                    NSLog(@"WAAAATT");
+                }
+                
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)]];
+                
+                if ( self.similarityFeatureVec )
+                {
+                    self.similarityFeatureVec = [SynopsisDenseFeature denseFeatureByAppendingFeature:self.similarityFeatureVec withFeature:denseSimilarity];
+                }
+                else
+                {
+                    self.similarityFeatureVec = denseSimilarity;
+                }
+            }
+            
+            if ( denseProbabilities && self.lastFrameProbabilities )
+            {
+                float featureSimilarity = compareFeatureVector(self.lastFrameProbabilities, denseProbabilities);
+               
+                if ( featureSimilarity < 0 )
+                {
+                    NSLog(@"Wat");
+                }
+                
+                if ( isnan(featureSimilarity) )
+                {
+                    NSLog(@"WAAAATT");
+                }
+                
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)]];
+                
+                if ( self.similarityProbabilities )
+                {
+                    self.similarityProbabilities = [SynopsisDenseFeature denseFeatureByAppendingFeature:self.similarityProbabilities withFeature:denseSimilarity];
+                }
+                else
+                {
+                    self.similarityProbabilities = denseSimilarity;
+                }
+            }
+           
+            if ( denseDominantColors && self.lastFrameDominantColors )
+            {
+                float featureSimilarity = compareFeatureVector(self.lastFrameDominantColors, denseDominantColors);
+                if ( featureSimilarity < 0 )
+                {
+                    NSLog(@"Wat");
+                }
+                
+                if ( isnan(featureSimilarity) )
+                {
+                    NSLog(@"WAAAATT");
+                }
+                
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)]];
+
+                if ( self.similairityDominantColors )
+                {
+                    self.similairityDominantColors = [SynopsisDenseFeature denseFeatureByAppendingFeature:self.similairityDominantColors withFeature:denseSimilarity];
+                }
+                else
+                {
+                    self.similairityDominantColors = denseSimilarity;
+                }
+            }
             
             metadata[kSynopsisStandardMetadataDominantColorValuesDictKey] = dominantColorArray;
             metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = embeddingSpaceArray;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
 
+            // Cache our last frames for the next frame
+            self.lastFrameFeatureVec = denseFeature;
+            self.lastFrameProbabilities = denseProbabilities;
+            self.lastFrameDominantColors = denseDominantColors;
+            
         }
         
         
@@ -386,9 +472,9 @@
 - (NSDictionary*) finalizedAnalysisMetadata;
 {
     // Compute the most likely labels from each label category
-    NSArray<NSNumber*>* averageProbabilities = self.averageProbabilities.arrayValue;
-    NSArray<NSNumber*>* averageFeatures = self.averageFeatureVec.arrayValue;
-    NSArray<NSNumber*>* averageDominantColors = self.averageDominantColors.arrayValue;
+    NSArray<NSNumber*>* averageProbabilities = [self.averageProbabilities arrayValue];
+    NSArray<NSNumber*>* averageFeatures = [self.averageFeatureVec arrayValue];
+    NSArray<NSNumber*>* averageDominantColors = [self.averageDominantColors arrayValue];
 
     NSMutableArray<NSString*>* predictedLabels = [NSMutableArray new];
     
@@ -401,12 +487,24 @@
     }];
     
 
+    [self.similarityFeatureVec resizeTo:1024];
+    [self.similarityProbabilities resizeTo:1024];
+    [self.similairityDominantColors resizeTo:1024];
+
+    NSArray<NSNumber*>* similarFeatures = [self.similarityFeatureVec arrayValue];
+    NSArray<NSNumber*>* similarProbabilities =  [self.similarityProbabilities arrayValue];
+    NSArray<NSNumber*>* similarDominantColors = [self.similairityDominantColors arrayValue];
+
+    
     return @{
              kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
              kSynopsisStandardMetadataFeatureVectorDictKey : (averageFeatures) ? averageFeatures : @[ ],
              kSynopsisStandardMetadataDominantColorValuesDictKey : (averageDominantColors) ? averageDominantColors : @[],
-             //             kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
              kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
+             
+             kSynopsisStandardMetadataSimilarityFeatureVectorDictKey : (similarFeatures) ? similarFeatures : @ [ ],
+             kSynopsisStandardMetadataSimilarityProbabilitiesDictKey : (similarProbabilities) ? similarProbabilities : @[ ],
+             kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey : (similarDominantColors) ? similarDominantColors : @[ ]
              };
 }
 
