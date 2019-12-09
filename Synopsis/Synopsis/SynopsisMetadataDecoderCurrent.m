@@ -141,30 +141,30 @@
         optimizedStandardDictionary[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilityValue;
     }
     
-    NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
-
-    if(interestingTimes)
-    {
-        NSMutableArray* optimizedInterestingTimes = [NSMutableArray arrayWithCapacity:interestingTimes.count];
-
-        for(NSDictionary* interestingFeatureAndTime in interestingTimes)
-        {
-            NSDictionary* timeDict = interestingFeatureAndTime[@"Time"];
-            NSArray<NSNumber*>* feature = interestingFeatureAndTime[@"Feature"];
-            
-            if(timeDict && feature)
-            {
-                SynopsisDenseFeature* optimizedFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:feature];
-                CMTime time = CMTimeMakeFromDictionary((CFDictionaryRef)timeDict);
-                NSValue* optimizedTime = [NSValue valueWithCMTime:time];
-                [optimizedInterestingTimes addObject:@{ @"Time" : optimizedTime,
-                                                        @"Feature" : optimizedFeature}];
-            }
-        }
-        
-        optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey] = optimizedInterestingTimes;
-    }
-    
+//    NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
+//
+//    if(interestingTimes)
+//    {
+//        NSMutableArray* optimizedInterestingTimes = [NSMutableArray arrayWithCapacity:interestingTimes.count];
+//
+//        for(NSDictionary* interestingFeatureAndTime in interestingTimes)
+//        {
+//            NSDictionary* timeDict = interestingFeatureAndTime[@"Time"];
+//            NSArray<NSNumber*>* feature = interestingFeatureAndTime[@"Feature"];
+//
+//            if(timeDict && feature)
+//            {
+//                SynopsisDenseFeature* optimizedFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:feature];
+//                CMTime time = CMTimeMakeFromDictionary((CFDictionaryRef)timeDict);
+//                NSValue* optimizedTime = [NSValue valueWithCMTime:time];
+//                [optimizedInterestingTimes addObject:@{ @"Time" : optimizedTime,
+//                                                        @"Feature" : optimizedFeature}];
+//            }
+//        }
+//
+//        optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey] = optimizedInterestingTimes;
+//    }
+//
     
     // Convert histogram bins to cv::Mat
     NSArray* histogramArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataHistogramDictKey];
@@ -198,13 +198,13 @@
 	}
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
-    if(motionArray)
-    {
-        SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
-        
-        optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
-    }
+//    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
+//    if(motionArray)
+//    {
+//        SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
+//        
+//        optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+//    }
     
     // replace our standard dictionary with optimized outputs
     NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];

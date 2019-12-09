@@ -35,27 +35,31 @@ NSString* const kSynopsisStandardMetadataDictKey = @"StandardMetadata";
 //NSString* const kSynopsisStandardMetadataSortKey = @"info_synopsis_standardanalyzer";
 
 // Keys for standard modules:
-NSString* const kSynopsisStandardMetadataFeatureVectorDictKey = @"Features";
-NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey = @"InterestingFeaturesAndTimes";
 
-// An array of scores/probabilities - one per class label or attribute
-NSString* const kSynopsisStandardMetadataProbabilitiesDictKey = @"Probabilities";
-NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey = @"InterestingProbabilitiesAndTime";
+// Global Only Keys
+NSString* const kSynopsisStandardMetadataDescriptionDictKey = @"Description"; // Global Only, no per frame strings of predicted tags
+// A time domain signature of inter frame similarities of per frame features below:
+NSString* const kSynopsisStandardMetadataSimilarityFeatureVectorDictKey = @"FeatureSimilrity"; // ImageNet embedding features differences per frame
+NSString* const kSynopsisStandardMetadataSimilarityProbabilitiesDictKey = @"ProbabilitySimilarity"; // CinemaNet predicted probablities differences per frame
+NSString* const kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey = @"DominantColorSimilarity"; // CinemaNet predicted dominant colors differences per frame
 
-NSString* const kSynopsisStandardMetadataAttentionDictKey = @"Attention";
-NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey = @"InterestingAttentionAndTimes";
-
-//NSString* const kSynopsisStandardMetadataLabelsDictKey = @"Labels";
-
-NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey = @"DominantColors";
-NSString* const kSynopsisStandardMetadataHistogramDictKey = @"Histogram";
+// Per frame features, as well
+NSString* const kSynopsisStandardMetadataFeatureVectorDictKey = @"Features"; // ImageNet embedding features - per frame / global average
+NSString* const kSynopsisStandardMetadataProbabilitiesDictKey = @"Probabilities"; // CinemaNet predicted probablities - per frame / global average
+NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey = @"DominantColors"; // CinemaNet predicted dominant colors - per frame / global average
+NSString* const kSynopsisStandardMetadataHistogramDictKey = @"Histogram"; // Cinemanet
 
 // Not currently in use:
-NSString* const kSynopsisStandardMetadataMotionDictKey = @"Motion";
-NSString* const kSynopsisStandardMetadataMotionVectorDictKey = @"MotionVector";
-NSString* const kSynopsisStandardMetadataSaliencyDictKey = @"Saliency";
-NSString* const kSynopsisStandardMetadataDescriptionDictKey = @"Description";
-NSString* const kSynopsisStandardMetadataTrackerDictKey = @"Tracker";
+//NSString* const kSynopsisStandardMetadataMotionDictKey = @"Motion";
+//NSString* const kSynopsisStandardMetadataMotionVectorDictKey = @"MotionVector";
+//NSString* const kSynopsisStandardMetadataSaliencyDictKey = @"Saliency";
+//NSString* const kSynopsisStandardMetadataTrackerDictKey = @"Tracker";
+//
+//
+//NSString* const kSynopsisStandardMetadataAttentionDictKey = @"Attention";
+//NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey = @"InterestingAttentionAndTimes";
+//
+//NSString* const kSynopsisStandardMetadataLabelsDictKey = @"Labels";
 
 //NSString* const kSynopsisStandardMetadataFeatureVectorSortKey = @"info_synopsis_features";
 //NSString* const kSynopsisStandardMetadataDominantColorValuesSortKey = @"info_synopsis_dominant_colors";

@@ -97,11 +97,11 @@
     optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
+//    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
+//
+//    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
     
-    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+//    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
     
     // replace our standard dictionary with optimized outputs
     NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];

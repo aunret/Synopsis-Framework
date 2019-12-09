@@ -146,26 +146,26 @@
     return sortDescriptor;
 }
 
-+ (NSSortDescriptor*)synopsisHashSortDescriptorRelativeTo:(NSString*)relativeHash
-{
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataPerceptualHashDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        
-        NSString* hash1 = (NSString*) obj1;
-        NSString* hash2 = (NSString*) obj2;
-        
-        float percent1 = compareGlobalHashes(hash1, relativeHash);
-        float percent2 = compareGlobalHashes(hash2, relativeHash);
-        
-        if(percent1 > percent2)
-        return  NSOrderedAscending;
-        if(percent1 < percent2)
-        return NSOrderedDescending;
-        
-        return NSOrderedSame;
-    }];
-    
-    return sortDescriptor;
-}
+//+ (NSSortDescriptor*)synopsisHashSortDescriptorRelativeTo:(NSString*)relativeHash
+//{
+//    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataPerceptualHashDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        
+//        NSString* hash1 = (NSString*) obj1;
+//        NSString* hash2 = (NSString*) obj2;
+//        
+//        float percent1 = compareGlobalHashes(hash1, relativeHash);
+//        float percent2 = compareGlobalHashes(hash2, relativeHash);
+//        
+//        if(percent1 > percent2)
+//        return  NSOrderedAscending;
+//        if(percent1 < percent2)
+//        return NSOrderedDescending;
+//        
+//        return NSOrderedSame;
+//    }];
+//    
+//    return sortDescriptor;
+//}
 
 + (NSSortDescriptor*)synopsisDominantRGBDescriptorRelativeTo:(NSArray*)colors
 {
@@ -217,47 +217,47 @@
 }
 
 // See which two objects are closest to the relativeHash
-+ (NSSortDescriptor*)synopsisMotionVectorSortDescriptorRelativeTo:(SynopsisDenseFeature*)motionVector;
-{
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataMotionVectorDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        
-        SynopsisDenseFeature* hist1 = (SynopsisDenseFeature*) obj1;
-        SynopsisDenseFeature* hist2 = (SynopsisDenseFeature*) obj2;
-        
-        float percent1 = fabsf(compareFeatureVector(hist1, motionVector));
-        float percent2 = fabsf(compareFeatureVector(hist2, motionVector));
-        
-        if(percent1 > percent2)
-            return  NSOrderedAscending;
-        if(percent1 < percent2)
-            return NSOrderedDescending;
-        
-        return NSOrderedSame;
-    }];
-    
-    return sortDescriptor;
-}
-
-+ (NSSortDescriptor*)synopsisMotionSortDescriptorRelativeTo:(NSNumber*)motion
-{
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataMotionDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        
-        NSNumber* motion1 = (NSNumber*) obj1;
-        NSNumber* motion2 = (NSNumber*) obj2;
-        
-        float diff1 = fabsf([motion1 floatValue] - [motion floatValue]);
-        float diff2 = fabsf([motion2 floatValue] - [motion floatValue]);
-        
-        if(diff2 > diff1)
-        return  NSOrderedAscending;
-        if(diff2 < diff1)
-        return NSOrderedDescending;
-        
-        return NSOrderedSame;
-    }];
-    
-    return sortDescriptor;
-}
+//+ (NSSortDescriptor*)synopsisMotionVectorSortDescriptorRelativeTo:(SynopsisDenseFeature*)motionVector;
+//{
+//    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataMotionVectorDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//
+//        SynopsisDenseFeature* hist1 = (SynopsisDenseFeature*) obj1;
+//        SynopsisDenseFeature* hist2 = (SynopsisDenseFeature*) obj2;
+//
+//        float percent1 = fabsf(compareFeatureVector(hist1, motionVector));
+//        float percent2 = fabsf(compareFeatureVector(hist2, motionVector));
+//
+//        if(percent1 > percent2)
+//            return  NSOrderedAscending;
+//        if(percent1 < percent2)
+//            return NSOrderedDescending;
+//
+//        return NSOrderedSame;
+//    }];
+//
+//    return sortDescriptor;
+//}
+//
+//+ (NSSortDescriptor*)synopsisMotionSortDescriptorRelativeTo:(NSNumber*)motion
+//{
+//    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataMotionDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+//        
+//        NSNumber* motion1 = (NSNumber*) obj1;
+//        NSNumber* motion2 = (NSNumber*) obj2;
+//        
+//        float diff1 = fabsf([motion1 floatValue] - [motion floatValue]);
+//        float diff2 = fabsf([motion2 floatValue] - [motion floatValue]);
+//        
+//        if(diff2 > diff1)
+//        return  NSOrderedAscending;
+//        if(diff2 < diff1)
+//        return NSOrderedDescending;
+//        
+//        return NSOrderedSame;
+//    }];
+//    
+//    return sortDescriptor;
+//}
 
 
 
