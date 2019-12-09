@@ -18,6 +18,9 @@
 + (instancetype) denseFeatureByAveragingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 + (instancetype) denseFeatureByMaximizingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 
+// Cubic resize to N x 1 vector
+- (void) resizeTo:(NSUInteger)numElements;
+
 - (NSUInteger) featureCount;
 
 // Array like access, so one can do

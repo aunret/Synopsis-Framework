@@ -98,6 +98,15 @@
     return [[SynopsisDenseFeature alloc] initWithCVMat:newMat];
 }
 
+- (void) resizeTo:(NSUInteger)numElements
+{
+    cv::Mat newMat;
+    cv::resize([self OpenCVMat], newMat, cv::Size(1, (int)numElements), cv::INTER_LINEAR);
+    
+    self.OpenCVMat = newMat;
+    
+}
+
 - (NSUInteger) featureCount
 {
     cv::Size matSize = self.OpenCVMat.size();
