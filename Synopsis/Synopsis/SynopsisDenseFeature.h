@@ -10,7 +10,10 @@
 
 @interface SynopsisDenseFeature : NSObject
 
-- (instancetype) initWithFeatureArray:(NSArray*)featureArray;
+// Key from Synopsis Metadata dict
+@property (readonly) NSString* metadataKey;
+
+- (instancetype) initWithFeatureArray:(NSArray*)featureArray forMetadataKey:(NSString*)key;
 
 // This method concatinates a n x 1 feature with a m x 1 feaure to make a new (n + m) x 1 feature
 + (instancetype) denseFeatureByAppendingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
@@ -18,7 +21,6 @@
 + (instancetype) denseFeatureByAveragingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 + (instancetype) denseFeatureByMaximizingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 
-// Cubic resize to N x 1 vector
 - (void) resizeTo:(NSUInteger)numElements;
 
 - (NSUInteger) featureCount;

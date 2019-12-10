@@ -16,15 +16,17 @@
 
 @interface SynopsisDenseFeature ()
 @property (assign) cv::Mat OpenCVMat;
+@property (readwrite, copy) NSString* metadataKey;
 @end
 
 @implementation SynopsisDenseFeature (Private)
 
-- (instancetype) initWithCVMat:(cv::Mat)mat
+- (instancetype) initWithCVMat:(cv::Mat)mat forMetadataKey:(NSString*)key
 {
     self = [self init];
     if(self)
     {
+        self.metadataKey = key;
         self.OpenCVMat = mat;
 //        self.OpenCVMat.addref();
     }
@@ -36,9 +38,9 @@
     self.OpenCVMat.release();
 }
 
-+ (SynopsisDenseFeature*) valueWithCVMat:(cv::Mat)mat
++ (SynopsisDenseFeature*) valueWithCVMat:(cv::Mat)mat forMetadataKey:(NSString*)key
 {
-    return [[SynopsisDenseFeature alloc] initWithCVMat:mat];
+    return [[SynopsisDenseFeature alloc] initWithCVMat:mat forMetadataKey:key];
 }
 
 - (cv::Mat) cvMatValue
@@ -50,8 +52,7 @@
 
 @implementation SynopsisDenseFeature
 
-- (instancetype) initWithFeatureArray:(NSArray*)featureArray
-
+- (instancetype) initWithFeatureArray:(NSArray*)featureArray forMetadataKey:(NSString*)key
 {
     cv::Mat featureVec = cv::Mat((int)featureArray.count, (int)1, CV_32FC1);
     
@@ -62,7 +63,7 @@
         featureVec.at<float>(i,0) = fVec.floatValue;
     }
 
-    self = [self initWithCVMat:featureVec];
+    self = [self initWithCVMat:featureVec forMetadataKey:key];
     
     return self;
 }
@@ -73,7 +74,7 @@
     [feature cvMatValue].copyTo(newMat);
     newMat.push_back([feature2 cvMatValue]);
     
-    SynopsisDenseFeature* newfeature = [SynopsisDenseFeature valueWithCVMat:newMat];
+    SynopsisDenseFeature* newfeature = [SynopsisDenseFeature valueWithCVMat:newMat forMetadataKey:feature.metadataKey];
     
     return newfeature;
 }
@@ -86,7 +87,7 @@
     
     newMat *= 0.5;
     
-    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat];
+    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat forMetadataKey:feature.metadataKey];
 }
 
 + (instancetype) denseFeatureByMaximizingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2
@@ -95,7 +96,7 @@
     
     cv::max([feature cvMatValue], [feature2 cvMatValue], newMat);
     
-    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat];
+    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat forMetadataKey:feature.metadataKey];
 }
 
 - (void) resizeTo:(NSUInteger)numElements

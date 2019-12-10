@@ -63,7 +63,7 @@
         
         [self.features removeAllObjects];
         
-        return [SynopsisDenseFeature valueWithCVMat:averageFeature];
+        return [SynopsisDenseFeature valueWithCVMat:averageFeature forMetadataKey:feature.metadataKey];
     }
 
     return nil;

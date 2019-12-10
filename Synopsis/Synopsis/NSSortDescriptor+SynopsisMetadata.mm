@@ -27,8 +27,8 @@
 
         SynopsisDenseFeature* relative = [item valueForKey:key];
 
-        float distance1 = compareFeatureVector(vec1, relative);
-        float distance2 = compareFeatureVector(vec2, relative);
+        float distance1 = compareFeaturesCosineSimilarity(vec1, relative);
+        float distance2 = compareFeaturesCosineSimilarity(vec2, relative);
 
         if(distance1 > distance2)
             return  NSOrderedAscending;
@@ -75,8 +75,8 @@
 
             SynopsisDenseFeature* relative = [SynopsisDenseFeature denseFeatureByAppendingFeature:relativeVec withFeature:[SynopsisDenseFeature denseFeatureByAppendingFeature:relativeProb withFeature:relativeHist]];
 
-            distance1 = compareFeatureVector(concat1, relative);
-            distance2 = compareFeatureVector(concat2, relative);
+            distance1 = compareFeaturesCosineSimilarity(concat1, relative);
+            distance2 = compareFeaturesCosineSimilarity(concat2, relative);
 
 //            SynopsisDenseFeature* concat1 = [SynopsisDenseFeature denseFeatureByAppendingFeature:featureVec1 withFeature:probabilityVec1];
 //            SynopsisDenseFeature* concat2 = [SynopsisDenseFeature denseFeatureByAppendingFeature:featureVec2 withFeature:probabilityVec2];
@@ -94,8 +94,8 @@
         {
             //        dispatch_group_enter(sortGroup);
             //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            distance1 = compareFeatureVector(probabilityVec1, relativeProb);
-            distance2 = compareFeatureVector(probabilityVec2, relativeProb);
+            distance1 = compareFeaturesCosineSimilarity(probabilityVec1, relativeProb);
+            distance2 = compareFeaturesCosineSimilarity(probabilityVec2, relativeProb);
             
             //            dispatch_group_leave(sortGroup);
             //        });
@@ -105,8 +105,8 @@
           
             //            dispatch_group_enter(sortGroup);
             //            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-            distance1 = compareFeatureVector(featureVec1, relativeVec);
-            distance2 = compareFeatureVector(featureVec2, relativeVec);
+            distance1 = compareFeaturesCosineSimilarity(featureVec1, relativeVec);
+            distance2 = compareFeaturesCosineSimilarity(featureVec2, relativeVec);
             //                dispatch_group_leave(sortGroup);
             //            });
         }
@@ -132,8 +132,8 @@
         SynopsisDenseFeature* fVec1 = (SynopsisDenseFeature*) obj1;
         SynopsisDenseFeature* fVec2 = (SynopsisDenseFeature*) obj2;
         
-        float percent1 = compareFeatureVector(fVec1, featureVector);
-        float percent2 = compareFeatureVector(fVec2, featureVector);
+        float percent1 = compareFeaturesCosineSimilarity(fVec1, featureVector);
+        float percent2 = compareFeaturesCosineSimilarity(fVec2, featureVector);
         
         if(percent1 > percent2)
             return  NSOrderedAscending;

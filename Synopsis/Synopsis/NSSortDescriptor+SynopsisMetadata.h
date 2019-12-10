@@ -21,10 +21,7 @@
  kSynopsisStandardMetadataDictKey
  
  kSynopsisStandardMetadataFeatureVectorDictKey
- kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey
-
  kSynopsisStandardMetadataProbabilitiesDictKey
- kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey
  
  // Eventually:
 */

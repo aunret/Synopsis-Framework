@@ -317,7 +317,7 @@
             
 #pragma mark - Compute Features
 
-            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray];
+            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
 
             if(self.averageFeatureVec == nil)
             {
@@ -329,7 +329,7 @@
                 self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageFeatureVec withFeature:denseFeature];
             }
 
-            SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities];
+            SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities forMetadataKey:kSynopsisStandardMetadataProbabilitiesDictKey];
 
             if(self.averageProbabilities == nil)
             {
@@ -341,7 +341,7 @@
                 self.averageProbabilities = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageProbabilities withFeature:denseProbabilities];
             }
             
-            SynopsisDenseFeature* denseDominantColors = [[SynopsisDenseFeature alloc] initWithFeatureArray:dominantColorArray];
+            SynopsisDenseFeature* denseDominantColors = [[SynopsisDenseFeature alloc] initWithFeatureArray:dominantColorArray forMetadataKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
 
             if(self.averageDominantColors == nil)
             {
@@ -357,7 +357,7 @@
             
             if ( denseFeature && self.lastFrameFeatureVec )
             {
-                float featureSimilarity = compareFeatureVector(self.lastFrameFeatureVec, denseFeature);
+                float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameFeatureVec, denseFeature);
                 
                 if ( featureSimilarity < 0 )
                 {
@@ -369,7 +369,7 @@
                     NSLog(@"WAAAATT");
                 }
                 
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)]];
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
                 
                 if ( self.similarityFeatureVec )
                 {
@@ -383,19 +383,9 @@
             
             if ( denseProbabilities && self.lastFrameProbabilities )
             {
-                float featureSimilarity = compareFeatureVector(self.lastFrameProbabilities, denseProbabilities);
-               
-                if ( featureSimilarity < 0 )
-                {
-                    NSLog(@"Wat");
-                }
-                
-                if ( isnan(featureSimilarity) )
-                {
-                    NSLog(@"WAAAATT");
-                }
-                
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)]];
+                float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameProbabilities, denseProbabilities);
+                               
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
                 
                 if ( self.similarityProbabilities )
                 {
@@ -409,18 +399,10 @@
            
             if ( denseDominantColors && self.lastFrameDominantColors )
             {
-                float featureSimilarity = compareFeatureVector(self.lastFrameDominantColors, denseDominantColors);
-                if ( featureSimilarity < 0 )
-                {
-                    NSLog(@"Wat");
-                }
+                float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameDominantColors, denseDominantColors);
+             
                 
-                if ( isnan(featureSimilarity) )
-                {
-                    NSLog(@"WAAAATT");
-                }
-                
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)]];
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
 
                 if ( self.similairityDominantColors )
                 {

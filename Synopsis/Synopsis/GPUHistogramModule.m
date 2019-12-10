@@ -141,29 +141,29 @@
              
              if(self.averageRHistogram == nil)
              {
-                 self.averageRHistogram = [[SynopsisDenseFeature alloc] initWithFeatureArray:frameRHistogram];
+                 self.averageRHistogram = [[SynopsisDenseFeature alloc] initWithFeatureArray:frameRHistogram forMetadataKey:@"AvgR"];
              }
              else
              {
-                 self.averageRHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageRHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameRHistogram]];
+                 self.averageRHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageRHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameRHistogram forMetadataKey:@"AvgR"]];
              }
              
              if(self.averageGHistogram == nil)
              {
-                 self.averageGHistogram = [[SynopsisDenseFeature alloc] initWithFeatureArray:frameGHistogram];
+                 self.averageGHistogram = [[SynopsisDenseFeature alloc] initWithFeatureArray:frameGHistogram forMetadataKey:@"AvgG"];
              }
              else
              {
-                 self.averageGHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageGHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameGHistogram]];
+                 self.averageGHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageGHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameGHistogram forMetadataKey:@"AvgG"]];
              }
              
             if(self.averageBHistogram == nil)
             {
-              self.averageBHistogram = [[SynopsisDenseFeature alloc] initWithFeatureArray:frameBHistogram];
+              self.averageBHistogram = [[SynopsisDenseFeature alloc] initWithFeatureArray:frameBHistogram forMetadataKey:@"AvgB"];
             }
             else
             {
-              self.averageBHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageBHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameBHistogram]];
+                self.averageBHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageBHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameBHistogram forMetadataKey:@"AvgB"]];
             }
              
             for(int i = 0; i < buffLength; i++)

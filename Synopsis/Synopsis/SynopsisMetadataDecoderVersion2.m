@@ -141,7 +141,7 @@ static ZSTD_DDict* decompressionDict = nil;
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
     NSArray* featureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
-    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray];
+    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
     
@@ -191,7 +191,7 @@ static ZSTD_DDict* decompressionDict = nil;
     
     NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
     
-    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures];
+    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures forMetadataKey:kSynopsisStandardMetadataHistogramDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     

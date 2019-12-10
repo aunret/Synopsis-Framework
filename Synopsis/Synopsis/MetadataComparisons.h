@@ -17,14 +17,16 @@
 extern "C" {
 #endif
 
-// Compare Similarity
-float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
-
+// Compare Similarity of two feature vectors.
+// Must have the same metadataKey and length
+float compareFeaturesCosineSimilarity(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
+float compareFeatureVectorInverseL1(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
+float compareFeatureVectorInverseL2(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
+float compareFeatureVectorInverseL2Squared(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
 float compareHistogtams(SynopsisDenseFeature* hist1Mat, SynopsisDenseFeature* hist2Mat);
+float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);
 
-float compareGlobalHashes(NSString* hash1, NSString* hash2);
-float compareFrameHashes(NSString* hash1, NSString* hash2);
-    
+//
 float compareDominantColorsRGB(NSArray* colors1, NSArray* colors2);
 float compareDominantColorsHSB(NSArray* colors1, NSArray* colors2);
     
