@@ -29,6 +29,7 @@
 #import "GPUVisionMobileNet.h"
 #import "CinemaNetModuleV1.h"
 //#import "GPUMPSMobileNet.h"
+#import "GPUDominantColorModule.h"
 
 @interface StandardAnalyzerPlugin ()
 {
@@ -110,6 +111,7 @@
         self.gpuModuleClasses  = @[
         NSStringFromClass([GPUHistogramModule class]),
         NSStringFromClass([CinemaNetModuleV1 class]),
+        NSStringFromClass([GPUDominantColorModule class]),
                                    ];
         
         NSMutableArray<SynopsisVideoFormatSpecifier*>*requiredSpecifiers = [NSMutableArray new];
