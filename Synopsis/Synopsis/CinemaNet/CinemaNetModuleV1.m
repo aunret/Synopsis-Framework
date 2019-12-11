@@ -180,15 +180,18 @@
     {
         SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
         MPSImage* frameMPSImage = frameMPImage.mpsImage;
-        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:(frameMPImage.colorSpace==nil) ? nil : @{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
+//        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:(frameMPImage.colorSpace==nil) ? nil : @{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
+        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options: @{ kCIImageColorSpace: (id) [NSNull null] }];
+
     }
     
     else if ([frame isKindOfClass:[SynopsisVideoFrameCVPixelBuffer class]])
     {
         SynopsisVideoFrameCVPixelBuffer* frameCVPixelBuffer = (SynopsisVideoFrameCVPixelBuffer*)frame;
         
-        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer]];
-    }
+//        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer]];
+        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer] options: @{ kCIImageColorSpace: (id) [NSNull null] }];
+}
     
     VNCoreMLRequest* mobileRequest = [[VNCoreMLRequest alloc] initWithModel:self.vnModel completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
         
@@ -414,7 +417,7 @@
                 }
             }
             
-            metadata[kSynopsisStandardMetadataDominantColorValuesDictKey] = dominantColorArray;
+//            metadata[kSynopsisStandardMetadataDominantColorValuesDictKey] = dominantColorArray;
             metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = embeddingSpaceArray;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
 
@@ -456,7 +459,7 @@
     // Compute the most likely labels from each label category
     NSArray<NSNumber*>* averageProbabilities = [self.averageProbabilities arrayValue];
     NSArray<NSNumber*>* averageFeatures = [self.averageFeatureVec arrayValue];
-    NSArray<NSNumber*>* averageDominantColors = [self.averageDominantColors arrayValue];
+//    NSArray<NSNumber*>* averageDominantColors = [self.averageDominantColors arrayValue];
 
     NSMutableArray<NSString*>* predictedLabels = [NSMutableArray new];
     
@@ -471,22 +474,22 @@
 
     [self.similarityFeatureVec resizeTo:1024];
     [self.similarityProbabilities resizeTo:1024];
-    [self.similairityDominantColors resizeTo:1024];
+//    [self.similairityDominantColors resizeTo:1024];
 
     NSArray<NSNumber*>* similarFeatures = [self.similarityFeatureVec arrayValue];
     NSArray<NSNumber*>* similarProbabilities =  [self.similarityProbabilities arrayValue];
-    NSArray<NSNumber*>* similarDominantColors = [self.similairityDominantColors arrayValue];
+//    NSArray<NSNumber*>* similarDominantColors = [self.similairityDominantColors arrayValue];
 
     
     return @{
              kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
              kSynopsisStandardMetadataFeatureVectorDictKey : (averageFeatures) ? averageFeatures : @[ ],
-             kSynopsisStandardMetadataDominantColorValuesDictKey : (averageDominantColors) ? averageDominantColors : @[],
+//             kSynopsisStandardMetadataDominantColorValuesDictKey : (averageDominantColors) ? averageDominantColors : @[],
              kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
              
              kSynopsisStandardMetadataSimilarityFeatureVectorDictKey : (similarFeatures) ? similarFeatures : @ [ ],
              kSynopsisStandardMetadataSimilarityProbabilitiesDictKey : (similarProbabilities) ? similarProbabilities : @[ ],
-             kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey : (similarDominantColors) ? similarDominantColors : @[ ]
+//             kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey : (similarDominantColors) ? similarDominantColors : @[ ]
              };
 }
 
