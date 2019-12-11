@@ -12,13 +12,16 @@
 #import <CoreImage/CIRenderDestination.h>
 #import <Metal/Metal.h>
 
+// TODO Pass this in via initializer
+static NSUInteger inFlightBuffers = 3;
 
 @interface GPUDominantColorModule ()
 
-@property (readwrite, strong) id<MTLBuffer> samples;
+@property (readwrite, strong) NSMutableArray<id<MTLBuffer>> *inFlightSamples;
 @property (readwrite, strong) id<MTLComputePipelineState> pass1PipelineState;
 
 @end
+
 
 @implementation GPUDominantColorModule
 
@@ -34,13 +37,20 @@
                                       error:&error];
         
         id<MTLFunction> pass1Function = [defaultLibrary newFunctionWithName:@"dominantColorPass1"];
+        self.pass1PipelineState = [device newComputePipelineStateWithFunction:pass1Function error:&error];
 
         // Samples is a buffer that stores a packed count of our colors
         NSUInteger sampleLength = sizeof(uint) * 16384;
-        self.samples = [device newBufferWithLength:sampleLength options:MTLResourceStorageModeShared];
         
-        self.pass1PipelineState = [device newComputePipelineStateWithFunction:pass1Function error:&error];
+        self.inFlightSamples = [NSMutableArray new];
+
+        for (NSUInteger i = 0; i < inFlightBuffers; i++)
+        {
+            id<MTLBuffer> frameColorSamples = [device newBufferWithLength:sampleLength options:MTLResourceStorageModeShared];
+            [self.inFlightSamples addObject: frameColorSamples];
+        }
     }
+
     return self;
 }
 
@@ -68,9 +78,9 @@
 {
 }
 
+static inFlightBufferIndex = 0;
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
 {
-    
     SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
     MPSImage* frameMPSImage = frameMPImage.mpsImage;
 
@@ -80,7 +90,9 @@
 
     [pass1Encoder setTexture:frameMPSImage.texture atIndex:0];
 
-    [pass1Encoder setBuffer:self.samples offset:0 atIndex:1];
+    id<MTLBuffer> currentInFlightColorSampleBuffer = self.inFlightSamples[inFlightBufferIndex];
+    
+    [pass1Encoder setBuffer:currentInFlightColorSampleBuffer offset:0 atIndex:1];
     
     // TODO: deduce better thread group & count numbers.
     MTLSize threadgroupSize = MTLSizeMake(16, 16, 1);
@@ -100,7 +112,7 @@
         NSMutableArray* used = [NSMutableArray new];
         
         // Pass 2 -
-        uint* sampleData = (uint*)[self.samples contents];
+        uint* sampleData = (uint*)[currentInFlightColorSampleBuffer contents];
 
         for (NSUInteger i = 0; i < (16384 / 4); )
         {
@@ -136,17 +148,22 @@
             i++;
         }
         
+// TODO: What to do if we dont have enough colors ?
 //        if(colors.count < 10)
 //        {
 //
 //        }
         
+        
+        // Is this stupid?
+        memset(sampleData, 0, 16384);
+        
+        inFlightBufferIndex++;
+        inFlightBufferIndex = inFlightBufferIndex % inFlightBuffers;
         if (completionBlock)
         {
             completionBlock(@{ kSynopsisStandardMetadataDominantColorValuesDictKey : colors }, nil);
         }
-
-        
     }];
      
      
