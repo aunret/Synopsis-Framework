@@ -193,7 +193,6 @@ float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDen
 {
     LB_Improved* filter;
 }
-
 @end
 
 @implementation DTWFilterWrapper 
@@ -207,9 +206,7 @@ float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDen
         
         const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
 
-        self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 10)); // we use the DTW with a tolerance of 10% (size/10)
-
-
+        self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 15)); // we use the DTW with a tolerance of 10% (size/10)
     }
     return self;
 }
@@ -243,7 +240,7 @@ float compareFeatureVectorDTW(DTWFilterWrapper* filterFromFeatureToCompareAgains
         
         const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
 
-        double sim1 = filter->test( featureAsVector );
+        double sim1 = filter->justlb( featureAsVector );
         
         return 1.0/sim1;
     }
