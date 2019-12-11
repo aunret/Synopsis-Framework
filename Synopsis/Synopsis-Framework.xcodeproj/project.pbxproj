@@ -53,6 +53,8 @@
 		1B0306E12087C69D000A2DF7 /* zdict.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306A12087C661000A2DF7 /* zdict.c */; };
 		1B0A1ECF23A02FA000E68E08 /* DominantColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A1ECE23A02FA000E68E08 /* DominantColor.metal */; };
 		1B0A1ED023A02FA000E68E08 /* DominantColor.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A1ECE23A02FA000E68E08 /* DominantColor.metal */; };
+		1B0A1ED223A14FA800E68E08 /* dtw.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0A1ED123A14FA800E68E08 /* dtw.h */; };
+		1B0A1ED323A14FA800E68E08 /* dtw.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0A1ED123A14FA800E68E08 /* dtw.h */; };
 		1B0C6F4B22BBBC3300DDEF41 /* Analyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0C6F4922BBBC3300DDEF41 /* Analyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B0C6F4E22BBC23500DDEF41 /* Analyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */; };
 		1B0C6F4F22BBC23500DDEF41 /* Analyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */; };
@@ -324,6 +326,8 @@
 		1B0306A12087C661000A2DF7 /* zdict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zdict.c; sourceTree = "<group>"; };
 		1B0306A22087C661000A2DF7 /* divsufsort.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = divsufsort.h; sourceTree = "<group>"; };
 		1B0A1ECE23A02FA000E68E08 /* DominantColor.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = DominantColor.metal; sourceTree = "<group>"; };
+		1B0A1ED123A14FA800E68E08 /* dtw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dtw.h; sourceTree = "<group>"; };
+		1B0A1ED523A1660D00E68E08 /* vectordtw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vectordtw.h; sourceTree = "<group>"; };
 		1B0C6F4922BBBC3300DDEF41 /* Analyzer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Analyzer.h; sourceTree = "<group>"; };
 		1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Analyzer.m; sourceTree = "<group>"; };
 		1B21EF611FA51AD2008A7462 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
@@ -2140,7 +2144,7 @@
 		1BBB10F41D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "NSSortDescriptor+SynopsisMetadata.mm"; sourceTree = "<group>"; };
 		1BBB10FA1D555F5600C22439 /* Synopsis.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Synopsis.m; sourceTree = "<group>"; };
 		1BBB10FE1D559BD700C22439 /* MetadataComparisons.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MetadataComparisons.mm; sourceTree = "<group>"; };
-		1BBB11001D559BF000C22439 /* MetadataComparisons.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetadataComparisons.h; sourceTree = "<group>"; };
+		1BBB11001D559BF000C22439 /* MetadataComparisons.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = MetadataComparisons.h; sourceTree = "<group>"; };
 		1BBB12D41D578A8700C22439 /* OpenCL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenCL.framework; path = System/Library/Frameworks/OpenCL.framework; sourceTree = SDKROOT; };
 		1BBB12D61D578A8E00C22439 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		1BBB12D81D578A9500C22439 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -2304,6 +2308,15 @@
 				1B97B77123A01D2D001DEAC8 /* GPUDominantColorModule.m */,
 			);
 			path = "Dominant Color";
+			sourceTree = "<group>";
+		};
+		1B0A1ED423A14FAF00E68E08 /* libimproved */ = {
+			isa = PBXGroup;
+			children = (
+				1B0A1ED123A14FA800E68E08 /* dtw.h */,
+				1B0A1ED523A1660D00E68E08 /* vectordtw.h */,
+			);
+			path = libimproved;
 			sourceTree = "<group>";
 		};
 		1B22F9A71FB29330009E3F4F /* Parameters */ = {
@@ -5587,6 +5600,7 @@
 				1B73521F1DEF5AD10053BC06 /* Tensorflow */,
 				1BBB11041D577A2400C22439 /* OpenCV */,
 				1B7358A41DEF65680053BC06 /* CIEDE2000 */,
+				1B0A1ED423A14FAF00E68E08 /* libimproved */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -5954,6 +5968,7 @@
 				1B4446C51EE1FF8C0075575D /* SynopsisMetadataItem.h in Headers */,
 				1B4446CF1EE1FF990075575D /* Color+linearRGBColor.h in Headers */,
 				1B551E5F1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h in Headers */,
+				1B0A1ED323A14FA800E68E08 /* dtw.h in Headers */,
 				1B6D66A421D0AAC8000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */,
 				1B97B77323A01D2D001DEAC8 /* GPUDominantColorModule.h in Headers */,
 				1B4446C61EE1FF8C0075575D /* MetadataComparisons.h in Headers */,
@@ -6022,6 +6037,7 @@
 				1BB7F6441FA108F7004ED69F /* GPUHistogramModule.h in Headers */,
 				1B7358A31DEF623D0053BC06 /* AnalyzerPluginProtocol.h in Headers */,
 				1BC98DD01F9FAA5600E0F52A /* SynopsisVideoFrameCache.h in Headers */,
+				1B0A1ED223A14FA800E68E08 /* dtw.h in Headers */,
 				1BBB10E11D5542A200C22439 /* Synopsis.h in Headers */,
 				1BB7F64A1FA123AC004ED69F /* GPUModule.h in Headers */,
 				1B551E7B1EFAE956004C077B /* SynopsisMetadataPushDelegate.h in Headers */,

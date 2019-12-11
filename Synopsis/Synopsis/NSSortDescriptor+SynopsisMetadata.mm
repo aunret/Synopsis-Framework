@@ -6,9 +6,12 @@
 //  Copyright © 2016 v002. All rights reserved.
 //
 
+// import our time domain warping header first due to C++ BS
+
 #import "Synopsis.h"
 #import "SynopsisMetadataItem.h"
 #import "SynopsisDenseFeature.h"
+#import "SynopsisDenseFeature+Private.h"
 #import "MetadataComparisons.h"
 
 #import "NSSortDescriptor+SynopsisMetadata.h"
@@ -134,6 +137,29 @@
         
         float percent1 = compareFeaturesCosineSimilarity(fVec1, featureVector);
         float percent2 = compareFeaturesCosineSimilarity(fVec2, featureVector);
+        
+        if(percent1 > percent2)
+            return  NSOrderedAscending;
+        if(percent1 < percent2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    }];
+    
+    return sortDescriptor;
+}
+
++ (NSSortDescriptor*)synopsisDynamicTimeWarpFeatureSortDescriptorRelativeTo:(SynopsisDenseFeature*)featureVector
+{
+    DTWFilterWrapper* dtwWrapper = [[DTWFilterWrapper alloc] initWithFeature:featureVector];
+    
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataFeatureVectorDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* fVec1 = (SynopsisDenseFeature*) obj1;
+        SynopsisDenseFeature* fVec2 = (SynopsisDenseFeature*) obj2;
+        
+        float percent1 = compareFeatureVectorDTW(dtwWrapper, fVec1);
+        float percent2 = compareFeatureVectorDTW(dtwWrapper, fVec2);
         
         if(percent1 > percent2)
             return  NSOrderedAscending;

@@ -6,6 +6,7 @@
 //  Copyright © 2016 v002. All rights reserved.
 //
 
+#import "dtw.h"
 #import <opencv2/opencv.hpp>
 
 #import "SynopsisDenseFeature+Private.h"
@@ -14,6 +15,7 @@
 
 
 #import "Color+linearRGBColor.h"
+
 
 
 static inline NSString* toBinaryRepresentation(unsigned long long value)
@@ -184,6 +186,66 @@ float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDen
         float s = inverseHamming(vec1, vec2);
         
         return s;
+    }
+}
+
+@interface DTWFilterWrapper ()
+{
+    LB_Improved* filter;
+}
+
+@end
+
+@implementation DTWFilterWrapper 
+- (instancetype) initWithFeature:(SynopsisDenseFeature*)featureVector
+{
+    self = [super init];
+    if(self)
+    {
+        // we first need to initialize a filter on our featureVector of vector::floats
+        const cv::Mat feature = [featureVector cvMatValue];
+        
+        const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
+
+        self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 10)); // we use the DTW with a tolerance of 10% (size/10)
+
+
+    }
+    return self;
+}
+
+- (LB_Improved*) filter;
+{
+    return self->filter;
+}
+
+- (void) dealloc
+{
+    if (filter != NULL)
+    {
+        delete filter;
+        filter = NULL;
+    }
+}
+@end
+
+
+float compareFeatureVectorDTW(DTWFilterWrapper* filterFromFeatureToCompareAgainst, SynopsisDenseFeature* featureVec)
+{
+//    if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
+//        return 0.0;
+
+    LB_Improved* filter =  [filterFromFeatureToCompareAgainst filter];
+    
+    @autoreleasepool
+    {
+        const cv::Mat feature = [featureVec cvMatValue];
+        
+        const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
+
+        double sim1 = filter->test( featureAsVector );
+        
+        return 1.0/sim1;
     }
 }
 
