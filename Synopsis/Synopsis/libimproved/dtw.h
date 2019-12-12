@@ -81,7 +81,7 @@ static inline floattype min (floattype x, floattype y ) { return x < y ? x : y;}
     static inline floattype dynamic(const vector<floattype> &  v, const vector<floattype> & w,
       int constraint=INF, int p=2) {
           assert(v.size() == w.size());
-        int n ( v.size() );
+        int n ( (int)v.size() );
         vector<vector<floattype> > gamma(n, vector<floattype>(n,0.0));
         for (int i = 0; i < n;++i) {
             for (int j = 0; j < n;++j) {
@@ -139,7 +139,7 @@ void computeEnvelope(const vector<floattype> & array, uint constraint, vector<fl
          if(i==  width+maxfifo.front()) maxfifo.pop_front();
          else if(i==  width+minfifo.front()) minfifo.pop_front();
         }
-        for(uint i = array.size(); i <= array.size() + constraint; ++i) {
+        for(uint i = (uint)array.size(); i <= array.size() + constraint; ++i) {
               maxvalues[i-constraint-1] = array[maxfifo.front()];
               minvalues[i-constraint-1] = array[minfifo.front()];
               if(i-maxfifo.front() >= width) maxfifo.pop_front();
@@ -149,7 +149,7 @@ void computeEnvelope(const vector<floattype> & array, uint constraint, vector<fl
 
 class NearestNeighbor {
     public:
-        NearestNeighbor(const vector<floattype> &  v, int constraint) : mDTW(v.size(),constraint) {}
+        NearestNeighbor(const vector<floattype> &  v, int constraint) : mDTW((uint)v.size(),constraint) {}
         virtual floattype test(const vector<floattype> & candidate) {return 0;}//= 0;
         virtual floattype getLowestCost() {return 0;}
         virtual ~NearestNeighbor() {};
@@ -543,7 +543,7 @@ class LB_ImprovedEarly : public  NearestNeighbor{
 void piecewiseSumReduction(const vector<floattype> & array, vector<floattype> & out) {
     // the length of out gives out the desired output length
     assert(out.size()>0);
-    const uint sizeofpieces = array.size()/out.size();
+    const uint sizeofpieces = (uint)array.size()/out.size();
     assert(sizeofpieces>0);
     //sum_up<floattype> s;
     for(uint k = 0; k<out.size()-1;++k) {
@@ -552,7 +552,7 @@ void piecewiseSumReduction(const vector<floattype> & array, vector<floattype> & 
         for(uint j = k*sizeofpieces; j < (k+1)*sizeofpieces; ++j)
           out[k] += array[j];
     }
-    uint k=out.size()-1;
+    uint k=(uint)out.size()-1;
     out[k] = 0;
     for(uint j = k*sizeofpieces; j < array.size(); ++j)
           out[k] += array[j];
@@ -665,7 +665,7 @@ class Envelope {
             }
           }
         }
-        for(uint i = array.size(); i <= array.size() + constraint; ++i) {
+        for(uint i = (uint)array.size(); i <= array.size() + constraint; ++i) {
               if(maxfifo.size()>0) {
                   maxvalues[i-constraint-1] = array[maxfifo.front()];
                 if(i-maxfifo.front() >= width) {

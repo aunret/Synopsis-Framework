@@ -141,7 +141,7 @@
 
                 if(error == nil && image != NULL)
                 {
-                    [self.cache setObject:(CGImageRetain(image)) forKey:key];
+                    [self.cache setObject:(__bridge id _Nonnull)(CGImageRetain(image)) forKey:key];
 
                     if(handler)
                         handler(image, nil);

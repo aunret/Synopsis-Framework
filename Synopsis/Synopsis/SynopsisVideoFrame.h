@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreMedia/CoreMedia.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef enum : unsigned int {
     SynopsisVideoFormatUnknown = 0,
     SynopsisVideoFormatBGR8,
@@ -25,7 +27,7 @@ typedef enum : unsigned int {
 } SynopsisVideoBacking;
 
 @interface SynopsisVideoFormatSpecifier : NSObject<NSCopying>
-- (instancetype) initWithFormat:(SynopsisVideoFormat)format backing:(SynopsisVideoBacking)backing;
+- (nullable instancetype) initWithFormat:(SynopsisVideoFormat)format backing:(SynopsisVideoBacking)backing;
 @property (readonly, assign) SynopsisVideoFormat format;
 @property (readonly, assign) SynopsisVideoBacking backing;
 @end
@@ -37,4 +39,6 @@ typedef enum : unsigned int {
 @property (readonly) CMTime presentationTimeStamp;
 @property (readonly, nullable) CGColorSpaceRef colorSpace;
 @end
+
+NS_ASSUME_NONNULL_END
 

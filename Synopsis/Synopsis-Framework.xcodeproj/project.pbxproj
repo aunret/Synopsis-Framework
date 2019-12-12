@@ -6115,7 +6115,7 @@
 		1BBB10D41D5542A200C22439 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = v002;
 				TargetAttributes = {
 					1B4446B71EE1FE4A0075575D = {
@@ -6133,11 +6133,11 @@
 			};
 			buildConfigurationList = 1BBB10D71D5542A200C22439 /* Build configuration list for PBXProject "Synopsis-Framework" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
+				Base,
 			);
 			mainGroup = 1BBB10D31D5542A200C22439;
 			productRefGroup = 1BBB10DE1D5542A200C22439 /* Products */;

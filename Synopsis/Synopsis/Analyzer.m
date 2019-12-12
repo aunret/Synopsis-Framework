@@ -382,7 +382,7 @@
     
     dispatch_group_enter(analysisGroup);
     
-    __block SynopsisMetadataItem* analyzedItem = nil;
+    //__block SynopsisMetadataItem* analyzedItem = nil;
     
     [assetWriter finishWritingWithCompletionHandler:^{
         NSLog(@"Finished Writing Asset");

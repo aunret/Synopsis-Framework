@@ -17,7 +17,7 @@
 #import "Color+linearRGBColor.h"
 
 
-
+/*
 static inline NSString* toBinaryRepresentation(unsigned long long value)
 {
     long nibbleCount = sizeof(value) * 2;
@@ -30,7 +30,7 @@ static inline NSString* toBinaryRepresentation(unsigned long long value)
     
     return bitString;
 }
-
+*/
 static inline float cosineSimilarity(const cv::Mat a, const cv::Mat b)
 {
     float ab = a.dot(b);

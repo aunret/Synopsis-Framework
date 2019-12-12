@@ -39,9 +39,9 @@ kernel void dominantColorPass1(texture2d<half, access::read>  inTexture  [[textu
     int Hint = round(hsv.x * 255);
     int Vint = round(hsv.z * 255);
 
-    int Rint = floor(inColor.r * 255);
-    int Gint = round(inColor.g * 255);
-    int Bint = round(inColor.b * 255);
+    //int Rint = floor(inColor.r * 255);
+    //int Gint = round(inColor.g * 255);
+    //int Bint = round(inColor.b * 255);
 
     
     int packed  = ( Yint & top_two_bits) << 4;
