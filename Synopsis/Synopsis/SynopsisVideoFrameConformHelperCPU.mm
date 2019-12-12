@@ -337,7 +337,7 @@
         
 #if TARGET_OS_OSX
         
-        CGColorSpaceRef source = CVImageBufferGetColorSpace(pixelBuffer);
+        //CGColorSpaceRef source = CVImageBufferGetColorSpace(pixelBuffer);
         
         ColorSyncProfileRef rec709 = ColorSyncProfileCreateWithName(kColorSyncITUR709Profile);
         ColorSyncProfileRef linearProfile = ColorSyncProfileCreateWithName(kColorSyncACESCGLinearProfile);

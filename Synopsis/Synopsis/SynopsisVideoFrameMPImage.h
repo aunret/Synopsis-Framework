@@ -10,6 +10,8 @@
 #import <Foundation/Foundation.h>
 #import <MetalPerformanceShaders/MetalPerformanceShaders.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SynopsisVideoFrameMPImage : NSObject<SynopsisVideoFrame>
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
 @property (readonly) CMTime presentationTimeStamp;
@@ -19,3 +21,4 @@
 - (MPSImage*) mpsImage;
 @end
 
+NS_ASSUME_NONNULL_END

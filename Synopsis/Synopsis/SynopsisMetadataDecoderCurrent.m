@@ -169,7 +169,7 @@
         optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     }
     else	{
-    	NSLog(@"ERR: histogramArray only had %d elements in %s",histogramArray.count,__func__);
+    	NSLog(@"ERR: histogramArray only had %ld elements in %s",(unsigned long)histogramArray.count,__func__);
 	}
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately

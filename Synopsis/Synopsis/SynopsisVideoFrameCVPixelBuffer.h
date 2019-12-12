@@ -9,6 +9,8 @@
 #import "SynopsisVideoFrame.h"
 #import <CoreVideo/CoreVideo.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SynopsisVideoFrameCVPixelBuffer : NSObject<SynopsisVideoFrame>
 
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
@@ -21,3 +23,6 @@
 - (CVPixelBufferRef) pixelBuffer;
 
 @end
+
+NS_ASSUME_NONNULL_END
+

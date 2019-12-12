@@ -71,12 +71,12 @@
             
             MLModelConfiguration* modelConfig = [[MLModelConfiguration alloc] init];
             modelConfig.computeUnits = MLComputeUnitsAll;
-            
+            /*
             if (@available(macOS 10.15, *))
             {
                 modelConfig.preferredMetalDevice = device;
             }
-            
+            */
             @try {
                 self.mlModel = [[CinemaNet alloc] initWithConfiguration:modelConfig error:&error];
             } @catch (NSException *exception) {
@@ -243,8 +243,8 @@
             VNCoreMLFeatureValueObservation* embeddingSpaceObservation = [results firstObject];
             NSArray* embeddingSpaceArray = [self nsarrayFromMLMultiArray:embeddingSpaceObservation.featureValue.multiArrayValue];
 
-            VNCoreMLFeatureValueObservation* dominantColorObservation = [results objectAtIndex:1];
-            NSArray* dominantColorArray = [self nsarrayFromMLMultiArray:dominantColorObservation.featureValue.multiArrayValue];
+            //VNCoreMLFeatureValueObservation* dominantColorObservation = [results objectAtIndex:1];
+            //NSArray* dominantColorArray = [self nsarrayFromMLMultiArray:dominantColorObservation.featureValue.multiArrayValue];
             
 #pragma mark - Labels / Tags
             

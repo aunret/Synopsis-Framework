@@ -10,12 +10,16 @@
 #import "opencv2/core/mat.hpp"
 #import <CoreFoundation/CoreFoundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface SynopsisVideoFrameOpenCV : NSObject<SynopsisVideoFrame>
 @property (readonly) SynopsisVideoFormatSpecifier* videoFormatSpecifier;
 @property (readonly) CMTime presentationTimeStamp;
 @property (readonly, nullable) CGColorSpaceRef colorSpace;
 
-- (instancetype) initWithCVMat:(cv::Mat)mat formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts colorspace:(CGColorSpaceRef) colorspace;
+- (instancetype) initWithCVMat:(cv::Mat)mat formatSpecifier:(SynopsisVideoFormatSpecifier*)formatSpecifier presentationTimeStamp:(CMTime)pts colorspace:(nullable CGColorSpaceRef) colorspace;
 
 - (cv::Mat)mat;
 @end
+
+NS_ASSUME_NONNULL_END
