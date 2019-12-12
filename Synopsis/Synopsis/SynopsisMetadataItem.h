@@ -30,7 +30,7 @@ typedef void(^SynopsisMetadataItemCompletionHandler)(SynopsisMetadataItem *compl
 //- (instancetype) initWithAsset:(AVAsset *)asset;
 
 
-- (instancetype) initWithURL:(NSURL *)url loadMetadataAsynconQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch;
+- (instancetype) initWithURL:(NSURL *)url loadMetadataAsyncOnQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch;
 
 @property (readonly) NSURL* url;
 @property (readonly) AVAsset* asset;
