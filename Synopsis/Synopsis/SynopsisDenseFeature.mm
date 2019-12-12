@@ -71,7 +71,6 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-sou
     if (copy)
     {
         return copy;
