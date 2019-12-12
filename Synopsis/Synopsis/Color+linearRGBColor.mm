@@ -42,8 +42,9 @@
     
 	if (colorComponentsArray == nil || count < 1)
 		return nil;
-	
-    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
+
+//    CGColorSpaceRef linear = CGColorSpaceCreateDeviceRGB();
+    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
     
     NSMutableArray* colors = [NSMutableArray arrayWithCapacity:colorComponentsArray.count];
     

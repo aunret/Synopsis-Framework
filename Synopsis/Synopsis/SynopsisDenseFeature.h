@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SynopsisDenseFeature : NSObject
+@interface SynopsisDenseFeature : NSObject <NSCopying>
 
 // Key from Synopsis Metadata dict
 @property (readonly) NSString* metadataKey;
