@@ -20,6 +20,10 @@ static NSUInteger inFlightBuffers = 3;
 @property (readwrite, strong) NSMutableArray<id<MTLBuffer>> *inFlightSamples;
 @property (readwrite, strong) id<MTLComputePipelineState> pass1PipelineState;
 
+@property (readwrite, strong) SynopsisDenseFeature* averageDominantColors;
+@property (readwrite, strong) SynopsisDenseFeature* similairityDominantColors;
+@property (readwrite, strong) SynopsisDenseFeature* lastFrameDominantColors;
+
 @end
 
 
@@ -76,9 +80,13 @@ static NSUInteger inFlightBuffers = 3;
 
 - (void) beginAndClearCachedResults
 {
+    self.averageDominantColors = nil;
+    self.similairityDominantColors  = nil;
+    self.lastFrameDominantColors  = nil;
 }
 
-static inFlightBufferIndex = 0;
+static int inFlightBufferIndex = 0;
+
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
 {
     SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
@@ -140,22 +148,54 @@ static inFlightBufferIndex = 0;
             float g = (floor(sampleData[index + 1] / count)) / 255.0;
             float b = (floor(sampleData[index + 2] / count)) / 255.0;
 
-            //
-            [colors addObject: @( pow(r, 1.0/2.2) )];
-            [colors addObject: @( pow(g, 1.0/2.2) )];
-            [colors addObject: @( pow(b, 1.0/2.2) )];
+            [colors addObject: @( r )];
+            [colors addObject: @( g )];
+            [colors addObject: @( b )];
 
             i++;
         }
         
 // TODO: What to do if we dont have enough colors ?
-//        if(colors.count < 10)
-//        {
-//
-//        }
+        if(colors.count < 30)
+        {
+            NSUInteger delta = 30 - colors.count;
+            for (NSUInteger i = 0; i < delta; i++)
+            {
+                [colors addObject: @( 0 )];
+            }
+        }
         
+        SynopsisDenseFeature* denseDominantColors = [[SynopsisDenseFeature alloc] initWithFeatureArray:colors forMetadataKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
+
+        if(self.averageDominantColors == nil)
+        {
+            self.averageDominantColors = denseDominantColors;
+        }
+        else
+        {
+            self.averageDominantColors = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageDominantColors withFeature:denseDominantColors];
+        }
+
+#pragma mark - Compute Similarities
+        if ( denseDominantColors && self.lastFrameDominantColors )
+        {
+            float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameDominantColors, denseDominantColors);
+            
+            SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
+            
+            if ( self.similairityDominantColors )
+            {
+                self.similairityDominantColors = [SynopsisDenseFeature denseFeatureByAppendingFeature:self.similairityDominantColors withFeature:denseSimilarity];
+            }
+            else
+            {
+                self.similairityDominantColors = denseSimilarity;
+            }
+        }
         
-        // Is this stupid?
+        self.lastFrameDominantColors = denseDominantColors;
+
+        // Clear our buffer - Is this stupid?
         memset(sampleData, 0, 16384);
         
         inFlightBufferIndex++;
@@ -165,61 +205,17 @@ static inFlightBufferIndex = 0;
             completionBlock(@{ kSynopsisStandardMetadataDominantColorValuesDictKey : colors }, nil);
         }
     }];
-     
-     
-    
-    
-//    SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
-//    MPSImage* frameMPSImage = frameMPImage.mpsImage;
-//    //        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:(frameMPImage.colorSpace==nil) ? nil : @{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
-//    CIImage* imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options: @{ kCIImageColorSpace: (id) [NSNull null] }];
-//
-//
-//    [self.dominantColorFilter setValue:imageForRequest forKey:@"inputImage"];
-//    [self.dominantColorFilter setValue: @(imageForRequest.extent) forKey:@"inputExtent"];
-//
-//    CIImage* outputImage = [self.dominantColorFilter outputImage];
-//
-////    [buffer addCompletedHandler:^(id<MTLCommandBuffer> commandBuffer)
-////     {
-//        CIRenderDestination* destination = [[CIRenderDestination alloc] initWithBitmapData:dominantColorArray
-//                                                                                     width:10
-//                                                                                    height:1
-//                                                                               bytesPerRow:32 * 10
-//                                                                                    format:kCIFormatRGBAf];
-//
-//        CIRenderTask* task = [self.context startTaskToRender:outputImage
-//                                               toDestination:destination
-//                                                       error:nil];
-//
-//        //    [task waitUntilCompletedAndReturnError:nil];
-//
-//        NSMutableArray<NSNumber*>* dominantColors = [NSMutableArray new];
-//
-//        for ( int i = 0; i < 40;)
-//        {
-//            float r = dominantColorArray[i];
-//            float g = dominantColorArray[i + 1];
-//            float b = dominantColorArray[i + 2];
-//            float a = dominantColorArray[i + 3];
-//
-//            [dominantColors addObject: @(r)];
-//            [dominantColors addObject: @(g)];
-//            [dominantColors addObject: @(b)];
-//            i+= 4;
-//        }
-//        //
-//        if (completionBlock)
-//        {
-//            completionBlock(@{ kSynopsisStandardMetadataDominantColorValuesDictKey : dominantColors }, nil);
-//        }
-//
-////    }];
-
 }
 
 - (NSDictionary*) finalizedAnalysisMetadata;
 {
-    return nil;
+        [self.similairityDominantColors resizeTo:1024];
+        NSArray<NSNumber*>* similarDominantColors = [self.similairityDominantColors arrayValue];
+        NSArray<NSNumber*>* averageDominantColors = [self.averageDominantColors arrayValue];
+    
+        return @{
+                 kSynopsisStandardMetadataDominantColorValuesDictKey : (averageDominantColors) ? averageDominantColors : @[],
+                 kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey : (similarDominantColors) ? similarDominantColors : @[ ]
+                 };
 }
 @end

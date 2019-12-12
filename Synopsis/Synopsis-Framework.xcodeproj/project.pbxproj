@@ -2319,6 +2319,15 @@
 			path = libimproved;
 			sourceTree = "<group>";
 		};
+		1B0A1ED623A202A400E68E08 /* Histogram */ = {
+			isa = PBXGroup;
+			children = (
+				1BB7F6421FA108F7004ED69F /* GPUHistogramModule.h */,
+				1BB7F6431FA108F7004ED69F /* GPUHistogramModule.m */,
+			);
+			path = Histogram;
+			sourceTree = "<group>";
+		};
 		1B22F9A71FB29330009E3F4F /* Parameters */ = {
 			isa = PBXGroup;
 			children = (
@@ -5761,8 +5770,7 @@
 			children = (
 				1BB7F6481FA123AC004ED69F /* GPUModule.h */,
 				1BB7F6491FA123AC004ED69F /* GPUModule.m */,
-				1BB7F6421FA108F7004ED69F /* GPUHistogramModule.h */,
-				1BB7F6431FA108F7004ED69F /* GPUHistogramModule.m */,
+				1B0A1ED623A202A400E68E08 /* Histogram */,
 				1B0A1ECD23A02F2D00E68E08 /* Dominant Color */,
 				1BE7D13D228F6B8300933705 /* CinemaNet */,
 				1BED8C1D1FB16E8900CEE001 /* MobileNet CoreML */,
