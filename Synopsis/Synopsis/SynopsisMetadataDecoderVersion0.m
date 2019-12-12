@@ -67,7 +67,7 @@
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
     NSArray* featureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
-    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray];
+    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
     
@@ -92,16 +92,16 @@
     
     NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
     
-    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures];
+    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures forMetadataKey:kSynopsisStandardMetadataHistogramDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
+//    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
+//
+//    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
     
-    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+//    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
     
     // replace our standard dictionary with optimized outputs
     NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];

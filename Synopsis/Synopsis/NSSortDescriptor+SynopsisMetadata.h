@@ -21,10 +21,7 @@
  kSynopsisStandardMetadataDictKey
  
  kSynopsisStandardMetadataFeatureVectorDictKey
- kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey
-
  kSynopsisStandardMetadataProbabilitiesDictKey
- kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey
  
  // Eventually:
 */
@@ -36,6 +33,8 @@
 
 // See which two objects are closest to the relativeHash
 + (NSSortDescriptor*)synopsisFeatureSortDescriptorRelativeTo:(NSArray*)featureVector;
+
++ (NSSortDescriptor*)synopsisDynamicTimeWarpFeatureSortDescriptorRelativeTo:(SynopsisDenseFeature*)featureVector;
 
 // See which two objects are closest to the relativeHash
 + (NSSortDescriptor*)synopsisHashSortDescriptorRelativeTo:(NSString*)relativeHash DEPRECATED_ATTRIBUTE;

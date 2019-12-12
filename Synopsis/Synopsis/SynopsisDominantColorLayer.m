@@ -15,7 +15,8 @@
 @implementation SynopsisDominantColorLayer
 
 
-#define kSynopsisDominantColorCount 5
+#define kSynopsisDominantColorCount 10
+
 - (instancetype) init
 {
     self = [super init];
@@ -37,7 +38,7 @@
             colorLayer.frame = (CGRect){0, 0, size.width, size.height};
             colorLayer.position = (CGPoint){initialOffset + (width * 0.5), size.height * 0.5};
             colorLayer.actions = actions;
-            
+
             initialOffset += width;
             
             [self addSublayer:colorLayer];
@@ -77,6 +78,13 @@
     
 //    assert((self.dominantColorCALayers.count == self.dominantColorsArray.count) && (self.dominantColorsArray.count == kSynopsisDominantColorCount));
     NSUInteger numColors = MIN(kSynopsisDominantColorCount, self.dominantColorsArray.count);
+    for(NSUInteger i = 0; i < kSynopsisDominantColorCount; i++)
+     {
+         CALayer* colorLayer = self.dominantColorCALayers[i];
+         CGColorRef clearColor = CGColorCreateGenericRGB(0.0, 0.0, 0.0, 0.0);
+         colorLayer.backgroundColor = clearColor;
+     }
+    
     
     for(NSUInteger i = 0; i < numColors; i++)
     {

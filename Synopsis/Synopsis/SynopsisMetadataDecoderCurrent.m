@@ -128,7 +128,7 @@
     NSArray* featureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     if(featureArray)
     {
-        SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray];
+        SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
         
         optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
     }
@@ -136,35 +136,10 @@
     NSArray* probabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
     if(probabilityArray)
     {
-        SynopsisDenseFeature* probabilityValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilityArray];
+        SynopsisDenseFeature* probabilityValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilityArray forMetadataKey:kSynopsisStandardMetadataProbabilitiesDictKey];
         
         optimizedStandardDictionary[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilityValue;
     }
-    
-    NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
-
-    if(interestingTimes)
-    {
-        NSMutableArray* optimizedInterestingTimes = [NSMutableArray arrayWithCapacity:interestingTimes.count];
-
-        for(NSDictionary* interestingFeatureAndTime in interestingTimes)
-        {
-            NSDictionary* timeDict = interestingFeatureAndTime[@"Time"];
-            NSArray<NSNumber*>* feature = interestingFeatureAndTime[@"Feature"];
-            
-            if(timeDict && feature)
-            {
-                SynopsisDenseFeature* optimizedFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:feature];
-                CMTime time = CMTimeMakeFromDictionary((CFDictionaryRef)timeDict);
-                NSValue* optimizedTime = [NSValue valueWithCMTime:time];
-                [optimizedInterestingTimes addObject:@{ @"Time" : optimizedTime,
-                                                        @"Feature" : optimizedFeature}];
-            }
-        }
-        
-        optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey] = optimizedInterestingTimes;
-    }
-    
     
     // Convert histogram bins to cv::Mat
     NSArray* histogramArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataHistogramDictKey];
@@ -189,7 +164,7 @@
         
         NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
         
-        SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures];
+        SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures forMetadataKey:kSynopsisStandardMetadataHistogramDictKey];
         
         optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     }
@@ -198,13 +173,32 @@
 	}
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
-    if(motionArray)
+    NSArray* similarFeatureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
+    if(probabilityArray)
     {
-        SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:similarFeatureArray forMetadataKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+        optimizedStandardDictionary[kSynopsisStandardMetadataSimilarityFeatureVectorDictKey] = denseFeature;
     }
+    
+    // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
+    NSArray* similarProbabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
+    if(probabilityArray)
+    {
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:similarProbabilityArray forMetadataKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataSimilarityProbabilitiesDictKey] = denseFeature;
+    }
+    
+    // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
+    NSArray* similarDominantColorsArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
+    if(probabilityArray)
+    {
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:similarDominantColorsArray forMetadataKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
+        
+        optimizedStandardDictionary[kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey] = denseFeature;
+    }
+
     
     // replace our standard dictionary with optimized outputs
     NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];

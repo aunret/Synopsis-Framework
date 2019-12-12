@@ -38,38 +38,35 @@ extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 // The primary key found in both time based (per frame) and summary / global metadata dictionaries
 extern NSString* const kSynopsisStandardMetadataDictKey;
 
-// Feature Vector of primary embedding space
-extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey;//
-extern NSString* const kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey;
-
-// An array of scores/probabilities - one per class label or attribute
-extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey;
-extern NSString* const kSynopsisStandardMetadataInterestingProbabilitiesAndTimesDictKey;
-
-// For Global Dict, this is the human readable tags that we have confidence exist in the movie
-// These are taken from the labels associated with the highest confident values for each concept category
-// In kSynopsisStandardMetadataProbabilitiesDictKey.
-
+// Global Only Keys
 extern NSString* const kSynopsisStandardMetadataDescriptionDictKey;
 
-// RGB histogram, exists per frame and globally.
-extern NSString* const kSynopsisStandardMetadataHistogramDictKey;
+// Global features:
+//Time domain signature of inter frame similarities of per frame features below:
+extern NSString* const kSynopsisStandardMetadataSimilarityFeatureVectorDictKey; // ImageNet embedding features differences per frame
+extern NSString* const kSynopsisStandardMetadataSimilarityProbabilitiesDictKey; // CinemaNet predicted probablities differences per frame
+extern NSString* const kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey; // CinemaNet predicted dominant colors differences per frame
+
+// Global and Per Frame frame features
+extern NSString* const kSynopsisStandardMetadataFeatureVectorDictKey; // ImageNet embedding features - per frame / global average
+extern NSString* const kSynopsisStandardMetadataProbabilitiesDictKey; // CinemaNet predicted probablities - per frame / global average
+extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey; // CinemaNet predicted dominant colors - per frame / global average
+extern NSString* const kSynopsisStandardMetadataHistogramDictKey; // Cinemanet
 
 
-// Deprecated??
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
-
-
+//// Deprecated??
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataAttentionDictKey;
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataInterestingAttentionAndTimesDictKey;
+//
+//
 //DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataLabelsDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataScoreDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataDominantColorValuesDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
-
-DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataPerceptualHashDictKey;
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataScoreDictKey;
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionDictKey;
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataMotionVectorDictKey;
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataSaliencyDictKey;
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataTrackerDictKey;
+//
+//DEPRECATED_ATTRIBUTE extern NSString* const kSynopsisStandardMetadataPerceptualHashDictKey;
 
 // Rough amount of overhead a particular plugin or module has
 // For example very very taxing

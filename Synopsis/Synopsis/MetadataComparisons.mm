@@ -6,6 +6,7 @@
 //  Copyright © 2016 v002. All rights reserved.
 //
 
+#import "dtw.h"
 #import <opencv2/opencv.hpp>
 
 #import "SynopsisDenseFeature+Private.h"
@@ -14,6 +15,7 @@
 
 
 #import "Color+linearRGBColor.h"
+
 
 
 static inline NSString* toBinaryRepresentation(unsigned long long value)
@@ -55,16 +57,34 @@ static inline float inverseL2SQRDistance(const cv::Mat a, const cv::Mat b)
     return  1.0 - d;
 }
 
-float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
+static inline float inverseHamming(const cv::Mat a, const cv::Mat b)
+{
+    float d = cv::norm(a, b, cv::NORM_HAMMING | cv::NORM_RELATIVE);
+    
+    return  1.0 - d;
+}
+
+static inline  BOOL earlyBailOnFeatureCompare(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {
     // If our features are nil, then early bail with 0 similarity
     if(!featureVec1 || ! featureVec2)
-        return 0.0;
-
+        return TRUE;
+    
+    // if our features dont represent the same key, early bail with 0 similarity
+    if( [featureVec1.metadataKey isNotEqualTo:featureVec2.metadataKey] )
+        return TRUE;
     
     // If our features are exist but dont have compariable results early bail with 0 similarity
     if(featureVec1.featureCount != featureVec2.featureCount)
-        return 0.0;
+        return TRUE;
+    
+    return FALSE;
+}
+
+float compareFeaturesCosineSimilarity(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
+{
+   if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
+       return 0.0;
     
     @autoreleasepool
     {
@@ -79,9 +99,9 @@ float compareFeatureVector(SynopsisDenseFeature* featureVec1, SynopsisDenseFeatu
 
 float compareFeatureVectorInverseL1(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {
-    if(featureVec1.featureCount != featureVec2.featureCount)
+    if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
         return 0.0;
-    
+
     @autoreleasepool
     {
         const cv::Mat vec1 = [featureVec1 cvMatValue];
@@ -93,99 +113,43 @@ float compareFeatureVectorInverseL1(SynopsisDenseFeature* featureVec1, SynopsisD
     }
 }
 
-// kind of dumb - maybe we represent our hashes as numbers? whatever
-float compareGlobalHashes(NSString* hash1, NSString* hash2)
+float compareFeatureVectorInverseL2(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {
-    if(hash1.length != hash2.length)
-        return 0.0;
-
-    // Split our strings into 4 64 bit ints each.
-    // has looks like int64_t-int64_t-int64_t-int64_t-
-    @autoreleasepool
-    {
-        NSArray* hash1Strings = [hash1 componentsSeparatedByString:@"-"];
-        NSArray* hash2Strings = [hash2 componentsSeparatedByString:@"-"];
-        
-        //    Assert(hash1Strings.count == hash2Strings.count, @"Unable to match Hash Counts");
-        //    NSString* allBinaryResult = @"";
-        
-        float percentPerHash[4] = {0.0, 0.0, 0.0, 0.0};
-        
-        for(NSUInteger i = 0; i < hash1Strings.count; i++)
-        {
-            NSString* hash1String = hash1Strings[i];
-            NSString* hash2String = hash2Strings[i];
-            
-            NSScanner *scanner1 = [NSScanner scannerWithString:hash1String];
-            unsigned long long result1 = 0;
-            [scanner1 setScanLocation:0]; // bypass '#' character
-            [scanner1 scanHexLongLong:&result1];
-            
-            NSScanner *scanner2 = [NSScanner scannerWithString:hash2String];
-            unsigned long long result2 = 0;
-            [scanner2 setScanLocation:0]; // bypass '#' character
-            [scanner2 scanHexLongLong:&result2];
-            
-            unsigned long long result = result1 ^ result2;
-            
-            NSString* resultAsBinaryString = toBinaryRepresentation(result);
-            
-            NSUInteger characterCount = [[resultAsBinaryString componentsSeparatedByString:@"1"] count] - 1;
-            
-            float percent = ((64.0 - characterCount) * 100.0) / 64.0;
-            
-            percentPerHash[i] = percent / 100.0;
-        }
-        
-        float totalPercent = percentPerHash[0] + percentPerHash[1] + percentPerHash[2] + percentPerHash[3];
-        
-        totalPercent *= 0.25;
-        
-        return totalPercent;
-        
-        // Euclidean distance between vector of correlation of each hash?
-        
-        //    return sqrtf( ( percentPerHash[0] * percentPerHash[0] ) + ( percentPerHash[1] * percentPerHash[1] ) + ( percentPerHash[2] * percentPerHash[2] ) + ( percentPerHash[3] * percentPerHash[3] ) );
-    }
-}
-
-float compareFrameHashes(NSString* hash1, NSString* hash2)
-{
-    if(hash1.length != hash2.length)
+    if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
         return 0.0;
 
     @autoreleasepool
     {
-        NSScanner *scanner1 = [NSScanner scannerWithString:hash1];
-        unsigned long long result1 = 0;
-        [scanner1 setScanLocation:0]; // bypass '#' character
-        [scanner1 scanHexLongLong:&result1];
+        const cv::Mat vec1 = [featureVec1 cvMatValue];
+        const cv::Mat vec2 = [featureVec2 cvMatValue];
         
-        NSScanner *scanner2 = [NSScanner scannerWithString:hash2];
-        unsigned long long result2 = 0;
-        [scanner2 setScanLocation:0]; // bypass '#' character
-        [scanner2 scanHexLongLong:&result2];
+        float s = inverseL2Distance(vec1, vec2);
         
-        unsigned long long result = result1 ^ result2;
-        
-        NSString* resultAsBinaryString = toBinaryRepresentation(result);
-        
-        NSUInteger characterCount = [[resultAsBinaryString componentsSeparatedByString:@"1"] count] - 1;
-        
-        float percent = ((64.0 - characterCount) * 100.0) / 64.0;
-        
-        return (percent / 100.0);
+        return s;
     }
 }
 
+float compareFeatureVectorInverseL2Squared(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
+{
+    if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
+        return 0.0;
+
+    @autoreleasepool
+    {
+        const cv::Mat vec1 = [featureVec1 cvMatValue];
+        const cv::Mat vec2 = [featureVec2 cvMatValue];
+        
+        float s = inverseL2SQRDistance(vec1, vec2);
+        
+        return s;
+    }
+}
 
 float compareHistogtams(SynopsisDenseFeature* hist1Feature, SynopsisDenseFeature* hist2Feature)
 {
-    if(!hist1Feature || !hist2Feature)
+      if (earlyBailOnFeatureCompare(hist1Feature, hist2Feature))
         return 0.0;
 
-    if(hist1Feature.featureCount != hist1Feature.featureCount)
-        return 0.0;
 
     @autoreleasepool
     {
@@ -207,8 +171,166 @@ float compareHistogtams(SynopsisDenseFeature* hist1Feature, SynopsisDenseFeature
 //
 //        return dR;
     }
-    
 }
+
+float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
+{
+    if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
+        return 0.0;
+
+    @autoreleasepool
+    {
+        const cv::Mat vec1 = [featureVec1 cvMatValue];
+        const cv::Mat vec2 = [featureVec2 cvMatValue];
+        
+        float s = inverseHamming(vec1, vec2);
+        
+        return s;
+    }
+}
+
+@interface DTWFilterWrapper ()
+{
+    LB_Improved* filter;
+}
+@end
+
+@implementation DTWFilterWrapper 
+- (instancetype) initWithFeature:(SynopsisDenseFeature*)featureVector
+{
+    self = [super init];
+    if(self)
+    {
+        // we first need to initialize a filter on our featureVector of vector::floats
+        const cv::Mat feature = [featureVector cvMatValue];
+        
+        const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
+
+        self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 15)); // we use the DTW with a tolerance of 10% (size/10)
+    }
+    return self;
+}
+
+- (LB_Improved*) filter;
+{
+    return self->filter;
+}
+
+- (void) dealloc
+{
+    if (filter != NULL)
+    {
+        delete filter;
+        filter = NULL;
+    }
+}
+@end
+
+
+float compareFeatureVectorDTW(DTWFilterWrapper* filterFromFeatureToCompareAgainst, SynopsisDenseFeature* featureVec)
+{
+//    if (earlyBailOnFeatureCompare(featureVec1,featureVec2))
+//        return 0.0;
+
+    LB_Improved* filter =  [filterFromFeatureToCompareAgainst filter];
+    
+    @autoreleasepool
+    {
+        const cv::Mat feature = [featureVec cvMatValue];
+        
+        const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
+
+        double sim1 = filter->justlb( featureAsVector );
+        
+        return 1.0/sim1;
+    }
+}
+
+
+//// kind of dumb - maybe we represent our hashes as numbers? whatever
+//float compareGlobalHashes(NSString* hash1, NSString* hash2)
+//{
+//    if(hash1.length != hash2.length)
+//        return 0.0;
+//
+//    // Split our strings into 4 64 bit ints each.
+//    // has looks like int64_t-int64_t-int64_t-int64_t-
+//    @autoreleasepool
+//    {
+//        NSArray* hash1Strings = [hash1 componentsSeparatedByString:@"-"];
+//        NSArray* hash2Strings = [hash2 componentsSeparatedByString:@"-"];
+//
+//        //    Assert(hash1Strings.count == hash2Strings.count, @"Unable to match Hash Counts");
+//        //    NSString* allBinaryResult = @"";
+//
+//        float percentPerHash[4] = {0.0, 0.0, 0.0, 0.0};
+//
+//        for(NSUInteger i = 0; i < hash1Strings.count; i++)
+//        {
+//            NSString* hash1String = hash1Strings[i];
+//            NSString* hash2String = hash2Strings[i];
+//
+//            NSScanner *scanner1 = [NSScanner scannerWithString:hash1String];
+//            unsigned long long result1 = 0;
+//            [scanner1 setScanLocation:0]; // bypass '#' character
+//            [scanner1 scanHexLongLong:&result1];
+//
+//            NSScanner *scanner2 = [NSScanner scannerWithString:hash2String];
+//            unsigned long long result2 = 0;
+//            [scanner2 setScanLocation:0]; // bypass '#' character
+//            [scanner2 scanHexLongLong:&result2];
+//
+//            unsigned long long result = result1 ^ result2;
+//
+//            NSString* resultAsBinaryString = toBinaryRepresentation(result);
+//
+//            NSUInteger characterCount = [[resultAsBinaryString componentsSeparatedByString:@"1"] count] - 1;
+//
+//            float percent = ((64.0 - characterCount) * 100.0) / 64.0;
+//
+//            percentPerHash[i] = percent / 100.0;
+//        }
+//
+//        float totalPercent = percentPerHash[0] + percentPerHash[1] + percentPerHash[2] + percentPerHash[3];
+//
+//        totalPercent *= 0.25;
+//
+//        return totalPercent;
+//
+//        // Euclidean distance between vector of correlation of each hash?
+//
+//        //    return sqrtf( ( percentPerHash[0] * percentPerHash[0] ) + ( percentPerHash[1] * percentPerHash[1] ) + ( percentPerHash[2] * percentPerHash[2] ) + ( percentPerHash[3] * percentPerHash[3] ) );
+//    }
+//}
+
+//float compareFrameHashes(NSString* hash1, NSString* hash2)
+//{
+//    if(hash1.length != hash2.length)
+//        return 0.0;
+//
+//    @autoreleasepool
+//    {
+//        NSScanner *scanner1 = [NSScanner scannerWithString:hash1];
+//        unsigned long long result1 = 0;
+//        [scanner1 setScanLocation:0]; // bypass '#' character
+//        [scanner1 scanHexLongLong:&result1];
+//
+//        NSScanner *scanner2 = [NSScanner scannerWithString:hash2];
+//        unsigned long long result2 = 0;
+//        [scanner2 setScanLocation:0]; // bypass '#' character
+//        [scanner2 scanHexLongLong:&result2];
+//
+//        unsigned long long result = result1 ^ result2;
+//
+//        NSString* resultAsBinaryString = toBinaryRepresentation(result);
+//
+//        NSUInteger characterCount = [[resultAsBinaryString componentsSeparatedByString:@"1"] count] - 1;
+//
+//        float percent = ((64.0 - characterCount) * 100.0) / 64.0;
+//
+//        return (percent / 100.0);
+//    }
+//}
 
 float compareDominantColorsRGB(NSArray* colors1, NSArray* colors2)
 {

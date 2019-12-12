@@ -124,33 +124,33 @@
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
     NSArray* featureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
-    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray];
+    SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
     
-    NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
-
-    if(interestingTimes)
-    {
-        NSMutableArray* optimizedInterestingTimes = [NSMutableArray arrayWithCapacity:interestingTimes.count];
-
-        for(NSDictionary* interestingFeatureAndTime in interestingTimes)
-        {
-            NSDictionary* timeDict = interestingFeatureAndTime[@"Time"];
-            NSArray<NSNumber*>* feature = interestingFeatureAndTime[@"Feature"];
-            
-            if(timeDict && feature)
-            {
-                SynopsisDenseFeature* optimizedFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:feature];
-                CMTime time = CMTimeMakeFromDictionary((CFDictionaryRef)timeDict);
-                NSValue* optimizedTime = [NSValue valueWithCMTime:time];
-                [optimizedInterestingTimes addObject:@{ @"Time" : optimizedTime,
-                                                        @"Feature" : optimizedFeature}];
-            }
-        }
-        
-        optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey] = optimizedInterestingTimes;
-    }
+//    NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
+//
+//    if(interestingTimes)
+//    {
+//        NSMutableArray* optimizedInterestingTimes = [NSMutableArray arrayWithCapacity:interestingTimes.count];
+//
+//        for(NSDictionary* interestingFeatureAndTime in interestingTimes)
+//        {
+//            NSDictionary* timeDict = interestingFeatureAndTime[@"Time"];
+//            NSArray<NSNumber*>* feature = interestingFeatureAndTime[@"Feature"];
+//
+//            if(timeDict && feature)
+//            {
+//                SynopsisDenseFeature* optimizedFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:feature];
+//                CMTime time = CMTimeMakeFromDictionary((CFDictionaryRef)timeDict);
+//                NSValue* optimizedTime = [NSValue valueWithCMTime:time];
+//                [optimizedInterestingTimes addObject:@{ @"Time" : optimizedTime,
+//                                                        @"Feature" : optimizedFeature}];
+//            }
+//        }
+//
+//        optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey] = optimizedInterestingTimes;
+//    }
     
     
     // Convert histogram bins to cv::Mat
@@ -174,16 +174,16 @@
     
     NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
     
-    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures];
+    SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures forMetadataKey:kSynopsisStandardMetadataHistogramDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
-    
-    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
-    
-    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
+//    NSArray* motionArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataMotionVectorDictKey];
+//    
+//    SynopsisDenseFeature* motionValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:motionArray];
+//    
+//    optimizedStandardDictionary[kSynopsisStandardMetadataMotionVectorDictKey] = motionValue;
     
     // replace our standard dictionary with optimized outputs
     NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];

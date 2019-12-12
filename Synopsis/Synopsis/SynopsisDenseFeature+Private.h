@@ -11,7 +11,7 @@
 
 @interface SynopsisDenseFeature (Private)
 
-+ (SynopsisDenseFeature*) valueWithCVMat:(cv::Mat)mat;
++ (SynopsisDenseFeature*) valueWithCVMat:(cv::Mat)mat forMetadataKey:(NSString*)key;
 - (cv::Mat) cvMatValue;
 
 

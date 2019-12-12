@@ -28,20 +28,24 @@
 @property (readwrite, strong) CinemaNet* mlModel;
 
 @property (readwrite, strong) SynopsisDenseFeature* averageFeatureVec;
-@property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* featureVectorWindowAverages;
-@property (readwrite, strong) NSMutableArray<NSValue*>* featureVectorWindowAveragesTimes;
-@property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* featureVectorWindows;
-
 @property (readwrite, strong) SynopsisDenseFeature* averageProbabilities;
-@property (readwrite, strong) NSMutableArray<SynopsisDenseFeature*>* probabilityWindowAverages;
-@property (readwrite, strong) NSMutableArray<NSValue*>* probabilityWindowAveragesTimes;
-@property (readwrite, strong) NSMutableArray<SynopsisSlidingWindow*>* probabilityWindows;
+
+// Compute the frame similarity between consecutive frames
+// On completion of the film,normalize the number of vector elements to match
+// This gives us a 'similarity vector' of the time domain features
+// Although we do lose what it is we are similar about
+// Its a feature thats useful to knowing how the temporal structure changes over time
+@property (readwrite, strong) SynopsisDenseFeature* similarityFeatureVec;
+@property (readwrite, strong) SynopsisDenseFeature* similarityProbabilities;
+
+// In order ot do the above, we have to cache the last frames features
+@property (readwrite, strong) SynopsisDenseFeature* lastFrameFeatureVec;
+@property (readwrite, strong) SynopsisDenseFeature* lastFrameProbabilities;
 
 @property (readwrite, strong) NSArray<NSString*>* labels;
 @property (readwrite, strong) NSArray<NSValue*>* labelGroupRanges;
 
 @end
-
 
 @implementation CinemaNetModuleV1
 
@@ -139,22 +143,28 @@
 - (void) beginAndClearCachedResults
 {
     self.averageFeatureVec = nil;
-    self.featureVectorWindowAverages = [NSMutableArray new];
-    self.featureVectorWindowAveragesTimes = [NSMutableArray new];
-    self.featureVectorWindows = [NSMutableArray new];
-    
     self.averageProbabilities = nil;
-    self.probabilityWindowAverages = [NSMutableArray new];
-    self.probabilityWindowAveragesTimes = [NSMutableArray new];
-    self.probabilityWindows = [NSMutableArray new];
     
-    for(NSUInteger i = 0; i < numWindows; i++)
+    self.similarityFeatureVec  = nil;
+    self.similarityProbabilities  = nil;
+    
+    self.lastFrameFeatureVec  = nil;
+    self.lastFrameProbabilities  = nil;
+}
+
+
+// TODO: This should be optimized
+- (NSArray<NSNumber*>*) nsarrayFromMLMultiArray:(MLMultiArray*)multiArray
+{
+    
+    NSMutableArray<NSNumber*>* array = [NSMutableArray new];
+    for (int i = 0; i < multiArray.count; i++)
     {
-        SynopsisSlidingWindow* aWindow = [[SynopsisSlidingWindow alloc] initWithLength:10 offset:stride * i];
-        SynopsisSlidingWindow* bWindow = [[SynopsisSlidingWindow alloc] initWithLength:10 offset:stride * i];
-        [self.featureVectorWindows addObject:aWindow];
-        [self.probabilityWindows addObject:bWindow];
+        // Keyed Subscript returns NSNumbers:
+        [array addObject: multiArray[i] ];
     }
+
+    return array;
 }
 
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
@@ -164,15 +174,18 @@
     {
         SynopsisVideoFrameMPImage* frameMPImage = (SynopsisVideoFrameMPImage*)frame;
         MPSImage* frameMPSImage = frameMPImage.mpsImage;
-        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:(frameMPImage.colorSpace==nil) ? nil : @{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
+//        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options:(frameMPImage.colorSpace==nil) ? nil : @{ kCIImageColorSpace: (id) frameMPImage.colorSpace }];
+        imageForRequest = [CIImage imageWithMTLTexture:frameMPSImage.texture options: @{ kCIImageColorSpace: (id) [NSNull null] }];
+
     }
     
     else if ([frame isKindOfClass:[SynopsisVideoFrameCVPixelBuffer class]])
     {
         SynopsisVideoFrameCVPixelBuffer* frameCVPixelBuffer = (SynopsisVideoFrameCVPixelBuffer*)frame;
         
-        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer]];
-    }
+//        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer]];
+        imageForRequest = [CIImage imageWithCVImageBuffer:[frameCVPixelBuffer pixelBuffer] options: @{ kCIImageColorSpace: (id) [NSNull null] }];
+}
     
     VNCoreMLRequest* mobileRequest = [[VNCoreMLRequest alloc] initWithModel:self.vnModel completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
         
@@ -189,6 +202,7 @@
             NSMutableArray* labels = [NSMutableArray arrayWithCapacity:countOfPredictionGroups];
             NSMutableArray* probabilities = [NSMutableArray arrayWithCapacity:countOfPredictionGroups];
 
+#pragma mark - Sort Features
             // TODO: For 10.15 we can make this nicer:
             // 10.15 adds .featureName to VNCoreMLFeatureValueObservation
 
@@ -227,17 +241,15 @@
             }];
             
             VNCoreMLFeatureValueObservation* embeddingSpaceObservation = [results firstObject];
-            // iterate to make NSNumber array :(
+            NSArray* embeddingSpaceArray = [self nsarrayFromMLMultiArray:embeddingSpaceObservation.featureValue.multiArrayValue];
+
+            VNCoreMLFeatureValueObservation* dominantColorObservation = [results objectAtIndex:1];
+            NSArray* dominantColorArray = [self nsarrayFromMLMultiArray:dominantColorObservation.featureValue.multiArrayValue];
             
-            MLMultiArray* embeddingSpaceMLMultiArray = embeddingSpaceObservation.featureValue.multiArrayValue;
-            NSMutableArray<NSNumber*>* embeddingSpaceArray = [NSMutableArray new];
-            for (int i = 0; i < embeddingSpaceMLMultiArray.count; i++)
-            {
-                // Keyed Subscript returns NSNumbers:
-                [embeddingSpaceArray addObject: embeddingSpaceMLMultiArray[i] ];
-            }
+#pragma mark - Labels / Tags
             
-            results = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
+            // Remove our embedding and our dominant color resultss
+            results = [results subarrayWithRange:NSMakeRange(2, results.count - 2)];
             
             // Track the ranges of our label concept groups:
             NSUInteger location = 0;
@@ -292,7 +304,6 @@
                 
             }
 
-            //
             if (self.labels == nil)
                 self.labels = [labels copy];
             
@@ -300,8 +311,10 @@
             {
                 self.labelGroupRanges  = [labelGroupRanges copy];
             }
+            
+#pragma mark - Compute Features
 
-            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray];
+            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
 
             if(self.averageFeatureVec == nil)
             {
@@ -310,11 +323,10 @@
             else
             {
                 // Probabilities get maximized
-                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageFeatureVec withFeature:denseFeature];
+                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageFeatureVec withFeature:denseFeature];
             }
 
-            SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities];
-
+            SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities forMetadataKey:kSynopsisStandardMetadataProbabilitiesDictKey];
 
             if(self.averageProbabilities == nil)
             {
@@ -323,12 +335,50 @@
             else
             {
                 // Probabilities get maximized
-                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseProbabilities];
+                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageProbabilities withFeature:denseProbabilities];
             }
             
+
+#pragma mark - Compute Similarities
+            
+            if ( denseFeature && self.lastFrameFeatureVec )
+            {
+                float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameFeatureVec, denseFeature);
+                
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
+                
+                if ( self.similarityFeatureVec )
+                {
+                    self.similarityFeatureVec = [SynopsisDenseFeature denseFeatureByAppendingFeature:self.similarityFeatureVec withFeature:denseSimilarity];
+                }
+                else
+                {
+                    self.similarityFeatureVec = denseSimilarity;
+                }
+            }
+            
+            if ( denseProbabilities && self.lastFrameProbabilities )
+            {
+                float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameProbabilities, denseProbabilities);
+                               
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
+                
+                if ( self.similarityProbabilities )
+                {
+                    self.similarityProbabilities = [SynopsisDenseFeature denseFeatureByAppendingFeature:self.similarityProbabilities withFeature:denseSimilarity];
+                }
+                else
+                {
+                    self.similarityProbabilities = denseSimilarity;
+                }
+            }
+           
             metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = embeddingSpaceArray;
             metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
 
+            // Cache our last frames for the next frame
+            self.lastFrameFeatureVec = denseFeature;
+            self.lastFrameProbabilities = denseProbabilities;
         }
         
         
@@ -360,8 +410,8 @@
 - (NSDictionary*) finalizedAnalysisMetadata;
 {
     // Compute the most likely labels from each label category
-    NSArray<NSNumber*>* averageProbabilities = self.averageProbabilities.arrayValue;
-    NSArray<NSNumber*>* averageFeatures = self.averageFeatureVec.arrayValue;
+    NSArray<NSNumber*>* averageProbabilities = [self.averageProbabilities arrayValue];
+    NSArray<NSNumber*>* averageFeatures = [self.averageFeatureVec arrayValue];
 
     NSMutableArray<NSString*>* predictedLabels = [NSMutableArray new];
     
@@ -374,11 +424,21 @@
     }];
     
 
+    [self.similarityFeatureVec resizeTo:1024];
+    [self.similarityProbabilities resizeTo:1024];
+
+    NSArray<NSNumber*>* similarFeatures = [self.similarityFeatureVec arrayValue];
+    NSArray<NSNumber*>* similarProbabilities =  [self.similarityProbabilities arrayValue];
+
+    
     return @{
              kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
              kSynopsisStandardMetadataFeatureVectorDictKey : (averageFeatures) ? averageFeatures : @[ ],
-             //             kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey  : (windowAverages) ? windowAverages : @[ ],
+
              kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
+             
+             kSynopsisStandardMetadataSimilarityFeatureVectorDictKey : (similarFeatures) ? similarFeatures : @ [ ],
+             kSynopsisStandardMetadataSimilarityProbabilitiesDictKey : (similarProbabilities) ? similarProbabilities : @[ ],
              };
 }
 

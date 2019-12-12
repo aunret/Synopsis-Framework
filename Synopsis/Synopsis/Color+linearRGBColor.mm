@@ -30,35 +30,43 @@
 
 + (CGColorRef) newColorWithLinearRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue
 {
-    return [self newColorWithLinearRed:green green:green blue:blue alpha:1.0];
+    return [self newColorWithLinearRed:red green:green blue:blue alpha:1.0];
 }
 
 + (NSArray*) newLinearColorsWithArraysOfRGBComponents:(NSArray*)colorComponentsArray
 {
 	//NSLog(@"%s",__func__);
 	//NSLog(@"\t\tcolorComponentsArray is %@",colorComponentsArray);
-	if (colorComponentsArray==nil || [colorComponentsArray count]<1)
+    
+    NSUInteger count = [colorComponentsArray count];
+    
+	if (colorComponentsArray == nil || count < 1)
 		return nil;
-	
-    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
 
+//    CGColorSpaceRef linear = CGColorSpaceCreateDeviceRGB();
+    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    
     NSMutableArray* colors = [NSMutableArray arrayWithCapacity:colorComponentsArray.count];
-    for(NSArray* colorComponents in colorComponentsArray)
+    
+    for(int i = 0; i < count;)
     {
+        
         CGFloat components[4];
-        components[0] = [colorComponents[0] floatValue];
-        components[1] = [colorComponents[1] floatValue];
-        components[2] = [colorComponents[2] floatValue];
+        components[0] = [colorComponentsArray[i + 0] floatValue];
+        components[1] = [colorComponentsArray[i + 1] floatValue];
+        components[2] = [colorComponentsArray[i + 2] floatValue];
         components[3] = 1;
         
-        if(colorComponents.count > 3)
-        {
-            components[3] = [colorComponents[3] floatValue];
-        }
+//        if(colorComponents.count > 3)
+//        {
+//            components[3] = [colorComponents[3] floatValue];
+//        }
         
         CGColorRef color = CGColorCreate(linear, components);
 
          [colors addObject:(id)CFBridgingRelease(color)];
+        
+        i += 3;
     }
     
     CGColorSpaceRelease(linear);
