@@ -71,7 +71,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    id copy = [[[self class] alloc] initWithFeatureArray:self.OpenCVMat forMetadataKey:self.metadataKey];
+    id copy = [[[self class] alloc] initWithCVMat:self.OpenCVMat forMetadataKey:self.metadataKey];
     if (copy)
     {
         return copy;
