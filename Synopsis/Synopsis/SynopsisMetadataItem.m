@@ -66,7 +66,7 @@
     return self;
 }
 */
-- (instancetype) initWithURL:(NSURL *)url onQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch	{
+- (instancetype) initWithURL:(NSURL *)url loadMetadataAsynconQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch	{
 	self = [super init];
 	if (self != nil)	{
 		self.url = url;

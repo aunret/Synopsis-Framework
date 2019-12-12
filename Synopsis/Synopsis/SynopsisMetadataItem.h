@@ -29,7 +29,8 @@ typedef void(^SynopsisMetadataItemCompletionHandler)(SynopsisMetadataItem *compl
 - (instancetype) initWithURL:(NSURL *)url;
 //- (instancetype) initWithAsset:(AVAsset *)asset;
 
-- (instancetype) initWithURL:(NSURL *)url onQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch;
+
+- (instancetype) initWithURL:(NSURL *)url loadMetadataAsynconQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch;
 
 @property (readonly) NSURL* url;
 @property (readonly) AVAsset* asset;
