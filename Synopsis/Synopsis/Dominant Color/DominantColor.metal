@@ -57,9 +57,9 @@ kernel void dominantColorPass1(texture2d<half, access::read>  inTexture  [[textu
     # original the "error" exists here too. Add back in if it is
     # ever fixed in colorgram.js.
     */
-    packed |= (Rint & top_two_bits) >> 2;
-    packed |= (Gint & top_two_bits) >> 4;
-    packed |= (Bint & top_two_bits) >> 6;
+//    packed |= (Rint & top_two_bits) >> 2;
+//    packed |= (Gint & top_two_bits) >> 4;
+//    packed |= (Bint & top_two_bits) >> 6;
     
     packed *= 4;
     samples[packed]     += colorInt.r;
