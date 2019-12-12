@@ -153,17 +153,17 @@
 {
     DTWFilterWrapper* dtwWrapper = [[DTWFilterWrapper alloc] initWithFeature:featureVector];
     
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataFeatureVectorDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         
         SynopsisDenseFeature* fVec1 = (SynopsisDenseFeature*) obj1;
         SynopsisDenseFeature* fVec2 = (SynopsisDenseFeature*) obj2;
         
-        float percent1 = compareFeatureVectorDTW(dtwWrapper, fVec1);
-        float percent2 = compareFeatureVectorDTW(dtwWrapper, fVec2);
+        float cost1 = compareFeatureVectorDTW(dtwWrapper, fVec1);
+        float cost2 = compareFeatureVectorDTW(dtwWrapper, fVec2);
         
-        if(percent1 > percent2)
+        if(cost1 > cost2)
             return  NSOrderedAscending;
-        if(percent1 < percent2)
+        if(cost1 < cost2)
             return NSOrderedDescending;
         
         return NSOrderedSame;
