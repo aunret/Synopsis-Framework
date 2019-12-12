@@ -38,6 +38,7 @@
     self.OpenCVMat.release();
 }
 
+
 + (SynopsisDenseFeature*) valueWithCVMat:(cv::Mat)mat forMetadataKey:(NSString*)key
 {
     return [[SynopsisDenseFeature alloc] initWithCVMat:mat forMetadataKey:key];
@@ -66,6 +67,17 @@
     self = [self initWithCVMat:featureVec forMetadataKey:key];
     
     return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+sou
+    if (copy)
+    {
+        return copy;
+    }
+
+    return nil;
 }
 
 + (instancetype) denseFeatureByAppendingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
