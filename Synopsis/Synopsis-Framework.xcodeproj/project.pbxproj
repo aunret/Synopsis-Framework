@@ -2310,13 +2310,13 @@
 			path = "Dominant Color";
 			sourceTree = "<group>";
 		};
-		1B0A1ED423A14FAF00E68E08 /* libimproved */ = {
+		1B0A1ED423A14FAF00E68E08 /* LBImproved */ = {
 			isa = PBXGroup;
 			children = (
 				1B0A1ED123A14FA800E68E08 /* dtw.h */,
 				1B0A1ED523A1660D00E68E08 /* vectordtw.h */,
 			);
-			path = libimproved;
+			path = LBImproved;
 			sourceTree = "<group>";
 		};
 		1B0A1ED623A202A400E68E08 /* Histogram */ = {
@@ -5609,7 +5609,7 @@
 				1B73521F1DEF5AD10053BC06 /* Tensorflow */,
 				1BBB11041D577A2400C22439 /* OpenCV */,
 				1B7358A41DEF65680053BC06 /* CIEDE2000 */,
-				1B0A1ED423A14FAF00E68E08 /* libimproved */,
+				1B0A1ED423A14FAF00E68E08 /* LBImproved */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
