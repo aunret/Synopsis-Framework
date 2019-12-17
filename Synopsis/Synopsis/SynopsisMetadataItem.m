@@ -48,14 +48,16 @@
     
     return self;
 }
-//	removed b/c it doesn't init the 'url' property (can't be guaranteed init'ed unless using AVURLAsset) and it doesn't appear to be used at all by anything in this codebase
-/*
+
+// Used by iOS for PHAssets from Camera roll
 - (instancetype) initWithAsset:(AVAsset *)asset
 {
     self = [super init];
     if(self)
     {
         self.asset = asset;
+        self.url = nil;
+        self.loaded = NO;
         if(! [self commonLoad] )
         {
             NSLog(@"SynopsisMetadataItem : Unable to load metadata - bailing on init");
@@ -65,7 +67,7 @@
     
     return self;
 }
-*/
+
 - (instancetype) initWithURL:(NSURL *)url loadMetadataAsyncOnQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch	{
 	self = [super init];
 	if (self != nil)	{
@@ -154,32 +156,39 @@
     }
     else
     {
-        //return [[SynopsisMetadataItem alloc] initWithAsset:[self.asset copy]];
-        return [[SynopsisMetadataItem alloc] initWithURL:self.url];
+        return [[SynopsisMetadataItem alloc] initWithAsset:[self.asset copy]];
     }
 }
 
-- (id) valueForKey:(NSString *)key
+- (id) globalMetadataForIdentifier:(SynopsisMetadataIdentifier)identifier;
 {
-    NSDictionary* standardDictionary = [self.globalSynopsisMetadata objectForKey:kSynopsisStandardMetadataDictKey];
-
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
-        return self.globalSynopsisMetadata;
+    NSString* idKey = SynopsisKeyForMetadataIdentifier(identifier);
     
-    else if([key isEqualToString:kSynopsisStandardMetadataDictKey])
-    {
-       return standardDictionary;
-    }
-
-    else if(standardDictionary[key])
-    {
-        return standardDictionary[key];
-    }
-    else
-    {
-        return [super valueForKey:key];
-    }
+    return [self.globalSynopsisMetadata objectForKey:idKey];
+    
 }
+
+//- (id) valueForKey:(NSString *)key
+//{
+//    NSDictionary* standardDictionary = [self.globalSynopsisMetadata objectForKey:kSynopsisStandardMetadataDictKey];
+//
+//    if([key isEqualToString:kSynopsisMetadataIdentifier])
+//        return self.globalSynopsisMetadata;
+//
+//    else if([key isEqualToString:kSynopsisStandardMetadataDictKey])
+//    {
+//       return standardDictionary;
+//    }
+//
+//    else if(standardDictionary[key])
+//    {
+//        return standardDictionary[key];
+//    }
+//    else
+//    {
+//        return [super valueForKey:key];
+//    }
+//}
 
 - (id) valueForUndefinedKey:(NSString *)key
 {

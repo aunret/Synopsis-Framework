@@ -57,14 +57,7 @@
 		1B0A1ED323A14FA800E68E08 /* dtw.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0A1ED123A14FA800E68E08 /* dtw.h */; };
 		1B0A1EDB23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A1EDA23A2C84E00E68E08 /* CinemaNet.mlmodel */; };
 		1B0A1EDC23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A1EDA23A2C84E00E68E08 /* CinemaNet.mlmodel */; };
-		1B0C6F4B22BBBC3300DDEF41 /* Analyzer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0C6F4922BBBC3300DDEF41 /* Analyzer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B0C6F4E22BBC23500DDEF41 /* Analyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */; };
-		1B0C6F4F22BBC23500DDEF41 /* Analyzer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B0C6F4D22BBC23500DDEF41 /* Analyzer.m */; };
 		1B21EF621FA51AD2008A7462 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B21EF611FA51AD2008A7462 /* CoreML.framework */; };
-		1B2780A91F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780A71F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h */; };
-		1B2780AA1F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780A81F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m */; };
-		1B2780AD1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780AB1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h */; };
-		1B2780AE1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780AC1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m */; };
 		1B3815001FA360110017564B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
 		1B4446971EE1FD090075575D /* SynopsisMetadataDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4446951EE1FD090075575D /* SynopsisMetadataDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B4446981EE1FD090075575D /* SynopsisMetadataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4446961EE1FD090075575D /* SynopsisMetadataDecoder.m */; };
@@ -94,7 +87,6 @@
 		1B4446CD1EE1FF990075575D /* NSSortDescriptor+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BBB10F31D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B4446CE1EE1FF990075575D /* NSPredicate+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BAA80541D70C9EB00464810 /* NSPredicate+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B4446CF1EE1FF990075575D /* Color+linearRGBColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4446AF1EE1FD5D0075575D /* Color+linearRGBColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B4446D01EE1FFB30075575D /* Synopsis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FA1D555F5600C22439 /* Synopsis.m */; };
 		1B4446D11EE1FFB30075575D /* SynopsisMetadataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4446961EE1FD090075575D /* SynopsisMetadataDecoder.m */; };
 		1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BAA80591D70DBE400464810 /* SynopsisMetadataItem.m */; };
 		1B4446D31EE1FFB30075575D /* MetadataComparisons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FE1D559BD700C22439 /* MetadataComparisons.mm */; };
@@ -111,12 +103,6 @@
 		1B551E591EF9D887004C077B /* SynopsisMetadataEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E571EF9D887004C077B /* SynopsisMetadataEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B551E5A1EF9D887004C077B /* SynopsisMetadataEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E581EF9D887004C077B /* SynopsisMetadataEncoder.m */; };
 		1B551E5B1EF9D891004C077B /* SynopsisMetadataEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E571EF9D887004C077B /* SynopsisMetadataEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B551E5E1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E5C1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h */; };
-		1B551E5F1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E5C1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h */; };
-		1B551E651EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E631EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h */; };
-		1B551E661EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E631EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h */; };
-		1B551E671EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E641EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m */; };
-		1B551E681EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E641EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m */; };
 		1B551E6B1EF9E99D004C077B /* NSDictionary+JSONString.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E691EF9E99D004C077B /* NSDictionary+JSONString.h */; };
 		1B551E6C1EF9E99D004C077B /* NSDictionary+JSONString.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B551E691EF9E99D004C077B /* NSDictionary+JSONString.h */; };
 		1B551E6D1EF9E99D004C077B /* NSDictionary+JSONString.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E6A1EF9E99D004C077B /* NSDictionary+JSONString.m */; };
@@ -152,21 +138,19 @@
 		1B756AD91FA5160A0050A96F /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B756AD81FA5160A0050A96F /* Vision.framework */; };
 		1B8358981F42110600F86F0F /* libblas.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358971F42110600F86F0F /* libblas.tbd */; };
 		1B8358A41F42285000F86F0F /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
-		1B97B73C239ADB4F001DEAC8 /* SynopsisMetadataDecoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E5D1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m */; };
-		1B97B73D239ADB50001DEAC8 /* SynopsisMetadataDecoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E5D1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m */; };
+		1B84811E23A83B400090133A /* Synopsis-Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B84811D23A83B400090133A /* Synopsis-Legacy.m */; };
+		1B84811F23A83BA40090133A /* Synopsis-Legacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B84811D23A83B400090133A /* Synopsis-Legacy.m */; };
+		1B84812023A83BCB0090133A /* Synopsis-Legacy.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B84811C23A83B1D0090133A /* Synopsis-Legacy.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1B84812123A83BCC0090133A /* Synopsis-Legacy.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B84811C23A83B1D0090133A /* Synopsis-Legacy.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1B84812323A875AF0090133A /* Synopsis-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B84812223A875890090133A /* Synopsis-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1B84812423A875B00090133A /* Synopsis-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B84812223A875890090133A /* Synopsis-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1B84812723A882F60090133A /* Synopsis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FA1D555F5600C22439 /* Synopsis.m */; };
+		1B84812823A882F70090133A /* Synopsis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FA1D555F5600C22439 /* Synopsis.m */; };
 		1B97B77223A01D2D001DEAC8 /* GPUDominantColorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B97B77023A01D2D001DEAC8 /* GPUDominantColorModule.h */; };
 		1B97B77323A01D2D001DEAC8 /* GPUDominantColorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B97B77023A01D2D001DEAC8 /* GPUDominantColorModule.h */; };
 		1B97B77623A023B6001DEAC8 /* GPUDominantColorModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B77123A01D2D001DEAC8 /* GPUDominantColorModule.m */; };
 		1B97B77723A023B7001DEAC8 /* GPUDominantColorModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B77123A01D2D001DEAC8 /* GPUDominantColorModule.m */; };
 		1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
-		1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
-		1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
-		1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
-		1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
-		1BA1A56B20DD77E100B3AA59 /* SynopsisMetadataDecoderVersion3.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */; };
-		1BA1A56D20DD77E200B3AA59 /* SynopsisMetadataDecoderVersion3.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA1A56020DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.h */; };
-		1BA1A56E20DD77E500B3AA59 /* SynopsisMetadataEncoderVersion3.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */; };
-		1BA1A56F20DD77E600B3AA59 /* SynopsisMetadataEncoderVersion3.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA1A56120DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.h */; };
 		1BA3364321309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BA3364121309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.h */; };
 		1BA3364421309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3364221309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m */; };
 		1BA336462130A70400DB663A /* SynopsisVideoFrameCVPixelBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA3364221309FB900DB663A /* SynopsisVideoFrameCVPixelBuffer.m */; };
@@ -193,7 +177,6 @@
 		1BBB10E11D5542A200C22439 /* Synopsis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BBB10E01D5542A200C22439 /* Synopsis.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BBB10F51D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BBB10F31D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BBB10F61D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10F41D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm */; };
-		1BBB10FB1D555F5600C22439 /* Synopsis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FA1D555F5600C22439 /* Synopsis.m */; };
 		1BBB10FF1D559BD700C22439 /* MetadataComparisons.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FE1D559BD700C22439 /* MetadataComparisons.mm */; };
 		1BBB11011D559C6A00C22439 /* MetadataComparisons.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BBB11001D559BF000C22439 /* MetadataComparisons.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BBB12D71D578A8E00C22439 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BBB12D61D578A8E00C22439 /* CoreVideo.framework */; };
@@ -218,10 +201,6 @@
 		1BCFBEB61E1AC7F10008CB03 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BCFBEB51E1AC7F10008CB03 /* Accelerate.framework */; };
 		1BEDA46F2024DD2B00E4617C /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; };
 		1BEDA4702024DEC600E4617C /* SynopsisMetadataEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E581EF9D887004C077B /* SynopsisMetadataEncoder.m */; };
-		1BEDA4712024DED900E4617C /* SynopsisMetadataEncoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780AC1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m */; };
-		1BEDA4722024DEDF00E4617C /* SynopsisMetadataDecoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780A81F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m */; };
-		1BEDA4742024DEE600E4617C /* SynopsisMetadataEncoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780AB1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h */; };
-		1BEDA4752024DEFC00E4617C /* SynopsisMetadataDecoderVersion2.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B2780A71F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h */; };
 		1BEDA4912024E06C00E4617C /* SynopsisVideoFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BC98DE31F9FCE0A00E0F52A /* SynopsisVideoFrame.m */; };
 		1BEDA4932024E07200E4617C /* SynopsisVideoFrame.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BC98DC31F9F99A300E0F52A /* SynopsisVideoFrame.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1BEDA4952024E09000E4617C /* SynopsisVideoFrameCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 1BC98DCE1F9FAA5600E0F52A /* SynopsisVideoFrameCache.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -2102,6 +2081,9 @@
 		1B756AD81FA5160A0050A96F /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 		1B8358971F42110600F86F0F /* libblas.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libblas.tbd; path = usr/lib/libblas.tbd; sourceTree = SDKROOT; };
 		1B8358A31F42285000F86F0F /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		1B84811C23A83B1D0090133A /* Synopsis-Legacy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Synopsis-Legacy.h"; sourceTree = "<group>"; };
+		1B84811D23A83B400090133A /* Synopsis-Legacy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Synopsis-Legacy.m"; sourceTree = "<group>"; };
+		1B84812223A875890090133A /* Synopsis-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Synopsis-Private.h"; sourceTree = "<group>"; };
 		1B97B77023A01D2D001DEAC8 /* GPUDominantColorModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUDominantColorModule.h; sourceTree = "<group>"; };
 		1B97B77123A01D2D001DEAC8 /* GPUDominantColorModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUDominantColorModule.m; sourceTree = "<group>"; };
 		1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion3.m; sourceTree = "<group>"; };
@@ -5583,6 +5565,9 @@
 			children = (
 				1BBB10E01D5542A200C22439 /* Synopsis.h */,
 				1BBB10FA1D555F5600C22439 /* Synopsis.m */,
+				1B84812223A875890090133A /* Synopsis-Private.h */,
+				1B84811C23A83B1D0090133A /* Synopsis-Legacy.h */,
+				1B84811D23A83B400090133A /* Synopsis-Legacy.m */,
 				1B44468D1EE1FBC10075575D /* Metadata */,
 				1B44468E1EE1FC110075575D /* UI */,
 				1BC98DC21F9F950F00E0F52A /* Video Utilities */,
@@ -5625,10 +5610,10 @@
 		1B551E621EF9E309004C077B /* InternalMetadataCodec */ = {
 			isa = PBXGroup;
 			children = (
-				1B6D669821D0A6C8000702AE /* SynopsisMetadataEncoderCurrent.m */,
 				1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */,
-				1B6D669A21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.m */,
+				1B6D669821D0A6C8000702AE /* SynopsisMetadataEncoderCurrent.m */,
 				1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */,
+				1B6D669A21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.m */,
 				1BA1A55E20DD75E000B3AA59 /* Alpha 3 */,
 				1B2781001F22BFD600658C0B /* Alpha 2 */,
 				1B2780A41F228F3600658C0B /* Alpha1 */,
@@ -5969,26 +5954,24 @@
 				1BEDA49D2024E0B600E4617C /* SynopsisVideoFrameOpenCV.h in Headers */,
 				1B4446CC1EE1FF990075575D /* SynopsisDenseFeatureLayer.h in Headers */,
 				1BEDA4A92024E0DE00E4617C /* SynopsisVideoFrameConformHelperGPU.h in Headers */,
-				1BA1A56D20DD77E200B3AA59 /* SynopsisMetadataDecoderVersion3.h in Headers */,
 				1BAEA4A722B196AA00EEB116 /* CinemaNetModuleV1.h in Headers */,
 				1B4446CB1EE1FF990075575D /* SynopsisDominantColorLayer.h in Headers */,
-				1BEDA4752024DEFC00E4617C /* SynopsisMetadataDecoderVersion2.h in Headers */,
 				1B4446C51EE1FF8C0075575D /* SynopsisMetadataItem.h in Headers */,
 				1B4446CF1EE1FF990075575D /* Color+linearRGBColor.h in Headers */,
-				1B551E5F1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h in Headers */,
 				1B0A1ED323A14FA800E68E08 /* dtw.h in Headers */,
 				1B6D66A421D0AAC8000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */,
 				1B97B77323A01D2D001DEAC8 /* GPUDominantColorModule.h in Headers */,
 				1B4446C61EE1FF8C0075575D /* MetadataComparisons.h in Headers */,
-				1BA1A56F20DD77E600B3AA59 /* SynopsisMetadataEncoderVersion3.h in Headers */,
 				1B4446CE1EE1FF990075575D /* NSPredicate+SynopsisMetadata.h in Headers */,
 				1B551E7D1EFAEA48004C077B /* SynopsisMetadataPushDelegate.h in Headers */,
+				1B84812123A83BCC0090133A /* Synopsis-Legacy.h in Headers */,
 				1B4446C91EE1FF990075575D /* SynopsisLayer.h in Headers */,
 				1BEDA4992024E0A700E4617C /* SynopsisVideoFrameConformSession.h in Headers */,
 				1B551E5B1EF9D891004C077B /* SynopsisMetadataEncoder.h in Headers */,
 				1B551E6C1EF9E99D004C077B /* NSDictionary+JSONString.h in Headers */,
 				1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */,
 				1BEDA4A52024E0D900E4617C /* SynopsisVideoFrameConformHelperCPU.h in Headers */,
+				1B84812423A875B00090133A /* Synopsis-Private.h in Headers */,
 				1B6D66A721D0AACE000702AE /* SynopsisMetadataDecoderCurrent.h in Headers */,
 				1BEDA4932024E07200E4617C /* SynopsisVideoFrame.h in Headers */,
 				1BEDA4A12024E0C100E4617C /* SynopsisVideoFrameMPImage.h in Headers */,
@@ -5998,8 +5981,6 @@
 				1BEDA4C620251C0C00E4617C /* AnalyzerPluginProtocol.h in Headers */,
 				1B4446C41EE1FF8C0075575D /* SynopsisMetadataDecoder.h in Headers */,
 				1BF858222090F6E700294C29 /* SynopsisSlidingWindow.h in Headers */,
-				1B551E661EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h in Headers */,
-				1BEDA4742024DEE600E4617C /* SynopsisMetadataEncoderVersion2.h in Headers */,
 				1B4446CD1EE1FF990075575D /* NSSortDescriptor+SynopsisMetadata.h in Headers */,
 				1B551E7F1EFAEDFC004C077B /* GZIP.h in Headers */,
 				1B70D084200D4EE000A414AF /* SynopsisCache.h in Headers */,
@@ -6027,10 +6008,8 @@
 				1B6D66A121D0AAB6000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */,
 				1BC98DDE1F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.h in Headers */,
 				1BBB10F51D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.h in Headers */,
-				1B551E651EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.h in Headers */,
 				1B551E591EF9D887004C077B /* SynopsisMetadataEncoder.h in Headers */,
 				1B4446AD1EE1FD3B0075575D /* SynopsisLayer.h in Headers */,
-				1B0C6F4B22BBBC3300DDEF41 /* Analyzer.h in Headers */,
 				1B6EDC561F7ADBDE003D3936 /* SynopsisDirectoryWatcher.h in Headers */,
 				1BC98DC51F9F99A300E0F52A /* SynopsisVideoFrame.h in Headers */,
 				1BBED62C1F91259E003CE9C4 /* SynopsisRemoteFileHelper.h in Headers */,
@@ -6038,10 +6017,10 @@
 				1B4446A71EE1FD3B0075575D /* SynopsisDenseFeatureLayer.h in Headers */,
 				1BCAACB31F966D040022B1A5 /* SynopsisPythonHelper.h in Headers */,
 				1BB7F63B1F9FF51B004ED69F /* SynopsisVideoFrameConformHelperGPU.h in Headers */,
+				1B84812323A875AF0090133A /* Synopsis-Private.h in Headers */,
 				1BAA80681D70DCE800464810 /* GZIP.h in Headers */,
 				1B4E6B4F208E674B00C078A8 /* SynopsisSlidingWindow.h in Headers */,
-				1BA1A56E20DD77E500B3AA59 /* SynopsisMetadataEncoderVersion3.h in Headers */,
-				1B2780AD1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.h in Headers */,
+				1B84812023A83BCB0090133A /* Synopsis-Legacy.h in Headers */,
 				1BB7F6441FA108F7004ED69F /* GPUHistogramModule.h in Headers */,
 				1B7358A31DEF623D0053BC06 /* AnalyzerPluginProtocol.h in Headers */,
 				1BC98DD01F9FAA5600E0F52A /* SynopsisVideoFrameCache.h in Headers */,
@@ -6050,12 +6029,9 @@
 				1BB7F64A1FA123AC004ED69F /* GPUModule.h in Headers */,
 				1B551E7B1EFAE956004C077B /* SynopsisMetadataPushDelegate.h in Headers */,
 				1B551E6B1EF9E99D004C077B /* NSDictionary+JSONString.h in Headers */,
-				1B2780A91F228F8500658C0B /* SynopsisMetadataDecoderVersion2.h in Headers */,
 				1B4446A91EE1FD3B0075575D /* SynopsisDominantColorLayer.h in Headers */,
 				1BAA805A1D70DBE400464810 /* SynopsisMetadataItem.h in Headers */,
-				1BA1A56B20DD77E100B3AA59 /* SynopsisMetadataDecoderVersion3.h in Headers */,
 				1BB7F6311F9FEF2D004ED69F /* SynopsisVideoFrameMPImage.h in Headers */,
-				1B551E5E1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.h in Headers */,
 				1BC98DCA1F9FA48F00E0F52A /* SynopsisVideoFrameOpenCV.h in Headers */,
 				1BBB11011D559C6A00C22439 /* MetadataComparisons.h in Headers */,
 				1B44469C1EE1FD270075575D /* SynopsisDenseFeature.h in Headers */,
@@ -6258,7 +6234,6 @@
 				1BEDA4C320251BF700E4617C /* GPUHistogramModule.m in Sources */,
 				1BEDA49F2024E0BD00E4617C /* SynopsisVideoFrameOpenCV.mm in Sources */,
 				1B4446DB1EE1FFB30075575D /* Color+linearRGBColor.mm in Sources */,
-				1B0C6F4F22BBC23500DDEF41 /* Analyzer.m in Sources */,
 				1B0306C82087C68C000A2DF7 /* zstdmt_compress.c in Sources */,
 				1BF8581E2090F6B400294C29 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306A92087C672000A2DF7 /* fse_decompress.c in Sources */,
@@ -6266,7 +6241,6 @@
 				1B6D669D21D0A6F8000702AE /* SynopsisMetadataEncoderCurrent.m in Sources */,
 				1B97B77723A023B7001DEAC8 /* GPUDominantColorModule.m in Sources */,
 				1BEDA4C820251C1800E4617C /* StandardAnalyzerPlugin.mm in Sources */,
-				1BEDA4712024DED900E4617C /* SynopsisMetadataEncoderVersion2.m in Sources */,
 				1B551E801EFAEE00004C077B /* GZIP.m in Sources */,
 				1B70D087200D4EE000A414AF /* SynopsisCache.m in Sources */,
 				1BA336462130A70400DB663A /* SynopsisVideoFrameCVPixelBuffer.m in Sources */,
@@ -6274,14 +6248,14 @@
 				1BEDA4A32024E0D300E4617C /* SynopsisVideoFrameMPImage.m in Sources */,
 				1B4446D91EE1FFB30075575D /* NSSortDescriptor+SynopsisMetadata.mm in Sources */,
 				1BEDA4A72024E0DB00E4617C /* SynopsisVideoFrameConformHelperCPU.mm in Sources */,
-				1B97B73C239ADB4F001DEAC8 /* SynopsisMetadataDecoderVersion0.m in Sources */,
+				1B84812723A882F60090133A /* Synopsis.m in Sources */,
 				1B0306B72087C67B000A2DF7 /* threading.c in Sources */,
 				1B0A1ED023A02FA000E68E08 /* DominantColor.metal in Sources */,
 				1B0306B62087C67B000A2DF7 /* pool.c in Sources */,
 				1B0306D02087C68C000A2DF7 /* fse_compress.c in Sources */,
 				1B4446DA1EE1FFB30075575D /* NSPredicate+SynopsisMetadata.mm in Sources */,
-				1B4446D01EE1FFB30075575D /* Synopsis.m in Sources */,
 				1B4446D51EE1FFB30075575D /* SynopsisLayer.m in Sources */,
+				1B84811F23A83BA40090133A /* Synopsis-Legacy.m in Sources */,
 				1B0306CE2087C68C000A2DF7 /* huf_compress.c in Sources */,
 				1B0306B52087C67B000A2DF7 /* xxhash.c in Sources */,
 				1BEDA4C920251C3D00E4617C /* AverageColor.mm in Sources */,
@@ -6292,7 +6266,6 @@
 				1B0306A52087C669000A2DF7 /* entropy_common.c in Sources */,
 				1B0306B92087C67B000A2DF7 /* error_private.c in Sources */,
 				1B0306C92087C68C000A2DF7 /* zstd_double_fast.c in Sources */,
-				1BEDA4722024DEDF00E4617C /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B0306DF2087C69D000A2DF7 /* cover.c in Sources */,
 				1B4446D31EE1FFB30075575D /* MetadataComparisons.mm in Sources */,
 				1B4446D11EE1FFB30075575D /* SynopsisMetadataDecoder.m in Sources */,
@@ -6308,10 +6281,8 @@
 				1BAEA4AA22B196AA00EEB116 /* CinemaNetModuleV1.m in Sources */,
 				1B0306CB2087C68C000A2DF7 /* zstd_ldm.c in Sources */,
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
-				1BA1A56A20DD76E100B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
 				1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */,
-				1B551E681EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1B0306CF2087C68C000A2DF7 /* zstd_opt.c in Sources */,
 				1BEDA4C520251C0700E4617C /* CPUModule.mm in Sources */,
 				1B4446D81EE1FFB30075575D /* SynopsisDenseFeatureLayer.mm in Sources */,
@@ -6322,7 +6293,6 @@
 				1B0306CC2087C68C000A2DF7 /* zstd_compress.c in Sources */,
 				1B0A1EDC23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */,
 				1BEDA4AB2024E0E100E4617C /* SynopsisVideoFrameConformHelperGPU.m in Sources */,
-				1BA1A56920DD76E100B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -6333,8 +6303,6 @@
 				1BB7F64C1FA123AC004ED69F /* GPUModule.m in Sources */,
 				1B0306A72087C672000A2DF7 /* fse_decompress.c in Sources */,
 				1B0A1EDB23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */,
-				1B551E671EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m in Sources */,
-				1BA1A56520DD76DF00B3AA59 /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1B0306A32087C668000A2DF7 /* entropy_common.c in Sources */,
 				1BBB10F61D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm in Sources */,
 				1B0306AF2087C67A000A2DF7 /* error_private.c in Sources */,
@@ -6342,7 +6310,7 @@
 				1BAA80691D70DCE800464810 /* GZIP.m in Sources */,
 				1B6EDC551F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */,
 				1B0306C42087C68B000A2DF7 /* zstd_lazy.c in Sources */,
-				1BA1A56620DD76DF00B3AA59 /* SynopsisMetadataEncoderVersion3.m in Sources */,
+				1B84812823A882F70090133A /* Synopsis.m in Sources */,
 				1BB7F6331F9FEF2D004ED69F /* SynopsisVideoFrameMPImage.m in Sources */,
 				1BB7F63D1F9FF51B004ED69F /* SynopsisVideoFrameConformHelperGPU.m in Sources */,
 				1B0306D92087C69C000A2DF7 /* cover.c in Sources */,
@@ -6367,7 +6335,6 @@
 				1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306C32087C68B000A2DF7 /* zstd_compress.c in Sources */,
 				1B0306C22087C68B000A2DF7 /* zstd_ldm.c in Sources */,
-				1B0C6F4E22BBC23500DDEF41 /* Analyzer.m in Sources */,
 				1B0306C62087C68B000A2DF7 /* zstd_opt.c in Sources */,
 				1B0306DB2087C69C000A2DF7 /* zdict.c in Sources */,
 				1B0306AD2087C67A000A2DF7 /* threading.c in Sources */,
@@ -6379,8 +6346,6 @@
 				1B0306AC2087C67A000A2DF7 /* pool.c in Sources */,
 				1B0306C52087C68B000A2DF7 /* huf_compress.c in Sources */,
 				1B4446981EE1FD090075575D /* SynopsisMetadataDecoder.m in Sources */,
-				1BBB10FB1D555F5600C22439 /* Synopsis.m in Sources */,
-				1B2780AA1F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B7358901DEF5FE40053BC06 /* MedianCutOpenCV.cpp in Sources */,
 				1B97B77623A023B6001DEAC8 /* GPUDominantColorModule.m in Sources */,
 				1BAA80571D70C9EB00464810 /* NSPredicate+SynopsisMetadata.mm in Sources */,
@@ -6388,9 +6353,9 @@
 				1B0306DA2087C69C000A2DF7 /* divsufsort.c in Sources */,
 				1BB7F6461FA108F7004ED69F /* GPUHistogramModule.m in Sources */,
 				1BBED62D1F91259E003CE9C4 /* SynopsisRemoteFileHelper.m in Sources */,
+				1B84811E23A83B400090133A /* Synopsis-Legacy.m in Sources */,
 				1BC98DD81F9FB68300E0F52A /* SynopsisVideoFrameConformSession.m in Sources */,
 				1B0306D22087C693000A2DF7 /* zstd_decompress.c in Sources */,
-				1B97B73D239ADB50001DEAC8 /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1BAA805B1D70DBE400464810 /* SynopsisMetadataItem.m in Sources */,
 				1BC98DE41F9FCE0A00E0F52A /* SynopsisVideoFrame.m in Sources */,
 				1B551E5A1EF9D887004C077B /* SynopsisMetadataEncoder.m in Sources */,
@@ -6398,7 +6363,6 @@
 				1B0A1ECF23A02FA000E68E08 /* DominantColor.metal in Sources */,
 				1B73589C1DEF5FE40053BC06 /* StandardAnalyzerPlugin.mm in Sources */,
 				1B0306D12087C693000A2DF7 /* huf_decompress.c in Sources */,
-				1B2780AE1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m in Sources */,
 				1B6D669C21D0A6F7000702AE /* SynopsisMetadataEncoderCurrent.m in Sources */,
 				1B4446AE1EE1FD3B0075575D /* SynopsisLayer.m in Sources */,
 			);
