@@ -204,7 +204,7 @@ float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDen
         // we first need to initialize a filter on our featureVector of vector::floats
         const cv::Mat feature = [featureVector cvMatValue];
         
-        const vector<float>featureAsVector(feature.begin<float>(), feature.end<float>());
+        const vector<float> featureAsVector(feature.begin<float>(), feature.end<float>());
 
         self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 15)); // we use the DTW with a tolerance of 10% (size/10)
     }
