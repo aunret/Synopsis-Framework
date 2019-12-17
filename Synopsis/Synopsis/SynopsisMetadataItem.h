@@ -6,6 +6,7 @@
 //  Copyright © 2016 v002. All rights reserved.
 //
 
+#import <Synopsis/Synopsis.h>
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -35,6 +36,9 @@ typedef void(^SynopsisMetadataItemCompletionHandler)(SynopsisMetadataItem *compl
 @property (readonly) NSURL* url;
 @property (readonly) AVAsset* asset;
 @property (readonly) BOOL loaded;
+@property (readonly) NSUInteger metadataVersion;
+
+- (id) globalMetadataForIdentifier:(SynopsisMetadataIdentifier)identifier;
 
 // Re-use this during playback if you can!
 @property (readonly) SynopsisMetadataDecoder* decoder;

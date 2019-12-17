@@ -11,8 +11,7 @@
 #import "SynopsisMetadataItem.h"
 
 #import "Color+linearRGBColor.h"
-
-
+#import "Synopsis-Legacy.h"
 
 
 @interface SynopsisMetadataItem ()
@@ -24,6 +23,7 @@
 @property (readwrite, strong) NSDictionary* globalSynopsisMetadata;
 @property (readwrite, strong) SynopsisMetadataDecoder* decoder;
 @property (readwrite, assign) BOOL loaded;
+@property (readwrite, assign) NSUInteger metadataVersion;
 @end
 
 
@@ -110,7 +110,7 @@
     
     for(AVMetadataItem* metadataItem in metadataItems)
     {
-        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier])
+        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier] || [metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifierLegacy])
         {
             returnMe = YES;
             break;
@@ -125,7 +125,7 @@
     
     for(AVMetadataItem* metadataItem in metadataItems)
     {
-        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier])
+        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier]  || [metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifierLegacy])
         {
             synopsisMetadataItem = metadataItem;
             break;
@@ -137,6 +137,17 @@
         self.decoder = [[SynopsisMetadataDecoder alloc] initWithMetadataItem:synopsisMetadataItem];
         
         self.globalSynopsisMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
+        
+        NSNumber* versionNumber = self.globalSynopsisMetadata[kSynopsisMetadataVersionKey];
+        if ( versionNumber == nil )
+        {
+            versionNumber = self.globalSynopsisMetadata[kSynopsisMetadataVersionKeyLegacy];
+        }
+
+        NSUInteger version = [versionNumber unsignedIntegerValue];
+        
+        self.metadataVersion = version;
+
         
         self.loaded = YES;
         
@@ -162,33 +173,54 @@
 
 - (id) globalMetadataForIdentifier:(SynopsisMetadataIdentifier)identifier;
 {
-    NSString* idKey = SynopsisKeyForMetadataIdentifier(identifier);
+    NSString* idKey = SynopsisKeyForMetadataIdentifierVersion(identifier, self.metadataVersion);
     
     return [self.globalSynopsisMetadata objectForKey:idKey];
     
 }
 
-//- (id) valueForKey:(NSString *)key
-//{
-//    NSDictionary* standardDictionary = [self.globalSynopsisMetadata objectForKey:kSynopsisStandardMetadataDictKey];
-//
-//    if([key isEqualToString:kSynopsisMetadataIdentifier])
-//        return self.globalSynopsisMetadata;
-//
-//    else if([key isEqualToString:kSynopsisStandardMetadataDictKey])
-//    {
-//       return standardDictionary;
-//    }
-//
-//    else if(standardDictionary[key])
-//    {
-//        return standardDictionary[key];
-//    }
-//    else
-//    {
-//        return [super valueForKey:key];
-//    }
-//}
+- (id) valueForKey:(NSString *)key
+{
+    // This seems more stupid than it should be, due to legacy synopsis metadata support (which strictly isnt 100% necessary)
+
+    // Use the Legacy path for keys if we have legacy global dictionary
+    if (self.metadataVersion <= kSynopsisMetadataVersionPrivateBeta)
+    {
+        if ([self legacySynopsisValueForKey:key])
+            return [self legacySynopsisValueForKey:key];
+    }
+    else if ([self currentSynopsisValueForKey:key])
+    {
+        return [self currentSynopsisValueForKey:key];
+    }
+    
+    return [super valueForKey:key];
+}
+
+- (id) currentSynopsisValueForKey:(NSString *)key
+{
+    return [self.globalSynopsisMetadata objectForKey:key];
+}
+
+- (id) legacySynopsisValueForKey:(NSString *)key
+{
+    NSDictionary* standardDictionary = [self.globalSynopsisMetadata objectForKey:kSynopsisStandardMetadataDictKey];
+
+    if([key isEqualToString:kSynopsisMetadataIdentifier])
+        return self.globalSynopsisMetadata;
+
+    else if([key isEqualToString:kSynopsisStandardMetadataDictKey])
+    {
+       return standardDictionary;
+    }
+
+    else if(standardDictionary[key])
+    {
+        return standardDictionary[key];
+    }
+    
+    return nil;
+}
 
 - (id) valueForUndefinedKey:(NSString *)key
 {
