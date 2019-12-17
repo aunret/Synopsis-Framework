@@ -9,7 +9,7 @@
 #import <opencv2/opencv.hpp>
 #import "SynopsisVideoFrameOpenCV.h"
 #import "HistogramModule.h"
-
+#import "Synopsis-Private.h"
 @interface HistogramModule ()
 {
     // No need for OpenCL for these
@@ -36,7 +36,7 @@
 
 - (NSString*) moduleName
 {
-    return kSynopsisStandardMetadataHistogramDictKey;//@"Histogram";
+    return kSynopsisMetadataIdentifierVisualHistogram;
 }
 
 
