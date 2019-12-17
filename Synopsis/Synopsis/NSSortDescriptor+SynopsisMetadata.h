@@ -13,8 +13,9 @@
 
 @class SynopsisMetadataItem;
 
+
 @interface NSSortDescriptor (SynopsisMetadata)
-+ (NSSortDescriptor*)sortViaSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item;
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item;
 
 // Pass in a key from Synopsis.h
 //// Acceptable values are:

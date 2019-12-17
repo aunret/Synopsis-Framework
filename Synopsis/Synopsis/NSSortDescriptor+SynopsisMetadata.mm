@@ -17,24 +17,37 @@
 #import "Color+linearRGBColor.h"
 #import <CoreGraphics/CoreGraphics.h>
 
+// A custom NSSortDescriptor private class optimized to handle Synopsis Metadata
+//@interface SynopsisSortDescriptor : NSSortDescriptor
+//@end
+//
+//
+//@implementation SynopsisSortDescriptor
+//
+//- (NSComparisonResult) compareObject:(id)object1 toObject:(id)object2
+//{
+//
+//}
+//@end
+
 
 @implementation NSSortDescriptor (SynopsisMetadata)
 
-//this should be synopsisSortViaIdentifier:(SynopsisMetadataIdentifier)identifier
-//pull out the key via SynopsisKeyForMetadataIdentifier and cache the function pointer for the besty metric for the identifier.
-//
-
-+ (NSSortDescriptor*)sortViaSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item
 {
-//    NSString* key = SynopsisKeyForMetadataIdentifier(identifier);
-    NSString* key = @"asdf";
+    NSString* globalKey = SynopsisKeyForMetadataTypeVersion(SynopsisMetadataTypeGlobal, item.metadataVersion);
     
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+    // This assumes versions are the same for sorting :(
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
+        SynopsisDenseFeature* relative = [[item valueForKey:globalKey] valueForKey:key];
 
-        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*) obj1;
-        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*) obj2;
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:globalKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
 
-        SynopsisDenseFeature* relative = [item valueForKey:key];
+        NSDictionary* dict1 = (NSDictionary*)obj1;
+        NSDictionary* dict2 = (NSDictionary*)obj2;
+        
+        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*) [dict1 valueForKey:key];
+        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*) [dict2 valueForKey:key];
 
         float distance1 = compareFeaturesCosineSimilarity(vec1, relative);
         float distance2 = compareFeaturesCosineSimilarity(vec2, relative);

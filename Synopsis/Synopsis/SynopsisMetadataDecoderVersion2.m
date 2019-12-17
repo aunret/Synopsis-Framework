@@ -68,7 +68,7 @@ static ZSTD_DDict* decompressionDict = nil;
 {
     NSString* key = metadataItem.identifier;
     
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
+    if([key isEqualToString:kSynopsisMetadataIdentifierLegacy])
     {
         return [self decodeSynopsisData: (NSData*)metadataItem.value];
     }

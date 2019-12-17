@@ -146,6 +146,18 @@
 		1B84812423A875B00090133A /* Synopsis-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B84812223A875890090133A /* Synopsis-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1B84812723A882F60090133A /* Synopsis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FA1D555F5600C22439 /* Synopsis.m */; };
 		1B84812823A882F70090133A /* Synopsis.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BBB10FA1D555F5600C22439 /* Synopsis.m */; };
+		1B84812923A950AF0090133A /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
+		1B84812A23A950AF0090133A /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
+		1B84812B23A950AF0090133A /* SynopsisMetadataDecoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A56220DD75E700B3AA59 /* SynopsisMetadataDecoderVersion3.m */; };
+		1B84812C23A950AF0090133A /* SynopsisMetadataEncoderVersion3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1BA1A55F20DD75E700B3AA59 /* SynopsisMetadataEncoderVersion3.m */; };
+		1B84812D23A950B50090133A /* SynopsisMetadataDecoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780A81F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m */; };
+		1B84812E23A950B50090133A /* SynopsisMetadataEncoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780AC1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m */; };
+		1B84812F23A950B50090133A /* SynopsisMetadataDecoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780A81F228F8500658C0B /* SynopsisMetadataDecoderVersion2.m */; };
+		1B84813023A950B50090133A /* SynopsisMetadataEncoderVersion2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B2780AC1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m */; };
+		1B84813123A950BA0090133A /* SynopsisMetadataDecoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E5D1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m */; };
+		1B84813223A950BA0090133A /* SynopsisMetadataEncoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E641EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m */; };
+		1B84813323A950BA0090133A /* SynopsisMetadataDecoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E5D1EF9E305004C077B /* SynopsisMetadataDecoderVersion0.m */; };
+		1B84813423A950BA0090133A /* SynopsisMetadataEncoderVersion0.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B551E641EF9E8E5004C077B /* SynopsisMetadataEncoderVersion0.m */; };
 		1B97B77223A01D2D001DEAC8 /* GPUDominantColorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B97B77023A01D2D001DEAC8 /* GPUDominantColorModule.h */; };
 		1B97B77323A01D2D001DEAC8 /* GPUDominantColorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B97B77023A01D2D001DEAC8 /* GPUDominantColorModule.h */; };
 		1B97B77623A023B6001DEAC8 /* GPUDominantColorModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B97B77123A01D2D001DEAC8 /* GPUDominantColorModule.m */; };
@@ -6237,6 +6249,7 @@
 				1B0306C82087C68C000A2DF7 /* zstdmt_compress.c in Sources */,
 				1BF8581E2090F6B400294C29 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306A92087C672000A2DF7 /* fse_decompress.c in Sources */,
+				1B84812923A950AF0090133A /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1BEDA4CB20251C4300E4617C /* HistogramModule.mm in Sources */,
 				1B6D669D21D0A6F8000702AE /* SynopsisMetadataEncoderCurrent.m in Sources */,
 				1B97B77723A023B7001DEAC8 /* GPUDominantColorModule.m in Sources */,
@@ -6256,10 +6269,12 @@
 				1B4446DA1EE1FFB30075575D /* NSPredicate+SynopsisMetadata.mm in Sources */,
 				1B4446D51EE1FFB30075575D /* SynopsisLayer.m in Sources */,
 				1B84811F23A83BA40090133A /* Synopsis-Legacy.m in Sources */,
+				1B84812A23A950AF0090133A /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B0306CE2087C68C000A2DF7 /* huf_compress.c in Sources */,
 				1B0306B52087C67B000A2DF7 /* xxhash.c in Sources */,
 				1BEDA4C920251C3D00E4617C /* AverageColor.mm in Sources */,
 				1BEDA4972024E09800E4617C /* SynopsisVideoFrameCache.m in Sources */,
+				1B84812E23A950B50090133A /* SynopsisMetadataEncoderVersion2.m in Sources */,
 				1B0306E02087C69D000A2DF7 /* divsufsort.c in Sources */,
 				1B0306E12087C69D000A2DF7 /* zdict.c in Sources */,
 				1BEDA4C220251BF300E4617C /* GPUModule.m in Sources */,
@@ -6273,6 +6288,7 @@
 				1BEDA4CC20251C5000E4617C /* MedianCutOpenCV.cpp in Sources */,
 				1BEDA4912024E06C00E4617C /* SynopsisVideoFrame.m in Sources */,
 				1B0306D52087C693000A2DF7 /* huf_decompress.c in Sources */,
+				1B84813223A950BA0090133A /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1BEDA4702024DEC600E4617C /* SynopsisMetadataEncoder.m in Sources */,
 				1B0306CA2087C68C000A2DF7 /* zstd_fast.c in Sources */,
 				1B0306B82087C67B000A2DF7 /* zstd_common.c in Sources */,
@@ -6283,11 +6299,13 @@
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
 				1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */,
+				1B84813123A950BA0090133A /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1B0306CF2087C68C000A2DF7 /* zstd_opt.c in Sources */,
 				1BEDA4C520251C0700E4617C /* CPUModule.mm in Sources */,
 				1B4446D81EE1FFB30075575D /* SynopsisDenseFeatureLayer.mm in Sources */,
 				1BEDA4D220251E6400E4617C /* CIEDE2000.cpp in Sources */,
 				1B4446D41EE1FFB30075575D /* SynopsisDenseFeature.mm in Sources */,
+				1B84812D23A950B50090133A /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B0306D62087C693000A2DF7 /* zstd_decompress.c in Sources */,
 				1B0306CD2087C68C000A2DF7 /* zstd_lazy.c in Sources */,
 				1B0306CC2087C68C000A2DF7 /* zstd_compress.c in Sources */,
@@ -6305,10 +6323,12 @@
 				1B0A1EDB23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */,
 				1B0306A32087C668000A2DF7 /* entropy_common.c in Sources */,
 				1BBB10F61D555AEE00C22439 /* NSSortDescriptor+SynopsisMetadata.mm in Sources */,
+				1B84813323A950BA0090133A /* SynopsisMetadataDecoderVersion0.m in Sources */,
 				1B0306AF2087C67A000A2DF7 /* error_private.c in Sources */,
 				1B7358891DEF5FE40053BC06 /* AverageColor.mm in Sources */,
 				1BAA80691D70DCE800464810 /* GZIP.m in Sources */,
 				1B6EDC551F7ADBC8003D3936 /* SynopsisDirectoryWatcher.m in Sources */,
+				1B84812F23A950B50090133A /* SynopsisMetadataDecoderVersion2.m in Sources */,
 				1B0306C42087C68B000A2DF7 /* zstd_lazy.c in Sources */,
 				1B84812823A882F70090133A /* Synopsis.m in Sources */,
 				1BB7F6331F9FEF2D004ED69F /* SynopsisVideoFrameMPImage.m in Sources */,
@@ -6324,6 +6344,7 @@
 				1BC98DD21F9FAA5600E0F52A /* SynopsisVideoFrameCache.m in Sources */,
 				1B73588F1DEF5FE40053BC06 /* HistogramModule.mm in Sources */,
 				1B4446A81EE1FD3B0075575D /* SynopsisDenseFeatureLayer.mm in Sources */,
+				1B84813023A950B50090133A /* SynopsisMetadataEncoderVersion2.m in Sources */,
 				1B7358A71DEF65770053BC06 /* CIEDE2000.cpp in Sources */,
 				1B4446AA1EE1FD3B0075575D /* SynopsisDominantColorLayer.m in Sources */,
 				1B0306C02087C68B000A2DF7 /* zstd_double_fast.c in Sources */,
@@ -6331,11 +6352,14 @@
 				1BC98DCC1F9FA48F00E0F52A /* SynopsisVideoFrameOpenCV.mm in Sources */,
 				1B0306BF2087C68B000A2DF7 /* zstdmt_compress.c in Sources */,
 				1BAEA4A822B196AA00EEB116 /* CinemaNetModuleV1.m in Sources */,
+				1B84813423A950BA0090133A /* SynopsisMetadataEncoderVersion0.m in Sources */,
 				1B6D669E21D0A731000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */,
+				1B84812C23A950AF0090133A /* SynopsisMetadataEncoderVersion3.m in Sources */,
 				1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306C32087C68B000A2DF7 /* zstd_compress.c in Sources */,
 				1B0306C22087C68B000A2DF7 /* zstd_ldm.c in Sources */,
 				1B0306C62087C68B000A2DF7 /* zstd_opt.c in Sources */,
+				1B84812B23A950AF0090133A /* SynopsisMetadataDecoderVersion3.m in Sources */,
 				1B0306DB2087C69C000A2DF7 /* zdict.c in Sources */,
 				1B0306AD2087C67A000A2DF7 /* threading.c in Sources */,
 				1B44469D1EE1FD270075575D /* SynopsisDenseFeature.mm in Sources */,
