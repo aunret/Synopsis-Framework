@@ -8,8 +8,11 @@
 
 #import "Synopsis-Legacy.h"
 
+NSString* const kSynopsisMetadataIdentifierLegacy = @"mdta/info.synopsis.metadata";
+NSString* const kSynopsisMetadataVersionKeyLegacy = @"info.synopsis.metadata.version";
 
-NSString* const kSynopsisStandardMetadataDictKey = @"Standard";
+
+NSString* const kSynopsisStandardMetadataDictKey = @"StandardMetadata";
 // Global Only Keys
 NSString* const kSynopsisStandardMetadataDescriptionDictKey = @"Description"; // Global Only, no per frame strings of predicted tags
 // A time domain signature of inter frame similarities of per frame features below:
