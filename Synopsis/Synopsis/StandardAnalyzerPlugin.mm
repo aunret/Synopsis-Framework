@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Synopsis. All rights reserved.
 //
 
+#import "Synopsis-Private.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CoreVideo.h>
 #import <CoreGraphics/CoreGraphics.h>
-
 #import "StandardAnalyzerPlugin.h"
 
 #import "StandardAnalyzerDefines.h"
@@ -83,9 +83,9 @@
     if(self)
     {
         self.pluginName = @"Standard Analyzer";
-        self.pluginIdentifier = kSynopsisStandardMetadataDictKey;
+        self.pluginIdentifier = [NSString stringWithUTF8String:"SYNOPSIS_LIB_VERSION"];
         self.pluginAuthors = @[@"Anton Marini"];
-        self.pluginDescription = @"Standard Analyzer, providing Color, Features, Content Tagging, Histogram, Motion";
+        self.pluginDescription = @"Standard Analyzer, providing Color, Features, Content Tagging, Histogram";
         self.pluginAPIVersionMajor = 0;
         self.pluginAPIVersionMinor = 1;
         self.pluginVersionMajor = 0;
@@ -262,15 +262,15 @@
                         dispatch_barrier_sync(self.serialDictionaryQueue, ^{
                             
                             // If a module has a description key, we append, and not add to it
-                            if(result[kSynopsisStandardMetadataDescriptionDictKey])
+                            if(result[kSynopsisMetadataIdentifierGlobalVisualDescription])
                             {
-                                NSArray* cachedDescriptions = dictionary[kSynopsisStandardMetadataDescriptionDictKey];
+                                NSArray* cachedDescriptions = dictionary[kSynopsisMetadataIdentifierGlobalVisualDescription];
                                 
                                 // this replaces our current description array with the new one
                                 [dictionary addEntriesFromDictionary:result];
                                 
                                 // Re-write Description key with cached array appended to the new
-                                dictionary[kSynopsisStandardMetadataDescriptionDictKey] = [dictionary[kSynopsisStandardMetadataDescriptionDictKey] arrayByAddingObjectsFromArray:cachedDescriptions];
+                                dictionary[kSynopsisMetadataIdentifierGlobalVisualDescription] = [dictionary[kSynopsisMetadataIdentifierGlobalVisualDescription] arrayByAddingObjectsFromArray:cachedDescriptions];
                             }
                             else
                             {
@@ -361,15 +361,15 @@
         NSDictionary* moduleFinalMetadata = [module finaledAnalysisMetadata];
         
         // If a module has a description key, we append, and not add to it
-        if(moduleFinalMetadata[kSynopsisStandardMetadataDescriptionDictKey])
+        if(moduleFinalMetadata[kSynopsisMetadataIdentifierGlobalVisualDescription])
         {
-            NSArray* cachedDescriptions = finalized[kSynopsisStandardMetadataDescriptionDictKey];
+            NSArray* cachedDescriptions = finalized[kSynopsisMetadataIdentifierGlobalVisualDescription];
             
             // this replaces our current description array with the new one
             [finalized addEntriesFromDictionary:moduleFinalMetadata];
 
             // Re-write Description key with cached array appended to the new
-            finalized[kSynopsisStandardMetadataDescriptionDictKey] = [finalized[kSynopsisStandardMetadataDescriptionDictKey] arrayByAddingObjectsFromArray:cachedDescriptions];
+            finalized[kSynopsisMetadataIdentifierGlobalVisualDescription] = [finalized[kSynopsisMetadataIdentifierGlobalVisualDescription] arrayByAddingObjectsFromArray:cachedDescriptions];
         }
         else
         {
@@ -382,15 +382,15 @@
         NSDictionary* moduleFinalMetadata = [module finalizedAnalysisMetadata];
         
         // If a module has a description key, we append, and not add to it
-        if(moduleFinalMetadata[kSynopsisStandardMetadataDescriptionDictKey])
+        if(moduleFinalMetadata[kSynopsisMetadataIdentifierGlobalVisualDescription])
         {
-            NSArray* cachedDescriptions = finalized[kSynopsisStandardMetadataDescriptionDictKey];
+            NSArray* cachedDescriptions = finalized[kSynopsisMetadataIdentifierGlobalVisualDescription];
             
             // this replaces our current description array with the new one
             [finalized addEntriesFromDictionary:moduleFinalMetadata];
             
             // Re-write Description key with cached array appended to the new
-            finalized[kSynopsisStandardMetadataDescriptionDictKey] = [finalized[kSynopsisStandardMetadataDescriptionDictKey] arrayByAddingObjectsFromArray:cachedDescriptions];
+            finalized[kSynopsisMetadataIdentifierGlobalVisualDescription] = [finalized[kSynopsisMetadataIdentifierGlobalVisualDescription] arrayByAddingObjectsFromArray:cachedDescriptions];
         }
         else
         {

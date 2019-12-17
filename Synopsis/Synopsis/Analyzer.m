@@ -499,9 +499,9 @@
                                     
                                     [self.standardAnalyzer analyzeFrameCache:frameCache commandBuffer:commandBuffer completionHandler:^(NSDictionary *metadata, NSError *error) {
                                         
-                                        NSDictionary* standardMetadata = @{ kSynopsisStandardMetadataDictKey : metadata };
+//                                        NSDictionary* standardMetadata = @{ kSynopsisStandardMetadataDictKey : metadata };
                                         //                                            NSLog(@"........... encoding metadata");
-                                        AVTimedMetadataGroup* metadataGroup = [self.metadataEncoder encodeSynopsisMetadataToTimesMetadataGroup:standardMetadata timeRange:sampleTimeRange];
+                                        AVTimedMetadataGroup* metadataGroup = [self.metadataEncoder encodeSynopsisMetadataToTimesMetadataGroup:metadata timeRange:sampleTimeRange];
                                         
                                         if(completionBlock)
                                         {
