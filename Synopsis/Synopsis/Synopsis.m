@@ -12,13 +12,15 @@
 #import <AVFoundation/AVFoundation.h>
 
 #import "Synopsis.h"
+#import "Synopsis-Legacy.h"
 
 // Top Level Metadata key for AVFoundation used in both Summary (global) and per frame metadata
 // See AVMetdataItem.h / AVMetdataIdentifier.h
 NSString* const kSynopsisMetadataIdentifier = @"mdta/video.synopsis.metadata";
 NSString* const kSynopsisMetadataVersionKey = @"video.synopsis.metadata.version";
-NSUInteger const kSynopsisMetadataVersionValue = SYNOPSIS_VERSION_NUMBER;
 
+NSUInteger const kSynopsisMetadataVersionValue = SYNOPSIS_VERSION_NUMBER;
+NSUInteger const kSynopsisMetadataVersionPrivateBeta = 10;
 NSUInteger const kSynopsisMetadataVersionAlpha3 = 3;
 NSUInteger const kSynopsisMetadataVersionAlpha2 = 2;
 NSUInteger const kSynopsisMetadataVersionAlpha1 = 1;
@@ -31,11 +33,11 @@ NSString* const kSynopsisMetadataHFSAttributeDescriptorKey = @"video_synopsis_de
 
 // FYI : We keep these strings short to "help" with file sizes...
 
-// Metadata Type Strings:
+// Metadata Type Key Strings:
 NSString* const kSynopsisMetadataTypeGlobal = @"GM";
 NSString* const kSynopsisMetadataTypeSample = @"SM";
 
-// Metadata Identifier Strings:
+// Visual identifier Key Strings
 NSString* const kSynopsisMetadataIdentifierGlobalVisualDescription = @"VD";
 
 NSString* const kSynopsisMetadataIdentifierVisualEmbedding = @"VE";
@@ -48,7 +50,14 @@ NSString* const kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities = @"TSV
 NSString* const kSynopsisMetadataIdentifierTimeSeriesVisualHistogram = @"TSVH";
 NSString* const kSynopsisMetadataIdentifierTimeSeriesVisualDominantColors = @"TSVDC";
 
-NSString* SynopsisKeyForMetadataType(SynopsisMetadataType type)
+
+// Metadata Type Versioning
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+NSString* SynopsisKeyForMetadataTypeCurrentVersion(SynopsisMetadataType type)
 {
     switch(type)
     {
@@ -60,7 +69,29 @@ NSString* SynopsisKeyForMetadataType(SynopsisMetadataType type)
     }
 }
 
-NSString* SynopsisKeyForMetadataIdentifier(SynopsisMetadataIdentifier identifier)
+
+// Legacy versions did not differentiate between container dict for global or per frame
+NSString* SynopsisKeyForMetadataTypeLegacy()
+{
+    return kSynopsisStandardMetadataDictKey;
+}
+
+NSString* SynopsisKeyForMetadataTypeVersion(SynopsisMetadataType type, NSUInteger version)
+{
+    if ( version == SYNOPSIS_VERSION_NUMBER)
+    {
+        return SynopsisKeyForMetadataTypeCurrentVersion(type);
+    }
+    else
+    {
+        return SynopsisKeyForMetadataTypeLegacy();
+    }
+}
+
+// Metadata Identifier Versioning
+
+
+NSString* SynopsisKeyForMetadataIdentifierCurrentVersion(SynopsisMetadataIdentifier identifier)
 {
     switch (identifier)
     {
@@ -87,6 +118,44 @@ NSString* SynopsisKeyForMetadataIdentifier(SynopsisMetadataIdentifier identifier
     }
 }
 
+NSString* SynopsisKeyForMetadataIdentifierLegacy(SynopsisMetadataIdentifier identifier)
+{
+    switch (identifier)
+    {            
+        case SynopsisMetadataIdentifierGlobalVisualDescription:
+            return kSynopsisStandardMetadataDescriptionDictKey;
+            
+        case SynopsisMetadataIdentifierVisualEmbedding:
+            return kSynopsisStandardMetadataFeatureVectorDictKey;
+            
+        case SynopsisMetadataIdentifierVisualProbabilities:
+            return kSynopsisStandardMetadataProbabilitiesDictKey;
+            
+        case SynopsisMetadataIdentifierVisualHistogram:
+            return kSynopsisStandardMetadataHistogramDictKey;
+            
+        case SynopsisMetadataIdentifierVisualDominantColors:
+            return kSynopsisStandardMetadataDominantColorValuesDictKey;
+            
+        case SynopsisMetadataIdentifierTimeSeriesVisualEmbedding:
+            return kSynopsisStandardMetadataSimilarityFeatureVectorDictKey;
+            
+        case SynopsisMetadataIdentifierTimeSeriesVisualProbabilities:
+            return kSynopsisStandardMetadataSimilarityProbabilitiesDictKey;
+    }
+}
+
+NSString* SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifier identifier, NSUInteger version)
+{
+    if ( version == SYNOPSIS_VERSION_NUMBER)
+    {
+        return SynopsisKeyForMetadataIdentifierCurrentVersion(identifier);
+    }
+    else
+    {
+        return SynopsisKeyForMetadataIdentifierLegacy(identifier);
+    }
+}
 
 NSArray* SynopsisSupportedFileTypes(void)
 {
@@ -107,3 +176,6 @@ NSArray* SynopsisSupportedFileTypes(void)
 #endif
 }
 
+#ifdef __cplusplus
+}
+#endif

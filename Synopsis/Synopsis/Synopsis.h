@@ -21,9 +21,19 @@
 // Identifier Synopsis for AVMetadataItems
 extern NSString* const kSynopsisMetadataIdentifier;
 extern NSString* const kSynopsisMetadataVersionKey;
+
+// Current Metadata Version (for this framework)
 extern NSUInteger const kSynopsisMetadataVersionValue;
 
+// Only useful for pre public beta Analyzer and Inspector code bases
+// Legacy Synopsis Metadata used a different top level domain, info, not video
+// This needs to be public if folks want to test against it
+extern NSString* const kSynopsisMetadataIdentifierLegacy;
+extern NSString* const kSynopsisMetadataVersionKeyLegacy;
+
+
 // Major Metadata versions : 
+extern NSUInteger const kSynopsisMetadataVersionPrivateBeta;
 extern NSUInteger const kSynopsisMetadataVersionAlpha3;
 extern NSUInteger const kSynopsisMetadataVersionAlpha2;
 extern NSUInteger const kSynopsisMetadataVersionAlpha1;
@@ -35,14 +45,18 @@ extern NSString* const kSynopsisMetadataHFSAttributeVersionKey;
 extern NSUInteger const kSynopsisMetadataHFSAttributeVersionValue;
 extern NSString* const kSynopsisMetadataHFSAttributeDescriptorKey;
 
+// For all other keys, use the Enums and functions below:
+
 // The characteristic of the media the metadata represents
-// Global metadata is an average (or similar) consolidation of all per sample metadata
+// SynopsisMetadataTypeSample refers to metadata that represents a specific sample (video frame for example).
+
+// SynopsisMetadataTypeGlobal refers to metadata that represents an aggregate summary (Synopsis) of all sample based metadata
+// How the summary is calculated is up to the specific plugin
+
 typedef NS_ENUM(NSUInteger, SynopsisMetadataType) {
 
-    // Rarely used outside of internal API
     SynopsisMetadataTypeGlobal = 0,
     SynopsisMetadataTypeSample = 1,
-        
 };
 
 // TODO:
@@ -50,7 +64,7 @@ typedef NS_ENUM(NSUInteger, SynopsisMetadataType) {
 // Text ??????
 // ??
 typedef NS_ENUM(NSUInteger, SynopsisMetadataIdentifier) {
-
+    
     // Human readable tags from classifiers -
     // SynopsisMetadataTypeGlobal only - no SynopsisMetadataTypeFrame based metadata
     SynopsisMetadataIdentifierGlobalVisualDescription = 10,
@@ -79,15 +93,20 @@ typedef NS_ENUM(NSUInteger, SynopsisMetadataIdentifier) {
     // A fixed length vector of frame probabilities similarities
     // For every frame a similarity score of the vector SynopsisMetadataIdentifierVisualProbabilities for frame n and frame n+1 is produced
     SynopsisMetadataIdentifierTimeSeriesVisualProbabilities = 130,
-
-
 } ;
 
-// Return the internal private string for our metadata dictionaries
-NSString* SynopsisKeyForMetadataType(SynopsisMetadataType type);
-NSString* SynopsisKeyForMetadataIdentifier(SynopsisMetadataIdentifier identifier);
 
-NSArray* SynopsisSupportedFileTypes(void);
+// Pass in a version for an appropriate key for the type or identifier
+// The Version number is an NSUInteger stored in the dictionary top level under the key kSynopsisMetadataVersionKey
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern NSString* SynopsisKeyForMetadataTypeVersion(SynopsisMetadataType type, NSUInteger version);
+extern NSString* SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifier identifier, NSUInteger version);
+extern NSArray* SynopsisSupportedFileTypes(void);
+#ifdef __cplusplus
+}
+#endif
 
 // Should a plugin have configurable quality settings
 // Hint the plugin to use a specific quality hint
