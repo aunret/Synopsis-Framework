@@ -8,6 +8,7 @@
 
 #import "GPUHistogramModule.h"
 #import "SynopsisVideoFrameMPImage.h"
+#import "Synopsis-Private.h"
 
 @interface GPUHistogramModule ()
 @property (readwrite, strong) MPSImageHistogram* histogramOp;
@@ -51,7 +52,7 @@
 
 - (NSString*) moduleName
 {
-    return kSynopsisStandardMetadataHistogramDictKey;
+    return kSynopsisMetadataIdentifierVisualHistogram;
 }
 
 + (SynopsisVideoBacking) requiredVideoBacking

@@ -11,6 +11,7 @@
 #import "SynopsisVideoFrameMPImage.h"
 #import <CoreImage/CIRenderDestination.h>
 #import <Metal/Metal.h>
+#import "Synopsis-Private.h"
 
 // TODO Pass this in via initializer
 static NSUInteger inFlightBuffers = 3;
@@ -65,7 +66,7 @@ static NSUInteger inFlightBuffers = 3;
 
 - (NSString*) moduleName
 {
-    return kSynopsisStandardMetadataDominantColorValuesDictKey;
+    return kSynopsisMetadataIdentifierVisualDominantColors;
 }
 
 + (SynopsisVideoBacking) requiredVideoBacking
@@ -165,7 +166,7 @@ static int inFlightBufferIndex = 0;
             }
         }
         
-        SynopsisDenseFeature* denseDominantColors = [[SynopsisDenseFeature alloc] initWithFeatureArray:colors forMetadataKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
+        SynopsisDenseFeature* denseDominantColors = [[SynopsisDenseFeature alloc] initWithFeatureArray:colors forMetadataKey:kSynopsisMetadataIdentifierVisualDominantColors];
 
         if(self.averageDominantColors == nil)
         {
@@ -181,7 +182,7 @@ static int inFlightBufferIndex = 0;
         {
             float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameDominantColors, denseDominantColors);
             
-            SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
+            SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierVisualDominantColors];
             
             if ( self.similairityDominantColors )
             {
@@ -202,7 +203,7 @@ static int inFlightBufferIndex = 0;
         inFlightBufferIndex = inFlightBufferIndex % inFlightBuffers;
         if (completionBlock)
         {
-            completionBlock(@{ kSynopsisStandardMetadataDominantColorValuesDictKey : colors }, nil);
+            completionBlock(@{ kSynopsisMetadataIdentifierVisualDominantColors : colors }, nil);
         }
     }];
 }
@@ -214,8 +215,8 @@ static int inFlightBufferIndex = 0;
         NSArray<NSNumber*>* averageDominantColors = [self.averageDominantColors arrayValue];
     
         return @{
-                 kSynopsisStandardMetadataDominantColorValuesDictKey : (averageDominantColors) ? averageDominantColors : @[],
-                 kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey : (similarDominantColors) ? similarDominantColors : @[ ]
+                 kSynopsisMetadataIdentifierVisualDominantColors : (averageDominantColors) ? averageDominantColors : @[],
+                 kSynopsisMetadataIdentifierTimeSeriesVisualDominantColors : (similarDominantColors) ? similarDominantColors : @[ ]
                  };
 }
 @end
