@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Synopsis-Legacy.h"
 #import "SynopsisMetadataDecoder.h"
 
 @interface SynopsisMetadataDecoderVersion2 : NSObject<SynopsisMetadataDecoder>

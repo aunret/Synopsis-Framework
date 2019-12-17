@@ -8,6 +8,7 @@
 
 #import "SynopsisMetadataDecoderVersion0.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Private.h"
 #import "GZIP.h"
 
 @implementation SynopsisMetadataDecoderVersion0

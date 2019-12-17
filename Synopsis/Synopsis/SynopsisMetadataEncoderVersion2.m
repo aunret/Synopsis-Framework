@@ -9,6 +9,7 @@
 #import "SynopsisMetadataEncoderVersion2.h"
 #import "SynopsisMetadataDecoder.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Legacy.h"
 
 #import "zstd.h"
 

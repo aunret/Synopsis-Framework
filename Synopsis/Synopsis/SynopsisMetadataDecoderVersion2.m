@@ -8,6 +8,7 @@
 
 #import "SynopsisMetadataDecoderVersion2.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Legacy.h"
 #import "zstd.h"
 #import "Color+linearRGBColor.h"
 

@@ -61,6 +61,7 @@
     item.time = timeRange.start;
     item.duration = timeRange.duration;
     
+    // See https://github.com/Synopsis/Synopsis-Framework/issues/30 ?
     NSMutableDictionary<AVMetadataExtraAttributeKey, id> * extraAttributes = [NSMutableDictionary dictionaryWithDictionary:item.extraAttributes];
     extraAttributes[AVMetadataExtraAttributeInfoKey] = @{ kSynopsisMetadataVersionKey : @(kSynopsisMetadataVersionValue) };
     item.extraAttributes = extraAttributes;
