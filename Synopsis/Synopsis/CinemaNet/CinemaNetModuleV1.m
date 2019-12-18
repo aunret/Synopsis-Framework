@@ -348,7 +348,7 @@
                 
                 featureSimilarity = 1.0 - featureSimilarity;
 
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding];
                 
                 if ( self.similarityFeatureVec )
                 {
@@ -366,7 +366,7 @@
                 
                 featureSimilarity = 1.0 - featureSimilarity;
             
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities];
                 
                 if ( self.similarityProbabilities )
                 {
