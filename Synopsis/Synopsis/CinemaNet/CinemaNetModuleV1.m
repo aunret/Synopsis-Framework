@@ -346,6 +346,8 @@
             {
                 float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameFeatureVec, denseFeature);
                 
+                featureSimilarity = 1.0 - featureSimilarity;
+
                 SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding];
                 
                 if ( self.similarityFeatureVec )
@@ -361,7 +363,9 @@
             if ( denseProbabilities && self.lastFrameProbabilities )
             {
                 float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameProbabilities, denseProbabilities);
-                               
+                
+                featureSimilarity = 1.0 - featureSimilarity;
+            
                 SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities];
                 
                 if ( self.similarityProbabilities )
@@ -424,7 +428,10 @@
         [predictedLabels addObjectsFromArray:topLabels];
     }];
     
-
+    // This vector size is greatly affected by the duration of the source clip
+    // Too large, and you get resizing issues
+    // Too small, and you smooth our important features
+    // This is vv WIP:
     [self.similarityFeatureVec resizeTo:1024];
     [self.similarityProbabilities resizeTo:1024];
 
