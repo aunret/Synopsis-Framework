@@ -16,6 +16,7 @@
 
 // Top Level Metadata key for AVFoundation used in both Summary (global) and per frame metadata
 // See AVMetdataItem.h / AVMetdataIdentifier.h
+NSString* const kSynopsisMetadataDomain = @"video.synopsis.metadata";
 NSString* const kSynopsisMetadataIdentifier = @"mdta/video.synopsis.metadata";
 NSString* const kSynopsisMetadataVersionKey = @"video.synopsis.metadata.version";
 

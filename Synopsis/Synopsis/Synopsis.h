@@ -19,6 +19,7 @@
 #define SYNOPSIS_LIB_VERSION SYNOPSIS_VERSION_MAJOR.SYNOPSIS_VERSION_MINOR.SYNOPSIS_VERSION_PATCH
 
 // Identifier Synopsis for AVMetadataItems
+extern NSString* const kSynopsisMetadataDomain;
 extern NSString* const kSynopsisMetadataIdentifier;
 extern NSString* const kSynopsisMetadataVersionKey;
 
