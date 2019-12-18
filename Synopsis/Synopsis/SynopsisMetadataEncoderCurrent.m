@@ -58,9 +58,10 @@
     item.identifier = kSynopsisMetadataIdentifier;
     item.dataType = (__bridge NSString *)kCMMetadataBaseDataType_RawData;
     item.value = metadata;
-    item.time = timeRange.start;
-    item.duration = timeRange.duration;
-    
+    item.time = kCMTimeInvalid;//timeRange.start;
+    item.duration = kCMTimeInvalid;//timeRange.duration;
+    item.startDate = nil;
+        
     // See https://github.com/Synopsis/Synopsis-Framework/issues/30 ?
     NSMutableDictionary<AVMetadataExtraAttributeKey, id> * extraAttributes = [NSMutableDictionary dictionaryWithDictionary:item.extraAttributes];
     extraAttributes[AVMetadataExtraAttributeInfoKey] = @{ kSynopsisMetadataVersionKey : @(kSynopsisMetadataVersionCurrent) };
@@ -69,7 +70,7 @@
     return item;
 }
 
-- (AVTimedMetadataGroup*) encodeSynopsisMetadataToTimesMetadataGroup:(NSData*)metadata timeRange:(CMTimeRange)timeRange
+- (AVTimedMetadataGroup*) encodeSynopsisMetadataToTimedMetadataGroup:(NSData*)metadata timeRange:(CMTimeRange)timeRange
 {
     AVMetadataItem* item = [self encodeSynopsisMetadataToMetadataItem:metadata timeRange:timeRange];
     

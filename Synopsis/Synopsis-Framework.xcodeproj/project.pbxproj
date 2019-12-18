@@ -58,6 +58,8 @@
 		1B0A1EDB23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A1EDA23A2C84E00E68E08 /* CinemaNet.mlmodel */; };
 		1B0A1EDC23A2C84F00E68E08 /* CinemaNet.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1B0A1EDA23A2C84E00E68E08 /* CinemaNet.mlmodel */; };
 		1B21EF621FA51AD2008A7462 /* CoreML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B21EF611FA51AD2008A7462 /* CoreML.framework */; };
+		1B34835D23AAB088004BE8BB /* SynopsisMetadata-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B34835C23AAB088004BE8BB /* SynopsisMetadata-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1B34835E23AAB088004BE8BB /* SynopsisMetadata-Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B34835C23AAB088004BE8BB /* SynopsisMetadata-Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1B3815001FA360110017564B /* GPUVisionMobileNet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */; };
 		1B4446971EE1FD090075575D /* SynopsisMetadataDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4446951EE1FD090075575D /* SynopsisMetadataDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B4446981EE1FD090075575D /* SynopsisMetadataDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B4446961EE1FD090075575D /* SynopsisMetadataDecoder.m */; };
@@ -369,6 +371,7 @@
 		1B2780AC1F228F9F00658C0B /* SynopsisMetadataEncoderVersion2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SynopsisMetadataEncoderVersion2.m; sourceTree = "<group>"; };
 		1B2780E91F2299DA00658C0B /* zstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
 		1B2781011F22BFEB00658C0B /* dictionary.zstddict */ = {isa = PBXFileReference; lastKnownFileType = file; path = dictionary.zstddict; sourceTree = "<group>"; };
+		1B34835C23AAB088004BE8BB /* SynopsisMetadata-Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SynopsisMetadata-Private.h"; sourceTree = "<group>"; };
 		1B3814FE1FA360110017564B /* GPUVisionMobileNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GPUVisionMobileNet.h; sourceTree = "<group>"; };
 		1B3814FF1FA360110017564B /* GPUVisionMobileNet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GPUVisionMobileNet.m; sourceTree = "<group>"; };
 		1B3A1F40212F0CAA00FEF170 /* CinemaNetShotAnglesClassifier_FP16.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = CinemaNetShotAnglesClassifier_FP16.mlmodel; sourceTree = "<group>"; };
@@ -5616,6 +5619,7 @@
 		1B551E621EF9E309004C077B /* InternalMetadataCodec */ = {
 			isa = PBXGroup;
 			children = (
+				1B34835C23AAB088004BE8BB /* SynopsisMetadata-Private.h */,
 				1B6D669921D0A6C9000702AE /* SynopsisMetadataEncoderCurrent.h */,
 				1B6D669821D0A6C8000702AE /* SynopsisMetadataEncoderCurrent.m */,
 				1B6D669B21D0A6C9000702AE /* SynopsisMetadataDecoderCurrent.h */,
@@ -5959,6 +5963,7 @@
 				1B4446CC1EE1FF990075575D /* SynopsisDenseFeatureLayer.h in Headers */,
 				1BEDA4A92024E0DE00E4617C /* SynopsisVideoFrameConformHelperGPU.h in Headers */,
 				1BAEA4A722B196AA00EEB116 /* CinemaNetModuleV1.h in Headers */,
+				1B34835E23AAB088004BE8BB /* SynopsisMetadata-Private.h in Headers */,
 				1B4446CB1EE1FF990075575D /* SynopsisDominantColorLayer.h in Headers */,
 				1B4446C51EE1FF8C0075575D /* SynopsisMetadataItem.h in Headers */,
 				1B4446CF1EE1FF990075575D /* Color+linearRGBColor.h in Headers */,
@@ -6007,6 +6012,7 @@
 				1B4446971EE1FD090075575D /* SynopsisMetadataDecoder.h in Headers */,
 				1B4446B11EE1FD5D0075575D /* Color+linearRGBColor.h in Headers */,
 				1B70D082200D4EE000A414AF /* SynopsisCache.h in Headers */,
+				1B34835D23AAB088004BE8BB /* SynopsisMetadata-Private.h in Headers */,
 				1B73589B1DEF5FE40053BC06 /* StandardAnalyzerPlugin.h in Headers */,
 				1B6D66A121D0AAB6000702AE /* SynopsisMetadataEncoderCurrent.h in Headers */,
 				1BC98DDE1F9FC35100E0F52A /* SynopsisVideoFrameConformHelperCPU.h in Headers */,

@@ -6,6 +6,7 @@
 //  Copyright © 2017 v002. All rights reserved.
 //
 
+#import <Synopsis/Synopsis.h>
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
@@ -25,12 +26,6 @@ typedef enum : NSInteger {
 } SynopsisMetadataEncoderExportOption;
 
 
-@protocol SynopsisVersionedMetadataEncoder <NSObject>
-- (AVTimedMetadataGroup*) encodeSynopsisMetadataToTimesMetadataGroup:(NSData*)metadata timeRange:(CMTimeRange)timeRange;
-- (AVMetadataItem*) encodeSynopsisMetadataToMetadataItem:(NSData*)metadata timeRange:(CMTimeRange)timeRange;
-- (NSData*) encodeSynopsisMetadataToData:(NSData*)metadata;
-@end
-
 @interface SynopsisMetadataEncoder : NSObject
 
 + (CMFormatDescriptionRef) copyMetadataFormatDesc;
@@ -39,9 +34,9 @@ typedef enum : NSInteger {
 @property (readonly) SynopsisMetadataEncoderExportOption exportOption;
 
 - (instancetype) initWithVersion:(NSUInteger)version exportOption:(SynopsisMetadataEncoderExportOption)exportOption;
-- (AVTimedMetadataGroup*) encodeSynopsisMetadataToTimesMetadataGroup:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange;
-- (AVMetadataItem*) encodeSynopsisMetadataToMetadataItem:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange;
-- (NSData*) encodeSynopsisMetadataToData:(NSDictionary*)metadata;
+- (AVTimedMetadataGroup*) encodeSynopsisSampleMetadataToTimedMetadataGroup:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange;
+- (AVMetadataItem*) encodeSynopsisGlobalMetadataToMetadataItem:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange;
+- (NSData*) encodeSynopsisMetadataToData:(NSDictionary*)metadata forMetadataType:(SynopsisMetadataType)type;
 - (BOOL) exportToURL:(NSURL*)fileURL;
 
 @end

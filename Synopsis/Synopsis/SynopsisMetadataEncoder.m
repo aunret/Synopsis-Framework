@@ -7,6 +7,8 @@
 //
 
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Private.h"
+#import "SynopsisMetadata-Private.h"
 #import "SynopsisMetadataEncoder.h"
 #import "SynopsisMetadataEncoderCurrent.h"
 //#import "SynopsisMetadataEncoderVersion0.h"
@@ -57,7 +59,7 @@
     return self;
 }
 
-- (AVMetadataItem*) encodeSynopsisMetadataToMetadataItem:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange
+- (AVMetadataItem*) encodeSynopsisGlobalMetadataToMetadataItem:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange
 {
     if(self.exportOption)
     {
@@ -66,11 +68,11 @@
         self.cachedGlobalMetadata = metadata;
     }
     
-    NSData* jsonData = [self encodeSynopsisMetadataToData:metadata];
+    NSData* jsonData = [self encodeSynopsisMetadataToData:metadata forMetadataType:SynopsisMetadataTypeGlobal];
     return [self.encoder encodeSynopsisMetadataToMetadataItem:jsonData timeRange:timeRange];
 }
 
-- (AVTimedMetadataGroup*) encodeSynopsisMetadataToTimesMetadataGroup:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange
+- (AVTimedMetadataGroup*) encodeSynopsisSampleMetadataToTimedMetadataGroup:(NSDictionary*)metadata timeRange:(CMTimeRange)timeRange
 {
     if(self.exportOption)
     {
@@ -79,13 +81,31 @@
          ];
     }
     
-    NSData* jsonData = [self encodeSynopsisMetadataToData:metadata];
-    return [self.encoder encodeSynopsisMetadataToTimesMetadataGroup:jsonData timeRange:timeRange];
+    NSData* jsonData = [self encodeSynopsisMetadataToData:metadata forMetadataType:SynopsisMetadataTypeSample];
+    
+    return [self.encoder encodeSynopsisMetadataToTimedMetadataGroup:jsonData timeRange:timeRange];
 }
 
-- (NSData*) encodeSynopsisMetadataToData:(NSDictionary*)metadata;
+- (NSData*) encodeSynopsisMetadataToData:(NSDictionary*)metadata forMetadataType:(SynopsisMetadataType)type
 {
-    NSString* aggregateMetadataAsJSON = [metadata jsonStringWithPrettyPrint:NO];
+    // Add any type specific top level metadata here:
+    
+    NSMutableDictionary* topLevel = [[NSMutableDictionary alloc] init];;
+    
+    switch (type)
+    {
+        case SynopsisMetadataTypeGlobal:
+        {
+            topLevel[kSynopsisMetadataTypeGlobal] = metadata;
+            topLevel[kSynopsisMetadataVersionKey] = @(kSynopsisMetadataVersionCurrent);
+        }
+        case SynopsisMetadataTypeSample:
+        {
+            topLevel[kSynopsisMetadataTypeSample] = metadata;
+        }
+    }
+    
+    NSString* aggregateMetadataAsJSON = [topLevel jsonStringWithPrettyPrint:NO];
     NSData* jsonData = [aggregateMetadataAsJSON dataUsingEncoding:NSUTF8StringEncoding];
     
     if(!jsonData)

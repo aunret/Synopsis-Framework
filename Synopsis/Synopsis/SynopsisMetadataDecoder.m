@@ -7,7 +7,7 @@
 //
 
 #import <Synopsis/Synopsis.h>
-
+#import "SynopsisMetadata-Private.h"
 #import "SynopsisMetadataDecoder.h"
 #import "SynopsisMetadataDecoderCurrent.h"
 
