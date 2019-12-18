@@ -24,21 +24,14 @@ extern NSString* const kSynopsisMetadataIdentifier;
 extern NSString* const kSynopsisMetadataVersionKey;
 
 // Current Metadata Version (for this framework)
-extern NSUInteger const kSynopsisMetadataVersionValue;
-
-// Only useful for pre public beta Analyzer and Inspector code bases
-// Legacy Synopsis Metadata used a different top level domain, info, not video
-// This needs to be public if folks want to test against it
-extern NSString* const kSynopsisMetadataIdentifierLegacy;
-extern NSString* const kSynopsisMetadataVersionKeyLegacy;
-
+extern NSUInteger const kSynopsisMetadataVersionCurrent;
 
 // Major Metadata versions : 
-extern NSUInteger const kSynopsisMetadataVersionPrivateBeta;
-extern NSUInteger const kSynopsisMetadataVersionAlpha3;
-extern NSUInteger const kSynopsisMetadataVersionAlpha2;
-extern NSUInteger const kSynopsisMetadataVersionAlpha1;
-extern NSUInteger const kSynopsisMetadataVersionPreAlpha;
+// 1.0.0 aka (10000)
+extern NSUInteger const kSynopsisMetadataVersionBeta1;
+
+// Used for async loading of metadata or when we have metadata without versions marked for some reason
+extern NSUInteger const kSynopsisMetadataVersionUnknown;
 
 // HFS+ Extended Attribute tag for Spotlight search
 // Version Key / Dict

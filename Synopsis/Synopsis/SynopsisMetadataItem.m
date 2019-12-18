@@ -110,7 +110,7 @@
     
     for(AVMetadataItem* metadataItem in metadataItems)
     {
-        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier] || [metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifierLegacy])
+        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier])
         {
             returnMe = YES;
             break;
@@ -125,7 +125,7 @@
     
     for(AVMetadataItem* metadataItem in metadataItems)
     {
-        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier]  || [metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifierLegacy])
+        if([metadataItem.identifier isEqualToString:kSynopsisMetadataIdentifier])
         {
             synopsisMetadataItem = metadataItem;
             break;
@@ -136,22 +136,29 @@
     {
         self.decoder = [[SynopsisMetadataDecoder alloc] initWithMetadataItem:synopsisMetadataItem];
         
-        self.globalSynopsisMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
+        NSDictionary* decodedGlobalMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
         
-        NSNumber* versionNumber = self.globalSynopsisMetadata[kSynopsisMetadataVersionKey];
-        if ( versionNumber == nil )
+        if ( decodedGlobalMetadata )
         {
-            versionNumber = self.globalSynopsisMetadata[kSynopsisMetadataVersionKeyLegacy];
+            self.globalSynopsisMetadata = decodedGlobalMetadata;
+            
+            NSNumber* versionNumber = self.globalSynopsisMetadata[kSynopsisMetadataVersionKey];
+            
+            if ( versionNumber )
+            {
+                NSUInteger version = [versionNumber unsignedIntegerValue];
+                self.metadataVersion = version;
+                self.loaded = YES;
+                return YES;
+            }
+            else
+            {
+                // TODO: Think of consequences
+                self.metadataVersion = kSynopsisMetadataVersionUnknown;
+                self.loaded = YES;
+                return NO;
+            }
         }
-
-        NSUInteger version = [versionNumber unsignedIntegerValue];
-        
-        self.metadataVersion = version;
-
-        
-        self.loaded = YES;
-        
-        return YES;
     }
     
     self.loaded = YES;
@@ -174,14 +181,7 @@
 - (id) valueForKey:(NSString *)key
 {
     // This seems more stupid than it should be, due to legacy synopsis metadata support (which strictly isnt 100% necessary)
-
-    // Use the Legacy path for keys if we have legacy global dictionary
-    if (self.metadataVersion <= kSynopsisMetadataVersionPrivateBeta)
-    {
-        if ([self legacySynopsisValueForKey:key])
-            return [self legacySynopsisValueForKey:key];
-    }
-    else if ([self currentSynopsisValueForKey:key])
+    if ([self currentSynopsisValueForKey:key])
     {
         return [self currentSynopsisValueForKey:key];
     }
@@ -192,26 +192,6 @@
 - (id) currentSynopsisValueForKey:(NSString *)key
 {
     return [self.globalSynopsisMetadata objectForKey:key];
-}
-
-- (id) legacySynopsisValueForKey:(NSString *)key
-{
-    NSDictionary* standardDictionary = [self.globalSynopsisMetadata objectForKey:kSynopsisStandardMetadataDictKey];
-
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
-        return self.globalSynopsisMetadata;
-
-    else if([key isEqualToString:kSynopsisStandardMetadataDictKey])
-    {
-       return standardDictionary;
-    }
-
-    else if(standardDictionary[key])
-    {
-        return standardDictionary[key];
-    }
-    
-    return nil;
 }
 
 - (id) valueForUndefinedKey:(NSString *)key

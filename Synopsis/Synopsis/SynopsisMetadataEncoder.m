@@ -47,28 +47,7 @@
     self = [super init];
     if(self)
     {
-        // Beta - uses GZIP (ahhhhh)
-        // TODO: GET RID OF THIS - no one else has this metadata
-//        if(version == kSynopsisMetadataVersionPreAlpha)
-//        {
-//            self.encoder = [[SynopsisMetadataEncoderVersion0 alloc] init];
-//        }
-//        else if( version == kSynopsisMetadataVersionAlpha1 )
-//        {
-//            self.encoder = [[SynopsisMetadataEncoderVersion0 alloc] init];
-//        }
-//        else if( version == kSynopsisMetadataVersionAlpha2 )
-//        {
-//            self.encoder = [[SynopsisMetadataEncoderVersion2 alloc] init];
-//        }
-//        else if( version == kSynopsisMetadataVersionAlpha3 )
-//        {
-//            self.encoder = [[SynopsisMetadataEncoderVersion3 alloc] init];
-//        }
-//        else
-        {
-            self.encoder = [[SynopsisMetadataEncoderCurrent alloc] init];
-        }
+        self.encoder = [[SynopsisMetadataEncoderCurrent alloc] init];
 
         self.version = version;
         self.exportOption = exportOption;

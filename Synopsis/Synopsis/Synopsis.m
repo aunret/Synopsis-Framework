@@ -20,12 +20,9 @@ NSString* const kSynopsisMetadataDomain = @"video.synopsis.metadata";
 NSString* const kSynopsisMetadataIdentifier = @"mdta/video.synopsis.metadata";
 NSString* const kSynopsisMetadataVersionKey = @"video.synopsis.metadata.version";
 
-NSUInteger const kSynopsisMetadataVersionValue = SYNOPSIS_VERSION_NUMBER;
-NSUInteger const kSynopsisMetadataVersionPrivateBeta = 10;
-NSUInteger const kSynopsisMetadataVersionAlpha3 = 3;
-NSUInteger const kSynopsisMetadataVersionAlpha2 = 2;
-NSUInteger const kSynopsisMetadataVersionAlpha1 = 1;
-NSUInteger const kSynopsisMetadataVersionPreAlpha = 0;
+NSUInteger const kSynopsisMetadataVersionCurrent = SYNOPSIS_VERSION_NUMBER;
+NSUInteger const kSynopsisMetadataVersionBeta1 = 10000;
+NSUInteger const kSynopsisMetadataVersionUnknown = NSUIntegerMax;
 
 // HFS+ Extended attribute keys and values
 NSString* const kSynopsisMetadataHFSAttributeVersionKey = @"video_synopsis_version";
@@ -70,13 +67,6 @@ NSString* SynopsisKeyForMetadataTypeCurrentVersion(SynopsisMetadataType type)
     }
 }
 
-
-// Legacy versions did not differentiate between container dict for global or per frame
-NSString* SynopsisKeyForMetadataTypeLegacy()
-{
-    return kSynopsisStandardMetadataDictKey;
-}
-
 NSString* SynopsisKeyForMetadataTypeVersion(SynopsisMetadataType type, NSUInteger version)
 {
     if ( version == SYNOPSIS_VERSION_NUMBER)
@@ -85,12 +75,11 @@ NSString* SynopsisKeyForMetadataTypeVersion(SynopsisMetadataType type, NSUIntege
     }
     else
     {
-        return SynopsisKeyForMetadataTypeLegacy();
+        return nil;
     }
 }
 
 // Metadata Identifier Versioning
-
 
 NSString* SynopsisKeyForMetadataIdentifierCurrentVersion(SynopsisMetadataIdentifier identifier)
 {
@@ -119,32 +108,7 @@ NSString* SynopsisKeyForMetadataIdentifierCurrentVersion(SynopsisMetadataIdentif
     }
 }
 
-NSString* SynopsisKeyForMetadataIdentifierLegacy(SynopsisMetadataIdentifier identifier)
-{
-    switch (identifier)
-    {            
-        case SynopsisMetadataIdentifierGlobalVisualDescription:
-            return kSynopsisStandardMetadataDescriptionDictKey;
-            
-        case SynopsisMetadataIdentifierVisualEmbedding:
-            return kSynopsisStandardMetadataFeatureVectorDictKey;
-            
-        case SynopsisMetadataIdentifierVisualProbabilities:
-            return kSynopsisStandardMetadataProbabilitiesDictKey;
-            
-        case SynopsisMetadataIdentifierVisualHistogram:
-            return kSynopsisStandardMetadataHistogramDictKey;
-            
-        case SynopsisMetadataIdentifierVisualDominantColors:
-            return kSynopsisStandardMetadataDominantColorValuesDictKey;
-            
-        case SynopsisMetadataIdentifierTimeSeriesVisualEmbedding:
-            return kSynopsisStandardMetadataSimilarityFeatureVectorDictKey;
-            
-        case SynopsisMetadataIdentifierTimeSeriesVisualProbabilities:
-            return kSynopsisStandardMetadataSimilarityProbabilitiesDictKey;
-    }
-}
+
 
 NSString* SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifier identifier, NSUInteger version)
 {
@@ -154,7 +118,7 @@ NSString* SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifier ide
     }
     else
     {
-        return SynopsisKeyForMetadataIdentifierLegacy(identifier);
+        return nil;
     }
 }
 
