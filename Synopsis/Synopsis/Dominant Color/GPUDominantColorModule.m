@@ -45,7 +45,7 @@ static NSUInteger inFlightBuffers = 3;
         self.pass1PipelineState = [device newComputePipelineStateWithFunction:pass1Function error:&error];
 
         // Samples is a buffer that stores a packed count of our colors
-        NSUInteger sampleLength = sizeof(uint) * 16384;
+        NSUInteger sampleLength = sizeof(unsigned int) * 16384;
         
         self.inFlightSamples = [NSMutableArray new];
 
@@ -121,11 +121,11 @@ static int inFlightBufferIndex = 0;
         NSMutableArray* used = [NSMutableArray new];
         
         // Pass 2 -
-        uint* sampleData = (uint*)[currentInFlightColorSampleBuffer contents];
+        unsigned int* sampleData = (unsigned int*)[currentInFlightColorSampleBuffer contents];
 
-        for (NSUInteger i = 0; i < (16384 / 4); )
+        for (unsigned int i = 0; i < (16384 / 4); )
         {
-            uint count = sampleData[i + 3];
+            unsigned int count = sampleData[i + 3];
             if (count)
             {
                 [used addObject: @[ @(count), @(i)] ];
@@ -138,10 +138,11 @@ static int inFlightBufferIndex = 0;
         NSUInteger numColors = MIN(10, used.count);
         NSMutableArray* colors = [NSMutableArray new];
         
-        for (NSUInteger i = 0; i < numColors;)
+        for (unsigned int i = 0; i < numColors;)
         {
-            NSUInteger count = [used[i][0] unsignedIntegerValue];
-            NSUInteger index = [used[i][1] unsignedIntegerValue];
+            // Be careful to use unsigned int (32 bit sized) not unsigned integer which is an unsigned long
+            NSUInteger count = [used[i][0] unsignedIntValue];
+            NSUInteger index = [used[i][1] unsignedIntValue];
 
             pixels += count;
 
@@ -156,13 +157,15 @@ static int inFlightBufferIndex = 0;
             i++;
         }
         
+        // Order Colors
+        
 // TODO: What to do if we dont have enough colors ?
         if(colors.count < 30)
         {
             NSUInteger delta = 30 - colors.count;
             for (NSUInteger i = 0; i < delta; i++)
             {
-                [colors addObject: @( 0 )];
+                [colors insertObject:@( 0 ) atIndex:0];
             }
         }
         
