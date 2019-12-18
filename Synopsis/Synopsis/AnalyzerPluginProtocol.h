@@ -57,9 +57,6 @@ typedef void (^LogBlock)(NSString* log);
 @property (copy) LogBlock warningLog;
 @property (copy) LogBlock verboseLog;
 
-// Processing overhead for the plugin
-//@property (readonly) SynopsisAnalysisOverhead pluginOverhead;
-
 typedef void(^SynopsisAnalyzerPluginFrameAnalyzedCompleteCallback)(NSDictionary*, NSError*);
 
 #pragma mark - Analysis Methods

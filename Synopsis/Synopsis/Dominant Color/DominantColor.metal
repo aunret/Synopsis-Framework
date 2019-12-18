@@ -9,57 +9,83 @@
 #include <metal_stdlib>
 using namespace metal;
 
-constant half3 kRec709Luma = half3(0.2126, 0.7152, 0.0722);
-constant int top_two_bits = 0b11000000;
+constant float3 kRec709Luma = float3(0.2126, 0.7152, 0.0722);
+constant uint top_two_bits = 0b11000000;
 
-half3 rgbToHSV(half3 c)
+float3 rgbToHSV(float3 c)
 {
-    half4 K = half4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
-    half4 p = mix(half4(c.bg, K.wz), half4(c.gb, K.xy), step(c.b, c.g));
-    half4 q = mix(half4(p.xyw, c.r), half4(c.r, p.yzx), step(p.x, c.r));
+    float4 K = float4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    float4 p = mix(float4(c.bg, K.wz), float4(c.gb, K.xy), step(c.b, c.g));
+    float4 q = mix(float4(p.xyw, c.r), float4(c.r, p.yzx), step(p.x, c.r));
     
     float d = q.x - min(q.w, q.y);
     float e = 1.0e-10;
-    return half3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
+    return float3(abs(q.z + (q.w - q.y) / (6.0 * d + e)), d / (q.x + e), q.x);
 }
 
-kernel void dominantColorPass1(texture2d<half, access::read>  inTexture  [[texture(0)]],
-                               device int *samples [[buffer(1)]],
+float3 rgbtoHSL( float3 col )
+{
+    float red   = col.r;
+    float green = col.g;
+    float blue  = col.b;
+
+    // Cant seem to use fmin3 / fmax3 ?
+    float minc  = fmin( col.r, fmin(col.g, col.b) );
+    float maxc  = fmax( col.r, fmax(col.g, col.b) );
+    float delta = maxc - minc;
+
+    float lum = (minc + maxc) * 0.5;
+    float sat = 0.0;
+    float hue = 0.0;
+
+    if (lum > 0.0 && lum < 1.0) {
+        float mul = (lum < 0.5)  ?  (lum)  :  (1.0-lum);
+        sat = delta / (mul * 2.0);
+    }
+
+    float3 masks = float3(
+        (maxc == red   && maxc != green) ? 1.0 : 0.0,
+        (maxc == green && maxc != blue)  ? 1.0 : 0.0,
+        (maxc == blue  && maxc != red)   ? 1.0 : 0.0
+    );
+
+    float3 adds = float3(
+              ((green - blue ) / delta),
+        2.0 + ((blue  - red  ) / delta),
+        4.0 + ((red   - green) / delta)
+    );
+
+    float deltaGtz = (delta > 0.0) ? 1.0 : 0.0;
+
+    hue += dot( adds, masks );
+    hue *= deltaGtz;
+    hue /= 6.0;
+
+    if (hue < 0.0)
+        hue += 1.0;
+
+    return float3( hue, sat, lum);
+}
+
+// Todo: See if float v half makes a difference internally to the color calulcations.
+// Todo: See if we can add the sample group (or whatever the grid shit is) in metal 2 to get 4x faster sampling from textures
+
+kernel void dominantColorPass1(texture2d<float, access::read>  inTexture  [[texture(0)]],
+                               device uint *samples [[buffer(1)]],
                                uint2 gid [[thread_position_in_grid]])
 {
-    // Check if the pixel is within the bounds of the output texture
+    float4 inColor = inTexture.read(gid);
 
-    half4 inColor = inTexture.read(gid);
-    half3 hsv = rgbToHSV(inColor.rgb);
-    half Y = dot(inColor.rgb, kRec709Luma);
+    float3 hsl = rgbtoHSL(inColor.rgb);
+    float Y = dot(inColor.rgb, kRec709Luma);
     
-    int3 colorInt = int3(round(inColor.rgb * 255));
+    uint3 colorInt = uint3(round(inColor.rgb * 255));
     
-    int Yint = round(Y * 255);
-    int Hint = round(hsv.x * 255);
-    int Vint = round(hsv.z * 255);
+    uint Yint = round(Y * 255);
+    uint Hint = round(hsl.x * 255);
+    uint Lint = round(hsl.z * 255);
 
-    //int Rint = floor(inColor.r * 255);
-    //int Gint = round(inColor.g * 255);
-    //int Bint = round(inColor.b * 255);
-
-    
-    int packed  = ( Yint & top_two_bits) << 4;
-    packed |= (Hint & top_two_bits) << 2;
-    packed |= (Vint & top_two_bits) << 0;
-    
-/*
-    # Due to a bug in the original colorgram.js, RGB isn't included.
-    # The original author tries using negative bit shifts, while in
-    # fact JavaScript has the stupidest possible behavior for those.
-    # By uncommenting these lines, "intended" behavior can be
-    # restored, but in order to keep result compatibility with the
-    # original the "error" exists here too. Add back in if it is
-    # ever fixed in colorgram.js.
-    */
-//    packed |= (Rint & top_two_bits) >> 2;
-//    packed |= (Gint & top_two_bits) >> 4;
-//    packed |= (Bint & top_two_bits) >> 6;
+    uint packed = ((~~(Yint) & top_two_bits) >> 2) + ((Hint & top_two_bits) >> 4) + ((Lint & top_two_bits) >> 6);
     
     packed *= 4;
     samples[packed]     += colorInt.r;

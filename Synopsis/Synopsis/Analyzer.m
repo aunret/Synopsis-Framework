@@ -499,9 +499,14 @@
                                     
                                     [self.standardAnalyzer analyzeFrameCache:frameCache commandBuffer:commandBuffer completionHandler:^(NSDictionary *metadata, NSError *error) {
                                         
-                                        NSDictionary* standardMetadata = @{ kSynopsisStandardMetadataDictKey : metadata };
-                                        //                                            NSLog(@"........... encoding metadata");
-                                        AVTimedMetadataGroup* metadataGroup = [self.metadataEncoder encodeSynopsisMetadataToTimesMetadataGroup:standardMetadata timeRange:sampleTimeRange];
+                                        leaving this comment uncommented to trigger an error should this  compile
+                                        this class isnt really used any more
+                                        and needs to be replaced ideally by SynopsisJobObject but that means we need to support HAP or other media within the framework?
+                                        No idea.
+                                        
+//                                        NSDictionary* standardMetadata = @{ kSynopsisStandardMetadataDictKey : metadata };
+//                                                                                    NSLog(@"........... encoding metadata");
+                                        AVTimedMetadataGroup* metadataGroup = [self.metadataEncoder encodeSynopsisMetadataToTimesMetadataGroup:metadata timeRange:sampleTimeRange];
                                         
                                         if(completionBlock)
                                         {

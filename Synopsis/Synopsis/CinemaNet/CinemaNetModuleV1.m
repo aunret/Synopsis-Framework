@@ -9,6 +9,7 @@
 #import <Vision/Vision.h>
 #import "CinemaNetModuleV1.h"
 #import "CinemaNet.h"
+#import "Synopsis-Private.h"
 #import "SynopsisVideoFrameMPImage.h"
 #import "SynopsisVideoFrameCVPixelBuffer.h"
 
@@ -314,7 +315,7 @@
             
 #pragma mark - Compute Features
 
-            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+            SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:embeddingSpaceArray forMetadataKey:kSynopsisMetadataIdentifierVisualEmbedding];
 
             if(self.averageFeatureVec == nil)
             {
@@ -326,7 +327,7 @@
                 self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageFeatureVec withFeature:denseFeature];
             }
 
-            SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities forMetadataKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+            SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities forMetadataKey:kSynopsisMetadataIdentifierVisualProbabilities];
 
             if(self.averageProbabilities == nil)
             {
@@ -346,8 +347,8 @@
                 float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameFeatureVec, denseFeature);
                 
                 featureSimilarity = 1.0 - featureSimilarity;
-                
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
+
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding];
                 
                 if ( self.similarityFeatureVec )
                 {
@@ -362,10 +363,10 @@
             if ( denseProbabilities && self.lastFrameProbabilities )
             {
                 float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameProbabilities, denseProbabilities);
-                               
+                
                 featureSimilarity = 1.0 - featureSimilarity;
-
-                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
+            
+                SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities];
                 
                 if ( self.similarityProbabilities )
                 {
@@ -377,8 +378,8 @@
                 }
             }
            
-            metadata[kSynopsisStandardMetadataFeatureVectorDictKey] = embeddingSpaceArray;
-            metadata[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilities;
+            metadata[kSynopsisMetadataIdentifierVisualEmbedding] = embeddingSpaceArray;
+            metadata[kSynopsisMetadataIdentifierVisualProbabilities] = probabilities;
 
             // Cache our last frames for the next frame
             self.lastFrameFeatureVec = denseFeature;
@@ -437,16 +438,34 @@
     NSArray<NSNumber*>* similarFeatures = [self.similarityFeatureVec arrayValue];
     NSArray<NSNumber*>* similarProbabilities =  [self.similarityProbabilities arrayValue];
 
+    NSMutableDictionary* finalizedMetadata = [NSMutableDictionary new];
     
-    return @{
-             kSynopsisStandardMetadataProbabilitiesDictKey : (averageProbabilities) ? averageProbabilities : @[ ],
-             kSynopsisStandardMetadataFeatureVectorDictKey : (averageFeatures) ? averageFeatures : @[ ],
+    if (averageFeatures)
+    {
+        finalizedMetadata[kSynopsisMetadataIdentifierVisualEmbedding] = averageFeatures;
+    }
 
-             kSynopsisStandardMetadataDescriptionDictKey: ([predictedLabels count]) ? predictedLabels : @[ ],
-             
-             kSynopsisStandardMetadataSimilarityFeatureVectorDictKey : (similarFeatures) ? similarFeatures : @ [ ],
-             kSynopsisStandardMetadataSimilarityProbabilitiesDictKey : (similarProbabilities) ? similarProbabilities : @[ ],
-             };
+    if (averageProbabilities)
+    {
+        finalizedMetadata[kSynopsisMetadataIdentifierVisualProbabilities] = averageProbabilities;
+    }
+
+    if (predictedLabels)
+    {
+        finalizedMetadata[kSynopsisMetadataIdentifierGlobalVisualDescription] = predictedLabels;
+    }
+
+    if (similarFeatures)
+    {
+        finalizedMetadata[kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding] = similarFeatures;
+    }
+
+    if (similarProbabilities)
+    {
+        finalizedMetadata[kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities] = similarProbabilities;
+    }
+
+    return finalizedMetadata;
 }
 
 - (nullable NSArray<NSString*>*) topLabelsForRange:(NSRange)range inArray:(NSArray*)probabilities greaterThanConfidence:(float)confidenceThresh

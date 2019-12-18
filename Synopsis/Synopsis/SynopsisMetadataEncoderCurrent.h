@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SynopsisMetadataEncoder.h"
+#import "SynopsisMetadata-Private.h"
 
 @interface SynopsisMetadataEncoderCurrent : NSObject<SynopsisVersionedMetadataEncoder>
 

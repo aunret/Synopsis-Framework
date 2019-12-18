@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SynopsisMetadataDecoder.h"
+#import "SynopsisMetadata-Private.h"
 
 @interface SynopsisMetadataDecoderCurrent : NSObject<SynopsisMetadataDecoder>
 @property (readwrite, assign) BOOL vendOptimizedMetadata;

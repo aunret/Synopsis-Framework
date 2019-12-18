@@ -7,12 +7,9 @@
 //
 
 #import <Synopsis/Synopsis.h>
-
+#import "SynopsisMetadata-Private.h"
 #import "SynopsisMetadataDecoder.h"
 #import "SynopsisMetadataDecoderCurrent.h"
-#import "SynopsisMetadataDecoderVersion0.h"
-#import "SynopsisMetadataDecoderVersion2.h"
-#import "SynopsisMetadataDecoderVersion3.h"
 
 
 @interface SynopsisMetadataDecoder ()
@@ -26,7 +23,7 @@
 {
     NSMutableDictionary* extraAttributes = [NSMutableDictionary dictionaryWithDictionary:metadataItem.extraAttributes];
     
-    NSUInteger version = kSynopsisMetadataVersionValue;
+    NSUInteger version = kSynopsisMetadataVersionCurrent;
 
     if(extraAttributes[AVMetadataExtraAttributeInfoKey])
     {
@@ -41,23 +38,14 @@
 
 + (Class) decoderForVersion:(NSUInteger)version
 {
-        if( kSynopsisMetadataVersionValue == version)
-            return [SynopsisMetadataDecoderCurrent class];
-
-        else if( kSynopsisMetadataVersionAlpha3 == version)
-            return [SynopsisMetadataDecoderVersion3 class];
-
-        else if( kSynopsisMetadataVersionAlpha2 == version)
-            return [SynopsisMetadataDecoderVersion2 class];
-
-        else if( kSynopsisMetadataVersionAlpha1 == version)
-            return [SynopsisMetadataDecoderVersion0 class];
+    // Our versioning logic goes here.
     
-        else if( kSynopsisMetadataVersionPreAlpha == version)
-            return [SynopsisMetadataDecoderVersion0 class];
-
-        else
-            return [SynopsisMetadataDecoderCurrent class];
+    if ( version < kSynopsisMetadataVersionCurrent )
+        // We dont support anything below
+        return nil;
+    
+    
+    return [SynopsisMetadataDecoderCurrent class];
 }
 
 - (instancetype) initWithVersion:(NSUInteger)version
@@ -87,34 +75,12 @@
 {
     id metadata = [self.decoder decodeSynopsisMetadata:metadataItem];
     
+    
     if(metadata == nil)
     {
-        // try an different decoder
-        NSArray<Class>* availableDecoderClasses = @[
-                                                    [SynopsisMetadataDecoderCurrent class],
-                                                    [SynopsisMetadataDecoderVersion3 class],
-                                                    [SynopsisMetadataDecoderVersion2 class],
-                                                    [SynopsisMetadataDecoderVersion0 class],
-                                                    ];
-        
-        for(Class decoderClass in availableDecoderClasses)
-        {
-            self.decoder = [[decoderClass alloc] init];
-            self.decoder.vendOptimizedMetadata = self.vendOptimizedMetadata;
-            
-            metadata = [self.decoder decodeSynopsisMetadata:metadataItem];
-            
-            if(metadata)
-                break;
-        }
-    
-        if(metadata == nil)
-        {
-            NSLog(@"Cant find a viable decoder for this metadata");
-            return nil;
-        }
+        NSLog(@"Cant find a viable decoder for this metadata");
+        return nil;
     }
-    
     
     return metadata;
     

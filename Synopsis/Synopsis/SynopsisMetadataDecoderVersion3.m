@@ -8,6 +8,7 @@
 
 #import "SynopsisMetadataDecoderVersion3.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Legacy.h"
 #import "zstd.h"
 #import "Color+linearRGBColor.h"
 
@@ -50,7 +51,7 @@
 {
     NSString* key = metadataItem.identifier;
     
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
+    if([key isEqualToString:kSynopsisMetadataIdentifierLegacy])
     {
         return [self decodeSynopsisData: (NSData*)metadataItem.value];
     }
@@ -127,6 +128,12 @@
     SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
     
     optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
+    
+    NSArray* probabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+      
+      SynopsisDenseFeature* probabilityValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilityArray forMetadataKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+      
+      optimizedStandardDictionary[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilityValue;
     
 //    NSArray* interestingTimes = optimizedStandardDictionary[kSynopsisStandardMetadataInterestingFeaturesAndTimesDictKey];
 //

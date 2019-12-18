@@ -36,7 +36,13 @@ static inline float cosineSimilarity(const cv::Mat a, const cv::Mat b)
     float ab = a.dot(b);
     float da = cv::norm(a);
     float db = cv::norm(b);
-    return (ab / (da * db));
+    
+    float sim = (ab / (da * db));
+    
+    if (isnan(sim))
+        return 1.0;
+    
+    return sim;
 }
 
 static inline float inverseL1Distance(const cv::Mat a, const cv::Mat b)

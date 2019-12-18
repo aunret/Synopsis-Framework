@@ -9,16 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-@protocol SynopsisMetadataDecoder <NSObject>
-- (id) decodeSynopsisMetadata:(AVMetadataItem*)metadataItem;
-- (id) decodeSynopsisData:(NSData*) data;
-@property (readwrite, assign) BOOL vendOptimizedMetadata;
-@end
 
-@interface SynopsisMetadataDecoder : NSObject<SynopsisMetadataDecoder>
+@interface SynopsisMetadataDecoder : NSObject
 
 - (instancetype) initWithMetadataItem:(AVMetadataItem*)metadataItem;
 - (instancetype) initWithVersion:(NSUInteger)version;
+- (id) decodeSynopsisMetadata:(AVMetadataItem*)metadataItem;
 
 @property (readonly) NSUInteger version;
 @property (readwrite, assign) BOOL vendOptimizedMetadata;

@@ -8,6 +8,7 @@
 
 #import "SynopsisMetadataDecoderCurrent.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Private.h"
 #import "zstd.h"
 #import "Color+linearRGBColor.h"
 
@@ -81,6 +82,8 @@
     // if our expected size and actual size dont match, we had a decompression issue.
     if(decompressedSize != expectedDecompressedSize)
     {
+        free(decompressionBuffer);
+        
         return nil;
     }
     
@@ -111,38 +114,49 @@
     return nil;
 }
 
-- (NSDictionary*) metadataWithOptimizedObjects:(NSDictionary*)global
+- (NSDictionary*) metadataWithOptimizedObjects:(NSDictionary*)dict
 {
-    // manually switch out our target types
-    NSMutableDictionary* optimizedStandardDictionary = [NSMutableDictionary dictionaryWithDictionary:global[kSynopsisStandardMetadataDictKey]];
+    NSMutableDictionary* topLevel = [NSMutableDictionary dictionaryWithDictionary:dict];
+    
+    // We need to know if we have a per frame or a global metadata we are decoding
+    NSString* secondLevelKey = kSynopsisMetadataTypeGlobal;
+    NSDictionary* secondLevel = topLevel[secondLevelKey];
+    
+    if (secondLevel == nil)
+    {
+        secondLevelKey = kSynopsisMetadataTypeSample;
+        secondLevel = topLevel[secondLevelKey];
+    }
+
+    NSMutableDictionary* optimizedStandardDictionary = [NSMutableDictionary dictionaryWithDictionary:secondLevel];
     
     // Convert all arrays of NSNumbers into linear RGB NSColors once, and only once
-    NSArray* colors = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataDominantColorValuesDictKey];
+    NSArray* colors = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierVisualDominantColors];
     if(colors)
     {
         NSArray* domColors = [ColorHelper newLinearColorsWithArraysOfRGBComponents:colors];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataDominantColorValuesDictKey] = domColors;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierVisualDominantColors] = domColors;
     }
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* featureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataFeatureVectorDictKey];
-    if(featureArray)
+    NSArray* ebmeddingArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierVisualEmbedding];
+    if(ebmeddingArray)
     {
-        SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:featureArray forMetadataKey:kSynopsisStandardMetadataFeatureVectorDictKey];
+        SynopsisDenseFeature* featureValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:ebmeddingArray forMetadataKey:kSynopsisMetadataIdentifierVisualEmbedding];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataFeatureVectorDictKey] = featureValue;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierVisualEmbedding] = featureValue;
     }
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* probabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+    NSArray* probabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierVisualProbabilities];
     if(probabilityArray)
     {
-        SynopsisDenseFeature* probabilityValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilityArray forMetadataKey:kSynopsisStandardMetadataProbabilitiesDictKey];
+        SynopsisDenseFeature* probabilityValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilityArray forMetadataKey:kSynopsisMetadataIdentifierVisualProbabilities];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataProbabilitiesDictKey] = probabilityValue;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierVisualProbabilities] = probabilityValue;
     }
     
     // Convert histogram bins to cv::Mat
-    NSArray* histogramArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataHistogramDictKey];
+    NSArray* histogramArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierVisualHistogram];
     
     if(histogramArray != nil && histogramArray.count == 256)
     {
@@ -164,47 +178,53 @@
         
         NSArray* histogramFeatures = [[[NSArray arrayWithArray:histogramR] arrayByAddingObjectsFromArray:histogramG] arrayByAddingObjectsFromArray:histogramB];
         
-        SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures forMetadataKey:kSynopsisStandardMetadataHistogramDictKey];
+        SynopsisDenseFeature* histValue = [[SynopsisDenseFeature alloc] initWithFeatureArray:histogramFeatures forMetadataKey:kSynopsisMetadataIdentifierVisualHistogram];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataHistogramDictKey] = histValue;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierVisualHistogram] = histValue;
     }
     else	{
     	NSLog(@"ERR: histogramArray only had %ld elements in %s",(unsigned long)histogramArray.count,__func__);
 	}
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* similarFeatureArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
-    if(probabilityArray)
+    NSArray* tsVEArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding];
+    if(tsVEArray)
     {
-        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:similarFeatureArray forMetadataKey:kSynopsisStandardMetadataSimilarityFeatureVectorDictKey];
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:tsVEArray forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataSimilarityFeatureVectorDictKey] = denseFeature;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierTimeSeriesVisualEmbedding] = denseFeature;
     }
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* similarProbabilityArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
-    if(probabilityArray)
+    NSArray* tsVPArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities];
+    if(tsVPArray)
     {
-        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:similarProbabilityArray forMetadataKey:kSynopsisStandardMetadataSimilarityProbabilitiesDictKey];
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:tsVPArray forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataSimilarityProbabilitiesDictKey] = denseFeature;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierTimeSeriesVisualProbabilities] = denseFeature;
     }
     
     // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
-    NSArray* similarDominantColorsArray = [optimizedStandardDictionary valueForKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
-    if(probabilityArray)
+    NSArray* tsVHArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierTimeSeriesVisualHistogram];
+    if(tsVHArray)
     {
-        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:similarDominantColorsArray forMetadataKey:kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey];
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:tsVHArray forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualHistogram];
         
-        optimizedStandardDictionary[kSynopsisStandardMetadataSimilarityDominantColorValuesDictKey] = denseFeature;
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierTimeSeriesVisualHistogram] = denseFeature;
+    }
+    
+    // Convert all feature vectors to cv::Mat, and set cv::Mat value appropriately
+    NSArray* tsVDCArray = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierTimeSeriesVisualDominantColors];
+    if(tsVDCArray)
+    {
+        SynopsisDenseFeature* denseFeature = [[SynopsisDenseFeature alloc] initWithFeatureArray:tsVDCArray forMetadataKey:kSynopsisMetadataIdentifierTimeSeriesVisualDominantColors];
+        
+        optimizedStandardDictionary[kSynopsisMetadataIdentifierTimeSeriesVisualDominantColors] = denseFeature;
     }
 
-    
-    // replace our standard dictionary with optimized outputs
-    NSMutableDictionary* optimizedGlobalDict = [NSMutableDictionary dictionaryWithDictionary:global];
-    optimizedGlobalDict[kSynopsisStandardMetadataDictKey] = optimizedStandardDictionary;
-        
-    return optimizedGlobalDict;
+    topLevel[secondLevelKey] = optimizedStandardDictionary;
+
+    return topLevel;
 }
 
 @end

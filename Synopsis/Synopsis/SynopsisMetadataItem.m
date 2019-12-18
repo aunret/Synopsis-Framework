@@ -11,8 +11,7 @@
 #import "SynopsisMetadataItem.h"
 
 #import "Color+linearRGBColor.h"
-
-
+#import "Synopsis-Legacy.h"
 
 
 @interface SynopsisMetadataItem ()
@@ -24,6 +23,7 @@
 @property (readwrite, strong) NSDictionary* globalSynopsisMetadata;
 @property (readwrite, strong) SynopsisMetadataDecoder* decoder;
 @property (readwrite, assign) BOOL loaded;
+@property (readwrite, assign) NSUInteger metadataVersion;
 @end
 
 
@@ -48,14 +48,16 @@
     
     return self;
 }
-//	removed b/c it doesn't init the 'url' property (can't be guaranteed init'ed unless using AVURLAsset) and it doesn't appear to be used at all by anything in this codebase
-/*
+
+// Used by iOS for PHAssets from Camera roll
 - (instancetype) initWithAsset:(AVAsset *)asset
 {
     self = [super init];
     if(self)
     {
         self.asset = asset;
+        self.url = nil;
+        self.loaded = NO;
         if(! [self commonLoad] )
         {
             NSLog(@"SynopsisMetadataItem : Unable to load metadata - bailing on init");
@@ -65,7 +67,7 @@
     
     return self;
 }
-*/
+
 - (instancetype) initWithURL:(NSURL *)url loadMetadataAsyncOnQueue:(dispatch_queue_t)q completionHandler:(SynopsisMetadataItemCompletionHandler)ch	{
 	self = [super init];
 	if (self != nil)	{
@@ -134,11 +136,29 @@
     {
         self.decoder = [[SynopsisMetadataDecoder alloc] initWithMetadataItem:synopsisMetadataItem];
         
-        self.globalSynopsisMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
+        NSDictionary* decodedGlobalMetadata = [self.decoder decodeSynopsisMetadata:synopsisMetadataItem];
         
-        self.loaded = YES;
-        
-        return YES;
+        if ( decodedGlobalMetadata )
+        {
+            self.globalSynopsisMetadata = decodedGlobalMetadata;
+            
+            NSNumber* versionNumber = self.globalSynopsisMetadata[kSynopsisMetadataVersionKey];
+            
+            if ( versionNumber )
+            {
+                NSUInteger version = [versionNumber unsignedIntegerValue];
+                self.metadataVersion = version;
+                self.loaded = YES;
+                return YES;
+            }
+            else
+            {
+                // TODO: Think of consequences
+                self.metadataVersion = kSynopsisMetadataVersionUnknown;
+                self.loaded = YES;
+                return NO;
+            }
+        }
     }
     
     self.loaded = YES;
@@ -154,31 +174,24 @@
     }
     else
     {
-        //return [[SynopsisMetadataItem alloc] initWithAsset:[self.asset copy]];
-        return [[SynopsisMetadataItem alloc] initWithURL:self.url];
+        return [[SynopsisMetadataItem alloc] initWithAsset:[self.asset copy]];
     }
 }
 
 - (id) valueForKey:(NSString *)key
 {
-    NSDictionary* standardDictionary = [self.globalSynopsisMetadata objectForKey:kSynopsisStandardMetadataDictKey];
-
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
-        return self.globalSynopsisMetadata;
+    // This seems more stupid than it should be, due to legacy synopsis metadata support (which strictly isnt 100% necessary)
+    if ([self currentSynopsisValueForKey:key])
+    {
+        return [self currentSynopsisValueForKey:key];
+    }
     
-    else if([key isEqualToString:kSynopsisStandardMetadataDictKey])
-    {
-       return standardDictionary;
-    }
+    return [super valueForKey:key];
+}
 
-    else if(standardDictionary[key])
-    {
-        return standardDictionary[key];
-    }
-    else
-    {
-        return [super valueForKey:key];
-    }
+- (id) currentSynopsisValueForKey:(NSString *)key
+{
+    return [self.globalSynopsisMetadata objectForKey:key];
 }
 
 - (id) valueForUndefinedKey:(NSString *)key

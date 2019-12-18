@@ -21,6 +21,8 @@
 extern "C" {
 #endif
 
+
+
 // Compare Similarity of two feature vectors.
 // Must have the same metadataKey and length
 float compareFeaturesCosineSimilarity(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2);

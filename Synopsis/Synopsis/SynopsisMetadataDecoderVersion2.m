@@ -8,6 +8,7 @@
 
 #import "SynopsisMetadataDecoderVersion2.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Legacy.h"
 #import "zstd.h"
 #import "Color+linearRGBColor.h"
 
@@ -67,7 +68,7 @@ static ZSTD_DDict* decompressionDict = nil;
 {
     NSString* key = metadataItem.identifier;
     
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
+    if([key isEqualToString:kSynopsisMetadataIdentifierLegacy])
     {
         return [self decodeSynopsisData: (NSData*)metadataItem.value];
     }

@@ -9,6 +9,7 @@
 #import "SynopsisMetadataEncoderVersion2.h"
 #import "SynopsisMetadataDecoder.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Legacy.h"
 
 #import "zstd.h"
 
@@ -74,7 +75,7 @@
 - (AVMetadataItem*) encodeSynopsisMetadataToMetadataItem:(NSData*)metadata timeRange:(CMTimeRange)timeRange
 {
     AVMutableMetadataItem *item = [AVMutableMetadataItem metadataItem];
-    item.identifier = kSynopsisMetadataIdentifier;
+    item.identifier = kSynopsisMetadataIdentifierLegacy;
     item.dataType = (__bridge NSString *)kCMMetadataBaseDataType_RawData;
     item.value = metadata;
     item.time = timeRange.start;

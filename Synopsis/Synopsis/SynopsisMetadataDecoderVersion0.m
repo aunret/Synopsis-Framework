@@ -8,6 +8,9 @@
 
 #import "SynopsisMetadataDecoderVersion0.h"
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Private.h"
+#import "Synopsis-Legacy.h"
+
 #import "GZIP.h"
 
 @implementation SynopsisMetadataDecoderVersion0
@@ -16,7 +19,7 @@
 {
     NSString* key = metadataItem.identifier;
     
-    if([key isEqualToString:kSynopsisMetadataIdentifier])
+    if([key isEqualToString:kSynopsisMetadataIdentifierLegacy])
     {
         return [self decodeSynopsisData: (NSData*)metadataItem.value];
     }
