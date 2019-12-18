@@ -67,6 +67,9 @@ float3 rgbtoHSL( float3 col )
     return float3( hue, sat, lum);
 }
 
+// Todo: See if float v half makes a difference internally to the color calulcations.
+// Todo: See if we can add the sample group (or whatever the grid shit is) in metal 2 to get 4x faster sampling from textures
+
 kernel void dominantColorPass1(texture2d<float, access::read>  inTexture  [[texture(0)]],
                                device uint *samples [[buffer(1)]],
                                uint2 gid [[thread_position_in_grid]])
