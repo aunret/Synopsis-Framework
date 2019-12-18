@@ -171,14 +171,6 @@
     }
 }
 
-- (id) globalMetadataForIdentifier:(SynopsisMetadataIdentifier)identifier;
-{
-    NSString* idKey = SynopsisKeyForMetadataIdentifierVersion(identifier, self.metadataVersion);
-    
-    return [self.globalSynopsisMetadata objectForKey:idKey];
-    
-}
-
 - (id) valueForKey:(NSString *)key
 {
     // This seems more stupid than it should be, due to legacy synopsis metadata support (which strictly isnt 100% necessary)

@@ -114,10 +114,21 @@
     return nil;
 }
 
-- (NSDictionary*) metadataWithOptimizedObjects:(NSDictionary*)global
+- (NSDictionary*) metadataWithOptimizedObjects:(NSDictionary*)dict
 {
-    // manually switch out our target types
-    NSMutableDictionary* optimizedStandardDictionary = [NSMutableDictionary dictionaryWithDictionary:global];
+    NSMutableDictionary* topLevel = [NSMutableDictionary dictionaryWithDictionary:dict];
+    
+    // We need to know if we have a per frame or a global metadata we are decoding
+    NSString* secondLevelKey = kSynopsisMetadataTypeGlobal;
+    NSDictionary* secondLevel = topLevel[secondLevelKey];
+    
+    if (secondLevel == nil)
+    {
+        secondLevelKey = kSynopsisMetadataTypeSample;
+        secondLevel = topLevel[secondLevelKey];
+    }
+
+    NSMutableDictionary* optimizedStandardDictionary = [NSMutableDictionary dictionaryWithDictionary:secondLevel];
     
     // Convert all arrays of NSNumbers into linear RGB NSColors once, and only once
     NSArray* colors = [optimizedStandardDictionary valueForKey:kSynopsisMetadataIdentifierVisualDominantColors];
@@ -211,7 +222,9 @@
         optimizedStandardDictionary[kSynopsisMetadataIdentifierTimeSeriesVisualDominantColors] = denseFeature;
     }
 
-    return optimizedStandardDictionary;
+    topLevel[secondLevelKey] = optimizedStandardDictionary;
+
+    return topLevel;
 }
 
 @end
