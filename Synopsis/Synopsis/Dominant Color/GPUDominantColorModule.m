@@ -146,9 +146,9 @@ static int inFlightBufferIndex = 0;
 
             pixels += count;
 
-            float r = (floor(sampleData[index] / count)) / 255.0;
-            float g = (floor(sampleData[index + 1] / count)) / 255.0;
-            float b = (floor(sampleData[index + 2] / count)) / 255.0;
+            float r = (floorf( (float) sampleData[index] /  (float) count)) / 255.0;
+            float g = (floorf( (float) sampleData[index + 1] /  (float) count)) / 255.0;
+            float b = (floorf( (float) sampleData[index + 2] /  (float) count)) / 255.0;
 
             [colors addObject: @( r )];
             [colors addObject: @( g )];
@@ -165,7 +165,7 @@ static int inFlightBufferIndex = 0;
             NSUInteger delta = 30 - colors.count;
             for (NSUInteger i = 0; i < delta; i++)
             {
-                [colors insertObject:@( 0 ) atIndex:0];
+                [colors insertObject:@( 0.0 ) atIndex:0];
             }
         }
         
@@ -183,7 +183,7 @@ static int inFlightBufferIndex = 0;
 #pragma mark - Compute Similarities
         if ( denseDominantColors && self.lastFrameDominantColors )
         {
-            float featureSimilarity = compareFeaturesCosineSimilarity(self.lastFrameDominantColors, denseDominantColors);
+            float featureSimilarity = 1.0 - compareFeaturesCosineSimilarity(self.lastFrameDominantColors, denseDominantColors);
             
             SynopsisDenseFeature* denseSimilarity = [[SynopsisDenseFeature alloc] initWithFeatureArray:@[@(featureSimilarity)] forMetadataKey:kSynopsisMetadataIdentifierVisualDominantColors];
             
