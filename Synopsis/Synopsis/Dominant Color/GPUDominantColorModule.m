@@ -17,6 +17,10 @@
 static NSUInteger inFlightBuffers = 3;
 
 @interface GPUDominantColorModule ()
+{
+    int inFlightBufferIndex;
+
+}
 
 @property (readwrite, strong) NSMutableArray<id<MTLBuffer>> *inFlightSamples;
 @property (readwrite, strong) id<MTLComputePipelineState> pass1PipelineState;
@@ -37,6 +41,8 @@ static NSUInteger inFlightBuffers = 3;
     if(self)
     {
         NSError* error;
+        
+        self->inFlightBufferIndex = 0;
         
         id<MTLLibrary> defaultLibrary = [device newDefaultLibraryWithBundle:[NSBundle bundleForClass:[self class]]
                                       error:&error];
@@ -86,7 +92,6 @@ static NSUInteger inFlightBuffers = 3;
     self.lastFrameDominantColors  = nil;
 }
 
-static int inFlightBufferIndex = 0;
 
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock
 {
@@ -101,6 +106,9 @@ static int inFlightBufferIndex = 0;
 
     id<MTLBuffer> currentInFlightColorSampleBuffer = self.inFlightSamples[inFlightBufferIndex];
     
+    self->inFlightBufferIndex++;
+    self->inFlightBufferIndex = self->inFlightBufferIndex % inFlightBuffers;
+
     [pass1Encoder setBuffer:currentInFlightColorSampleBuffer offset:0 atIndex:1];
     
     // TODO: deduce better thread group & count numbers.
@@ -202,8 +210,6 @@ static int inFlightBufferIndex = 0;
         // Clear our buffer - Is this stupid?
         memset(sampleData, 0, 16384);
         
-        inFlightBufferIndex++;
-        inFlightBufferIndex = inFlightBufferIndex % inFlightBuffers;
         if (completionBlock)
         {
             completionBlock(@{ kSynopsisMetadataIdentifierVisualDominantColors : colors }, nil);
