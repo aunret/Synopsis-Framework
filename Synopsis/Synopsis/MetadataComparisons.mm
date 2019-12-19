@@ -70,6 +70,27 @@ static inline float inverseHamming(const cv::Mat a, const cv::Mat b)
     return  1.0 - d;
 }
 
+float compareFeaturesWithMetric(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2, SynopsisMetadataSimilarityMetric metric)
+{
+    switch (metric)
+    {
+        case SynopsisMetadataSimilarityMetricCosine:
+            return compareFeaturesCosineSimilarity(featureVec1, featureVec2);
+
+        case SynopsisMetadataSimilarityMetricInverseL1:
+            return compareFeatureVectorInverseL1(featureVec1, featureVec2);
+
+        case SynopsisMetadataSimilarityMetricInverseL2:
+            return compareFeatureVectorInverseL2(featureVec1, featureVec2);
+
+        case SynopsisMetadataSimilarityMetricInverseL2Squared:
+            return compareFeatureVectorInverseL2Squared(featureVec1, featureVec2);
+
+        case SynopsisMetadataSimilarityMetricBhattacharyya:
+            return compareHistogtams(featureVec1, featureVec2);
+    }
+}
+
 static inline  BOOL earlyBailOnFeatureCompare(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {
     // If our features are nil, then early bail with 0 similarity
@@ -86,6 +107,8 @@ static inline  BOOL earlyBailOnFeatureCompare(SynopsisDenseFeature* featureVec1,
     
     return FALSE;
 }
+
+
 
 float compareFeaturesCosineSimilarity(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2)
 {

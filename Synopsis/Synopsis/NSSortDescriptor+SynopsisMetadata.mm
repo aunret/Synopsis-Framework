@@ -34,7 +34,30 @@
 @implementation NSSortDescriptor (SynopsisMetadata)
 
 // TODO: Build a version which allows for passing in a custom metric
-//+ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier
++ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeToItem:(SynopsisMetadataItem*)item withCustomSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric
+{
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
+
+    SynopsisDenseFeature* relative = [item valueForKey:key];
+
+    NSComparator cosineComparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
+        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
+        
+        float distance1 = compareFeaturesWithMetric(vec1, relative, metric);
+        float distance2 = compareFeaturesWithMetric(vec2, relative, metric);
+        
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    };
+    
+    return cosineComparator;
+}
 
 
 + (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeToItem:(SynopsisMetadataItem*)item

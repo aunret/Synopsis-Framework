@@ -15,59 +15,11 @@
 
 
 @interface NSSortDescriptor (SynopsisMetadata)
+
+// Sort Metadata Items based on their similarity using the 'standard' metric for a particular metadata identifier.
 + (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item;
 
-// Pass in a key from Synopsis.h
-//// Acceptable values are:
-///*
-//
-// kSynopsisStandardMetadataDictKey
-// 
-// kSynopsisStandardMetadataFeatureVectorDictKey
-// kSynopsisStandardMetadataProbabilitiesDictKey
-// 
-// // Eventually:
-//*/
-//+ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key relativeTo:(SynopsisMetadataItem*)item;
-//
-//
-//// Uses weights best match of all the independed sorting / weighting algorithms
-//+ (NSSortDescriptor*)synopsisBestMatchSortDescriptorRelativeTo:(NSDictionary*)standardMetadata;
-//
-//// See which two objects are closest to the relativeHash
-//+ (NSSortDescriptor*)synopsisFeatureSortDescriptorRelativeTo:(NSArray*)featureVector;
-//
-//+ (NSSortDescriptor*)synopsisDynamicTimeWarpFeatureSortDescriptorRelativeTo:(SynopsisDenseFeature*)featureVector;
-//
-//// See which two objects are closest to the relativeHash
-////+ (NSSortDescriptor*)synopsisHashSortDescriptorRelativeTo:(NSString*)relativeHash DEPRECATED_ATTRIBUTE;
-//
-//// See which two objects have similar motion directions or magnitudes
-////+ (NSSortDescriptor*)synopsisMotionVectorSortDescriptorRelativeTo:(SynopsisDenseFeature*)motionVector;
-////+ (NSSortDescriptor*)synopsisMotionSortDescriptorRelativeTo:(NSNumber*)motion;
-//
-//// Use OpenCV Histogram Comparison
-//+ (NSSortDescriptor*)synopsisHistogramSortDescriptorRelativeTo:(NSArray*)histogram;
-//
-//// Dominant Color RGB similarity
-//+ (NSSortDescriptor*)synopsisDominantRGBDescriptorRelativeTo:(NSArray*)colors;
-//
-//// Dominant Color HSB similarity
-//+ (NSSortDescriptor*)synopsisDominantHSBDescriptorRelativeTo:(NSArray*)colors;
-//
-//
-//// Todo: Use CIE Delta E 2000 / 1994 and 1976
-//+ (NSSortDescriptor*)synopsisColorCIESortDescriptorRelativeTo:(CGColorRef)color;
-//
-//// Sort Color by Hue
-//+ (NSSortDescriptor*)synopsisColorHueSortDescriptor;
-//
-//// Sort Color by Saturation
-//+ (NSSortDescriptor*)synopsisColorSaturationSortDescriptor;
-//
-//// Sort Color by Brightness
-//+ (NSSortDescriptor*)synopsisColorBrightnessSortDescriptor;
-
-
+// Sort Metadata Items based on their similarity using any framework provided metric for a particular metadata identifier.
++ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeToItem:(SynopsisMetadataItem*)item withCustomSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric;
 
 @end

@@ -15,11 +15,28 @@
 @class SynopsisDenseFeature;
 
 
+typedef NS_ENUM(NSUInteger, SynopsisMetadataSimilarityMetric) {
+
+    SynopsisMetadataSimilarityMetricCosine = 0,
+    SynopsisMetadataSimilarityMetricInverseL1,
+    SynopsisMetadataSimilarityMetricInverseL2,
+    SynopsisMetadataSimilarityMetricInverseL2Squared,
+    // Hisrogram Similarity - see cv::HistCompMethods::HISTCMP_BHATTACHARYYA
+    SynopsisMetadataSimilarityMetricBhattacharyya,
+    
+    // Todo: DTW
+    // Todo: CIEDeltaE
+};
+
+
+
 #ifdef __cplusplus
 
 
 extern "C" {
 #endif
+
+float compareFeaturesWithMetric(SynopsisDenseFeature* featureVec1, SynopsisDenseFeature* featureVec2, SynopsisMetadataSimilarityMetric metric);
 
 
 
