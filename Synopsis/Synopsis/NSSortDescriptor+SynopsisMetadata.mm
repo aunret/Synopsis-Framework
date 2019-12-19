@@ -33,34 +33,87 @@
 
 @implementation NSSortDescriptor (SynopsisMetadata)
 
+// TODO: Build a version which allows for passing in a custom metric
+//+ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier
+
+
++ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeToItem:(SynopsisMetadataItem*)item
+{
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
+
+    SynopsisDenseFeature* relative = [item valueForKey:key];
+
+    switch(identifier)
+    {
+            // Default to use cosineSimilarity Metric
+        case SynopsisMetadataIdentifierVisualEmbedding:
+        case SynopsisMetadataIdentifierVisualProbabilities:
+        {
+            NSComparator cosineComparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                
+                SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
+                SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
+                
+                float distance1 = compareFeaturesCosineSimilarity(vec1, relative);
+                float distance2 = compareFeaturesCosineSimilarity(vec2, relative);
+                
+                if(distance1 > distance2)
+                    return  NSOrderedAscending;
+                if(distance1 < distance2)
+                    return NSOrderedDescending;
+                
+                return NSOrderedSame;
+            };
+            
+            return cosineComparator;
+        }
+
+            // We dont compare array's of strings with similarity metrics...
+        case SynopsisMetadataIdentifierGlobalVisualDescription:
+            return NULL;
+        
+        case SynopsisMetadataIdentifierVisualHistogram:
+        {
+            NSComparator histogramComparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                
+                SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
+                SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
+
+                float distance1 = compareHistogtams(vec1, relative);
+                float distance2 = compareHistogtams(vec2, relative);
+                
+                if(distance1 > distance2)
+                    return  NSOrderedAscending;
+                if(distance1 < distance2)
+                    return NSOrderedDescending;
+                
+                return NSOrderedSame;
+            };
+            
+            return histogramComparator;
+        }
+            
+        // TODO:
+        case SynopsisMetadataIdentifierVisualDominantColors:
+            return NULL;
+
+        // TODO:
+        case SynopsisMetadataIdentifierTimeSeriesVisualEmbedding:
+        case SynopsisMetadataIdentifierTimeSeriesVisualProbabilities:
+            return NULL;
+    }
+    
+    return NULL;
+}
+
+
 + (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item
 {
-    NSString* globalKey = SynopsisKeyForMetadataTypeVersion(SynopsisMetadataTypeGlobal, item.metadataVersion);
-    
     // This assumes versions are the same for sorting :(
     NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
-        SynopsisDenseFeature* relative = [[item valueForKey:globalKey] valueForKey:key];
 
-    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:globalKey ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-
-        NSDictionary* dict1 = (NSDictionary*)obj1;
-        NSDictionary* dict2 = (NSDictionary*)obj2;
-        
-        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*) [dict1 valueForKey:key];
-        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*) [dict2 valueForKey:key];
-
-        float distance1 = compareFeaturesCosineSimilarity(vec1, relative);
-        float distance2 = compareFeaturesCosineSimilarity(vec2, relative);
-
-        if(distance1 > distance2)
-            return  NSOrderedAscending;
-        if(distance1 < distance2)
-            return NSOrderedDescending;
-
-        return NSOrderedSame;
-
-    }];
-
+    NSComparator comparatorForIdentifier = [self comparatorForSynopsisMetadataIdentifier:identifier relativeToItem:item];
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparatorForIdentifier];
     return sortDescriptor;
 }
 
