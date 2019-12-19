@@ -8,6 +8,7 @@
 
 // import our time domain warping header first due to C++ BS
 
+#import "Synopsis-Private.h"
 #import "SynopsisMetadataItem.h"
 #import "SynopsisDenseFeature.h"
 #import "SynopsisDenseFeature+Private.h"
@@ -17,24 +18,11 @@
 #import "Color+linearRGBColor.h"
 #import <CoreGraphics/CoreGraphics.h>
 
-// A custom NSSortDescriptor private class optimized to handle Synopsis Metadata
-//@interface SynopsisSortDescriptor : NSSortDescriptor
-//@end
-//
-//
-//@implementation SynopsisSortDescriptor
-//
-//- (NSComparisonResult) compareObject:(id)object1 toObject:(id)object2
-//{
-//
-//}
-//@end
-
 
 @implementation NSSortDescriptor (SynopsisMetadata)
 
 // TODO: Build a version which allows for passing in a custom metric
-+ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeToItem:(SynopsisMetadataItem*)item withCustomSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric
++ (NSComparator) comparatorForSynopsisMetadataIdentifier:(SynopsisMetadataIdentifier)identifier relativeToItem:(SynopsisMetadataItem*)item withSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric
 {
     NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
 
@@ -76,9 +64,6 @@
             return cosineComparator;
         }
     }
-    
-
-   
 }
 
 
@@ -156,11 +141,60 @@
 {
     // This assumes versions are the same for sorting :(
     NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
-
     NSComparator comparatorForIdentifier = [self comparatorForSynopsisMetadataIdentifier:identifier relativeToItem:item];
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparatorForIdentifier];
     return sortDescriptor;
 }
+
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item withSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric
+{
+    // This assumes versions are the same for sorting :(
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
+    NSComparator comparatorForIdentifier = [self comparatorForSynopsisMetadataIdentifier:identifier relativeToItem:item withSimilarityMetric:metric];
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparatorForIdentifier];
+    return sortDescriptor;
+}
+
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataRelativeTo:(SynopsisMetadataItem*)item
+{
+    SynopsisDenseFeature* relativeEmbedding = [item valueForKey:kSynopsisMetadataIdentifierVisualEmbedding];
+    SynopsisDenseFeature* relativeProbabilities = [item valueForKey:kSynopsisMetadataIdentifierVisualProbabilities];
+    SynopsisDenseFeature* relativeHistogram = [item valueForKey:kSynopsisMetadataIdentifierVisualHistogram];
+    
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:kSynopsisMetadataTypeGlobal ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        NSDictionary* global1 = (NSDictionary*)obj1;
+        NSDictionary* global2 = (NSDictionary*)obj2;
+        
+        SynopsisDenseFeature* embeddingVec1 = [global1 valueForKey:kSynopsisMetadataIdentifierVisualEmbedding];
+        SynopsisDenseFeature* embeddingVec2 = [global2 valueForKey:kSynopsisMetadataIdentifierVisualEmbedding];
+        
+        float distance1 = compareFeaturesCosineSimilarity(embeddingVec1, relativeEmbedding);
+        float distance2 = compareFeaturesCosineSimilarity(embeddingVec2, relativeEmbedding);
+        
+        SynopsisDenseFeature* probabilityVec1 = [global1 valueForKey:kSynopsisMetadataIdentifierVisualProbabilities];
+        SynopsisDenseFeature* probabilityVec2 = [global2 valueForKey:kSynopsisMetadataIdentifierVisualProbabilities];
+        
+        distance1 += compareFeaturesCosineSimilarity(probabilityVec1, relativeProbabilities);
+        distance2 += compareFeaturesCosineSimilarity(probabilityVec2, relativeProbabilities);
+        
+        SynopsisDenseFeature* hist1 = [global1 valueForKey:kSynopsisMetadataIdentifierVisualHistogram];
+        SynopsisDenseFeature* hist2 = [global2 valueForKey:kSynopsisMetadataIdentifierVisualHistogram];
+        
+        distance1 += compareHistogtams(hist1, relativeHistogram);
+        distance2 += compareHistogtams(hist2, relativeHistogram);
+        
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    }];
+    
+    return sortDescriptor;
+}
+
 
 
 //+ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key relativeTo:(SynopsisMetadataItem*)item
