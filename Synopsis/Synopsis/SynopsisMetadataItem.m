@@ -7,9 +7,9 @@
 //
 
 #import <Synopsis/Synopsis.h>
+#import "Synopsis-Private.h"
 #import <AVFoundation/AVFoundation.h>
 #import "SynopsisMetadataItem.h"
-
 #import "Color+linearRGBColor.h"
 #import "Synopsis-Legacy.h"
 
@@ -191,7 +191,13 @@
 
 - (id) currentSynopsisValueForKey:(NSString *)key
 {
-    return [self.globalSynopsisMetadata objectForKey:key];
+    if ([self.globalSynopsisMetadata objectForKey:key])
+        return [self.globalSynopsisMetadata objectForKey:key];
+    
+    if ([self.globalSynopsisMetadata[kSynopsisMetadataTypeGlobal] objectForKey:key])
+        return [self.globalSynopsisMetadata[kSynopsisMetadataTypeGlobal]  objectForKey:key];
+    
+    return nil;
 }
 
 - (id) valueForUndefinedKey:(NSString *)key
