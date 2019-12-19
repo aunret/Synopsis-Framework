@@ -40,23 +40,45 @@
 
     SynopsisDenseFeature* relative = [item valueForKey:key];
 
-    NSComparator cosineComparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        
-        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
-        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
-        
-        float distance1 = compareFeaturesWithMetric(vec1, relative, metric);
-        float distance2 = compareFeaturesWithMetric(vec2, relative, metric);
-        
-        if(distance1 > distance2)
-            return  NSOrderedAscending;
-        if(distance1 < distance2)
-            return NSOrderedDescending;
-        
-        return NSOrderedSame;
-    };
+    // Not all optimized features are represented as dense features
+    // So this particular method either needs ignore (or.. reimplement? - bah) features that are not vended as SynopsisDenseFeatures
+    switch(identifier)
+    {
+            
+            // Array of NSStrings:
+        case SynopsisMetadataIdentifierGlobalVisualDescription:
+            // Array of CGColorRefs:
+        case SynopsisMetadataIdentifierVisualDominantColors:
+            return NULL;
+            // These features are vended as SynopsisDenseFeatures:
+        case SynopsisMetadataIdentifierVisualEmbedding:
+        case SynopsisMetadataIdentifierVisualProbabilities:
+        case SynopsisMetadataIdentifierVisualHistogram:
+        case SynopsisMetadataIdentifierTimeSeriesVisualEmbedding:
+        case SynopsisMetadataIdentifierTimeSeriesVisualProbabilities:
+        {
+            NSComparator cosineComparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                
+                SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
+                SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
+                
+                float distance1 = compareFeaturesWithMetric(vec1, relative, metric);
+                float distance2 = compareFeaturesWithMetric(vec2, relative, metric);
+                
+                if(distance1 > distance2)
+                    return  NSOrderedAscending;
+                if(distance1 < distance2)
+                    return NSOrderedDescending;
+                
+                return NSOrderedSame;
+            };
+            
+            return cosineComparator;
+        }
+    }
     
-    return cosineComparator;
+
+   
 }
 
 
