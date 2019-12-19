@@ -75,7 +75,7 @@
 		self.asset = [AVURLAsset URLAssetWithURL:url options:@{AVURLAssetPreferPreciseDurationAndTimingKey : @YES}];
 		self.loaded = NO;
 		if (![self canBeLoaded])	{
-			NSLog(@"ERR: cannot be loaded, %s",__func__);
+			NSLog(@"ERR: cannot be loaded, %s: %@",__func__,url);
 			if (ch != nil)	{
 				ch(self);
 			}
