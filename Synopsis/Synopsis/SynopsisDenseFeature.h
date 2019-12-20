@@ -21,6 +21,10 @@
 + (instancetype) denseFeatureByAveragingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 + (instancetype) denseFeatureByMaximizingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
 
++ (instancetype) denseFeatureByCumulativeMovingAveragingCurrentFeature:(SynopsisDenseFeature*)next previousAverage:(SynopsisDenseFeature*)average sampleCount:(NSUInteger)sampleCount;
+
+//+ (instancetype) denseFeatureByTemporalEnvelopeAveraging:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2;
+
 - (void) resizeTo:(NSUInteger)numElements;
 
 - (NSUInteger) featureCount;

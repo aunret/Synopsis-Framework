@@ -102,6 +102,24 @@
     return [[SynopsisDenseFeature alloc] initWithCVMat:newMat forMetadataKey:feature.metadataKey];
 }
 
+// ( (previous * average)) + next  / (previous + 1.0)
++ (instancetype) denseFeatureByCumulativeMovingAveragingCurrentFeature:(SynopsisDenseFeature*)next previousAverage:(SynopsisDenseFeature*)average sampleCount:(NSUInteger)sampleCount
+{
+    cv::Mat ones = cv::Mat::ones([next cvMatValue].size(), CV_32FC1);
+    
+    // must do element wise multiplcation. * is matrix multiplication
+    cv::Mat newMat;
+    cv::multiply(sampleCount,  [average cvMatValue], newMat);
+    
+    newMat = newMat + [next cvMatValue];
+    
+    cv::Mat divisionResult;
+    cv::divide( newMat,  sampleCount + 1, divisionResult );
+    
+    return [[SynopsisDenseFeature alloc] initWithCVMat:divisionResult forMetadataKey:average.metadataKey];
+}
+
+
 + (instancetype) denseFeatureByMaximizingFeature:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2
 {
     cv::Mat newMat;
@@ -110,6 +128,20 @@
     
     return [[SynopsisDenseFeature alloc] initWithCVMat:newMat forMetadataKey:feature.metadataKey];
 }
+
+// Inspired by jit.slide - performs cellwise temporal envelope following using the formula y (n) = y (n-1) + ((x (n) - y (n-1))/slide).
++ (instancetype) denseFeatureByTemporalEnvelopeAveraging:(SynopsisDenseFeature*)feature withFeature:(SynopsisDenseFeature*)feature2
+{
+    //    cv::Mat newMat = [feature cvMatValue] + ( ([feature2 cvMatValue] -  [feature cvMatValue]) / 1000.0);
+
+    cv::Mat newMat;
+    cv::max([feature cvMatValue], [feature2 cvMatValue], newMat);
+    
+    newMat = newMat + ( ([feature2 cvMatValue] -  [feature cvMatValue]) / 1000.0);
+
+    return [[SynopsisDenseFeature alloc] initWithCVMat:newMat forMetadataKey:feature.metadataKey];
+}
+
 
 - (void) resizeTo:(NSUInteger)numElements
 {

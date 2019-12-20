@@ -28,6 +28,7 @@ static NSUInteger inFlightBuffers = 3;
 @property (readwrite, strong) SynopsisDenseFeature* averageDominantColors;
 @property (readwrite, strong) SynopsisDenseFeature* similairityDominantColors;
 @property (readwrite, strong) SynopsisDenseFeature* lastFrameDominantColors;
+@property (readwrite, assign) NSUInteger frameCount;
 
 @end
 
@@ -90,6 +91,7 @@ static NSUInteger inFlightBuffers = 3;
     self.averageDominantColors = nil;
     self.similairityDominantColors  = nil;
     self.lastFrameDominantColors  = nil;
+    self.frameCount = 0;
 }
 
 
@@ -126,6 +128,8 @@ static NSUInteger inFlightBuffers = 3;
 
     [buffer addCompletedHandler:^(id<MTLCommandBuffer> commandBuffer)
     {
+        self.frameCount++;
+        
         NSMutableArray* used = [NSMutableArray new];
         
         // Pass 2 -
@@ -185,7 +189,8 @@ static NSUInteger inFlightBuffers = 3;
         }
         else
         {
-            self.averageDominantColors = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageDominantColors withFeature:denseDominantColors];
+            self.averageDominantColors = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:denseDominantColors previousAverage:self.averageDominantColors sampleCount:self.frameCount];
+
         }
 
 #pragma mark - Compute Similarities

@@ -46,6 +46,9 @@
 @property (readwrite, strong) NSArray<NSString*>* labels;
 @property (readwrite, strong) NSArray<NSValue*>* labelGroupRanges;
 
+@property (readwrite, assign) NSUInteger frameCount;
+
+
 @end
 
 @implementation CinemaNetModuleV1
@@ -151,6 +154,8 @@
     
     self.lastFrameFeatureVec  = nil;
     self.lastFrameProbabilities  = nil;
+
+    self.frameCount = 0;
 }
 
 
@@ -189,6 +194,9 @@
 }
     
     VNCoreMLRequest* mobileRequest = [[VNCoreMLRequest alloc] initWithModel:self.vnModel completionHandler:^(VNRequest * _Nonnull request, NSError * _Nullable error) {
+        
+        
+        self.frameCount++;
         
         NSMutableDictionary* metadata = [NSMutableDictionary dictionary];
 
@@ -324,7 +332,9 @@
             else
             {
                 // Probabilities get maximized
-                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageFeatureVec withFeature:denseFeature];
+                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:denseFeature previousAverage:self.averageFeatureVec sampleCount:self.frameCount];
+
+//                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByTemporalEnvelopeAveraging:self.averageFeatureVec withFeature:denseFeature];
             }
 
             SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities forMetadataKey:kSynopsisMetadataIdentifierVisualProbabilities];
@@ -336,8 +346,9 @@
             else
             {
                 // Probabilities get maximized
-                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageProbabilities withFeature:denseProbabilities];
-            }
+//                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByTemporalEnvelopeAveraging:self.averageProbabilities withFeature:denseProbabilities];
+                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:denseProbabilities previousAverage:self.averageProbabilities sampleCount:self.frameCount];
+}
             
 
 #pragma mark - Compute Similarities
@@ -432,8 +443,8 @@
     // Too large, and you get resizing issues
     // Too small, and you smooth our important features
     // This is vv WIP:
-    [self.similarityFeatureVec resizeTo:1024];
-    [self.similarityProbabilities resizeTo:1024];
+    [self.similarityFeatureVec resizeTo:1024 * 4];
+    [self.similarityProbabilities resizeTo:1024 * 4];
 
     NSArray<NSNumber*>* similarFeatures = [self.similarityFeatureVec arrayValue];
     NSArray<NSNumber*>* similarProbabilities =  [self.similarityProbabilities arrayValue];

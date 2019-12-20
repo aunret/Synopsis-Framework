@@ -17,6 +17,7 @@
 @property (readwrite, strong) SynopsisDenseFeature* averageRHistogram;
 @property (readwrite, strong) SynopsisDenseFeature* averageGHistogram;
 @property (readwrite, strong) SynopsisDenseFeature* averageBHistogram;
+@property (readwrite, assign) NSUInteger frameCount;
 
 @end
 
@@ -70,6 +71,8 @@
     self.averageRHistogram = nil;
     self.averageGHistogram = nil;
     self.averageBHistogram = nil;
+
+    self.frameCount = 0;
 }
 
 - (void) analyzedMetadataForCurrentFrame:(id<SynopsisVideoFrame>)frame previousFrame:(id<SynopsisVideoFrame>)lastFrame commandBuffer:(id<MTLCommandBuffer>)buffer completionBlock:(GPUModuleCompletionBlock)completionBlock;
@@ -88,6 +91,9 @@
          //specifically dispatch work away from encode thread - so we dont block enqueueing new work
          // by reading old work and doing dumb math
          dispatch_async(self.completionQueue, ^{
+             
+             self.frameCount++;
+
              
              NSMutableArray<NSNumber*>* frameRHistogram = [NSMutableArray arrayWithCapacity:kGPUHistogramModuleHistogramSize];
              NSMutableArray<NSNumber*>* frameGHistogram = [NSMutableArray arrayWithCapacity:kGPUHistogramModuleHistogramSize];
@@ -146,7 +152,10 @@
              }
              else
              {
-                 self.averageRHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageRHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameRHistogram forMetadataKey:@"AvgR"]];
+                  self.averageRHistogram = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameRHistogram forMetadataKey:@"AvgR"] previousAverage:self.averageRHistogram sampleCount:self.frameCount];
+
+                 
+//                 self.averageRHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageRHistogram withFeature:];
              }
              
              if(self.averageGHistogram == nil)
@@ -155,7 +164,7 @@
              }
              else
              {
-                 self.averageGHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageGHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameGHistogram forMetadataKey:@"AvgG"]];
+                 self.averageGHistogram = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameGHistogram forMetadataKey:@"AvgG"] previousAverage:self.averageGHistogram sampleCount:self.frameCount];
              }
              
             if(self.averageBHistogram == nil)
@@ -164,8 +173,7 @@
             }
             else
             {
-                self.averageBHistogram = [SynopsisDenseFeature denseFeatureByAveragingFeature:self.averageBHistogram withFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameBHistogram forMetadataKey:@"AvgB"]];
-            }
+                self.averageBHistogram = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:[[SynopsisDenseFeature alloc] initWithFeatureArray:frameBHistogram forMetadataKey:@"AvgB"] previousAverage:self.averageBHistogram sampleCount:self.frameCount];            }
              
             for(int i = 0; i < buffLength; i++)
             {
