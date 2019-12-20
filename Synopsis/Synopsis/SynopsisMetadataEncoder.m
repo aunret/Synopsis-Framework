@@ -98,13 +98,15 @@
         {
             topLevel[kSynopsisMetadataTypeGlobal] = metadata;
             topLevel[kSynopsisMetadataVersionKey] = @(kSynopsisMetadataVersionCurrent);
+            break;
         }
         case SynopsisMetadataTypeSample:
         {
             topLevel[kSynopsisMetadataTypeSample] = metadata;
+            break;
         }
     }
-    
+
     NSString* aggregateMetadataAsJSON = [topLevel jsonStringWithPrettyPrint:NO];
     NSData* jsonData = [aggregateMetadataAsJSON dataUsingEncoding:NSUTF8StringEncoding];
     
