@@ -130,7 +130,26 @@
         // TODO:
         case SynopsisMetadataIdentifierTimeSeriesVisualEmbedding:
         case SynopsisMetadataIdentifierTimeSeriesVisualProbabilities:
-            return NULL;
+            
+            DTWFilterWrapper* relativeDTW = [[DTWFilterWrapper alloc] initWithFeature:relative];
+
+            NSComparator dtwComparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+                
+                SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
+                SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
+
+                float distance1 = compareFeatureVectorDTW(relativeDTW, vec1);
+                float distance2 = compareFeatureVectorDTW(relativeDTW, vec2);
+                
+                if(distance1 > distance2)
+                    return  NSOrderedAscending;
+                if(distance1 < distance2)
+                    return NSOrderedDescending;
+                
+                return NSOrderedSame;
+            };
+            
+            return dtwComparator;
     }
     
     return NULL;
@@ -142,6 +161,11 @@
     // This assumes versions are the same for sorting :(
     NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
     NSComparator comparatorForIdentifier = [self comparatorForSynopsisMetadataIdentifier:identifier relativeToItem:item];
+   
+    // If we dont get a comparator - dont bother sorting.
+    if ( comparatorForIdentifier == NULL)
+        return nil;
+ 
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparatorForIdentifier];
     return sortDescriptor;
 }
@@ -151,6 +175,11 @@
     // This assumes versions are the same for sorting :(
     NSString* key = SynopsisKeyForMetadataIdentifierVersion(identifier, item.metadataVersion);
     NSComparator comparatorForIdentifier = [self comparatorForSynopsisMetadataIdentifier:identifier relativeToItem:item withSimilarityMetric:metric];
+
+    // If we dont get a comparator - dont bother sorting.
+    if ( comparatorForIdentifier == NULL)
+        return nil;
+
     NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparatorForIdentifier];
     return sortDescriptor;
 }
