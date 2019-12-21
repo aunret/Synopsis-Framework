@@ -141,6 +141,55 @@ NSArray* SynopsisSupportedFileTypes(void)
 #endif
 }
 
+NSRange CinemaNetClassLabelRangeForLabelGroup(CinemaNetClassGroup classGroup)
+{
+    switch (classGroup)
+    {
+        case CinemaNetClassGroupColorKey:
+            return NSMakeRange(CinemaNetClassLabelColorKeyStart, CinemaNetClassLabelColorKeyEnd - CinemaNetClassLabelColorKeyStart);
+
+        case CinemaNetClassGroupColorSaturation:
+            return NSMakeRange(CinemaNetClassLabelColorSaturationStart, CinemaNetClassLabelColorSaturationEnd - CinemaNetClassLabelColorSaturationStart);
+
+        case CinemaNetClassGroupColorTheory:
+            return NSMakeRange(CinemaNetClassLabelColorTheoryStart, CinemaNetClassLabelColorTheoryEnd - CinemaNetClassLabelColorTheoryStart);
+
+        case CinemaNetClassGroupColorTones:
+            return NSMakeRange(CinemaNetClassLabelColorTonesStart, CinemaNetClassLabelColorTonesEnd - CinemaNetClassLabelColorTonesStart);
+
+        case CinemaNetClassGroupShotAngle:
+            return NSMakeRange(CinemaNetClassLabelShotAngleStart, CinemaNetClassLabelShotAngleEnd - CinemaNetClassLabelShotAngleStart);
+
+        case CinemaNetClassGroupShotFocus:
+            return NSMakeRange(CinemaNetClassLabelShotFocusStart, CinemaNetClassLabelShotFocusEnd - CinemaNetClassLabelShotFocusStart);
+
+        case CinemaNetClassGroupShotFraming:
+            return NSMakeRange(CinemaNetClassLabelShotFramingStart, CinemaNetClassLabelShotFramingEnd - CinemaNetClassLabelShotFramingStart);
+
+        case CinemaNetClassGroupShotLevel:
+            return NSMakeRange(CinemaNetClassLabelShotLevelStart, CinemaNetClassLabelShotLevelEnd - CinemaNetClassLabelShotLevelStart);
+
+        case CinemaNetClassGroupShotLighting:
+            return NSMakeRange(CinemaNetClassLabelShotLightingStart, CinemaNetClassLabelShotLightingEnd - CinemaNetClassLabelShotLightingStart);
+
+        case CinemaNetClassGroupShotLocation:
+            return NSMakeRange(CinemaNetClassLabelShotLocationStart, CinemaNetClassLabelShotLocationEnd - CinemaNetClassLabelShotLocationStart);
+
+        case CinemaNetClassGroupShotSubject:
+            return NSMakeRange(CinemaNetClassLabelShotSubjectStart, CinemaNetClassLabelShotSubjectEnd - CinemaNetClassLabelShotSubjectStart);
+
+        case CinemaNetClassGroupShotTimeOfDay:
+            return NSMakeRange(CinemaNetClassLabelShotTimeofdayStart, CinemaNetClassLabelShotTimeofdayEnd - CinemaNetClassLabelShotTimeofdayStart);
+
+        case CinemaNetClassGroupShotType:
+            return NSMakeRange(CinemaNetClassLabelShotTypeStart, CinemaNetClassLabelShotTypeEnd - CinemaNetClassLabelShotTypeStart);
+
+        case CinemaNetClassGroupTexture:
+            return NSMakeRange(CinemaNetClassLabelTextureStart, CinemaNetClassLabelTextureEnd - CinemaNetClassLabelTextureStart);
+    }
+}
+
+    
 #ifdef __cplusplus
 }
 #endif

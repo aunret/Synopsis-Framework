@@ -118,42 +118,58 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
     CinemaNetClassLabelColorKeyLuma,
     CinemaNetClassLabelColorKeyMatte,
     CinemaNetClassLabelColorKeyNa,
-
+    CinemaNetClassLabelColorKeyStart = CinemaNetClassLabelColorKeyBlue,
+    CinemaNetClassLabelColorKeyEnd = CinemaNetClassLabelColorKeyNa,
+    
     CinemaNetClassLabelColorSaturationSaturated,
     CinemaNetClassLabelColorSaturationPastel,
     CinemaNetClassLabelColorSaturationNeutral,
     CinemaNetClassLabelColorSaturationDesaturated,
+    CinemaNetClassLabelColorSaturationStart = CinemaNetClassLabelColorSaturationSaturated,
+    CinemaNetClassLabelColorSaturationEnd = CinemaNetClassLabelColorSaturationDesaturated,
 
     CinemaNetClassLabelColorTheoryMonochrome,
     CinemaNetClassLabelColorTheoryComplementary,
     CinemaNetClassLabelColorTheoryAnalagous,
-
+    CinemaNetClassLabelColorTheoryStart = CinemaNetClassLabelColorTheoryMonochrome,
+    CinemaNetClassLabelColorTheoryEnd = CinemaNetClassLabelColorTheoryAnalagous,
+    
     CinemaNetClassLabelColorTonesWarm,
     CinemaNetClassLabelColorTonesCool,
     CinemaNetClassLabelColorTonesBlackwhite,
+    CinemaNetClassLabelColorTonesStart = CinemaNetClassLabelColorTonesWarm,
+    CinemaNetClassLabelColorTonesEnd = CinemaNetClassLabelColorTonesBlackwhite,
 
     CinemaNetClassLabelShotAngleAerial,
     CinemaNetClassLabelShotAngleEyelevel,
     CinemaNetClassLabelShotAngleHigh,
     CinemaNetClassLabelShotAngleLow,
     CinemaNetClassLabelShotAngleNa,
+    CinemaNetClassLabelShotAngleStart = CinemaNetClassLabelShotAngleAerial,
+    CinemaNetClassLabelShotAngleEnd = CinemaNetClassLabelShotAngleNa,
 
     CinemaNetClassLabelShotFocusShallow,
     CinemaNetClassLabelShotFocusOut,
     CinemaNetClassLabelShotFocusDeep,
     CinemaNetClassLabelShotFocusNa,
-
+    CinemaNetClassLabelShotFocusStart = CinemaNetClassLabelShotFocusShallow,
+    CinemaNetClassLabelShotFocusEnd = CinemaNetClassLabelShotFocusNa,
+    
     CinemaNetClassLabelShotFramingCloseup,
     CinemaNetClassLabelShotFramingExtemelong,
     CinemaNetClassLabelShotFramingExtremecloseup,
     CinemaNetClassLabelShotFramingLong,
     CinemaNetClassLabelShotFramingMedium,
     CinemaNetClassLabelShotFramingNa,
-
+    CinemaNetClassLabelShotFramingStart = CinemaNetClassLabelShotFramingCloseup,
+    CinemaNetClassLabelShotFramingEnd = CinemaNetClassLabelShotFramingNa,
+    
     CinemaNetClassLabelShotLevelTilted,
     CinemaNetClassLabelShotLevelLevel,
     CinemaNetClassLabelShotLevelNa,
-
+    CinemaNetClassLabelShotLevelStart = CinemaNetClassLabelShotLevelTilted,
+    CinemaNetClassLabelShotLevelEnd = CinemaNetClassLabelShotLevelNa,
+    
     CinemaNetClassLabelShotLightingHard,
     CinemaNetClassLabelShotLightingSoft,
     CinemaNetClassLabelShotLightingNeutral,
@@ -161,6 +177,8 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
     CinemaNetClassLabelShotLightingKeyLow,
     CinemaNetClassLabelShotLightingSilhouette,
     CinemaNetClassLabelShotLightingNa,
+    CinemaNetClassLabelShotLightingStart = CinemaNetClassLabelShotLightingHard,
+    CinemaNetClassLabelShotLightingEnd = CinemaNetClassLabelShotLightingNa,
 
     CinemaNetClassLabelShotLocationExterior,
     CinemaNetClassLabelShotLocationInterior,
@@ -289,6 +307,8 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
     CinemaNetClassLabelShotLocationInteriorStructureVehicleTrain,
     CinemaNetClassLabelShotLocationInteriorStructureVehicleTruck,
     CinemaNetClassLabelShotLocationNa,
+    CinemaNetClassLabelShotLocationStart = CinemaNetClassLabelShotLocationExterior,
+    CinemaNetClassLabelShotLocationEnd = CinemaNetClassLabelShotLocationNa,
 
     CinemaNetClassLabelShotSubjectAnimal,
     CinemaNetClassLabelShotSubjectLocation,
@@ -300,17 +320,23 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
     CinemaNetClassLabelShotSubjectPersonHands,
     CinemaNetClassLabelShotSubjectText,
     CinemaNetClassLabelShotSubjectNa,
-
+    CinemaNetClassLabelShotSubjectStart = CinemaNetClassLabelShotSubjectAnimal,
+    CinemaNetClassLabelShotSubjectEnd = CinemaNetClassLabelShotSubjectNa,
+    
     CinemaNetClassLabelShotTimeofdayDay,
     CinemaNetClassLabelShotTimeofdayNight,
     CinemaNetClassLabelShotTimeofdayTwilight,
     CinemaNetClassLabelShotTimeofdayNa,
-
+    CinemaNetClassLabelShotTimeofdayStart = CinemaNetClassLabelShotTimeofdayDay,
+    CinemaNetClassLabelShotTimeofdayEnd = CinemaNetClassLabelShotTimeofdayNa,
+    
     CinemaNetClassLabelShotTypePortrait,
     CinemaNetClassLabelShotTypeTwoshot,
     CinemaNetClassLabelShotTypeMaster,
     CinemaNetClassLabelShotTypeOvertheshoulder,
     CinemaNetClassLabelShotTypeNa,
+    CinemaNetClassLabelShotTypeStart = CinemaNetClassLabelShotTypePortrait,
+    CinemaNetClassLabelShotTypeEnd = CinemaNetClassLabelShotTypeNa,
 
     CinemaNetClassLabelTextureBanded,
     CinemaNetClassLabelTextureBlotchy,
@@ -357,9 +383,11 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
     CinemaNetClassLabelTextureWoven,
     CinemaNetClassLabelTextureWrinkled,
     CinemaNetClassLabelTextureZigzagged,
+    CinemaNetClassLabelTextureStart = CinemaNetClassLabelTextureBanded,
+    CinemaNetClassLabelTextureEnd = CinemaNetClassLabelTextureZigzagged,
     
     // Useful proxy for determining if we have the count of features for our
-    CinemaNetClassLabelCount = CinemaNetClassLabelTextureZigzagged,
+    CinemaNetClassLabelCount = CinemaNetClassLabelTextureEnd,
 };
 
 // Pass in a version for an appropriate key for the type or identifier
@@ -370,6 +398,11 @@ extern "C" {
 extern NSString* SynopsisKeyForMetadataTypeVersion(SynopsisMetadataType type, NSUInteger version);
 extern NSString* SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifier identifier, NSUInteger version);
 extern NSArray* SynopsisSupportedFileTypes(void);
+
+// Get the rangr of CinemaNetClassLabels from a specific CinemaNetClassGroup
+// This is helpful when wanting to grab ranges from say an array of predictions
+extern NSRange CinemaNetClassLabelRangeForLabelGroup(CinemaNetClassGroup classGroup);
+
 #ifdef __cplusplus
 }
 #endif
