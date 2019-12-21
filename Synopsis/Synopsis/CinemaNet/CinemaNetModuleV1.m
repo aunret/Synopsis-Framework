@@ -257,8 +257,8 @@
             
 #pragma mark - Labels / Tags
             
-            // Remove our embedding and our dominant color resultss
-            results = [results subarrayWithRange:NSMakeRange(2, results.count - 2)];
+            // Remove our embedding array
+            results = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
             
             // Track the ranges of our label concept groups:
             NSUInteger location = 0;
