@@ -226,6 +226,90 @@
 
 
 
+// Sort Metadata Items based on confidence of a specific CinemaNet class label
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingCinemaNetClassLabel:(CinemaNetClassLabel)label
+{
+    NSComparator comparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* vec1 = (SynopsisDenseFeature*)obj1;
+        SynopsisDenseFeature* vec2 = (SynopsisDenseFeature*)obj2;
+        
+        float distance1 = [vec1[label] floatValue];
+        float distance2 = [vec2[label] floatValue];
+        
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    };
+              
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifierVisualProbabilities, kSynopsisMetadataVersionCurrent);
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparator];
+    return sortDescriptor;
+}
+
+// Sort Metadata Items based on similarity  using the 'standard' metric for specific a CinemaNet class groups
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingCinemaNetClassGroup:(CinemaNetClassGroup)group relativeTo:(SynopsisMetadataItem*)item
+{
+    NSRange groupRange = CinemaNetClassLabelRangeForLabelGroup(group);
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifierVisualProbabilities, kSynopsisMetadataVersionCurrent);
+    
+    SynopsisDenseFeature* relative = [item valueForKey:key];
+    SynopsisDenseFeature* groupRelative = [relative subFeaturebyReferencingRange:groupRange];
+    
+    NSComparator comparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* vec1 = [(SynopsisDenseFeature*)obj1 subFeaturebyReferencingRange:groupRange];
+        SynopsisDenseFeature* vec2 = [(SynopsisDenseFeature*)obj2 subFeaturebyReferencingRange:groupRange];
+        
+        float distance1 = compareFeaturesCosineSimilarity(vec1, groupRelative);
+        float distance2 = compareFeaturesCosineSimilarity(vec2, groupRelative);
+        
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    };
+    
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparator];
+    return sortDescriptor;
+
+}
+
+// Sort Metadata Items based on similarity using any framework provided metric for a CinemaNet class group
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingCinemaNetClassGroup:(CinemaNetClassGroup)group relativeTo:(SynopsisMetadataItem*)item withSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric
+{
+    NSRange groupRange = CinemaNetClassLabelRangeForLabelGroup(group);
+    NSString* key = SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifierVisualProbabilities, kSynopsisMetadataVersionCurrent);
+    
+    SynopsisDenseFeature* relative = [item valueForKey:key];
+    SynopsisDenseFeature* groupRelative = [relative subFeaturebyReferencingRange:groupRange];
+    
+    NSComparator comparator = ^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        
+        SynopsisDenseFeature* vec1 = [(SynopsisDenseFeature*)obj1 subFeaturebyReferencingRange:groupRange];
+        SynopsisDenseFeature* vec2 = [(SynopsisDenseFeature*)obj2 subFeaturebyReferencingRange:groupRange];
+        
+        float distance1 = compareFeaturesWithMetric(vec1, groupRelative, metric);
+        float distance2 = compareFeaturesWithMetric(vec2, groupRelative, metric);
+
+        if(distance1 > distance2)
+            return  NSOrderedAscending;
+        if(distance1 < distance2)
+            return NSOrderedDescending;
+        
+        return NSOrderedSame;
+    };
+    
+    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:comparator];
+    return sortDescriptor;
+}
+
+
 //+ (NSSortDescriptor*)synopsisSortViaKey:(NSString*)key relativeTo:(SynopsisMetadataItem*)item
 //{
 //    NSSortDescriptor* sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:key ascending:YES comparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {

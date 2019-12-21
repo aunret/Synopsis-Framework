@@ -28,4 +28,13 @@
 // Sort Metadata Items based on their similarity using any framework provided metric for a particular metadata identifier.
 + (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingIdentifier:(SynopsisMetadataIdentifier)identifier relativeTo:(SynopsisMetadataItem*)item withSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric;
 
+// Sort Metadata Items based on confidence of a specific CinemaNet class label's prediction
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingCinemaNetClassLabel:(CinemaNetClassLabel)label;
+
+// Sort Metadata Items based on similarity using the 'standard' metric for specific a CinemaNet class groups pr
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingCinemaNetClassGroup:(CinemaNetClassGroup)group relativeTo:(SynopsisMetadataItem*)item;
+
+// Sort Metadata Items based on similarity using any framework provided metric for a CinemaNet class group
++ (NSSortDescriptor*)sortViaSynopsisGlobalMetadataUsingCinemaNetClassGroup:(CinemaNetClassGroup)group relativeTo:(SynopsisMetadataItem*)item withSimilarityMetric:(SynopsisMetadataSimilarityMetric)metric;
+
 @end
