@@ -252,12 +252,9 @@
             VNCoreMLFeatureValueObservation* embeddingSpaceObservation = [results firstObject];
             NSArray* embeddingSpaceArray = [self nsarrayFromMLMultiArray:embeddingSpaceObservation.featureValue.multiArrayValue];
 
-            //VNCoreMLFeatureValueObservation* dominantColorObservation = [results objectAtIndex:1];
-            //NSArray* dominantColorArray = [self nsarrayFromMLMultiArray:dominantColorObservation.featureValue.multiArrayValue];
-            
 #pragma mark - Labels / Tags
             
-            // Remove our embedding array
+            // Remove our embedding array so we only have labels present
             results = [results subarrayWithRange:NSMakeRange(1, results.count - 1)];
             
             // Track the ranges of our label concept groups:
