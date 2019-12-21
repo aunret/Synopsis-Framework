@@ -27,6 +27,10 @@
 
 - (void) resizeTo:(NSUInteger)numElements;
 
+// Range end must be within featureCount;
+- (instancetype) subFeaturebyReferencingRange:(NSRange)subRange;
+
+
 - (NSUInteger) featureCount;
 
 // Array like access, so one can do

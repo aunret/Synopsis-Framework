@@ -149,8 +149,15 @@
     cv::resize([self OpenCVMat], newMat, cv::Size(1, (int)numElements), cv::INTER_LINEAR);
     
     self.OpenCVMat = newMat;
-    
 }
+
+- (instancetype) subFeaturebyReferencingRange:(NSRange)subRange
+{
+    cv::Mat subMat = [self OpenCVMat]( cv::Rect( (int) subRange.location, 0, (int) subRange.length, 0 ) );
+
+    return [[SynopsisDenseFeature alloc] initWithCVMat:subMat forMetadataKey:[self.metadataKey stringByAppendingString:NSStringFromRange(subRange)]];
+}
+
 
 - (NSUInteger) featureCount
 {
