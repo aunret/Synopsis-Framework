@@ -44,7 +44,7 @@
 		return nil;
 
 //    CGColorSpaceRef linear = CGColorSpaceCreateDeviceRGB();
-    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceSRGB);
+    CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
     
     NSMutableArray* colors = [NSMutableArray arrayWithCapacity:colorComponentsArray.count];
     
