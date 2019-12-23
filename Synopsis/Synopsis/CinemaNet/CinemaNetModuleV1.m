@@ -274,6 +274,11 @@
                 // Force our NA key to be last (THIS IS SO FUCKING ANNOYING)
                 NSString* naKey = nil;
                 NSMutableArray* allKeys = [[observationDict allKeys] mutableCopy];
+                
+                // Alphabetically order the keys
+                [allKeys sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+                
+                // Put NA last if it exists
                 for (NSString* key in allKeys)
                 {
                     if ( [key hasSuffix:@".na"])
@@ -288,7 +293,8 @@
                     [allKeys removeObject:naKey];
                     [allKeys addObject:naKey];
                     
-                    NSArray* orderedObservations = [observationDict objectsForKeys:allKeys notFoundMarker:[NSNull null]];
+                    // Objects for Keys returns observations in order of the key array
+                    NSMutableArray* orderedObservations = [[observationDict objectsForKeys:allKeys notFoundMarker:[NSNull null]] mutableCopy];
                     
                     [labels addObjectsFromArray:allKeys];
                     [probabilities addObjectsFromArray:orderedObservations];
