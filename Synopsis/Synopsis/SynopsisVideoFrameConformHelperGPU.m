@@ -37,11 +37,11 @@
         self.commandQueue = queue;
         self.serialCompletionQueue = dispatch_queue_create("info.synopsis.gpu.conformQueue", DISPATCH_QUEUE_SERIAL);
         
-        CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceExtendedLinearSRGB);
-        
+        CGColorSpaceRef linear = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
         NSDictionary* opt = @{ kCIContextWorkingColorSpace : (id) CFBridgingRelease(linear),
                                kCIContextOutputColorSpace : (id) CFBridgingRelease(linear),
                                };
+        
         self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device options:opt];
     }
     
@@ -93,15 +93,16 @@
     
     CGColorSpaceRef colorSpace = NULL;
     BOOL shouldReleaseColorSpace = FALSE;
-    colorSpace = CVImageBufferGetColorSpace(pixelBuffer);
     
-    if (colorSpace == NULL)
-    {
-        colorSpace = CVImageBufferCreateColorSpaceFromAttachments(CVBufferGetAttachments(pixelBuffer,  kCVAttachmentMode_ShouldPropagate));
-        shouldReleaseColorSpace = TRUE;
-    }
+//    colorSpace = CVImageBufferGetColorSpace(pixelBuffer);
+//
+//    if (colorSpace == NULL)
+//    {
+//        colorSpace = CVImageBufferCreateColorSpaceFromAttachments(CVBufferGetAttachments(pixelBuffer,  kCVAttachmentMode_ShouldPropagate));
+//        shouldReleaseColorSpace = TRUE;
+//    }
     
-    renderDestination.colorSpace = colorSpace;
+    renderDestination.colorSpace = CGColorSpaceCreateWithName(kCGColorSpaceGenericRGBLinear);
     
     [self.ciContext startTaskToRender:transformedImage toDestination:renderDestination error:nil];
 
