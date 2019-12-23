@@ -153,7 +153,13 @@
 
 - (instancetype) subFeaturebyReferencingRange:(NSRange)subRange
 {
-    cv::Mat subMat = [self OpenCVMat]( cv::Rect( (int) subRange.location, 0, (int) subRange.length, 0 ) );
+    int begin = (int) subRange.location;
+    int end = (int) subRange.length;
+  
+//    Rect_(_Tp _x, _Tp _y, _Tp _width, _Tp _height);
+    cv::Rect cropRect = cv::Rect( 0, begin,  1, end ) ;
+    
+    cv::Mat subMat = [self OpenCVMat]( cropRect );
 
     return [[SynopsisDenseFeature alloc] initWithCVMat:subMat forMetadataKey:[self.metadataKey stringByAppendingString:NSStringFromRange(subRange)]];
 }

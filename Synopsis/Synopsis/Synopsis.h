@@ -53,6 +53,7 @@ typedef NS_ENUM(NSUInteger, SynopsisMetadataType) {
     SynopsisMetadataTypeSample = 1,
 };
 
+
 // TODO:
 // Audible Metadata
 // Text ??????
@@ -92,7 +93,25 @@ typedef NS_ENUM(NSUInteger, SynopsisMetadataIdentifier) {
 // The class labels for SynopsisMetadataIdentifierVisualProbabilities output
 // See https://synopsis.video/cinemanet/taxonomy/ for info
 
-// NA suffixes for 'not applicable'
+// CinemaNet labels organized in a heirarchy:
+//  Concept Group / Class Group / Specific Concept Label
+// ie:
+// color / key / green
+// shot / location / interior
+// shot / framing / close up
+// etc.
+
+// These Enums define the mapping, ranges, values the of Concept Groups / Class Groups and Specific Concept Labels
+
+// Any predictions having to do with these top level concepts
+typedef NS_ENUM(NSUInteger, CinemaNetConceptGroup)
+{
+    CinemaNetConceptGroupColor,
+    CinemaNetConceptGroupShot,
+    CinemaNetConceptGroupTexture,
+};
+
+// Any predictions having to do with these specific concept classes
 typedef NS_ENUM(NSUInteger, CinemaNetClassGroup)
 {
     CinemaNetClassGroupColorKey,
@@ -111,6 +130,7 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassGroup)
     CinemaNetClassGroupTexture,
 };
 
+// NA suffixes for 'not applicable'
 typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
 {
     CinemaNetClassLabelColorKeyBlue = 0,
@@ -399,9 +419,14 @@ extern NSString* SynopsisKeyForMetadataTypeVersion(SynopsisMetadataType type, NS
 extern NSString* SynopsisKeyForMetadataIdentifierVersion(SynopsisMetadataIdentifier identifier, NSUInteger version);
 extern NSArray* SynopsisSupportedFileTypes(void);
 
-// Get the rangr of CinemaNetClassLabels from a specific CinemaNetClassGroup
+
+// Get the range features descriving a CinemaNet Concept Group
 // This is helpful when wanting to grab ranges from say an array of predictions
-extern NSRange CinemaNetClassLabelRangeForLabelGroup(CinemaNetClassGroup classGroup);
+extern NSRange CinemaNetRangeForConceptGroup(CinemaNetConceptGroup conceptGroup);
+
+// Get the range features descriving a CinemaNet Class Group
+// This is helpful when wanting to grab ranges from say an array of predictions
+extern NSRange CinemaNetRangeForClassGroup(CinemaNetClassGroup classGroup);
 
 #ifdef __cplusplus
 }
