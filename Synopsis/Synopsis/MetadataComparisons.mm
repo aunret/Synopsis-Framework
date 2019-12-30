@@ -235,7 +235,7 @@ float compareFeatureVectorHamming(SynopsisDenseFeature* featureVec1, SynopsisDen
         
         const vector<float> featureAsVector(feature.begin<float>(), feature.end<float>());
 
-        self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 15)); // we use the DTW with a tolerance of 10% (size/10)
+        self->filter = new LB_Improved(featureAsVector, (int) ( [featureVector featureCount] / 20)); // we use the DTW with a tolerance of 10% (size/10)
     }
     return self;
 }

@@ -93,13 +93,19 @@ typedef NS_ENUM(NSUInteger, SynopsisMetadataIdentifier) {
 // The class labels for SynopsisMetadataIdentifierVisualProbabilities output
 // See https://synopsis.video/cinemanet/taxonomy/ for info
 
-// CinemaNet labels organized in a heirarchy:
-//  Concept Group / Class Group / Specific Concept Label
+// CinemaNet labels organized in a heirarchy or a "key path":
+// Concept Group / Class Group / Specific Concept Label
 // ie:
-// color / key / green
-// shot / location / interior
-// shot / framing / close up
-// etc.
+
+// color.key.green
+// the label belongs to a group of concepts describing properties of color. The label class describes concepts involving keying. The labels specific concept refers to green screen.
+
+// color.theory.analagous
+// the label belongs to a group of concepts describing properties of color. The label class describes concepts involving color theory. The labels specific concepts refers to analagous colors
+
+// Rather than always use the raw strings describing the key paths, we prefer to use the enums
+// This provides exhaustive iteration, comparison, counting, etc.
+// Ther are APIs to extract specific ranges of values or specific values from the metadata's dense features (an optimized representation vended from metadata decoders).
 
 // These Enums define the mapping, ranges, values the of Concept Groups / Class Groups and Specific Concept Labels
 
@@ -109,6 +115,9 @@ typedef NS_ENUM(NSUInteger, CinemaNetConceptGroup)
     CinemaNetConceptGroupColor,
     CinemaNetConceptGroupShot,
     CinemaNetConceptGroupTexture,
+    // Todo:
+    // Composition (spatial layout)
+    // ??
 };
 
 // Any predictions having to do with these specific concept classes
@@ -408,6 +417,9 @@ typedef NS_ENUM(NSUInteger, CinemaNetClassLabel)
     
     // Useful proxy for determining if we have the count of features for our
     CinemaNetClassLabelCount = CinemaNetClassLabelTextureEnd,
+    
+    // Proxy for returning an unknown label - for unsupported versions or invalid keys
+    CinemaNetClassLabelUnknown = NSUIntegerMax,
 };
 
 // Pass in a version for an appropriate key for the type or identifier
@@ -427,6 +439,30 @@ extern NSRange CinemaNetRangeForConceptGroup(CinemaNetConceptGroup conceptGroup)
 // Get the range features descriving a CinemaNet Class Group
 // This is helpful when wanting to grab ranges from say an array of predictions
 extern NSRange CinemaNetRangeForClassGroup(CinemaNetClassGroup classGroup);
+
+// Returns the unique string encoded in the metadata dictionary for the unique Class Label enum
+// Note these keys are key paths for concepts,
+// ie:
+// CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBath ->
+// shot.location.interior.structure.building.room.bath
+// Note that keys representing Not applicable (enums ending in NA) return valid keys
+// Note that CinemaNetClassLabelUnknown returns nil
+
+extern NSString* CinemaNetLabelKeyForClassLabel(CinemaNetClassLabel label);
+
+// Returns a human readable description string, useful for presenting in the user interface.
+// ie :
+// CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBath ->
+// "Interior Bathroom" etc.
+
+// Note that keys representing Not applicable (enums ending in NA)
+// return nil strings (there is nothing worth describing)
+// Note that CinemaNetClassLabelUnknown returns nil
+
+extern NSString* CinemaNetLabelDescriptorForClassLabel(CinemaNetClassLabel label);
+
+// Valid key to CinemaNetClassLabel enum. Invalid keys return CinemaNetClassLabelUnknown.
+extern CinemaNetClassLabel CinemanetClassLabelForLabelKey(NSString* key);
 
 #ifdef __cplusplus
 }
