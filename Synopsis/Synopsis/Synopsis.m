@@ -459,480 +459,481 @@ NSString* CinemanetLabelKeyForClassLabel(CinemaNetClassLabel label)
     switch (label)
     {
         case CinemaNetClassLabelColorKeyBlue:
-            return @"color.key.blue";
+            return kCinemaNetClassLabelColorKeyBlueKey;
         case CinemaNetClassLabelColorKeyGreen:
-            return @"color.key.green";
+            return kCinemaNetClassLabelColorKeyGreenKey;
         case CinemaNetClassLabelColorKeyLuma:
-            return @"color.key.luma";
+            return kCinemaNetClassLabelColorKeyLumaKey;
         case CinemaNetClassLabelColorKeyMatte:
-            return @"color.key.matte";
+            return kCinemaNetClassLabelColorKeyMatteKey;
         case CinemaNetClassLabelColorKeyNa:
-            return @"color.key.na";
+            return kCinemaNetClassLabelColorKeyNaKey;
             
         case CinemaNetClassLabelColorSaturationDesaturated:
-            return @"color.saturation.desaturated";
+            return kCinemaNetClassLabelColorSaturationDesaturatedKey;
         case CinemaNetClassLabelColorSaturationNeutral:
-            return @"color.saturation.neutral";
+            return kCinemaNetClassLabelColorSaturationNeutralKey;
         case CinemaNetClassLabelColorSaturationPastel:
-            return @"color.saturation.pastel";
+            return kCinemaNetClassLabelColorSaturationPastelKey;
         case CinemaNetClassLabelColorSaturationSaturated:
-            return @"color.saturation.saturated";
+            return kCinemaNetClassLabelColorSaturationSaturatedKey;
             
         case CinemaNetClassLabelColorTheoryAnalagous:
-            return @"color.theory.analagous";
+            return kCinemaNetClassLabelColorTheoryAnalagousKey;
         case CinemaNetClassLabelColorTheoryComplementary:
-            return @"color.theory.complementary";
+            return kCinemaNetClassLabelColorTheoryComplementaryKey;
         case CinemaNetClassLabelColorTheoryMonochrome:
-            return @"color.theory.monochrome";
+            return kCinemaNetClassLabelColorTheoryMonochromeKey;
             
         case CinemaNetClassLabelColorTonesBlackWhite:
-            return @"color.tones.blackwhite";
+            return kCinemaNetClassLabelColorTonesBlackWhiteKey;
         case CinemaNetClassLabelColorTonesCool:
-            return @"color.tones.cool";
+            return kCinemaNetClassLabelColorTonesCoolKey;
         case CinemaNetClassLabelColorTonesWarm:
-            return @"color.tones.warm";
+            return kCinemaNetClassLabelColorTonesWarmKey;
             
         case CinemaNetClassLabelShotAngleAerial:
-            return @"shot.angle.aerial";
+            return kCinemaNetClassLabelShotAngleAerialKey;
         case CinemaNetClassLabelShotAngleEyeLevel:
-            return @"shot.angle.eyelevel";
+            return kCinemaNetClassLabelShotAngleEyeLevelKey;
         case CinemaNetClassLabelShotAngleHigh:
-            return @"shot.angle.high";
+            return kCinemaNetClassLabelShotAngleHighKey;
         case CinemaNetClassLabelShotAngleLow:
-            return @"shot.angle.low";
+            return kCinemaNetClassLabelShotAngleLowKey;
         case CinemaNetClassLabelShotAngleNa:
-            return @"shot.angle.na";
+            return kCinemaNetClassLabelShotAngleNaKey;
             
         case CinemaNetClassLabelShotFocusDeep:
-            return @"shot.focus.deep";
+            return kCinemaNetClassLabelShotFocusDeepKey;
         case CinemaNetClassLabelShotFocusOut:
-            return @"shot.focus.out";
+            return kCinemaNetClassLabelShotFocusOutKey;
         case CinemaNetClassLabelShotFocusShallow:
-            return @"shot.focus.shallow";
+            return kCinemaNetClassLabelShotFocusShallowKey;
         case CinemaNetClassLabelShotFocusNa:
-            return @"shot.focus.na";
+            return kCinemaNetClassLabelShotFocusNaKey;
             
         case CinemaNetClassLabelShotFramingCloseup:
-            return @"shot.framing.closeup";
+            return kCinemaNetClassLabelShotFramingCloseupKey;
         case CinemaNetClassLabelShotFramingExtremeCloseup:
-            return @"shot.framing.extremecloseup";
+            return kCinemaNetClassLabelShotFramingExtremeCloseupKey;
         case CinemaNetClassLabelShotFramingExtremeLong:
-            return @"shot.framing.extremelong";
+            return kCinemaNetClassLabelShotFramingExtremeLongKey;
         case CinemaNetClassLabelShotFramingLong:
-            return @"shot.framing.long";
+            return kCinemaNetClassLabelShotFramingLongKey;
         case CinemaNetClassLabelShotFramingMedium:
-            return @"shot.framing.medium";
+            return kCinemaNetClassLabelShotFramingMediumKey;
         case CinemaNetClassLabelShotFramingNa:
-            return @"shot.framing.na";
+            return kCinemaNetClassLabelShotFramingNaKey;
             
         case CinemaNetClassLabelShotLevelLevel:
-            return @"shot.level.level";
+            return kCinemaNetClassLabelShotLevelLevelKey;
         case CinemaNetClassLabelShotLevelTilted:
-            return @"shot.level.tilted";
+            return kCinemaNetClassLabelShotLevelTiltedKey;
         case CinemaNetClassLabelShotLevelNa:
-            return @"shot.level.na";
+            return kCinemaNetClassLabelShotLevelNaKey;
             
         case CinemaNetClassLabelShotLightingHard:
-            return @"shot.lighting.hard";
+            return kCinemaNetClassLabelShotLightingHardKey;
         case CinemaNetClassLabelShotLightingKeyHigh:
-            return @"shot.lighting.key.high";
+            return kCinemaNetClassLabelShotLightingKeyHighKey;
         case CinemaNetClassLabelShotLightingKeyLow:
-            return @"shot.lighting.key.low";
+            return kCinemaNetClassLabelShotLightingKeyLowKey;
         case CinemaNetClassLabelShotLightingNeutral:
-            return @"shot.lighting.neutral";
+            return kCinemaNetClassLabelShotLightingNeutralKey;
         case CinemaNetClassLabelShotLightingSilhouette:
-            return @"shot.lighting.silhouette";
+            return kCinemaNetClassLabelShotLightingSilhouetteKey;
         case CinemaNetClassLabelShotLightingSoft:
-            return @"shot.lighting.soft";
+            return kCinemaNetClassLabelShotLightingSoftKey;
         case CinemaNetClassLabelShotLightingNa:
-            return @"shot.lighting.na";
+            return kCinemaNetClassLabelShotLightingNaKey;
             
         case CinemaNetClassLabelShotLocationExterior:
-            return @"shot.location.exterior";
+            return kCinemaNetClassLabelShotLocationExteriorKey;
         case CinemaNetClassLabelShotLocationExteriorNatureBeach:
-            return @"shot.location.exterior.nature.beach";
+            return kCinemaNetClassLabelShotLocationExteriorNatureBeachKey;
         case CinemaNetClassLabelShotLocationExteriorNatureCanyon:
-            return @"shot.location.exterior.nature.canyon";
+            return kCinemaNetClassLabelShotLocationExteriorNatureCanyonKey;
         case CinemaNetClassLabelShotLocationExteriorNatureCave:
-            return @"shot.location.exterior.nature.cave";
+            return kCinemaNetClassLabelShotLocationExteriorNatureCaveKey;
         case CinemaNetClassLabelShotLocationExteriorNatureDesert:
-            return @"shot.location.exterior.nature.desert";
+            return kCinemaNetClassLabelShotLocationExteriorNatureDesertKey;
         case CinemaNetClassLabelShotLocationExteriorNatureForest:
-            return @"shot.location.exterior.nature.forest";
+            return kCinemaNetClassLabelShotLocationExteriorNatureForestKey;
         case CinemaNetClassLabelShotLocationExteriorNatureGlacier:
-            return @"shot.location.exterior.nature.glacier";
+            return kCinemaNetClassLabelShotLocationExteriorNatureGlacierKey;
         case CinemaNetClassLabelShotLocationExteriorNatureLake:
-            return @"shot.location.exterior.nature.lake";
+            return kCinemaNetClassLabelShotLocationExteriorNatureLakeKey;
         case CinemaNetClassLabelShotLocationExteriorNatureMountains:
-            return @"shot.location.exterior.nature.mountains";
+            return kCinemaNetClassLabelShotLocationExteriorNatureMountainsKey;
         case CinemaNetClassLabelShotLocationExteriorNatureOcean:
-            return @"shot.location.exterior.nature.ocean";
+            return kCinemaNetClassLabelShotLocationExteriorNatureOceanKey;
         case CinemaNetClassLabelShotLocationExteriorNaturePlains:
-            return @"shot.location.exterior.nature.plains";
+            return kCinemaNetClassLabelShotLocationExteriorNaturePlainsKey;
         case CinemaNetClassLabelShotLocationExteriorNaturePolar:
-            return @"shot.location.exterior.nature.polar";
+            return kCinemaNetClassLabelShotLocationExteriorNaturePolarKey;
         case CinemaNetClassLabelShotLocationExteriorNatureRiver:
-            return @"shot.location.exterior.nature.river";
+            return kCinemaNetClassLabelShotLocationExteriorNatureRiverKey;
         case CinemaNetClassLabelShotLocationExteriorNatureSky:
-            return @"shot.location.exterior.nature.sky";
+            return kCinemaNetClassLabelShotLocationExteriorNatureSkyKey;
         case CinemaNetClassLabelShotLocationExteriorNatureSpace:
-            return @"shot.location.exterior.nature.space";
+            return kCinemaNetClassLabelShotLocationExteriorNatureSpaceKey;
         case CinemaNetClassLabelShotLocationExteriorNatureWetlands:
-            return @"shot.location.exterior.nature.wetlands";
+            return kCinemaNetClassLabelShotLocationExteriorNatureWetlandsKey;
         case CinemaNetClassLabelShotLocationExteriorSettlementCity:
-            return @"shot.location.exterior.settlement.city";
+            return kCinemaNetClassLabelShotLocationExteriorSettlementCityKey;
         case CinemaNetClassLabelShotLocationExteriorSettlementSuburb:
-            return @"shot.location.exterior.settlement.suburb";
+            return kCinemaNetClassLabelShotLocationExteriorSettlementSuburbKey;
         case CinemaNetClassLabelShotLocationExteriorSettlementTown:
-            return @"shot.location.exterior.settlement.town";
+            return kCinemaNetClassLabelShotLocationExteriorSettlementTownKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBridge:
-            return @"shot.location.exterior.structure.bridge";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBridgeKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingAirport:
-            return @"shot.location.exterior.structure.building.airport";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingAirportKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingAutoBody:
-            return @"shot.location.exterior.structure.building.auto.body";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingAutoBodyKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingCastle:
-            return @"shot.location.exterior.structure.building.castle";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingCastleKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingHospital:
-            return @"shot.location.exterior.structure.building.hospital";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingHospitalKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingHouseofworship:
-            return @"shot.location.exterior.structure.building.houseofworship";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingHouseofworshipKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingLibrary:
-            return @"shot.location.exterior.structure.building.library";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingLibraryKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingMall:
-            return @"shot.location.exterior.structure.building.mall";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingMallKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingOffice:
-            return @"shot.location.exterior.structure.building.office";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingOfficeKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceApartment:
-            return @"shot.location.exterior.structure.building.residence.apartment";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceApartmentKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceHouse:
-            return @"shot.location.exterior.structure.building.residence.house";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceHouseKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMansion:
-            return @"shot.location.exterior.structure.building.residence.mansion";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMansionKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMonastery:
-            return @"shot.location.exterior.structure.building.residence.monastery";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMonasteryKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingResidencePalace:
-            return @"shot.location.exterior.structure.building.residence.palace";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidencePalaceKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingRestaurant:
-            return @"shot.location.exterior.structure.building.restaurant";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingRestaurantKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingSchool:
-            return @"shot.location.exterior.structure.building.school";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingSchoolKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingSkyscraper:
-            return @"shot.location.exterior.structure.building.skyscraper";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingSkyscraperKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingStadium:
-            return @"shot.location.exterior.structure.building.stadium";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingStadiumKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingStationGas:
-            return @"shot.location.exterior.structure.building.station.gas";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingStationGasKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingStationSubway:
-            return @"shot.location.exterior.structure.building.station.subway";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingStationSubwayKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingStationTrain:
-            return @"shot.location.exterior.structure.building.station.train";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingStationTrainKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingStore:
-            return @"shot.location.exterior.structure.building.store";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingStoreKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingTheater:
-            return @"shot.location.exterior.structure.building.theater";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingTheaterKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBuildingWarehouse:
-            return @"shot.location.exterior.structure.building.warehouse";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBuildingWarehouseKey;
         case CinemaNetClassLabelShotLocationExteriorStructureBusStop:
-            return @"shot.location.exterior.structure.bus.stop";
+            return kCinemaNetClassLabelShotLocationExteriorStructureBusStopKey;
         case CinemaNetClassLabelShotLocationExteriorStructureFarm:
-            return @"shot.location.exterior.structure.farm";
+            return kCinemaNetClassLabelShotLocationExteriorStructureFarmKey;
         case CinemaNetClassLabelShotLocationExteriorStructureIndustrial:
-            return @"shot.location.exterior.structure.industrial";
+            return kCinemaNetClassLabelShotLocationExteriorStructureIndustrialKey;
         case CinemaNetClassLabelShotLocationExteriorStructurePark:
-            return @"shot.location.exterior.structure.park";
+            return kCinemaNetClassLabelShotLocationExteriorStructureParkKey;
         case CinemaNetClassLabelShotLocationExteriorStructureParkinglot:
-            return @"shot.location.exterior.structure.parkinglot";
+            return kCinemaNetClassLabelShotLocationExteriorStructureParkinglotKey;
         case CinemaNetClassLabelShotLocationExteriorStructurePier:
-            return @"shot.location.exterior.structure.pier";
+            return kCinemaNetClassLabelShotLocationExteriorStructurePierKey;
         case CinemaNetClassLabelShotLocationExteriorStructurePlayground:
-            return @"shot.location.exterior.structure.playground";
+            return kCinemaNetClassLabelShotLocationExteriorStructurePlaygroundKey;
         case CinemaNetClassLabelShotLocationExteriorStructurePort:
-            return @"shot.location.exterior.structure.port";
+            return kCinemaNetClassLabelShotLocationExteriorStructurePortKey;
         case CinemaNetClassLabelShotLocationExteriorStructureRoad:
-            return @"shot.location.exterior.structure.road";
+            return kCinemaNetClassLabelShotLocationExteriorStructureRoadKey;
         case CinemaNetClassLabelShotLocationExteriorStructureRuins:
-            return @"shot.location.exterior.structure.ruins";
+            return kCinemaNetClassLabelShotLocationExteriorStructureRuinsKey;
         case CinemaNetClassLabelShotLocationExteriorStructureSidewalk:
-            return @"shot.location.exterior.structure.sidewalk";
+            return kCinemaNetClassLabelShotLocationExteriorStructureSidewalkKey;
         case CinemaNetClassLabelShotLocationExteriorStructureTunnel:
-            return @"shot.location.exterior.structure.tunnel";
+            return kCinemaNetClassLabelShotLocationExteriorStructureTunnelKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleAirplane:
-            return @"shot.location.exterior.structure.vehicle.airplane";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleAirplaneKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleBicycle:
-            return @"shot.location.exterior.structure.vehicle.bicycle";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleBicycleKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleBoat:
-            return @"shot.location.exterior.structure.vehicle.boat";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleBoatKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleBus:
-            return @"shot.location.exterior.structure.vehicle.bus";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleBusKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleCar:
-            return @"shot.location.exterior.structure.vehicle.car";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleCarKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleHelicopter:
-            return @"shot.location.exterior.structure.vehicle.helicopter";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleHelicopterKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleMotorcycle:
-            return @"shot.location.exterior.structure.vehicle.motorcycle";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleMotorcycleKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleSpacecraft:
-            return @"shot.location.exterior.structure.vehicle.spacecraft";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleSpacecraftKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleTrain:
-            return @"shot.location.exterior.structure.vehicle.train";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleTrainKey;
         case CinemaNetClassLabelShotLocationExteriorStructureVehicleTruck:
-            return @"shot.location.exterior.structure.vehicle.truck";
+            return kCinemaNetClassLabelShotLocationExteriorStructureVehicleTruckKey;
         case CinemaNetClassLabelShotLocationInterior:
-            return @"shot.location.interior";
+            return kCinemaNetClassLabelShotLocationInteriorKey;
         case CinemaNetClassLabelShotLocationInteriorNatureCave:
-            return @"shot.location.interior.nature.cave";
+            return kCinemaNetClassLabelShotLocationInteriorNatureCaveKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingAirport:
-            return @"shot.location.interior.structure.building.airport";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingAirportKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingArena:
-            return @"shot.location.interior.structure.building.arena";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingArenaKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingAuditorium:
-            return @"shot.location.interior.structure.building.auditorium";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingAuditoriumKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingAutoRepairShop:
-            return @"shot.location.interior.structure.building.auto.repair.shop";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingAutoRepairShopKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingBar:
-            return @"shot.location.interior.structure.building.bar";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingBarKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingBarn:
-            return @"shot.location.interior.structure.building.barn";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingBarnKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingCafe:
-            return @"shot.location.interior.structure.building.cafe";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingCafeKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingCafeteria:
-            return @"shot.location.interior.structure.building.cafeteria";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingCafeteriaKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingCommandCenter:
-            return @"shot.location.interior.structure.building.command.center";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingCommandCenterKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingCrypt:
-            return @"shot.location.interior.structure.building.crypt";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingCryptKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingDancefloor:
-            return @"shot.location.interior.structure.building.dancefloor";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingDancefloorKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingDungeon:
-            return @"shot.location.interior.structure.building.dungeon";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingDungeonKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingElevator:
-            return @"shot.location.interior.structure.building.elevator";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingElevatorKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingFactory:
-            return @"shot.location.interior.structure.building.factory";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingFactoryKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingFoyer:
-            return @"shot.location.interior.structure.building.foyer";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingFoyerKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingGym:
-            return @"shot.location.interior.structure.building.gym";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingGymKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingHallway:
-            return @"shot.location.interior.structure.building.hallway";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingHallwayKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingHospital:
-            return @"shot.location.interior.structure.building.hospital";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingHospitalKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingHouseofworship:
-            return @"shot.location.interior.structure.building.houseofworship";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingHouseofworshipKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingLobby:
-            return @"shot.location.interior.structure.building.lobby";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingLobbyKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingMall:
-            return @"shot.location.interior.structure.building.mall";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingMallKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingOffice:
-            return @"shot.location.interior.structure.building.office";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingOfficeKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingOfficeCubicle:
-            return @"shot.location.interior.structure.building.office.cubicle";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingOfficeCubicleKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingOpenOffice:
-            return @"shot.location.interior.structure.building.open.office";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingOpenOfficeKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingPrison:
-            return @"shot.location.interior.structure.building.prison";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingPrisonKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRestaurant:
-            return @"shot.location.interior.structure.building.restaurant";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRestaurantKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBath:
-            return @"shot.location.interior.structure.building.room.bath";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBathKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBed:
-            return @"shot.location.interior.structure.building.room.bed";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBedKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomClass:
-            return @"shot.location.interior.structure.building.room.class";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomClassKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomCloset:
-            return @"shot.location.interior.structure.building.room.closet";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomClosetKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomConference:
-            return @"shot.location.interior.structure.building.room.conference";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomConferenceKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomCourt:
-            return @"shot.location.interior.structure.building.room.court";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomCourtKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomDining:
-            return @"shot.location.interior.structure.building.room.dining";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomDiningKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchen:
-            return @"shot.location.interior.structure.building.room.kitchen";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchenKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchenCommercial:
-            return @"shot.location.interior.structure.building.room.kitchen.commercial";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchenCommercialKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomLiving:
-            return @"shot.location.interior.structure.building.room.living";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomLivingKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomStudy:
-            return @"shot.location.interior.structure.building.room.study";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomStudyKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomThrone:
-            return @"shot.location.interior.structure.building.room.throne";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomThroneKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStage:
-            return @"shot.location.interior.structure.building.stage";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStageKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStairwell:
-            return @"shot.location.interior.structure.building.stairwell";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStairwellKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStationBus:
-            return @"shot.location.interior.structure.building.station.bus";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationBusKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStationFire:
-            return @"shot.location.interior.structure.building.station.fire";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationFireKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStationPolice:
-            return @"shot.location.interior.structure.building.station.police";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationPoliceKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStationSubway:
-            return @"shot.location.interior.structure.building.station.subway";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationSubwayKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStationTrain:
-            return @"shot.location.interior.structure.building.station.train";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationTrainKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStore:
-            return @"shot.location.interior.structure.building.store";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStoreKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStoreAisle:
-            return @"shot.location.interior.structure.building.store.aisle";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStoreAisleKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingStoreCheckout:
-            return @"shot.location.interior.structure.building.store.checkout";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingStoreCheckoutKey;
         case CinemaNetClassLabelShotLocationInteriorStructureBuildingWarehouse:
-            return @"shot.location.interior.structure.building.warehouse";
+            return kCinemaNetClassLabelShotLocationInteriorStructureBuildingWarehouseKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCabin:
-            return @"shot.location.interior.structure.vehicle.airplane.cabin";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCabinKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCockpit:
-            return @"shot.location.interior.structure.vehicle.airplane.cockpit";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCockpitKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleBoat:
-            return @"shot.location.interior.structure.vehicle.boat";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleBoatKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleBus:
-            return @"shot.location.interior.structure.vehicle.bus";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleBusKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleCar:
-            return @"shot.location.interior.structure.vehicle.car";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleCarKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleHelicopter:
-            return @"shot.location.interior.structure.vehicle.helicopter";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleHelicopterKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleSpacecraft:
-            return @"shot.location.interior.structure.vehicle.spacecraft";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleSpacecraftKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleSubway:
-            return @"shot.location.interior.structure.vehicle.subway";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleSubwayKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleTrain:
-            return @"shot.location.interior.structure.vehicle.train";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleTrainKey;
         case CinemaNetClassLabelShotLocationInteriorStructureVehicleTruck:
-            return @"shot.location.interior.structure.vehicle.truck";
+            return kCinemaNetClassLabelShotLocationInteriorStructureVehicleTruckKey;
         case CinemaNetClassLabelShotLocationNa:
-            return @"shot.location.na";
+            return kCinemaNetClassLabelShotLocationNaKey;
+        
             
         case CinemaNetClassLabelShotSubjectAnimal:
-            return @"shot.subject.animal";
+            return kCinemaNetClassLabelShotSubjectAnimalKey;
         case CinemaNetClassLabelShotSubjectLocation:
-            return @"shot.subject.location";
+            return kCinemaNetClassLabelShotSubjectLocationKey;
         case CinemaNetClassLabelShotSubjectObject:
-            return @"shot.subject.object";
+            return kCinemaNetClassLabelShotSubjectObjectKey;
         case CinemaNetClassLabelShotSubjectPerson:
-            return @"shot.subject.person";
+            return kCinemaNetClassLabelShotSubjectPersonKey;
         case CinemaNetClassLabelShotSubjectPersonBody:
-            return @"shot.subject.person.body";
+            return kCinemaNetClassLabelShotSubjectPersonBodyKey;
         case CinemaNetClassLabelShotSubjectPersonFace:
-            return @"shot.subject.person.face";
+            return kCinemaNetClassLabelShotSubjectPersonFaceKey;
         case CinemaNetClassLabelShotSubjectPersonFeet:
-            return @"shot.subject.person.feet";
+            return kCinemaNetClassLabelShotSubjectPersonFeetKey;
         case CinemaNetClassLabelShotSubjectPersonHands:
-            return @"shot.subject.person.hands";
+            return kCinemaNetClassLabelShotSubjectPersonHandsKey;
         case CinemaNetClassLabelShotSubjectText:
-            return @"shot.subject.text";
+            return kCinemaNetClassLabelShotSubjectTextKey;
         case CinemaNetClassLabelShotSubjectNa:
-            return @"shot.subject.na";
+            return kCinemaNetClassLabelShotSubjectNaKey;
             
         case CinemaNetClassLabelShotTimeofdayDay:
-            return @"shot.timeofday.day";
+            return kCinemaNetClassLabelShotTimeofdayDayKey;
         case CinemaNetClassLabelShotTimeofdayNight:
-            return @"shot.timeofday.night";
+            return kCinemaNetClassLabelShotTimeofdayNightKey;
         case CinemaNetClassLabelShotTimeofdayTwilight:
-            return @"shot.timeofday.twilight";
+            return kCinemaNetClassLabelShotTimeofdayTwilightKey;
         case CinemaNetClassLabelShotTimeofdayNa:
-            return @"shot.timeofday.na";
+            return kCinemaNetClassLabelShotTimeofdayNaKey;
             
         case CinemaNetClassLabelShotTypeMaster:
-            return @"shot.type.master";
+            return kCinemaNetClassLabelShotTypeMasterKey;
         case CinemaNetClassLabelShotTypeOvertheshoulder:
-            return @"shot.type.overtheshoulder";
+            return kCinemaNetClassLabelShotTypeOvertheshoulderKey;
         case CinemaNetClassLabelShotTypePortrait:
-            return @"shot.type.portrait";
+            return kCinemaNetClassLabelShotTypePortraitKey;
         case CinemaNetClassLabelShotTypeTwoshot:
-            return @"shot.type.twoshot";
+            return kCinemaNetClassLabelShotTypeTwoshotKey;
         case CinemaNetClassLabelShotTypeNa:
-            return @"shot.type.na";
+            return kCinemaNetClassLabelShotTypeNaKey;
             
         case CinemaNetClassLabelTextureBanded:
-            return @"texture.banded";
+            return kCinemaNetClassLabelTextureBandedKey;
         case CinemaNetClassLabelTextureBlotchy:
-            return @"texture.blotchy";
+            return kCinemaNetClassLabelTextureBlotchyKey;
         case CinemaNetClassLabelTextureBraided:
-            return @"texture.braided";
+            return kCinemaNetClassLabelTextureBraidedKey;
         case CinemaNetClassLabelTextureBubbly:
-            return @"texture.bubbly";
+            return kCinemaNetClassLabelTextureBubblyKey;
         case CinemaNetClassLabelTextureBumpy:
-            return @"texture.bumpy";
+            return kCinemaNetClassLabelTextureBumpyKey;
         case CinemaNetClassLabelTextureChequered:
-            return @"texture.chequered";
+            return kCinemaNetClassLabelTextureChequeredKey;
         case CinemaNetClassLabelTextureCobwebbed:
-            return @"texture.cobwebbed";
+            return kCinemaNetClassLabelTextureCobwebbedKey;
         case CinemaNetClassLabelTextureCracked:
-            return @"texture.cracked";
+            return kCinemaNetClassLabelTextureCrackedKey;
         case CinemaNetClassLabelTextureCrosshatched:
-            return @"texture.crosshatched";
+            return kCinemaNetClassLabelTextureCrosshatchedKey;
         case CinemaNetClassLabelTextureCrystalline:
-            return @"texture.crystalline";
+            return kCinemaNetClassLabelTextureCrystallineKey;
         case CinemaNetClassLabelTextureDotted:
-            return @"texture.dotted";
+            return kCinemaNetClassLabelTextureDottedKey;
         case CinemaNetClassLabelTextureFibrous:
-            return @"texture.fibrous";
+            return kCinemaNetClassLabelTextureFibrousKey;
         case CinemaNetClassLabelTextureFlecked:
-            return @"texture.flecked";
+            return kCinemaNetClassLabelTextureFleckedKey;
         case CinemaNetClassLabelTextureFrilly:
-            return @"texture.frilly";
+            return kCinemaNetClassLabelTextureFrillyKey;
         case CinemaNetClassLabelTextureGauzy:
-            return @"texture.gauzy";
+            return kCinemaNetClassLabelTextureGauzyKey;
         case CinemaNetClassLabelTextureGrid:
-            return @"texture.grid";
+            return kCinemaNetClassLabelTextureGridKey;
         case CinemaNetClassLabelTextureGrooved:
-            return @"texture.grooved";
+            return kCinemaNetClassLabelTextureGroovedKey;
         case CinemaNetClassLabelTextureHoneycombed:
-            return @"texture.honeycombed";
+            return kCinemaNetClassLabelTextureHoneycombedKey;
         case CinemaNetClassLabelTextureInterlaced:
-            return @"texture.interlaced";
+            return kCinemaNetClassLabelTextureInterlacedKey;
         case CinemaNetClassLabelTextureKnitted:
-            return @"texture.knitted";
+            return kCinemaNetClassLabelTextureKnittedKey;
         case CinemaNetClassLabelTextureLacelike:
-            return @"texture.lacelike";
+            return kCinemaNetClassLabelTextureLacelikeKey;
         case CinemaNetClassLabelTextureLined:
-            return @"texture.lined";
+            return kCinemaNetClassLabelTextureLinedKey;
         case CinemaNetClassLabelTextureMarbled:
-            return @"texture.marbled";
+            return kCinemaNetClassLabelTextureMarbledKey;
         case CinemaNetClassLabelTextureMatted:
-            return @"texture.matted";
+            return kCinemaNetClassLabelTextureMattedKey;
         case CinemaNetClassLabelTextureMeshed:
-            return @"texture.meshed";
+            return kCinemaNetClassLabelTextureMeshedKey;
         case CinemaNetClassLabelTexturePaisley:
-            return @"texture.paisley";
+            return kCinemaNetClassLabelTexturePaisleyKey;
         case CinemaNetClassLabelTexturePerforated:
-            return @"texture.perforated";
+            return kCinemaNetClassLabelTexturePerforatedKey;
         case CinemaNetClassLabelTexturePitted:
-            return @"texture.pitted";
+            return kCinemaNetClassLabelTexturePittedKey;
         case CinemaNetClassLabelTexturePleated:
-            return @"texture.pleated";
+            return kCinemaNetClassLabelTexturePleatedKey;
         case CinemaNetClassLabelTexturePorous:
-            return @"texture.porous";
+            return kCinemaNetClassLabelTexturePorousKey;
         case CinemaNetClassLabelTexturePotholed:
-            return @"texture.potholed";
+            return kCinemaNetClassLabelTexturePotholedKey;
         case CinemaNetClassLabelTextureScaly:
-            return @"texture.scaly";
+            return kCinemaNetClassLabelTextureScalyKey;
         case CinemaNetClassLabelTextureSmeared:
-            return @"texture.smeared";
+            return kCinemaNetClassLabelTextureSmearedKey;
         case CinemaNetClassLabelTextureSpiralled:
-            return @"texture.spiralled";
+            return kCinemaNetClassLabelTextureSpiralledKey;
         case CinemaNetClassLabelTextureSprinkled:
-            return @"texture.sprinkled";
+            return kCinemaNetClassLabelTextureSprinkledKey;
         case CinemaNetClassLabelTextureStained:
-            return @"texture.stained";
+            return kCinemaNetClassLabelTextureStainedKey;
         case CinemaNetClassLabelTextureStratified:
-            return @"texture.stratified";
+            return kCinemaNetClassLabelTextureStratifiedKey;
         case CinemaNetClassLabelTextureStriped:
-            return @"texture.striped";
+            return kCinemaNetClassLabelTextureStripedKey;
         case CinemaNetClassLabelTextureStudded:
-            return @"texture.studded";
+            return kCinemaNetClassLabelTextureStuddedKey;
         case CinemaNetClassLabelTextureSwirly:
-            return @"texture.swirly";
+            return kCinemaNetClassLabelTextureSwirlyKey;
         case CinemaNetClassLabelTextureVeined:
-            return @"texture.veined";
+            return kCinemaNetClassLabelTextureVeinedKey;
         case CinemaNetClassLabelTextureWaffled:
-            return @"texture.waffled";
+            return kCinemaNetClassLabelTextureWaffledKey;
         case CinemaNetClassLabelTextureWoven:
-            return @"texture.woven";
+            return kCinemaNetClassLabelTextureWovenKey;
         case CinemaNetClassLabelTextureWrinkled:
-            return @"texture.wrinkled";
+            return kCinemaNetClassLabelTextureWrinkledKey;
         case CinemaNetClassLabelTextureZigzagged:
-            return @"texture.zigzagged";
+            return kCinemaNetClassLabelTextureZigzaggedKey;
             
             // Proxy for returning an unknown label - for unsupported versions or invalid keys
         case CinemaNetClassLabelUnknown:
@@ -941,9 +942,934 @@ NSString* CinemanetLabelKeyForClassLabel(CinemaNetClassLabel label)
 }
     
 // Valid key to CinemaNetClassLabel enum. Invalid keys return CinemaNetClassLabelUnknown.
+// This sucks:
 CinemaNetClassLabel CinemanetClassLabelForLabelKey(NSString* key)
 {
-//     Use the String Label Keys
+    if ([kCinemaNetClassLabelColorKeyBlueKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorKeyBlue;
+    }
+    else if ([kCinemaNetClassLabelColorKeyGreenKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorKeyGreen;
+    }
+    else if ([kCinemaNetClassLabelColorKeyLumaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorKeyLuma;
+    }
+    else if ([kCinemaNetClassLabelColorKeyMatteKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorKeyMatte;
+    }
+    else if ([kCinemaNetClassLabelColorKeyNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorKeyNa;
+    }
+    else if ([kCinemaNetClassLabelColorSaturationDesaturatedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorSaturationDesaturated;
+    }
+    else if ([kCinemaNetClassLabelColorSaturationNeutralKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorSaturationNeutral;
+    }
+    else if ([kCinemaNetClassLabelColorSaturationPastelKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorSaturationPastel;
+    }
+    else if ([kCinemaNetClassLabelColorSaturationSaturatedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorSaturationSaturated;
+    }
+    else if ([kCinemaNetClassLabelColorTheoryAnalagousKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorTheoryAnalagous;
+    }
+    else if ([kCinemaNetClassLabelColorTheoryComplementaryKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorTheoryComplementary;
+    }
+    else if ([kCinemaNetClassLabelColorTheoryMonochromeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorTheoryMonochrome;
+    }
+    else if ([kCinemaNetClassLabelColorTonesBlackWhiteKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorTonesBlackWhite;
+    }
+    else if ([kCinemaNetClassLabelColorTonesCoolKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorTonesCool;
+    }
+    else if ([kCinemaNetClassLabelColorTonesWarmKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelColorTonesWarm;
+    }
+    else if ([kCinemaNetClassLabelShotAngleAerialKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotAngleAerial;
+    }
+    else if ([kCinemaNetClassLabelShotAngleEyeLevelKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotAngleEyeLevel;
+    }
+    else if ([kCinemaNetClassLabelShotAngleHighKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotAngleHigh;
+    }
+    else if ([kCinemaNetClassLabelShotAngleLowKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotAngleLow;
+    }
+    else if ([kCinemaNetClassLabelShotAngleNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotAngleNa;
+    }
+    else if ([kCinemaNetClassLabelShotFocusDeepKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFocusDeep;
+    }
+    else if ([kCinemaNetClassLabelShotFocusOutKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFocusOut;
+    }
+    else if ([kCinemaNetClassLabelShotFocusShallowKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFocusShallow;
+    }
+    else if ([kCinemaNetClassLabelShotFocusNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFocusNa;
+    }
+    else if ([kCinemaNetClassLabelShotFramingCloseupKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFramingCloseup;
+    }
+    else if ([kCinemaNetClassLabelShotFramingExtremeCloseupKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFramingExtremeCloseup;
+    }
+    else if ([kCinemaNetClassLabelShotFramingExtremeLongKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFramingExtremeLong;
+    }
+    else if ([kCinemaNetClassLabelShotFramingLongKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFramingLong;
+    }
+    else if ([kCinemaNetClassLabelShotFramingMediumKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFramingMedium;
+    }
+    else if ([kCinemaNetClassLabelShotFramingNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotFramingNa;
+    }
+    else if ([kCinemaNetClassLabelShotLevelLevelKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLevelLevel;
+    }
+    else if ([kCinemaNetClassLabelShotLevelTiltedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLevelTilted;
+    }
+    else if ([kCinemaNetClassLabelShotLevelNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLevelNa;
+    }
+    else if ([kCinemaNetClassLabelShotLightingHardKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingHard;
+    }
+    else if ([kCinemaNetClassLabelShotLightingKeyHighKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingKeyHigh;
+    }
+    else if ([kCinemaNetClassLabelShotLightingKeyLowKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingKeyLow;
+    }
+    else if ([kCinemaNetClassLabelShotLightingNeutralKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingNeutral;
+    }
+    else if ([kCinemaNetClassLabelShotLightingSilhouetteKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingSilhouette;
+    }
+    else if ([kCinemaNetClassLabelShotLightingSoftKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingSoft;
+    }
+    else if ([kCinemaNetClassLabelShotLightingNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLightingNa;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExterior;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureBeachKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureBeach;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureCanyonKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureCanyon;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureCaveKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureCave;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureDesertKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureDesert;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureForestKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureForest;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureGlacierKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureGlacier;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureLakeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureLake;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureMountainsKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureMountains;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureOceanKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureOcean;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNaturePlainsKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNaturePlains;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNaturePolarKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNaturePolar;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureRiverKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureRiver;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureSkyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureSky;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureSpaceKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureSpace;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorNatureWetlandsKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorNatureWetlands;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorSettlementCityKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorSettlementCity;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorSettlementSuburbKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorSettlementSuburb;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorSettlementTownKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorSettlementTown;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBridgeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBridge;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingAirportKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingAirport;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingAutoBodyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingAutoBody;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingCastleKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingCastle;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingHospitalKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingHospital;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingHouseofworshipKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingHouseofworship;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingLibraryKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingLibrary;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingMallKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingMall;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingOfficeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingOffice;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceApartmentKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceApartment;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceHouseKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceHouse;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMansionKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMansion;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMonasteryKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingResidenceMonastery;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingResidencePalaceKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingResidencePalace;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingRestaurantKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingRestaurant;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingSchoolKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingSchool;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingSkyscraperKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingSkyscraper;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingStadiumKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingStadium;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingStationGasKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingStationGas;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingStationSubwayKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingStationSubway;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingStationTrainKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingStationTrain;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingStoreKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingStore;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingTheaterKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingTheater;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBuildingWarehouseKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBuildingWarehouse;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureBusStopKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureBusStop;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureFarmKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureFarm;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureIndustrialKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureIndustrial;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureParkKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructurePark;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureParkinglotKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureParkinglot;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructurePierKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructurePier;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructurePlaygroundKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructurePlayground;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructurePortKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructurePort;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureRoadKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureRoad;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureRuinsKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureRuins;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureSidewalkKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureSidewalk;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureTunnelKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureTunnel;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleAirplaneKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleAirplane;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleBicycleKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleBicycle;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleBoatKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleBoat;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleBusKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleBus;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleCarKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleCar;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleHelicopterKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleHelicopter;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleMotorcycleKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleMotorcycle;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleSpacecraftKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleSpacecraft;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleTrainKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleTrain;
+    }
+    else if ([kCinemaNetClassLabelShotLocationExteriorStructureVehicleTruckKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationExteriorStructureVehicleTruck;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInterior;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorNatureCaveKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorNatureCave;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingAirportKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingAirport;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingArenaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingArena;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingAuditoriumKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingAuditorium;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingAutoRepairShopKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingAutoRepairShop;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingBarKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingBar;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingBarnKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingBarn;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingCafeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingCafe;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingCafeteriaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingCafeteria;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingCommandCenterKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingCommandCenter;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingCryptKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingCrypt;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingDancefloorKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingDancefloor;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingDungeonKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingDungeon;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingElevatorKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingElevator;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingFactoryKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingFactory;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingFoyerKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingFoyer;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingGymKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingGym;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingHallwayKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingHallway;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingHospitalKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingHospital;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingHouseofworshipKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingHouseofworship;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingLobbyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingLobby;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingMallKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingMall;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingOfficeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingOffice;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingOfficeCubicleKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingOfficeCubicle;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingOpenOfficeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingOpenOffice;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingPrisonKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingPrison;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRestaurantKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRestaurant;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBathKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBath;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomBed;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomClassKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomClass;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomClosetKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomCloset;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomConferenceKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomConference;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomCourtKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomCourt;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomDiningKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomDining;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchenKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchen;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchenCommercialKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomKitchenCommercial;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomLivingKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomLiving;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomStudyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomStudy;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingRoomThroneKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingRoomThrone;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStageKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStage;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStairwellKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStairwell;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationBusKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStationBus;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationFireKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStationFire;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationPoliceKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStationPolice;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationSubwayKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStationSubway;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStationTrainKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStationTrain;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStoreKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStore;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStoreAisleKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStoreAisle;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingStoreCheckoutKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingStoreCheckout;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureBuildingWarehouseKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureBuildingWarehouse;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCabinKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCabin;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCockpitKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleAirplaneCockpit;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleBoatKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleBoat;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleBusKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleBus;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleCarKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleCar;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleHelicopterKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleHelicopter;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleSpacecraftKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleSpacecraft;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleSubwayKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleSubway;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleTrainKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleTrain;
+    }
+    else if ([kCinemaNetClassLabelShotLocationInteriorStructureVehicleTruckKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationInteriorStructureVehicleTruck;
+    }
+    else if ([kCinemaNetClassLabelShotLocationNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotLocationNa;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectAnimalKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectAnimal;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectLocationKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectLocation;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectObjectKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectObject;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectPersonKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectPerson;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectPersonBodyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectPersonBody;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectPersonFaceKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectPersonFace;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectPersonFeetKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectPersonFeet;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectPersonHandsKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectPersonHands;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectTextKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectText;
+    }
+    else if ([kCinemaNetClassLabelShotSubjectNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotSubjectNa;
+    }
+    else if ([kCinemaNetClassLabelShotTimeofdayDayKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTimeofdayDay;
+    }
+    else if ([kCinemaNetClassLabelShotTimeofdayNightKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTimeofdayNight;
+    }
+    else if ([kCinemaNetClassLabelShotTimeofdayTwilightKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTimeofdayTwilight;
+    }
+    else if ([kCinemaNetClassLabelShotTimeofdayNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTimeofdayNa;
+    }
+    else if ([kCinemaNetClassLabelShotTypeMasterKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTypeMaster;
+    }
+    else if ([kCinemaNetClassLabelShotTypeOvertheshoulderKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTypeOvertheshoulder;
+    }
+    else if ([kCinemaNetClassLabelShotTypePortraitKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTypePortrait;
+    }
+    else if ([kCinemaNetClassLabelShotTypeTwoshotKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTypeTwoshot;
+    }
+    else if ([kCinemaNetClassLabelShotTypeNaKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelShotTypeNa;
+    }
+    else if ([kCinemaNetClassLabelTextureBandedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureBanded;
+    }
+    else if ([kCinemaNetClassLabelTextureBlotchyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureBlotchy;
+    }
+    else if ([kCinemaNetClassLabelTextureBraidedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureBraided;
+    }
+    else if ([kCinemaNetClassLabelTextureBubblyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureBubbly;
+    }
+    else if ([kCinemaNetClassLabelTextureBumpyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureBumpy;
+    }
+    else if ([kCinemaNetClassLabelTextureChequeredKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureChequered;
+    }
+    else if ([kCinemaNetClassLabelTextureCobwebbedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureCobwebbed;
+    }
+    else if ([kCinemaNetClassLabelTextureCrackedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureCracked;
+    }
+    else if ([kCinemaNetClassLabelTextureCrosshatchedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureCrosshatched;
+    }
+    else if ([kCinemaNetClassLabelTextureCrystallineKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureCrystalline;
+    }
+    else if ([kCinemaNetClassLabelTextureDottedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureDotted;
+    }
+    else if ([kCinemaNetClassLabelTextureFibrousKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureFibrous;
+    }
+    else if ([kCinemaNetClassLabelTextureFleckedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureFlecked;
+    }
+    else if ([kCinemaNetClassLabelTextureFrillyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureFrilly;
+    }
+    else if ([kCinemaNetClassLabelTextureGauzyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureGauzy;
+    }
+    else if ([kCinemaNetClassLabelTextureGridKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureGrid;
+    }
+    else if ([kCinemaNetClassLabelTextureGroovedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureGrooved;
+    }
+    else if ([kCinemaNetClassLabelTextureHoneycombedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureHoneycombed;
+    }
+    else if ([kCinemaNetClassLabelTextureInterlacedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureInterlaced;
+    }
+    else if ([kCinemaNetClassLabelTextureKnittedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureKnitted;
+    }
+    else if ([kCinemaNetClassLabelTextureLacelikeKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureLacelike;
+    }
+    else if ([kCinemaNetClassLabelTextureLinedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureLined;
+    }
+    else if ([kCinemaNetClassLabelTextureMarbledKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureMarbled;
+    }
+    else if ([kCinemaNetClassLabelTextureMattedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureMatted;
+    }
+    else if ([kCinemaNetClassLabelTextureMeshedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureMeshed;
+    }
+    else if ([kCinemaNetClassLabelTexturePaisleyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTexturePaisley;
+    }
+    else if ([kCinemaNetClassLabelTexturePerforatedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTexturePerforated;
+    }
+    else if ([kCinemaNetClassLabelTexturePittedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTexturePitted;
+    }
+    else if ([kCinemaNetClassLabelTexturePleatedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTexturePleated;
+    }
+    else if ([kCinemaNetClassLabelTexturePorousKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTexturePorous;
+    }
+    else if ([kCinemaNetClassLabelTexturePotholedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTexturePotholed;
+    }
+    else if ([kCinemaNetClassLabelTextureScalyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureScaly;
+    }
+    else if ([kCinemaNetClassLabelTextureSmearedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureSmeared;
+    }
+    else if ([kCinemaNetClassLabelTextureSpiralledKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureSpiralled;
+    }
+    else if ([kCinemaNetClassLabelTextureSprinkledKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureSprinkled;
+    }
+    else if ([kCinemaNetClassLabelTextureStainedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureStained;
+    }
+    else if ([kCinemaNetClassLabelTextureStratifiedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureStratified;
+    }
+    else if ([kCinemaNetClassLabelTextureStripedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureStriped;
+    }
+    else if ([kCinemaNetClassLabelTextureStuddedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureStudded;
+    }
+    else if ([kCinemaNetClassLabelTextureSwirlyKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureSwirly;
+    }
+    else if ([kCinemaNetClassLabelTextureVeinedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureVeined;
+    }
+    else if ([kCinemaNetClassLabelTextureWaffledKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureWaffled;
+    }
+    else if ([kCinemaNetClassLabelTextureWovenKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureWoven;
+    }
+    else if ([kCinemaNetClassLabelTextureWrinkledKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureWrinkled;
+    }
+    else if ([kCinemaNetClassLabelTextureZigzaggedKey isEqualToString:key])
+    {
+        return CinemaNetClassLabelTextureZigzagged;
+    }
+    
     
     return CinemaNetClassLabelUnknown;
 }

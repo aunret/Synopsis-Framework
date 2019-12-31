@@ -69,8 +69,8 @@ extern NSString* const kCinemaNetClassLabelShotLevelTiltedKey;
 extern NSString* const kCinemaNetClassLabelShotLevelNaKey;
 
 extern NSString* const kCinemaNetClassLabelShotLightingHardKey;
-extern NSString* const kCinemaNetClassLabelShotLightingKeyHighKeyhighKey;
-extern NSString* const kCinemaNetClassLabelShotLightingKeyLowKeylowKey;
+extern NSString* const kCinemaNetClassLabelShotLightingKeyHighKey; // Admittedly this reads stupid but hey
+extern NSString* const kCinemaNetClassLabelShotLightingKeyLowKey;  // Admittedly this reads stupid but hey
 extern NSString* const kCinemaNetClassLabelShotLightingNeutralKey;
 extern NSString* const kCinemaNetClassLabelShotLightingSilhouetteKey;
 extern NSString* const kCinemaNetClassLabelShotLightingSoftKey;
