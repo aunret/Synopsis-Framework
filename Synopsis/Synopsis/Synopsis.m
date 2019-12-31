@@ -1886,7 +1886,7 @@ extern NSString* CinemaNetLabelDescriptorForClassLabel(CinemaNetClassLabel label
         case CinemaNetClassLabelColorKeyLuma:
             return @"Luma Key";
         case CinemaNetClassLabelColorKeyMatte:
-            return @"Blue Matte";
+            return @"Matte";
         case CinemaNetClassLabelColorKeyNa:
             return nil;
       
