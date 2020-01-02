@@ -334,10 +334,17 @@
             }
             else
             {
-                // Probabilities get maximized
+                // So - this is tricky - how do we make a reliable average of a time series?
+                // maximizing probabiltiies / embedding vector works well for 'single' shots / takes
+                // But for videos which have lotds of edits, we 'accrue' noise until every element in the embedding is close to 1
+                // This is clearly not helpful
+                // However, if we average -  clips with interstitial moments get 'averaged out' and dont reliably imply the concept is present.
+                
+                // self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageFeatureVec withFeature:denseFeature];
+
+                // Do an effecient cumulative averaging
                 self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:denseFeature previousAverage:self.averageFeatureVec sampleCount:self.frameCount];
 
-//                self.averageFeatureVec = [SynopsisDenseFeature denseFeatureByTemporalEnvelopeAveraging:self.averageFeatureVec withFeature:denseFeature];
             }
 
             SynopsisDenseFeature* denseProbabilities = [[SynopsisDenseFeature alloc] initWithFeatureArray:probabilities forMetadataKey:kSynopsisMetadataIdentifierVisualProbabilities];
@@ -348,8 +355,15 @@
             }
             else
             {
-                // Probabilities get maximized
-//                self.averageProbabilities = [SynopsisDenseFeature denseFeatureByTemporalEnvelopeAveraging:self.averageProbabilities withFeature:denseProbabilities];
+                // So - this is tricky - how do we make a reliable average of a time series?
+                // maximizing probabiltiies / embedding vector works well for 'single' shots / takes
+                // But for videos which have lotds of edits, we 'accrue' noise until every element in the embedding is close to 1
+                // This is clearly not helpful
+                // However, if we average -  clips with interstitial moments get 'averaged out' and dont reliably imply the concept is present.
+                
+                // self.averageProbabilities = [SynopsisDenseFeature denseFeatureByMaximizingFeature:self.averageProbabilities withFeature:denseProbabilities];
+                
+                // Do an effecient cumulative averaging
                 self.averageProbabilities = [SynopsisDenseFeature denseFeatureByCumulativeMovingAveragingCurrentFeature:denseProbabilities previousAverage:self.averageProbabilities sampleCount:self.frameCount];
 }
             
