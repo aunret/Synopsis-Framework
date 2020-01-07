@@ -21,6 +21,8 @@
 
 @property (readwrite, strong, atomic) dispatch_queue_t serialCompletionQueue;
 @property (readwrite, strong) id<MTLCommandQueue>commandQueue;
+@property (readwrite, strong) id<MTLHeap>conformMemoryHeap;
+@property (readwrite, strong) MTLTextureDescriptor* textureDescriptor;
 
 //@property (readwrite, atomic, assign) NSUInteger frameSubmit;
 //@property (readwrite, atomic, assign) NSUInteger frameComplete;
@@ -42,7 +44,31 @@
                                kCIContextOutputColorSpace : (id) CFBridgingRelease(linear),
                                };
         
-        self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device options:opt];
+        if (@available(macOS 10.15, *))
+        {
+            self.ciContext = [CIContext contextWithMTLCommandQueue:self.commandQueue options:opt];
+        }
+        else
+        {
+            self.ciContext = [CIContext contextWithMTLDevice:self.commandQueue.device options:opt];
+        }
+        
+        // See https://developer.apple.com/documentation/metal/setting_resource_storage_modes/choosing_a_resource_storage_mode_in_macos
+        // This texture lives in GPU memory, and doesnt need to be read back at this point
+        // Anything using SynopsisVideoBackingMPSImage is going to be GPU accelerated :)
+        
+        // TODO: Change API to pass width and height to allocator and
+        self.textureDescriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatBGRA8Unorm width:224 height:224 mipmapped:NO];
+        self.textureDescriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderWrite | MTLTextureUsageShaderRead;
+        self.textureDescriptor.resourceOptions = MTLResourceStorageModePrivate;
+
+        MTLSizeAndAlign sizeAndAlign = [self.commandQueue.device heapTextureSizeAndAlignWithDescriptor:self.textureDescriptor];
+
+        MTLHeapDescriptor* heapDescriptor = [[MTLHeapDescriptor alloc] init];
+        heapDescriptor.size = sizeAndAlign.size * 4;
+        heapDescriptor.storageMode = MTLStorageModePrivate;
+        
+        self.conformMemoryHeap = [self.commandQueue.device newHeapWithDescriptor:heapDescriptor];
     }
     
     return self;
@@ -74,18 +100,11 @@
 
     transformedImage = [transformedImage imageByApplyingTransform:CGAffineTransformMakeScale(1.0/scaleX, 1.0/scaleY)];
     
-    size_t width = transformedImage.extent.size.width;
-    size_t height = transformedImage.extent.size.height;
-
-    MTLTextureDescriptor* descriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatBGRA8Unorm width:width height:height mipmapped:NO];
-    descriptor.usage = MTLTextureUsageRenderTarget | MTLTextureUsageShaderWrite | MTLTextureUsageShaderRead;
-    
-    // See https://developer.apple.com/documentation/metal/setting_resource_storage_modes/choosing_a_resource_storage_mode_in_macos
-    // This texture lives in GPU memory, and doesnt need to be read back at this point
-    // Anything using SynopsisVideoBackingMPSImage is going to be GPU accelerated :)
-    descriptor.resourceOptions = MTLResourceStorageModePrivate;
-    
-    id<MTLTexture> texture = [self.commandQueue.device newTextureWithDescriptor:descriptor];
+//    size_t width = transformedImage.extent.size.width;
+//    size_t height = transformedImage.extent.size.height;
+//
+//    id<MTLTexture> texture = [self.conformMemoryHeap newTextureWithDescriptor:descriptor];
+    id<MTLTexture> texture = [self.commandQueue.device newTextureWithDescriptor:self.textureDescriptor];
 
     CIRenderDestination* renderDestination = [[CIRenderDestination alloc] initWithMTLTexture:texture commandBuffer:conformBuffer];
     
