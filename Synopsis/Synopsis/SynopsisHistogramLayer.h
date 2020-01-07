@@ -1,10 +1,11 @@
 //
-//  HistogramLayer.h
-//  TrashTVPlayground
+//  SynopsisHistogramLayer.h
+//  Synopsis-Framework
 //
 //  Created by vade on 4/20/17.
-//  Copyright © 2017 trash. All rights reserved.
+//  Copyright © 2017 v002. All rights reserved.
 //
+
 
 #import <QuartzCore/QuartzCore.h>
 #import <Synopsis/SynopsisDenseFeature.h>
