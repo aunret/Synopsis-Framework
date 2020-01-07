@@ -131,7 +131,7 @@ NSArray* SynopsisSupportedFileTypes(void)
                                                                                             (CFStringRef)@"MXF",
                                                                                             NULL));
     
-    NSArray* types = [[AVMovie movieTypes] arrayByAddingObject:mxfUTI];
+    NSArray* types = [[AVURLAsset audiovisualTypes] arrayByAddingObject:mxfUTI];
     return types;
 
 #else
