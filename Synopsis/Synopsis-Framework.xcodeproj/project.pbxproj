@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		1A42BFFE2388472000A4507C /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1A42C0002388494400A4507C /* opencv2.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B8358A31F42285000F86F0F /* opencv2.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1AE8882223C54F360080562A /* AVAssetTrack+SynopsisMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE8881E23C54F360080562A /* AVAssetTrack+SynopsisMetadata.m */; };
+		1AE8882323C54F360080562A /* AVAssetTrack+SynopsisMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE8881E23C54F360080562A /* AVAssetTrack+SynopsisMetadata.m */; };
+		1AE8882423C54F360080562A /* AVAsset+SynopsisMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE8881F23C54F360080562A /* AVAsset+SynopsisMetadata.m */; };
+		1AE8882523C54F360080562A /* AVAsset+SynopsisMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AE8881F23C54F360080562A /* AVAsset+SynopsisMetadata.m */; };
+		1AE8882623C54F360080562A /* AVAsset+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AE8882023C54F360080562A /* AVAsset+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1AE8882723C54F360080562A /* AVAsset+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AE8882023C54F360080562A /* AVAsset+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1AE8882823C54F360080562A /* AVAssetTrack+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AE8882123C54F360080562A /* AVAssetTrack+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1AE8882923C54F360080562A /* AVAssetTrack+SynopsisMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = 1AE8882123C54F360080562A /* AVAssetTrack+SynopsisMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1B0306A32087C668000A2DF7 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306792087C660000A2DF7 /* entropy_common.c */; };
 		1B0306A52087C669000A2DF7 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B0306792087C660000A2DF7 /* entropy_common.c */; };
 		1B0306A72087C672000A2DF7 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 1B03067C2087C660000A2DF7 /* fse_decompress.c */; };
@@ -260,6 +268,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1AE8881E23C54F360080562A /* AVAssetTrack+SynopsisMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAssetTrack+SynopsisMetadata.m"; sourceTree = "<group>"; };
+		1AE8881F23C54F360080562A /* AVAsset+SynopsisMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAsset+SynopsisMetadata.m"; sourceTree = "<group>"; };
+		1AE8882023C54F360080562A /* AVAsset+SynopsisMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAsset+SynopsisMetadata.h"; sourceTree = "<group>"; };
+		1AE8882123C54F360080562A /* AVAssetTrack+SynopsisMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAssetTrack+SynopsisMetadata.h"; sourceTree = "<group>"; };
 		1B0306762087C660000A2DF7 /* xxhash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		1B0306772087C660000A2DF7 /* pool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
 		1B0306782087C660000A2DF7 /* compiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
@@ -5714,6 +5726,10 @@
 				1BAA80551D70C9EB00464810 /* NSPredicate+SynopsisMetadata.mm */,
 				1B4446AF1EE1FD5D0075575D /* Color+linearRGBColor.h */,
 				1B4446B01EE1FD5D0075575D /* Color+linearRGBColor.mm */,
+				1AE8882023C54F360080562A /* AVAsset+SynopsisMetadata.h */,
+				1AE8881F23C54F360080562A /* AVAsset+SynopsisMetadata.m */,
+				1AE8882123C54F360080562A /* AVAssetTrack+SynopsisMetadata.h */,
+				1AE8881E23C54F360080562A /* AVAssetTrack+SynopsisMetadata.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -5977,6 +5993,8 @@
 				1BEDA4992024E0A700E4617C /* SynopsisVideoFrameConformSession.h in Headers */,
 				1B551E5B1EF9D891004C077B /* SynopsisMetadataEncoder.h in Headers */,
 				1B551E6C1EF9E99D004C077B /* NSDictionary+JSONString.h in Headers */,
+				1AE8882923C54F360080562A /* AVAssetTrack+SynopsisMetadata.h in Headers */,
+				1AE8882723C54F360080562A /* AVAsset+SynopsisMetadata.h in Headers */,
 				1B9E2B9921C2C9D50049201B /* GPUVisionMobileNet.h in Headers */,
 				1BEDA4A52024E0D900E4617C /* SynopsisVideoFrameConformHelperCPU.h in Headers */,
 				1B84812423A875B00090133A /* Synopsis-Private.h in Headers */,
@@ -6024,6 +6042,8 @@
 				1BBED62C1F91259E003CE9C4 /* SynopsisRemoteFileHelper.h in Headers */,
 				1B3815001FA360110017564B /* GPUVisionMobileNet.h in Headers */,
 				1B4446A71EE1FD3B0075575D /* SynopsisDenseFeatureLayer.h in Headers */,
+				1AE8882623C54F360080562A /* AVAsset+SynopsisMetadata.h in Headers */,
+				1AE8882823C54F360080562A /* AVAssetTrack+SynopsisMetadata.h in Headers */,
 				1BCAACB31F966D040022B1A5 /* SynopsisPythonHelper.h in Headers */,
 				1BB7F63B1F9FF51B004ED69F /* SynopsisVideoFrameConformHelperGPU.h in Headers */,
 				1B84812323A875AF0090133A /* Synopsis-Private.h in Headers */,
@@ -6239,6 +6259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AE8882523C54F360080562A /* AVAsset+SynopsisMetadata.m in Sources */,
 				1BEDA4C320251BF700E4617C /* GPUHistogramModule.m in Sources */,
 				1BEDA49F2024E0BD00E4617C /* SynopsisVideoFrameOpenCV.mm in Sources */,
 				1B4446DB1EE1FFB30075575D /* Color+linearRGBColor.mm in Sources */,
@@ -6287,6 +6308,7 @@
 				1B551E7E1EFAED30004C077B /* SynopsisMetadataPushDelegate.m in Sources */,
 				1BAEA4AA22B196AA00EEB116 /* CinemaNetModuleV1.m in Sources */,
 				1B0306CB2087C68C000A2DF7 /* zstd_ldm.c in Sources */,
+				1AE8882323C54F360080562A /* AVAssetTrack+SynopsisMetadata.m in Sources */,
 				1BEDA49B2024E0AD00E4617C /* SynopsisVideoFrameConformSession.m in Sources */,
 				1B4446D71EE1FFB30075575D /* SynopsisDominantColorLayer.m in Sources */,
 				1B4446D21EE1FFB30075575D /* SynopsisMetadataItem.m in Sources */,
@@ -6337,11 +6359,13 @@
 				1BBB10FF1D559BD700C22439 /* MetadataComparisons.mm in Sources */,
 				1BC98DCC1F9FA48F00E0F52A /* SynopsisVideoFrameOpenCV.mm in Sources */,
 				1B0306BF2087C68B000A2DF7 /* zstdmt_compress.c in Sources */,
+				1AE8882423C54F360080562A /* AVAsset+SynopsisMetadata.m in Sources */,
 				1BAEA4A822B196AA00EEB116 /* CinemaNetModuleV1.m in Sources */,
 				1B6D669E21D0A731000702AE /* SynopsisMetadataDecoderCurrent.m in Sources */,
 				1B4E6B50208E674B00C078A8 /* SynopsisSlidingWindow.mm in Sources */,
 				1B0306C32087C68B000A2DF7 /* zstd_compress.c in Sources */,
 				1B0306C22087C68B000A2DF7 /* zstd_ldm.c in Sources */,
+				1AE8882223C54F360080562A /* AVAssetTrack+SynopsisMetadata.m in Sources */,
 				1B0306C62087C68B000A2DF7 /* zstd_opt.c in Sources */,
 				1B0306DB2087C69C000A2DF7 /* zdict.c in Sources */,
 				1B0306AD2087C67A000A2DF7 /* threading.c in Sources */,

@@ -505,6 +505,8 @@ typedef enum : NSUInteger {
 #import <Synopsis/SynopsisMetadataPushDelegate.h>
 #import <Synopsis/NSSortDescriptor+SynopsisMetadata.h>
 #import <Synopsis/NSPredicate+SynopsisMetadata.h>
+#import <Synopsis/AVAsset+SynopsisMetadata.h>
+#import <Synopsis/AVAssetTrack+SynopsisMetadata.h>
 
 // UI
 #import <Synopsis/SynopsisLayer.h>
